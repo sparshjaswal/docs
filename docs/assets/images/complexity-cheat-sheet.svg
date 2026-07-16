@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="1760.0" height="920.0" font-family="Segoe UI, Arial" role="img" aria-labelledby="compTitle compDesc">
+  <title id="compTitle">Data Structure Complexity Cheat Sheet</title>
+  <desc id="compDesc">Table comparing common operations (access, search, insert, delete, append/push, extra space) for core linear data structures.</desc>
+  <style>
+    .bg{fill:#0f172a;}
+    text { fill:#ffffff; }
+    .title{font-size:18px;font-weight:600;}
+    .hdr{font-weight:600;font-size:13px;}
+    .cell{font-size:12px;}
+    .grid{stroke:#334155;}
+    .row{fill:#1e293b;}
+    .row.alt{fill:#162132;}
+    .note{font-size:11px;fill:#94a3b8;}
+  </style>
+  <rect class="bg" x="0" y="0" width="880" height="460" rx="10"/>
+  <text x="20" y="32" class="title">Core Structure Complexity (Typical)</text>
+  <text x="20" y="50" class="note">All complexities are worst-case unless noted; append assumes spare capacity for plain arrays.</text>
+  <g transform="translate(20,70)">
+    <rect x="0" y="0" width="840" height="220" fill="none" class="grid"/>
+    <!-- Header Row Background -->
+  <rect class="row" x="0" y="0" width="840" height="28" rx="4"/>
+    <text x="10" y="19" class="hdr">Structure</text>
+    <text x="130" y="19" class="hdr">Access</text>
+    <text x="200" y="19" class="hdr">Search</text>
+    <text x="280" y="19" class="hdr">Insert</text>
+    <text x="360" y="19" class="hdr">Delete</text>
+    <text x="450" y="19" class="hdr">Append/Push</text>
+    <text x="550" y="19" class="hdr">Extra Space</text>
+  <text x="660" y="19" class="hdr">Notes</text>
+    <!-- Data Rows (striped) -->
+    <g>
+  <rect class="row alt" x="0" y="32" width="840" height="28" rx="2"/>
+    <text x="10" y="50" class="cell">Array</text>
+    <text x="130" y="50" class="cell">O(1)</text>
+    <text x="200" y="50" class="cell">O(n)</text>
+    <text x="280" y="50" class="cell">O(n)</text>
+    <text x="360" y="50" class="cell">O(n)</text>
+  <text x="450" y="50" class="cell">O(1)</text>
+    <text x="550" y="50" class="cell">Low</text>
+  <text x="660" y="50" class="cell">Middle insert/delete &#8658; shifts</text>
+
+  <rect class="row" x="0" y="64" width="840" height="28" rx="2"/>
+    <text x="10" y="82" class="cell">Dyn Array</text>
+    <text x="130" y="82" class="cell">O(1)</text>
+    <text x="200" y="82" class="cell">O(n)</text>
+    <text x="280" y="82" class="cell">O(n)</text>
+    <text x="360" y="82" class="cell">O(n)</text>
+  <text x="450" y="82" class="cell">O(1)*</text>
+    <text x="550" y="82" class="cell">Slack</text>
+  <text x="660" y="82" class="cell">Resize events copy all</text>
+
+  <rect class="row alt" x="0" y="96" width="840" height="28" rx="2"/>
+    <text x="10" y="114" class="cell">String</text>
+    <text x="130" y="114" class="cell">O(1)/O(n)</text>
+    <text x="200" y="114" class="cell">O(n)</text>
+    <text x="280" y="114" class="cell">O(n)+copy</text>
+    <text x="360" y="114" class="cell">O(n)+copy</text>
+    <text x="450" y="114" class="cell">O(n)+copy</text>
+    <text x="550" y="114" class="cell">Encoding</text>
+  <text x="660" y="114" class="cell">Concat costly &#8594; use builder</text>
+
+  <rect class="row" x="0" y="128" width="840" height="28" rx="2"/>
+    <text x="10" y="146" class="cell">Linked List</text>
+    <text x="130" y="146" class="cell">O(n)</text>
+    <text x="200" y="146" class="cell">O(n)</text>
+    <text x="280" y="146" class="cell">O(1)**</text>
+    <text x="360" y="146" class="cell">O(1)**</text>
+    <text x="450" y="146" class="cell">O(1)</text>
+    <text x="550" y="146" class="cell">Pointers</text>
+  <text x="660" y="146" class="cell">Sequential traversal</text>
+
+  <rect class="row alt" x="0" y="160" width="840" height="28" rx="2"/>
+    <text x="10" y="178" class="cell">Stack</text>
+    <text x="130" y="178" class="cell">O(1)</text>
+    <text x="200" y="178" class="cell">O(n)</text>
+    <text x="280" y="178" class="cell">O(1)</text>
+    <text x="360" y="178" class="cell">O(1)</text>
+    <text x="450" y="178" class="cell">O(1)</text>
+    <text x="550" y="178" class="cell">Low</text>
+  <text x="660" y="178" class="cell">Check underflow</text>
+
+  <rect class="row" x="0" y="192" width="840" height="28" rx="2"/>
+    <text x="10" y="210" class="cell">Queue</text>
+    <text x="130" y="210" class="cell">O(1)</text>
+    <text x="200" y="210" class="cell">O(n)</text>
+    <text x="280" y="210" class="cell">O(1)</text>
+    <text x="360" y="210" class="cell">O(1)</text>
+    <text x="450" y="210" class="cell">O(1)</text>
+    <text x="550" y="210" class="cell">Low</text>
+  <text x="660" y="210" class="cell">Wrap indices / ring buffer</text>
+
+  <rect class="row alt" x="0" y="224" width="840" height="28" rx="2"/>
+    <text x="10" y="242" class="cell">Matrix</text>
+    <text x="130" y="242" class="cell">O(1)</text>
+    <text x="200" y="242" class="cell">O(rc)</text>
+    <text x="280" y="242" class="cell">N/A</text>
+    <text x="360" y="242" class="cell">N/A</text>
+    <text x="450" y="242" class="cell">N/A</text>
+    <text x="550" y="242" class="cell">Low</text>
+  <text x="660" y="242" class="cell">Cache locality (row-major)</text>
+    </g>
+  </g>
+  <!-- Footnotes spaced further from table -->
+  <text x="20" y="360" class="note">*Dynamic array append is amortized O(1) (occasional resize copy)</text>
+  <text x="20" y="378" class="note">**Linked list insert/delete O(1) requires node reference</text>
+  <text x="20" y="396" class="note">Append without star assumes spare capacity in fixed-size array.</text>
+  <text x="20" y="414" class="note">Search refers to linear scan unless structure supports better (e.g., binary search on sorted array).</text>
+  <text x="20" y="432" class="note">Insert/Delete for array = shift cost; dynamic array occasional resize not counted except amortized append.</text>
+  <!-- Column separators for readability -->
+  <g stroke="#334155" stroke-width="1" opacity="0.5">
+  <line x1="120" y1="70" x2="120" y2="290"/>
+  <line x1="190" y1="70" x2="190" y2="290"/>
+  <line x1="270" y1="70" x2="270" y2="290"/>
+  <line x1="350" y1="70" x2="350" y2="290"/>
+  <line x1="440" y1="70" x2="440" y2="290"/>
+  <line x1="530" y1="70" x2="530" y2="290"/>
+  <line x1="650" y1="70" x2="650" y2="290"/>
+  </g>
+</svg>

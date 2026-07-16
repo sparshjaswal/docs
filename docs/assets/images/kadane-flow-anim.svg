@@ -1,0 +1,260 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 260" width="780" height="260" role="img" aria-labelledby="kadTitle kadDesc" aria-describedby="kadLegend" shape-rendering="crispEdges">
+  <title id="kadTitle">Kadane's Algorithm (Maximum Subarray)</title>
+  <desc id="kadDesc">Animated decisions comparing x vs curr+x each step; highlight chosen option and pulse on best updates. Shows scoreboard of i, x, curr, best.</desc>
+  <style>
+    :root { --bg:#0f172a; --panel:#1e293b; --cell-border:#334155; --cur:#facc15; --best:#10b981; --text:#ffffff; --caption:#94a3b8; --optA:#0ea5e9; --optB:#f472b6; --optIdle:#1e293b; --p1:#6366f1; --p2:#f472b6; --p3:#facc15; --p4:#10b981; --p5:#14b8a6; --p6:#8b5cf6; }
+    text{font-family:Inter,Arial,sans-serif}
+    .title{font-size:15px;font-weight:600;fill:var(--text)}
+    .caption{font-size:12px;fill:var(--caption)}
+    .cell{stroke:var(--cell-border);stroke-width:1.1;fill:var(--panel);rx:4}
+    .val{font-size:13px;font-weight:500;fill:var(--text)}
+    .step{font-size:11px;font-weight:600;fill:var(--caption)}
+    .scoreLabel{font-size:11px;font-weight:600;fill:var(--caption)}
+    .scoreVal{font-size:13px;font-weight:600;fill:var(--text)}
+    .optionLbl{font-size:11px;font-weight:600;fill:var(--text)}
+    .optionVal{font-size:13px;font-weight:600;fill:var(--text)}
+    @media (prefers-reduced-motion: reduce){ .anim{display:none} .fallback{display:block} }
+    .fallback{display:none}
+  </style>
+  <rect x="0" y="0" width="780" height="260" fill="var(--bg)" />
+  <rect x="0" y="0" width="780" height="54" fill="var(--panel)" />
+  <text x="20" y="26" class="title">Kadane's Algorithm</text>
+  <text x="20" y="44" class="caption" id="kadLegend">Decision: curr = max(x, curr+x); best = max(best, curr)</text>
+  <!-- Array values -->
+  <g transform="translate(20,100)">
+    <rect class="cell" x="0" y="0" width="60" height="40"/>
+    <rect class="cell" x="70" y="0" width="60" height="40"/>
+    <rect class="cell" x="140" y="0" width="60" height="40"/>
+    <rect class="cell" x="210" y="0" width="60" height="40"/>
+    <rect class="cell" x="280" y="0" width="60" height="40"/>
+    <text class="val" x="30"  y="24" text-anchor="middle">-2</text>
+    <text class="val" x="100" y="24" text-anchor="middle">1</text>
+    <text class="val" x="170" y="24" text-anchor="middle">-3</text>
+    <text class="val" x="240" y="24" text-anchor="middle">4</text>
+    <text class="val" x="310" y="24" text-anchor="middle">5</text>
+    <!-- Cursor highlight frame -->
+    <rect class="anim" x="0" y="0" width="60" height="40" rx="4" fill="none" stroke="var(--cur)" stroke-width="2">
+      <animate attributeName="x" dur="8s" repeatCount="indefinite" values="0;0;70;140;210;280;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </rect>
+    <!-- Best pulses -->
+    <circle class="anim" cx="240" cy="20" r="24" stroke="var(--best)" stroke-width="2" fill="none" opacity="0">
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+      <animate attributeName="r" dur="8s" repeatCount="indefinite" values="24;24;24;24;28;24;24" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </circle>
+    <circle class="anim" cx="310" cy="20" r="24" stroke="var(--best)" stroke-width="2" fill="none" opacity="0">
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;1;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+      <animate attributeName="r" dur="8s" repeatCount="indefinite" values="24;24;24;24;24;28;24" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </circle>
+    <!-- Recognition labels -->
+    <text x="0" y="70" class="caption anim" opacity="1">Phase 1: init curr & best (-2)
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text x="0" y="70" class="caption anim" opacity="0">Phase 2: choose x (1) over curr+x (-1)
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text x="0" y="70" class="caption anim" opacity="0">Phase 3: extend (1 + -3 = -2) vs restart (-3)
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text x="0" y="70" class="caption anim" opacity="0">Phase 4: restart (4) beats extend (2)
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text x="0" y="70" class="caption anim" opacity="0">Phase 5: extend (4+5=9) beats restart (5)
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;1;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text x="0" y="70" class="caption anim" opacity="0">Phase 6: final best = 9
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;0;1" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+  </g>
+  <!-- Phase box -->
+  <rect id="phaseBox" class="anim" x="350" y="50" width="200" height="40" rx="8" fill="var(--p1)" stroke="var(--cell-border)">
+    <animate attributeName="fill" dur="8s" repeatCount="indefinite" values="var(--p1);var(--p1);var(--p2);var(--p3);var(--p4);var(--p5);var(--p6)" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+  </rect>
+  <text x="450" y="74" text-anchor="middle" class="step anim">Init
+    <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+  </text>
+  <text x="450" y="74" text-anchor="middle" class="step anim" opacity="0">Pick x
+    <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+  </text>
+  <text x="450" y="74" text-anchor="middle" class="step anim" opacity="0">Extend
+    <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+  </text>
+  <text x="450" y="74" text-anchor="middle" class="step anim" opacity="0">Restart
+    <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+  </text>
+  <text x="450" y="74" text-anchor="middle" class="step anim" opacity="0">Extend + Best
+    <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;1;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+  </text>
+  <text x="450" y="74" text-anchor="middle" class="step anim" opacity="0">Done
+    <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;0;1" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+  </text>
+  <!-- Decision panel -->
+  <g class="anim" transform="translate(350,100)" aria-label="Decision panel">
+    <rect id="optA" x="0" y="0" width="95" height="58" rx="6" stroke="var(--cell-border)" stroke-width="1.2" fill="var(--optIdle)">
+      <animate attributeName="fill" dur="8s" repeatCount="indefinite" values="var(--optA);var(--optA);var(--optIdle);var(--optA);var(--optIdle);var(--optIdle);var(--optIdle)" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+      <animate attributeName="stroke-width" dur="8s" repeatCount="indefinite" values="2.2;2.2;1.2;2.2;1.2;1.2;1.2" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </rect>
+    <rect id="optB" x="105" y="0" width="95" height="58" rx="6" stroke="var(--cell-border)" stroke-width="1.2" fill="var(--optIdle)">
+      <animate attributeName="fill" dur="8s" repeatCount="indefinite" values="var(--optIdle);var(--optIdle);var(--optB);var(--optIdle);var(--optB);var(--optIdle);var(--optIdle)" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+      <animate attributeName="stroke-width" dur="8s" repeatCount="indefinite" values="1.2;1.2;2.2;1.2;2.2;1.2;1.2" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </rect>
+    <text class="optionLbl" x="48" y="14" text-anchor="middle">Option A</text>
+    <text class="optionLbl" x="153" y="14" text-anchor="middle">Option B</text>
+    <!-- Option values per phase -->
+    <text class="optionVal" x="48" y="38" text-anchor="middle" opacity="1">x=-2
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="optionVal" x="153" y="38" text-anchor="middle" opacity="1">curr+x=-2
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="optionVal" x="48" y="38" text-anchor="middle" opacity="0">x=1
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="optionVal" x="153" y="38" text-anchor="middle" opacity="0">curr+x=-1
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="optionVal" x="48" y="38" text-anchor="middle" opacity="0">x=-3
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="optionVal" x="153" y="38" text-anchor="middle" opacity="0">curr+x=-2
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="optionVal" x="48" y="38" text-anchor="middle" opacity="0">x=4
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="optionVal" x="153" y="38" text-anchor="middle" opacity="0">curr+x=2
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="optionVal" x="48" y="38" text-anchor="middle" opacity="0">x=5
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;1;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="optionVal" x="153" y="38" text-anchor="middle" opacity="0">curr+x=9
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;1;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="optionVal" x="101" y="38" text-anchor="middle" opacity="0">...
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;0;1" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+  </g>
+  <!-- Scoreboard -->
+  <g class="anim" transform="translate(560,90)" aria-label="Scoreboard curr and best">
+    <rect x="0" y="0" width="200" height="110" rx="8" fill="var(--panel)" stroke="var(--cell-border)" />
+    <text class="scoreLabel" x="12" y="20">i:</text>
+    <text class="scoreLabel" x="12" y="40">x:</text>
+    <text class="scoreLabel" x="12" y="60">curr:</text>
+    <text class="scoreLabel" x="12" y="80">best:</text>
+    <text class="scoreLabel" x="12" y="100">decision:</text>
+    <!-- i -->
+    <text class="scoreVal" x="60" y="20" opacity="1">0
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="20" opacity="0">1
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="20" opacity="0">2
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="20" opacity="0">3
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="20" opacity="0">4
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;1;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="20" opacity="0">-</text>
+    <!-- x -->
+    <text class="scoreVal" x="60" y="40" opacity="1">-2
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="40" opacity="0">1
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="40" opacity="0">-3
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="40" opacity="0">4
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="40" opacity="0">5
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;1;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <!-- curr -->
+    <text class="scoreVal" x="60" y="60" opacity="1">-2
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="60" opacity="0">1
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="60" opacity="0">-2
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="60" opacity="0">4
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="60" opacity="0">9
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;1;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="60" opacity="0">9
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;0;1" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <!-- best -->
+    <text class="scoreVal" x="60" y="80" opacity="1">-2
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="80" opacity="0">1
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="80" opacity="0">1
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="80" opacity="0">4
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="80" opacity="0">9
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;1;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="80" opacity="0">9
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;0;1" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <!-- decision type -->
+    <text class="scoreVal" x="60" y="100" opacity="1">init
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="100" opacity="0">pick x
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="100" opacity="0">extend
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="100" opacity="0">restart
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="100" opacity="0">extend+best
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;1;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+    <text class="scoreVal" x="60" y="100" opacity="0">done
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;0;1" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1" />
+    </text>
+  </g>
+  <!-- Reduced motion fallback (static final state) -->
+  <g class="fallback" transform="translate(20,100)">
+    <rect class="cell" x="0" y="0" width="60" height="40"/>
+    <rect class="cell" x="70" y="0" width="60" height="40"/>
+    <rect class="cell" x="140" y="0" width="60" height="40"/>
+    <rect class="cell" x="210" y="0" width="60" height="40"/>
+    <rect class="cell" x="280" y="0" width="60" height="40"/>
+    <text class="val" x="30"  y="24" text-anchor="middle">-2</text>
+    <text class="val" x="100" y="24" text-anchor="middle">1</text>
+    <text class="val" x="170" y="24" text-anchor="middle">-3</text>
+    <text class="val" x="240" y="24" text-anchor="middle">4</text>
+    <text class="val" x="310" y="24" text-anchor="middle">5</text>
+    <circle cx="310" cy="20" r="24" stroke="var(--best)" stroke-width="2" fill="none" />
+    <g transform="translate(540,-10)">
+      <rect x="0" y="0" width="200" height="110" rx="8" fill="var(--panel)" stroke="var(--cell-border)" />
+      <text class="scoreLabel" x="12" y="20">final best:</text>
+      <text class="scoreVal" x="110" y="20">9</text>
+      <text class="scoreLabel" x="12" y="40">curr:</text>
+      <text class="scoreVal" x="70" y="40">9</text>
+      <text class="caption" x="12" y="60">restart when x > curr+x</text>
+      <text class="caption" x="12" y="76">extend when curr+x > x</text>
+    </g>
+  </g>
+  <text x="20" y="246" class="caption">Phases: init, pick x, extend, restart, extend+best, done (loop resets).</text>
+</svg>

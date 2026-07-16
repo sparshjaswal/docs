@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 170" width="780" height="170" role="img" aria-label="Cyclic sort placing numbers into correct indices">
+  <style>
+    .label{font:14px Inter,Arial,sans-serif;fill:#222}
+    .cell{stroke:#1976d2;stroke-width:1.2;fill:#f5faff}
+    .swap{stroke:#e53935;stroke-width:2;fill:rgba(229,57,53,0.08)}
+    .arrow{stroke:#555;stroke-width:2;marker-end:url(#ah);fill:none}
+  </style>
+  <defs><marker id="ah" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon fill="#555" points="0 0,10 3.5,0 7"/></marker></defs>
+  <text x="20" y="22" class="label">Cyclic Sort</text>
+  <g transform="translate(20,40)">
+    <g>
+      <rect class="cell swap" x="0" y="0" width="60" height="34"/>
+      <rect class="cell" x="70" y="0" width="60" height="34"/>
+      <rect class="cell swap" x="140" y="0" width="60" height="34"/>
+      <rect class="cell" x="210" y="0" width="60" height="34"/>
+      <rect class="cell" x="280" y="0" width="60" height="34"/>
+    </g>
+    <g>
+      <text x="30" y="22" text-anchor="middle" class="label">3</text>
+      <text x="100" y="22" text-anchor="middle" class="label">1</text>
+      <text x="170" y="22" text-anchor="middle" class="label">5</text>
+      <text x="240" y="22" text-anchor="middle" class="label">4</text>
+      <text x="310" y="22" text-anchor="middle" class="label">2</text>
+    </g>
+    <path d="M30 50 C 30 90 170 90 170 50" class="arrow"/>
+  </g>
+  <text x="20" y="140" class="label">Swap value into its target index until correct</text>
+</svg>

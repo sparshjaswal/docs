@@ -1,0 +1,400 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="1000" height="400" role="img" aria-labelledby="graphTitle graphDesc" shape-rendering="crispEdges">
+  <title id="graphTitle">Enhanced Graph Algorithms Visualization</title>
+  <desc id="graphDesc">Interactive demonstration of BFS, DFS, and Dijkstra's algorithm with path finding and shortest path calculations.</desc>
+  
+  <defs>
+    <radialGradient id="nodeGradient" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#60a5fa" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </radialGradient>
+    <radialGradient id="visitedGradient" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#10b981" />
+    </radialGradient>
+    <radialGradient id="currentGradient" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </radialGradient>
+    <radialGradient id="pathGradient" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#f472b6" />
+      <stop offset="100%" stop-color="#ec4899" />
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/> 
+      </feMerge>
+    </filter>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b" />
+    </marker>
+    <marker id="pathArrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ec4899" />
+    </marker>
+  </defs>
+  
+  <style>
+    :root { 
+      --bg: #0f172a; --panel: #1e293b; --border: #475569; --txt: #ffffff; 
+      --cap: #94a3b8; --node: #3b82f6; --visited: #10b981; --current: #f59e0b; 
+      --path: #ec4899; --edge: #64748b;
+      --bfs: #06b6d4; --dfs: #8b5cf6; --dijkstra: #f59e0b;
+    }
+    text { font-family: 'SF Pro Display', 'Inter', Arial, sans-serif; }
+    .title { font-size: 20px; font-weight: 700; fill: var(--txt); }
+    .subtitle { font-size: 14px; font-weight: 500; fill: var(--cap); }
+    .caption { font-size: 12px; fill: var(--cap); }
+    .node-text { font-size: 14px; font-weight: 700; fill: var(--txt); text-anchor: middle; }
+    .edge { stroke: var(--edge); stroke-width: 2; }
+    .edge.highlight { stroke: var(--path); stroke-width: 4; filter: url(#glow); marker-end: url(#pathArrow); }
+    .weight { font-size: 10px; font-weight: 600; fill: var(--txt); text-anchor: middle; }
+    .algo-label { font-size: 16px; font-weight: 600; fill: var(--txt); }
+    .distance { font-size: 10px; font-weight: 600; fill: var(--current); text-anchor: middle; }
+    .step-desc { font-size: 11px; font-weight: 500; fill: var(--cap); }
+    @media (prefers-reduced-motion: reduce) { .anim { display: none; } .fallback { display: block; } }
+    .fallback { display: none; }
+  </style>
+  
+  <!-- Background -->
+  <rect x="0" y="0" width="1000" height="400" fill="var(--bg)" />
+  
+  <!-- Header -->
+  <rect x="0" y="0" width="1000" height="60" fill="var(--panel)" filter="url(#shadow)" />
+  <text x="30" y="25" class="title">Enhanced Graph Algorithms Visualization</text>
+  <text x="30" y="45" class="subtitle">Interactive demonstration of BFS, DFS, and Dijkstra's shortest path algorithms</text>
+  
+  <!-- Graph Structure -->
+  <g transform="translate(100,80)">
+    <!-- Edges with weights -->
+    <g id="edges">
+      <!-- Node A connections -->
+      <line class="edge anim" x1="100" y1="80" x2="200" y2="80">
+        <animate attributeName="stroke" dur="18s" repeatCount="indefinite" 
+                 values="#64748b;#ec4899;#64748b;#ec4899;#64748b;#ec4899;#64748b" 
+                 keyTimes="0;0.15;0.33;0.48;0.66;0.81;1" />
+        <animate attributeName="stroke-width" dur="18s" repeatCount="indefinite" 
+                 values="2;4;2;4;2;4;2" keyTimes="0;0.15;0.33;0.48;0.66;0.81;1" />
+      </line>
+      <line class="edge anim" x1="100" y1="80" x2="150" y2="150">
+        <animate attributeName="stroke" dur="18s" repeatCount="indefinite" 
+                 values="#64748b;#64748b;#ec4899;#64748b;#ec4899;#64748b;#64748b" 
+                 keyTimes="0;0.15;0.33;0.48;0.66;0.81;1" />
+        <animate attributeName="stroke-width" dur="18s" repeatCount="indefinite" 
+                 values="2;2;4;2;4;2;2" keyTimes="0;0.15;0.33;0.48;0.66;0.81;1" />
+      </line>
+      
+      <!-- Node B connections -->
+      <line class="edge anim" x1="200" y1="80" x2="300" y2="80">
+        <animate attributeName="stroke" dur="18s" repeatCount="indefinite" 
+                 values="#64748b;#ec4899;#64748b;#ec4899;#64748b;#ec4899;#64748b" 
+                 keyTimes="0;0.15;0.33;0.48;0.66;0.81;1" />
+        <animate attributeName="stroke-width" dur="18s" repeatCount="indefinite" 
+                 values="2;4;2;4;2;4;2" keyTimes="0;0.15;0.33;0.48;0.66;0.81;1" />
+      </line>
+      <line class="edge anim" x1="200" y1="80" x2="250" y2="150">
+        <animate attributeName="stroke" dur="18s" repeatCount="indefinite" 
+                 values="#64748b;#64748b;#64748b;#ec4899;#64748b;#64748b;#64748b" 
+                 keyTimes="0;0.15;0.33;0.48;0.66;0.81;1" />
+        <animate attributeName="stroke-width" dur="18s" repeatCount="indefinite" 
+                 values="2;2;2;4;2;2;2" keyTimes="0;0.15;0.33;0.48;0.66;0.81;1" />
+      </line>
+      
+      <!-- Node C connections -->
+      <line class="edge anim" x1="300" y1="80" x2="350" y2="150">
+        <animate attributeName="stroke" dur="18s" repeatCount="indefinite" 
+                 values="#64748b;#ec4899;#64748b;#ec4899;#64748b;#ec4899;#64748b" 
+                 keyTimes="0;0.15;0.33;0.48;0.66;0.81;1" />
+        <animate attributeName="stroke-width" dur="18s" repeatCount="indefinite" 
+                 values="2;4;2;4;2;4;2" keyTimes="0;0.15;0.33;0.48;0.66;0.81;1" />
+      </line>
+      
+      <!-- Cross connections -->
+      <line class="edge anim" x1="150" y1="150" x2="250" y2="150">
+        <animate attributeName="stroke" dur="18s" repeatCount="indefinite" 
+                 values="#64748b;#64748b;#ec4899;#64748b;#ec4899;#64748b;#64748b" 
+                 keyTimes="0;0.15;0.33;0.48;0.66;0.81;1" />
+        <animate attributeName="stroke-width" dur="18s" repeatCount="indefinite" 
+                 values="2;2;4;2;4;2;2" keyTimes="0;0.15;0.33;0.48;0.66;0.81;1" />
+      </line>
+      <line class="edge anim" x1="250" y1="150" x2="350" y2="150">
+        <animate attributeName="stroke" dur="18s" repeatCount="indefinite" 
+                 values="#64748b;#64748b;#64748b;#ec4899;#64748b;#ec4899;#64748b" 
+                 keyTimes="0;0.15;0.33;0.48;0.66;0.81;1" />
+        <animate attributeName="stroke-width" dur="18s" repeatCount="indefinite" 
+                 values="2;2;2;4;2;4;2" keyTimes="0;0.15;0.33;0.48;0.66;0.81;1" />
+      </line>
+      
+      <!-- Edge weights -->
+      <text class="weight" x="150" y="75">4</text>
+      <text class="weight" x="250" y="75">2</text>
+      <text class="weight" x="325" y="115">3</text>
+      <text class="weight" x="125" y="115">5</text>
+      <text class="weight" x="225" y="115">1</text>
+      <text class="weight" x="200" y="145">7</text>
+      <text class="weight" x="300" y="145">2</text>
+    </g>
+    
+    <!-- Nodes with Animation -->
+    <g id="nodes">
+      <!-- Node A (Start) -->
+      <circle class="anim" cx="100" cy="80" r="20" fill="url(#currentGradient)" stroke="var(--border)" stroke-width="2" filter="url(#shadow)">
+        <animate attributeName="fill" dur="18s" repeatCount="indefinite" 
+                 values="url(#currentGradient);url(#visitedGradient);url(#currentGradient);url(#visitedGradient);url(#currentGradient);url(#visitedGradient);url(#currentGradient)" 
+                 keyTimes="0;0.15;0.33;0.48;0.66;0.81;1" />
+      </circle>
+      <text class="node-text" x="100" y="85">A</text>
+      <text class="distance anim" x="100" y="105">0
+        <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+                 values="0;0;0;0;1;1;0" keyTimes="0;0.33;0.48;0.66;0.66;0.81;1" />
+      </text>
+      
+      <!-- Node B -->
+      <circle class="anim" cx="200" cy="80" r="20" fill="url(#nodeGradient)" stroke="var(--border)" stroke-width="2" filter="url(#shadow)">
+        <animate attributeName="fill" dur="18s" repeatCount="indefinite" 
+                 values="url(#nodeGradient);url(#currentGradient);url(#nodeGradient);url(#currentGradient);url(#nodeGradient);url(#currentGradient);url(#nodeGradient)" 
+                 keyTimes="0;0.1;0.33;0.43;0.66;0.76;1" />
+      </circle>
+      <text class="node-text" x="200" y="85">B</text>
+      <text class="distance anim" x="200" y="105">4
+        <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+                 values="0;0;0;0;1;1;0" keyTimes="0;0.33;0.48;0.66;0.66;0.81;1" />
+      </text>
+      
+      <!-- Node C -->
+      <circle class="anim" cx="300" cy="80" r="20" fill="url(#nodeGradient)" stroke="var(--border)" stroke-width="2" filter="url(#shadow)">
+        <animate attributeName="fill" dur="18s" repeatCount="indefinite" 
+                 values="url(#nodeGradient);url(#currentGradient);url(#nodeGradient);url(#currentGradient);url(#nodeGradient);url(#currentGradient);url(#nodeGradient)" 
+                 keyTimes="0;0.12;0.33;0.45;0.66;0.78;1" />
+      </circle>
+      <text class="node-text" x="300" y="85">C</text>
+      <text class="distance anim" x="300" y="105">6
+        <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+                 values="0;0;0;0;1;1;0" keyTimes="0;0.33;0.48;0.66;0.66;0.81;1" />
+      </text>
+      
+      <!-- Node D -->
+      <circle class="anim" cx="150" cy="150" r="20" fill="url(#nodeGradient)" stroke="var(--border)" stroke-width="2" filter="url(#shadow)">
+        <animate attributeName="fill" dur="18s" repeatCount="indefinite" 
+                 values="url(#nodeGradient);url(#nodeGradient);url(#currentGradient);url(#nodeGradient);url(#currentGradient);url(#nodeGradient);url(#nodeGradient)" 
+                 keyTimes="0;0.15;0.25;0.48;0.58;0.81;1" />
+      </circle>
+      <text class="node-text" x="150" y="155">D</text>
+      <text class="distance anim" x="150" y="175">5
+        <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+                 values="0;0;0;0;1;1;0" keyTimes="0;0.33;0.48;0.66;0.66;0.81;1" />
+      </text>
+      
+      <!-- Node E -->
+      <circle class="anim" cx="250" cy="150" r="20" fill="url(#nodeGradient)" stroke="var(--border)" stroke-width="2" filter="url(#shadow)">
+        <animate attributeName="fill" dur="18s" repeatCount="indefinite" 
+                 values="url(#nodeGradient);url(#nodeGradient);url(#nodeGradient);url(#currentGradient);url(#nodeGradient);url(#nodeGradient);url(#nodeGradient)" 
+                 keyTimes="0;0.15;0.33;0.4;0.66;0.81;1" />
+      </circle>
+      <text class="node-text" x="250" y="155">E</text>
+      <text class="distance anim" x="250" y="175">5
+        <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+                 values="0;0;0;0;1;1;0" keyTimes="0;0.33;0.48;0.66;0.66;0.81;1" />
+      </text>
+      
+      <!-- Node F (Target) -->
+      <circle class="anim" cx="350" cy="150" r="20" fill="url(#nodeGradient)" stroke="var(--border)" stroke-width="2" filter="url(#shadow)">
+        <animate attributeName="fill" dur="18s" repeatCount="indefinite" 
+                 values="url(#nodeGradient);url(#pathGradient);url(#nodeGradient);url(#pathGradient);url(#nodeGradient);url(#pathGradient);url(#nodeGradient)" 
+                 keyTimes="0;0.15;0.33;0.48;0.66;0.81;1" />
+        <animate attributeName="stroke-width" dur="18s" repeatCount="indefinite" 
+                 values="2;4;2;4;2;4;2" keyTimes="0;0.15;0.33;0.48;0.66;0.81;1" />
+      </circle>
+      <text class="node-text" x="350" y="155">F</text>
+      <text class="distance anim" x="350" y="175">7
+        <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+                 values="0;0;0;0;1;1;0" keyTimes="0;0.33;0.48;0.66;0.66;0.81;1" />
+      </text>
+    </g>
+  </g>
+  
+  <!-- Algorithm Information Panel -->
+  <g transform="translate(550,80)">
+    <rect x="0" y="0" width="400" height="300" rx="12" fill="var(--panel)" stroke="var(--border)" filter="url(#shadow)" />
+    
+    <!-- Algorithm Type Indicator -->
+    <rect id="algo-type" class="anim" x="20" y="20" width="360" height="40" rx="8" fill="var(--bfs)" filter="url(#shadow)">
+      <animate attributeName="fill" dur="18s" repeatCount="indefinite" 
+               values="var(--bfs);var(--bfs);var(--dfs);var(--dfs);var(--dijkstra);var(--dijkstra);var(--bfs)" 
+               keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </rect>
+    
+    <text class="algo-label anim" x="200" y="45" text-anchor="middle">Breadth-First Search (BFS)
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="1;1;0;0;0;0;1" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    <text class="algo-label anim" x="200" y="45" text-anchor="middle" opacity="0">Depth-First Search (DFS)
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="0;0;1;1;0;0;0" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    <text class="algo-label anim" x="200" y="45" text-anchor="middle" opacity="0">Dijkstra's Shortest Path
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="0;0;0;0;1;1;0" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    
+    <!-- Algorithm Description -->
+    <text x="20" y="80" class="caption" style="font-weight: 600;">Algorithm Details:</text>
+    
+    <text class="step-desc anim" x="20" y="100" opacity="1">BFS explores nodes level by level using a queue
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="1;1;0;0;0;0;1" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    <text class="step-desc anim" x="20" y="115" opacity="1">Guarantees shortest path in unweighted graphs
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="1;1;0;0;0;0;1" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    <text class="step-desc anim" x="20" y="130" opacity="1">Time: O(V + E) | Space: O(V)
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="1;1;0;0;0;0;1" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    
+    <text class="step-desc anim" x="20" y="100" opacity="0">DFS explores as far as possible using a stack
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="0;0;1;1;0;0;0" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    <text class="step-desc anim" x="20" y="115" opacity="0">Good for topological sorting and cycle detection
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="0;0;1;1;0;0;0" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    <text class="step-desc anim" x="20" y="130" opacity="0">Time: O(V + E) | Space: O(V)
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="0;0;1;1;0;0;0" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    
+    <text class="step-desc anim" x="20" y="100" opacity="0">Dijkstra finds shortest paths in weighted graphs
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="0;0;0;0;1;1;0" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    <text class="step-desc anim" x="20" y="115" opacity="0">Uses priority queue to select minimum distance
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="0;0;0;0;1;1;0" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    <text class="step-desc anim" x="20" y="130" opacity="0">Time: O((V + E) log V) | Space: O(V)
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="0;0;0;0;1;1;0" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    
+    <!-- Path Information -->
+    <text x="20" y="160" class="caption" style="font-weight: 600;">Path Analysis:</text>
+    
+    <text class="step-desc anim" x="20" y="180" opacity="1">Path: A → B → C → F (3 steps)
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="1;1;0;0;0;0;1" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    <text class="step-desc anim" x="20" y="195" opacity="1">Explores nodes in breadth-first order
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="1;1;0;0;0;0;1" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    
+    <text class="step-desc anim" x="20" y="180" opacity="0">Path: A → D → E → F (3 steps)
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="0;0;1;1;0;0;0" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    <text class="step-desc anim" x="20" y="195" opacity="0">Explores nodes in depth-first order
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="0;0;1;1;0;0;0" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    
+    <text class="step-desc anim" x="20" y="180" opacity="0">Shortest Path: A → B → E → F (Distance: 7)
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="0;0;0;0;1;1;0" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    <text class="step-desc anim" x="20" y="195" opacity="0">Optimal path considering edge weights
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="0;0;0;0;1;1;0" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    
+    <!-- Use Cases -->
+    <text x="20" y="225" class="caption" style="font-weight: 600;">Common Use Cases:</text>
+    
+    <text class="step-desc anim" x="20" y="245" opacity="1">• Social networks, web crawling, shortest path
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="1;1;0;0;0;0;1" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    <text class="step-desc anim" x="20" y="260" opacity="1">• Level-order traversal, minimum spanning tree
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="1;1;0;0;0;0;1" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    
+    <text class="step-desc anim" x="20" y="245" opacity="0">• Topological sorting, cycle detection
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="0;0;1;1;0;0;0" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    <text class="step-desc anim" x="20" y="260" opacity="0">• Maze solving, connected components
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="0;0;1;1;0;0;0" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    
+    <text class="step-desc anim" x="20" y="245" opacity="0">• GPS navigation, network routing
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="0;0;0;0;1;1;0" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+    <text class="step-desc anim" x="20" y="260" opacity="0">• Flight connections, shortest delivery routes
+      <animate attributeName="opacity" dur="18s" repeatCount="indefinite" 
+               values="0;0;0;0;1;1;0" keyTimes="0;0.33;0.33;0.66;0.66;1;1" />
+    </text>
+  </g>
+  
+  <!-- Enhanced Legend -->
+  <g transform="translate(30,350)">
+    <rect x="0" y="0" width="500" height="45" rx="8" fill="var(--panel)" stroke="var(--border)" filter="url(#shadow)" />
+    <text x="15" y="20" class="caption" style="font-weight: 600;">Graph Elements:</text>
+    
+    <circle cx="110" cy="15" r="8" fill="url(#nodeGradient)" />
+    <text x="125" y="20" class="caption">Unvisited</text>
+    
+    <circle cx="180" cy="15" r="8" fill="url(#currentGradient)" />
+    <text x="195" y="20" class="caption">Current</text>
+    
+    <circle cx="250" cy="15" r="8" fill="url(#visitedGradient)" />
+    <text x="265" y="20" class="caption">Visited</text>
+    
+    <circle cx="320" cy="15" r="8" fill="url(#pathGradient)" />
+    <text x="335" y="20" class="caption">Path</text>
+    
+    <line x1="380" y1="10" x2="410" y2="10" stroke="var(--path)" stroke-width="3" />
+    <text x="420" y="15" class="caption">Active Edge</text>
+    
+    <text x="15" y="38" class="caption" style="font-style: italic;">Watch how different algorithms explore the graph to find paths from A to F</text>
+  </g>
+  
+  <!-- Fallback for Reduced Motion -->
+  <g class="fallback" transform="translate(100,80)">
+    <!-- Static graph with highlighted shortest path -->
+    <line class="edge highlight" x1="100" y1="80" x2="200" y2="80" />
+    <line class="edge" x1="200" y1="80" x2="300" y2="80" />
+    <line class="edge" x1="300" y1="80" x2="350" y2="150" />
+    <line class="edge" x1="100" y1="80" x2="150" y2="150" />
+    <line class="edge highlight" x1="200" y1="80" x2="250" y2="150" />
+    <line class="edge" x1="150" y1="150" x2="250" y2="150" />
+    <line class="edge highlight" x1="250" y1="150" x2="350" y2="150" />
+    
+    <!-- Static nodes -->
+    <circle cx="100" cy="80" r="20" fill="url(#visitedGradient)" stroke="var(--border)" stroke-width="2" />
+    <text class="node-text" x="100" y="85">A</text>
+    
+    <circle cx="200" cy="80" r="20" fill="url(#visitedGradient)" stroke="var(--border)" stroke-width="2" />
+    <text class="node-text" x="200" y="85">B</text>
+    
+    <circle cx="300" cy="80" r="20" fill="url(#nodeGradient)" stroke="var(--border)" stroke-width="2" />
+    <text class="node-text" x="300" y="85">C</text>
+    
+    <circle cx="150" cy="150" r="20" fill="url(#nodeGradient)" stroke="var(--border)" stroke-width="2" />
+    <text class="node-text" x="150" y="155">D</text>
+    
+    <circle cx="250" cy="150" r="20" fill="url(#visitedGradient)" stroke="var(--border)" stroke-width="2" />
+    <text class="node-text" x="250" y="155">E</text>
+    
+    <circle cx="350" cy="150" r="20" fill="url(#pathGradient)" stroke="var(--border)" stroke-width="4" />
+    <text class="node-text" x="350" y="155">F</text>
+  </g>
+</svg>

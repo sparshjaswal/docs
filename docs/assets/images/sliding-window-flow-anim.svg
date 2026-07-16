@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 200" width="780" height="200" role="img" aria-labelledby="swTitle swDesc" aria-describedby="swLegend" shape-rendering="crispEdges">
+  <title id="swTitle">Sliding Window</title>
+  <desc id="swDesc">Grow window then shrink to restore constraint.</desc>
+  <style>
+    :root { --bg:#0f172a; --panel:#1e293b; --cell-border:#334155; --win:#e11d48; --text:#ffffff; --caption:#94a3b8; --expand:#facc15; --shrink:#38bdf8; --p1:#6366f1; --p2:#f472b6; --p3:#facc15; --p4:#10b981; --p5:#14b8a6; }
+    text{font-family:Inter,Arial,sans-serif}
+    .title{font-size:15px;font-weight:600;fill:var(--text)}
+    .caption{font-size:12px;fill:var(--caption)}
+    .cell{stroke:var(--cell-border);stroke-width:1.1;fill:var(--panel);rx:4}
+    .val{font-size:13px;font-weight:500;fill:var(--text)}
+    .step{font-size:11px;font-weight:600;fill:var(--caption)}
+    @media (prefers-reduced-motion: reduce){ .anim{display:none} .fallback{display:block} }
+    .fallback{display:none}
+  </style>
+  <rect x="0" y="0" width="780" height="200" fill="var(--bg)" />
+  <rect x="0" y="0" width="780" height="54" fill="#1e293b" />
+  <text x="20" y="24" class="title">Sliding Window</text>
+  <text x="20" y="42" class="caption" id="swLegend">Grow then shrink to maintain constraint (e.g. sum ≤ K).</text>
+  <g transform="translate(20,80)">
+    <!-- Cells -->
+    <rect class="cell" x="0" y="0" width="60" height="40"/>
+    <rect class="cell" x="70" y="0" width="60" height="40"/>
+    <rect class="cell" x="140" y="0" width="60" height="40"/>
+    <rect class="cell" x="210" y="0" width="60" height="40"/>
+    <rect class="cell" x="280" y="0" width="60" height="40"/>
+    <rect class="cell" x="350" y="0" width="60" height="40"/>
+    <rect class="cell" x="420" y="0" width="60" height="40"/>
+    <!-- Values -->
+    <text class="val" x="30" y="24" text-anchor="middle">1</text>
+    <text class="val" x="100" y="24" text-anchor="middle">3</text>
+    <text class="val" x="170" y="24" text-anchor="middle">2</text>
+    <text class="val" x="240" y="24" text-anchor="middle">5</text>
+    <text class="val" x="310" y="24" text-anchor="middle">2</text>
+    <text class="val" x="380" y="24" text-anchor="middle">9</text>
+    <text class="val" x="450" y="24" text-anchor="middle">7</text>
+    <!-- Window box animated via x & width with equal phase spacing -->
+    <rect id="win" class="anim" x="0" y="0" width="60" height="50" rx="6" stroke="var(--win)" stroke-width="2" fill="rgba(225,29,72,0.12)">
+      <animate attributeName="x" dur="8s" repeatCount="indefinite" values="0;0;70;140;210;70" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+      <animate attributeName="width" dur="8s" repeatCount="indefinite" values="60;200;200;200;120;60" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </rect>
+    <!-- l pointer moves right when shrinking -->
+    <text id="lptr" class="anim" x="0" y="-12" fill="var(--shrink)">l
+      <animate attributeName="x" dur="8s" repeatCount="indefinite" values="0;0;0;70;140;210" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <!-- r pointer advances then retreats -->
+    <text id="rptr" class="anim" x="420" y="-12" fill="var(--expand)">r
+      <animate attributeName="x" dur="8s" repeatCount="indefinite" values="420;420;490;490;490;420" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <!-- Step counter -->
+    <rect id="phaseBox" class="anim" x="500" y="-32" width="120" height="32" rx="6" fill="var(--p1)" stroke="var(--cell-border)">
+      <animate attributeName="fill" dur="8s" repeatCount="indefinite" values="var(--p1);var(--p1);var(--p2);var(--p3);var(--p4);var(--p5)" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </rect>
+    <text x="560" y="-12" text-anchor="middle" class="step anim">Grow
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <text x="560" y="-12" text-anchor="middle" class="step anim" opacity="0">Check
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;0;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <text x="560" y="-12" text-anchor="middle" class="step anim" opacity="0">Shrink
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <text x="560" y="-12" text-anchor="middle" class="step anim" opacity="0">Grow again
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <text x="560" y="-12" text-anchor="middle" class="step anim" opacity="0">Loop
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;1" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <!-- Recognition labels -->
+    <text x="0" y="68" class="caption anim" opacity="1">Phase 1: grow window
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <text x="0" y="68" class="caption anim" opacity="0">Phase 2: check constraint
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;0;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <text x="0" y="68" class="caption anim" opacity="0">Phase 3: shrink from left
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <text x="0" y="68" class="caption anim" opacity="0">Phase 4: grow again right
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <text x="0" y="68" class="caption anim" opacity="0">Phase 5: loop restart
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;1" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+  </g>
+  <!-- Legend -->
+  <text x="470" y="42" class="caption" id="swLegend">
+    <tspan x="470" dy="0">Legend:</tspan>
+    <tspan x="470" dy="14" fill="#e11d48">window</tspan>
+    <tspan dx="8" fill="#38bdf8">l</tspan>
+    <tspan dx="8" fill="#facc15">r</tspan>
+  </text>
+  <!-- Reduced motion fallback (final shrunken state) -->
+  <g class="fallback" transform="translate(20,80)">
+    <rect class="cell" x="0" y="0" width="60" height="40"/>
+    <rect class="cell" x="70" y="0" width="60" height="40"/>
+    <rect class="cell" x="140" y="0" width="60" height="40"/>
+    <rect class="cell" x="210" y="0" width="60" height="40"/>
+    <rect class="cell" x="280" y="0" width="60" height="40"/>
+    <rect class="cell" x="350" y="0" width="60" height="40"/>
+    <rect class="cell" x="420" y="0" width="60" height="40"/>
+    <text class="val" x="30" y="24" text-anchor="middle">1</text>
+    <text class="val" x="100" y="24" text-anchor="middle">3</text>
+    <text class="val" x="170" y="24" text-anchor="middle">2</text>
+    <text class="val" x="240" y="24" text-anchor="middle">5</text>
+    <text class="val" x="310" y="24" text-anchor="middle">2</text>
+    <text class="val" x="380" y="24" text-anchor="middle">9</text>
+    <text class="val" x="450" y="24" text-anchor="middle">7</text>
+    <rect x="70" y="0" width="120" height="50" rx="6" stroke="var(--win)" stroke-width="2" fill="rgba(225,29,72,0.12)" />
+    <text x="70" y="-12" class="step" fill="var(--shrink)">l</text>
+    <text x="190" y="-12" class="step" fill="var(--expand)">r</text>
+  </g>
+  <text x="20" y="188" class="caption">Equal phases: grow → check → shrink → regrow → loop repeat.</text>
+</svg>

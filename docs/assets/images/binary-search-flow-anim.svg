@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 200" width="780" height="200" role="img" aria-labelledby="bsTitle bsDesc" aria-describedby="bsLegend" shape-rendering="crispEdges">
+  <title id="bsTitle">Binary Search</title>
+  <desc id="bsDesc">Equally spaced phases: init → discard left → shift mid → found pulse.</desc>
+  <style>
+    :root{ --bg:#0f172a; --panel:#1e293b; --border:#334155; --txt:#ffffff; --cap:#94a3b8; --lo:#38bdf8; --hi:#f472b6; --mid:#facc15; --target:#10b981; --p1:#6366f1; --p2:#f472b6; --p3:#facc15; --p4:#10b981; }
+    text{font-family:Inter,Arial,sans-serif}
+    .title{font-size:15px;font-weight:600;fill:var(--txt)}
+    .caption{font-size:12px;fill:var(--cap)}
+    .cell{stroke:var(--border);stroke-width:1.1;fill:var(--panel);rx:4}
+    .val{font-size:13px;font-weight:500;fill:var(--txt)}
+    .ptr{font-size:12px;font-weight:600;fill:var(--lo)}
+    .ptr.hi{fill:var(--hi)}
+    .ptr.mid{fill:var(--mid)}
+    .target{font-size:12px;font-weight:600;fill:var(--target)}
+    .legend tspan{fill:var(--cap);font-size:11px;font-weight:500}
+    .step{font-size:11px;font-weight:600;fill:var(--txt)}
+    @media (prefers-reduced-motion: reduce){ .anim{display:none} .fallback{display:block} }
+    .fallback{display:none}
+  </style>
+  <rect x="0" y="0" width="780" height="200" fill="#0f172a" />
+  <rect x="0" y="0" width="780" height="54" fill="#1e293b" />
+  <text x="20" y="24" class="title">Binary Search (answer space shrink)</text>
+  <text x="20" y="42" class="caption" id="bsLegend">Target value 30; mid adjust then found. mid=(lo+hi)//2</text>
+  <g transform="translate(20,70)">
+    <!-- Array cells -->
+    <g id="row">
+      <rect class="cell" x="0" y="0" width="60" height="34"/>
+      <rect class="cell" x="70" y="0" width="60" height="34"/>
+      <rect class="cell" x="140" y="0" width="60" height="34"/>
+      <rect class="cell" x="210" y="0" width="60" height="34"/>
+      <rect class="cell" x="280" y="0" width="60" height="34"/>
+      <rect class="cell" x="350" y="0" width="60" height="34"/>
+      <rect class="cell" x="420" y="0" width="60" height="34"/>
+      <rect class="cell" x="490" y="0" width="60" height="34"/>
+      <rect class="cell" x="560" y="0" width="60" height="34"/>
+      <text class="val" x="30" y="22">3</text>
+      <text class="val" x="100" y="22">7</text>
+      <text class="val" x="170" y="22">12</text>
+      <text class="val" x="240" y="22">18</text>
+      <text class="val" x="310" y="22">21</text>
+      <text class="val" x="380" y="22">27</text>
+      <text class="val" x="450" y="22">30</text>
+      <text class="val" x="520" y="22">34</text>
+      <text class="val" x="590" y="22">39</text>
+    </g>
+    <!-- Discard overlay (phase 2) -->
+    <rect id="cover" class="anim" x="0" y="0" width="350" height="34" rx="4" fill="var(--bg)" opacity="0">
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0.65;0.65;0.65" keyTimes="0;0.25;0.5;0.75;1"/>
+    </rect>
+    <!-- lo pointer moves at phase 2 -->
+    <text class="ptr" id="lo" x="0" y="-10">lo
+      <animate attributeName="x" dur="8s" repeatCount="indefinite" values="0;0;350;350;350" keyTimes="0;0.25;0.5;0.75;1"/>
+    </text>
+    <!-- hi pointer (static) -->
+    <text class="ptr hi" x="560" y="-10">hi</text>
+    <!-- mid pointer shifts at phase 3 -->
+    <text class="ptr mid anim" id="mid" x="280" y="60">mid
+      <animate attributeName="x" dur="8s" repeatCount="indefinite" values="280;280;280;420;420" keyTimes="0;0.25;0.5;0.75;1"/>
+    </text>
+    <text class="target" x="450" y="60">target</text>
+    <!-- Found ring pulse only in phase 4 -->
+    <circle id="ring" class="anim" cx="450" cy="17" r="22" stroke="var(--target)" stroke-width="2" fill="none" opacity="0">
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0" keyTimes="0;0.25;0.5;0.75;1"/>
+      <animate attributeName="r" dur="8s" repeatCount="indefinite" values="22;22;22;26;22" keyTimes="0;0.25;0.5;0.75;1"/>
+    </circle>
+    <!-- Recognition phase labels -->
+    <text x="0" y="90" class="caption anim" opacity="1">Phase 1: initialize bounds
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;0" keyTimes="0;0.25;0.5;0.75;1"/>
+    </text>
+    <text x="0" y="90" class="caption anim" opacity="0">Phase 2: discard left half
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;0;0" keyTimes="0;0.25;0.5;0.75;1"/>
+    </text>
+    <text x="0" y="90" class="caption anim" opacity="0">Phase 3: recalc mid in new interval
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0" keyTimes="0;0.25;0.5;0.75;1"/>
+    </text>
+    <text x="0" y="90" class="caption anim" opacity="0">Phase 4: target found (pulse)
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1" keyTimes="0;0.25;0.5;0.75;1"/>
+    </text>
+    <!-- Step counter with animated background color for phases -->
+    <rect id="stepBox" class="anim" x="640" y="-32" width="120" height="32" rx="6" fill="var(--p1)" stroke="var(--border)">
+      <animate attributeName="fill" dur="8s" repeatCount="indefinite" values="var(--p1);var(--p1);var(--p2);var(--p3);var(--p4)" keyTimes="0;0.25;0.5;0.75;1"/>
+    </rect>
+    <text x="700" y="-12" text-anchor="middle" class="step anim">Init
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;0" keyTimes="0;0.25;0.5;0.75;1"/>
+    </text>
+    <text x="700" y="-12" text-anchor="middle" class="step anim" opacity="0">Discard left
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;0;0" keyTimes="0;0.25;0.5;0.75;1"/>
+    </text>
+    <text x="700" y="-12" text-anchor="middle" class="step anim" opacity="0">Shift mid
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0" keyTimes="0;0.25;0.5;0.75;1"/>
+    </text>
+    <text x="700" y="-12" text-anchor="middle" class="step anim" opacity="0">Found
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1" keyTimes="0;0.25;0.5;0.75;1"/>
+    </text>
+  </g>
+  <!-- Legend -->
+  <text x="420" y="42" class="caption legend">
+    <tspan x="420" dy="0">Legend:</tspan>
+    <tspan x="420" dy="14" fill="#38bdf8">lo</tspan>
+    <tspan dx="8" fill="#f472b6">hi</tspan>
+    <tspan dx="8" fill="#facc15">mid</tspan>
+    <tspan dx="8" fill="#10b981">target</tspan>
+    <tspan x="420" dy="14" fill="#6366f1">phase colors</tspan>
+  </text>
+  <!-- Reduced motion fallback (static final state) -->
+  <g class="fallback" transform="translate(20,70)">
+    <rect class="cell" x="0" y="0" width="60" height="34"/>
+    <rect class="cell" x="70" y="0" width="60" height="34"/>
+    <rect class="cell" x="140" y="0" width="60" height="34"/>
+    <rect class="cell" x="210" y="0" width="60" height="34"/>
+    <rect class="cell" x="280" y="0" width="60" height="34"/>
+    <rect class="cell" x="350" y="0" width="60" height="34"/>
+    <rect class="cell" x="420" y="0" width="60" height="34"/>
+    <rect class="cell" x="490" y="0" width="60" height="34"/>
+    <rect class="cell" x="560" y="0" width="60" height="34"/>
+    <text class="val" x="30" y="22">3</text>
+    <text class="val" x="100" y="22">7</text>
+    <text class="val" x="170" y="22">12</text>
+    <text class="val" x="240" y="22">18</text>
+    <text class="val" x="310" y="22">21</text>
+    <text class="val" x="380" y="22">27</text>
+    <text class="val" x="450" y="22">30</text>
+    <text class="val" x="520" y="22">34</text>
+    <text class="val" x="590" y="22">39</text>
+    <text class="ptr" x="350" y="-10">lo</text>
+    <text class="ptr hi" x="560" y="-10">hi</text>
+    <text class="ptr mid" x="420" y="60">mid</text>
+    <text class="target" x="450" y="60">target</text>
+    <circle cx="450" cy="17" r="22" stroke="var(--target)" stroke-width="2" fill="none" />
+  </g>
+  <text x="20" y="188" class="caption">Equal phases: initialize, discard left segment, shift mid right, pulse when target found.</text>
+</svg>

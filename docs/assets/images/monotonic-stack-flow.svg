@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 180" width="760" height="180" role="img" aria-label="Monotonic stack resolving next greater element">
+  <style>
+    .label{font:14px Inter,Arial,sans-serif;fill:#222}
+    .cell{stroke:#1976d2;stroke-width:1.2;fill:#f5faff}
+    .st{stroke:#8e24aa;fill:#fdf2ff}
+    .arrow{stroke:#555;stroke-width:2;marker-end:url(#ah);fill:none}
+    .pop{stroke:#e53935;stroke-dasharray:4 3}
+  </style>
+  <defs><marker id="ah" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon fill="#555" points="0 0,10 3.5,0 7"/></marker></defs>
+  <text x="20" y="22" class="label">Monotonic Stack (next greater)</text>
+  <g transform="translate(20,40)">
+    <g>
+      <rect class="cell" x="0" y="0" width="60" height="34"/>
+      <rect class="cell" x="70" y="0" width="60" height="34"/>
+      <rect class="cell" x="140" y="0" width="60" height="34"/>
+      <rect class="cell" x="210" y="0" width="60" height="34"/>
+      <rect class="cell" x="280" y="0" width="60" height="34"/>
+    </g>
+    <g>
+      <text x="30" y="22" text-anchor="middle" class="label">2</text>
+      <text x="100" y="22" text-anchor="middle" class="label">1</text>
+      <text x="170" y="22" text-anchor="middle" class="label">3</text>
+      <text x="240" y="22" text-anchor="middle" class="label">2</text>
+      <text x="310" y="22" text-anchor="middle" class="label">5</text>
+    </g>
+    <g transform="translate(500,0)">
+      <text x="0" y="-10" class="label">Stack (indices)</text>
+      <rect class="st" x="0" y="0" width="80" height="34"/>
+      <rect class="st pop" x="0" y="40" width="80" height="34"/>
+      <rect class="st" x="0" y="80" width="80" height="34"/>
+      <text x="40" y="22" text-anchor="middle" class="label">0</text>
+      <text x="40" y="62" text-anchor="middle" class="label">1</text>
+      <text x="40" y="102" text-anchor="middle" class="label">2</text>
+      <path d="M-140 34 C -80 60 -40 60 0 60" class="arrow"/>
+    </g>
+  </g>
+  <text x="20" y="160" class="label">Pop while top &lt; current → assign next greater</text>
+</svg>

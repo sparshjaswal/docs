@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="680" viewBox="0 0 1200 680" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style><![CDATA[
+      .title { font: bold 22px Arial, Helvetica, sans-serif; fill: #0f172a; }
+      .label { font: 16px Arial, Helvetica, sans-serif; fill: #0f172a; }
+      .small { font: 14px Arial, Helvetica, sans-serif; fill: #0f172a; }
+      .note { font: 13px Arial, Helvetica, sans-serif; fill:#0b1220; }
+      .slot { fill:#ffffff; stroke:#1e293b; stroke-width:2; rx:6; }
+      .slot-light { fill:#f8fafc; stroke:#94a3b8; stroke-width:1; rx:6; }
+      .arrow { stroke:#0b1220; stroke-width:2.2; fill:none; marker-end:url(#arrowhead); }
+      .dashed { stroke:#0b1220; stroke-width:1.6; stroke-dasharray:8 6; fill:none; opacity:0.9; marker-end:url(#arrowhead); }
+    ]]></style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L9,4 L0,8 z" fill="#0b1220"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="680" fill="#ffffff"/>
+
+  <text x="40" y="36" class="title">Indexing &amp; Growth — Dynamic Array</text>
+
+  <!-- Left: Indexing -->
+  <g transform="translate(40,70)">
+    <text x="0" y="0" class="label">Memory layout &amp; indexing</text>
+
+    <!-- Base pointer box -->
+    <g transform="translate(0,30)">
+      <rect x="0" y="0" width="140" height="56" class="slot-light"/>
+      <text x="12" y="36" class="small">Base (address A)</text>
+      <text x="12" y="52" class="note">pointer to first element</text>
+    </g>
+
+    <!-- Array slots starting to the right -->
+    <g transform="translate(180,30)">
+      <!-- draw 8 slots -->
+      <rect x="0" y="0" width="84" height="56" class="slot"/>
+      <text x="8" y="34.0" class="label">[0]</text>
+      <rect x="102" y="0" width="84" height="56" class="slot"/>
+      <text x="110" y="34.0" class="label">[1]</text>
+      <rect x="204" y="0" width="84" height="56" class="slot"/>
+      <text x="212" y="34.0" class="label">[2]</text>
+      <rect x="306" y="0" width="84" height="56" class="slot"/>
+      <text x="314" y="34.0" class="label">[3]</text>
+      <rect x="408" y="0" width="84" height="56" class="slot"/>
+      <text x="416" y="34.0" class="label">[4]</text>
+      <rect x="510" y="0" width="84" height="56" class="slot"/>
+      <text x="518" y="34.0" class="label">[5]</text>
+      <rect x="612" y="0" width="84" height="56" class="slot"/>
+      <text x="620" y="34.0" class="label">[6]</text>
+      <rect x="714" y="0" width="84" height="56" class="slot"/>
+      <text x="722" y="34.0" class="label">[7]</text>
+
+      <!-- arrow from Base to slot[0] -->
+      <path d="M120 58 L180 -6" class="arrow"/>
+      <text x="120" y="86" class="small">Base + i * size → element address</text>
+
+      <!-- highlight example index i=3 -->
+      <rect x="3*(84+18)" y="-8" width="84" height="56" rx="6" fill="none" stroke="#ef4444" stroke-width="3"/>
+      <text x="3*(84+18)+6" y="56" class="note">example: i = 3</text>
+    </g>
+  </g>
+
+  <!-- Right: Growth illustration -->
+  <g transform="translate(40,260)">
+    <text x="0" y="0" class="label">Growth (capacity doubling)</text>
+
+    <!-- Old buffer (capacity 4) -->
+    <g transform="translate(0,30)">
+      <text x="0" y="0" class="small">Old buffer (capacity = 4)</text>
+      <g transform="translate(0,12)">
+        <rect x="0" y="20" width="100" height="56" class="slot-light"/><text x="12" y="58" class="small">[0]</text>
+        <rect x="120" y="20" width="100" height="56" class="slot-light"/><text x="132" y="58" class="small">[1]</text>
+        <rect x="240" y="20" width="100" height="56" class="slot-light"/><text x="252" y="58" class="small">[2]</text>
+        <rect x="360" y="20" width="100" height="56" class="slot-light"/><text x="372" y="58" class="small">[3]</text>
+        <text x="480" y="56" class="note">size=4, count=4 (full)</text>
+      </g>
+    </g>
+
+    <!-- arrow to new buffer -->
+    <path d="M500 100 L760 100" class="arrow"/>
+    <text x="620" y="88" class="small">resize → allocate new buffer (capacity × 2)</text>
+
+    <!-- New buffer (capacity 8) -->
+    <g transform="translate(700,60)">
+      <text x="0" y="0" class="small">New buffer (capacity = 8)</text>
+      <g transform="translate(0,12)">
+        <rect x="0" y="20" width="100" height="56" class="slot"/><text x="12" y="58" class="small">[0]</text>
+        <rect x="120" y="20" width="100" height="56" class="slot"/><text x="132" y="58" class="small">[1]</text>
+        <rect x="240" y="20" width="100" height="56" class="slot"/><text x="252" y="58" class="small">[2]</text>
+        <rect x="360" y="20" width="100" height="56" class="slot"/><text x="372" y="58" class="small">[3]</text>
+        <rect x="480" y="20" width="100" height="56" class="slot"/><text x="492" y="58" class="small">[4]</text>
+        <rect x="600" y="20" width="100" height="56" class="slot"/><text x="612" y="58" class="small">[5]</text>
+        <rect x="720" y="20" width="100" height="56" class="slot"/><text x="732" y="58" class="small">[6]</text>
+        <rect x="840" y="20" width="100" height="56" class="slot"/><text x="852" y="58" class="small">[7]</text>
+      </g>
+    </g>
+
+    <!-- copy arrows from old to new -->
+    <g transform="translate(0,40)">
+      <path d="M40 130 C160 130, 360 130, 720 130" class="dashed"/>
+      <text x="320" y="150" class="note">copy elements 0..3 → O(n) work during resize</text>
+    </g>
+
+    <!-- Amortized cost box -->
+    <g transform="translate(40,230)">
+      <rect x="0" y="0" width="760" height="120" rx="8" class="slot-light"/>
+      <text x="12" y="24" class="label">Amortized cost analysis</text>
+      <text x="12" y="52" class="small">• Normal append when capacity available: O(1) — place at Base + count*size</text>
+      <text x="12" y="76" class="small">• On full capacity: allocate 2× capacity and copy all elements → O(n)</text>
+      <text x="12" y="100" class="small">• Doubling keeps number of copies small overall; total cost for N appends ≈ 2N ⇒ amortized O(1)</text>
+    </g>
+  </g>
+
+  <text x="40" y="660" class="note">Diagram explains indexing formula, buffer doubling, copying cost, and amortized O(1) append.</text>
+</svg>

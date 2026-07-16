@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="200" viewBox="0 0 760 200" role="img" aria-labelledby="kdTitle kdDesc">
+	<title id="kdTitle">Kadane Algorithm Decision</title>
+	<desc id="kdDesc">Decides at each index to extend previous sum or restart at current value.</desc>
+	<style>
+		:root { --bg:#ffffff; --frame:#334155; --cell:#f1f5f9; --cell-border:#94a3b8; --curr:#6366f1; --best:#0d9488; --text:#0f172a; }
+		@media (prefers-color-scheme: dark){ :root { --bg:#0f172a; --frame:#475569; --cell:#1e293b; --cell-border:#475569; --curr:#818cf8; --best:#14b8a6; --text:#f1f5f9; } }
+		text { font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif; font-size:14px; fill:var(--text); }
+		.frame { fill:var(--bg); stroke:var(--frame); }
+		.cell rect { fill:var(--cell); stroke:var(--cell-border); rx:4; }
+		.label { font-weight:600; }
+	</style>
+	<rect class="frame" x="10" y="10" width="740" height="180" rx="8" />
+	<!-- Added viewBox for responsive scaling; margin already present prevents clipping -->
+	<text x="24" y="36" class="label">Kadane (Max Subarray)</text>
+	<text x="24" y="56" font-size="12">curr = max(x, curr+x); best = max(best, curr)</text>
+	<g transform="translate(24,90)">
+		<g class="cell"><rect width="60" height="40"/><text x="30" y="25" text-anchor="middle">-2</text></g>
+		<g class="cell" transform="translate(70,0)"><rect width="60" height="40"/><text x="30" y="25" text-anchor="middle">1</text></g>
+		<g class="cell" transform="translate(140,0)"><rect width="60" height="40"/><text x="30" y="25" text-anchor="middle">-3</text></g>
+		<g class="cell" transform="translate(210,0)"><rect width="60" height="40"/><text x="30" y="25" text-anchor="middle">4</text></g>
+	</g>
+	<text x="420" y="112" fill="var(--curr)" font-size="12">Track running (curr)</text>
+	<text x="420" y="132" fill="var(--best)" font-size="12">Track global best</text>
+</svg>

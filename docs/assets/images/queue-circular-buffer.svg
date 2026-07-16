@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180" width="600" height="180" font-family="Segoe UI, Arial">
+  <style>.bg{fill:#0f172a;} .slot{fill:#166534;stroke:#34d399;} text, .title, .lab { fill:#ffffff; } .title{font-size:16px;font-weight:600;} .lab{font-size:12px;opacity:0.85;}</style>
+  <rect class="bg" x="0" y="0" width="600" height="180" rx="8"/>
+  <text x="16" y="28" class="title">Circular Buffer Queue (FIFO)</text>
+  <text x="16" y="46" font-size="12">Head removes, Tail adds; indices wrap modulo capacity.</text>
+  <g transform="translate(16,70)">
+    <rect class="slot" x="0" y="0" width="60" height="40"/>
+    <rect class="slot" x="60" y="0" width="60" height="40"/>
+    <rect class="slot" x="120" y="0" width="60" height="40"/>
+    <rect class="slot" x="180" y="0" width="60" height="40"/>
+    <rect class="slot" x="240" y="0" width="60" height="40"/>
+    <rect class="slot" x="300" y="0" width="60" height="40"/>
+    <rect class="slot" x="360" y="0" width="60" height="40"/>
+    <rect class="slot" x="420" y="0" width="60" height="40"/>
+    <text x="30" y="25" text-anchor="middle">A</text>
+    <text x="90" y="25" text-anchor="middle">B</text>
+    <text x="150" y="25" text-anchor="middle">C</text>
+    <text x="210" y="25" text-anchor="middle">D</text>
+    <text x="270" y="25" text-anchor="middle">E</text>
+  <text x="330" y="25" text-anchor="middle" fill="#ffffff" opacity="0.5">(free)</text>
+  <text x="390" y="25" text-anchor="middle" fill="#ffffff" opacity="0.5">(free)</text>
+  <text x="450" y="25" text-anchor="middle" fill="#ffffff" opacity="0.5">(free)</text>
+    <text class="lab" x="30" y="60" text-anchor="middle">head</text>
+    <text class="lab" x="270" y="60" text-anchor="middle">tail</text>
+  </g>
+  <path d="M286 115 C320 135 360 135 394 115" stroke="#34d399" fill="none" marker-end="url(#arrow)" stroke-width="2"/>
+  <text x="300" y="152" font-size="12">Wrap when tail == capacity</text>
+  <defs><marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#34d399"/></marker></defs>
+</svg>

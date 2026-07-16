@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="200" viewBox="0 0 760 200" role="img" aria-labelledby="psTitle psDesc">
+	<title id="psTitle">Prefix Sum Flow</title>
+	<desc id="psDesc">Shows original array, cumulative prefix cells, and formula rangeSum(r,l)=P[r+1]-P[l].</desc>
+	<style>
+		:root { --bg:#ffffff; --frame:#334155; --cell:#f1f5f9; --cell-border:#94a3b8; --hl:#fde68a; --text:#0f172a; --accent:#6366f1; --note:#0d9488; }
+		@media (prefers-color-scheme: dark) { :root { --bg:#0f172a; --frame:#475569; --cell:#1e293b; --cell-border:#475569; --hl:#fbbf24; --text:#f1f5f9; --accent:#818cf8; --note:#14b8a6; } }
+		text { font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif; font-size:14px; fill:var(--text); }
+		.small { font-size:12px; }
+		.frame { fill:var(--bg); stroke:var(--frame); }
+		.cell rect { fill:var(--cell); stroke:var(--cell-border); rx:4; }
+		.cell.hl rect { fill:var(--hl); }
+		.label { font-weight:600; }
+		.brace { fill:var(--accent); font-size:12px; }
+		.note { fill:var(--note); font-size:12px; }
+	</style>
+	<rect class="frame" x="10" y="10" width="740" height="180" rx="8" />
+	<!-- Added viewBox for responsiveness -->
+	<text x="24" y="36" class="label">Prefix Sum Flow</text>
+	<text x="24" y="56">Array A</text>
+	<g class="cells" transform="translate(24,70)">
+		<!-- Original array cells -->
+		<g class="cell" transform="translate(0,0)"><rect width="60" height="34"/><text x="30" y="22" text-anchor="middle">2</text></g>
+		<g class="cell" transform="translate(70,0)"><rect width="60" height="34"/><text x="30" y="22" text-anchor="middle">-1</text></g>
+		<g class="cell" transform="translate(140,0)"><rect width="60" height="34"/><text x="30" y="22" text-anchor="middle">3</text></g>
+		<g class="cell" transform="translate(210,0)"><rect width="60" height="34"/><text x="30" y="22" text-anchor="middle">5</text></g>
+		<g class="cell" transform="translate(280,0)"><rect width="60" height="34"/><text x="30" y="22" text-anchor="middle">4</text></g>
+	</g>
+	<text x="24" y="122">Prefix P (P[0]=0)</text>
+	<g class="cells" transform="translate(24,136)">
+		<g class="cell" transform="translate(0,0)"><rect width="60" height="34"/><text x="30" y="22" text-anchor="middle">0</text></g>
+		<g class="cell" transform="translate(70,0)"><rect width="60" height="34"/><text x="30" y="22" text-anchor="middle">2</text></g>
+		<g class="cell" transform="translate(140,0)"><rect width="60" height="34"/><text x="30" y="22" text-anchor="middle">1</text></g>
+		<g class="cell" transform="translate(210,0)"><rect width="60" height="34"/><text x="30" y="22" text-anchor="middle">4</text></g>
+		<g class="cell" transform="translate(280,0)"><rect width="60" height="34"/><text x="30" y="22" text-anchor="middle">9</text></g>
+		<g class="cell" transform="translate(350,0)"><rect width="60" height="34"/><text x="30" y="22" text-anchor="middle">13</text></g>
+	</g>
+	<text x="420" y="92" class="brace">RangeSum(l,r)=P[r+1]-P[l]</text>
+	<text x="420" y="112" class="note">Build once O(n) → O(1) queries</text>
+	<text x="420" y="132" class="note">Supports negative values</text>
+</svg>

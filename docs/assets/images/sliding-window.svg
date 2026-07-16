@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" font-family="monospace" font-size="14">
+  <rect width="800" height="360" fill="#1e1e2e" rx="12"/>
+  <text x="400" y="35" fill="#cdd6f4" font-size="18" font-weight="bold" text-anchor="middle">Sliding Window — Fixed (k=3) and Dynamic</text>
+
+  <!-- FIXED WINDOW section -->
+  <text x="40" y="72" fill="#89b4fa" font-size="14" font-weight="bold">Fixed Window (k=3) — Max Sum</text>
+  <text x="40" y="92" fill="#6c7086" font-size="12">arr = [2, 1, 5, 1, 3, 2]</text>
+
+  <!-- Array cells -->
+  <g text-anchor="middle">
+    <rect x="40"  y="100" width="50" height="40" rx="4" fill="#a6e3a1" stroke="#a6e3a1" opacity="0.7"/>
+    <rect x="95"  y="100" width="50" height="40" rx="4" fill="#a6e3a1" stroke="#a6e3a1" opacity="0.7"/>
+    <rect x="150" y="100" width="50" height="40" rx="4" fill="#a6e3a1" stroke="#a6e3a1" opacity="0.7"/>
+    <rect x="205" y="100" width="50" height="40" rx="4" fill="#313244" stroke="#585b70"/>
+    <rect x="260" y="100" width="50" height="40" rx="4" fill="#313244" stroke="#585b70"/>
+    <rect x="315" y="100" width="50" height="40" rx="4" fill="#313244" stroke="#585b70"/>
+    <text x="65"  y="125" fill="#1e1e2e" font-weight="bold">2</text>
+    <text x="120" y="125" fill="#1e1e2e" font-weight="bold">1</text>
+    <text x="175" y="125" fill="#1e1e2e" font-weight="bold">5</text>
+    <text x="230" y="125" fill="#cdd6f4">1</text>
+    <text x="285" y="125" fill="#cdd6f4">3</text>
+    <text x="340" y="125" fill="#cdd6f4">2</text>
+    <text x="420" y="125" fill="#a6e3a1" font-size="13">sum = 8</text>
+  </g>
+
+  <!-- Window step 2 -->
+  <g text-anchor="middle">
+    <rect x="40"  y="148" width="50" height="40" rx="4" fill="#313244" stroke="#585b70"/>
+    <rect x="95"  y="148" width="50" height="40" rx="4" fill="#fab387" stroke="#fab387" opacity="0.7"/>
+    <rect x="150" y="148" width="50" height="40" rx="4" fill="#fab387" stroke="#fab387" opacity="0.7"/>
+    <rect x="205" y="148" width="50" height="40" rx="4" fill="#fab387" stroke="#fab387" opacity="0.7"/>
+    <rect x="260" y="148" width="50" height="40" rx="4" fill="#313244" stroke="#585b70"/>
+    <rect x="315" y="148" width="50" height="40" rx="4" fill="#313244" stroke="#585b70"/>
+    <text x="65"  y="173" fill="#cdd6f4">2</text>
+    <text x="120" y="173" fill="#1e1e2e" font-weight="bold">1</text>
+    <text x="175" y="173" fill="#1e1e2e" font-weight="bold">5</text>
+    <text x="230" y="173" fill="#1e1e2e" font-weight="bold">1</text>
+    <text x="285" y="173" fill="#cdd6f4">3</text>
+    <text x="340" y="173" fill="#cdd6f4">2</text>
+    <text x="420" y="173" fill="#cdd6f4" font-size="13">sum = 7</text>
+  </g>
+
+  <!-- Window step 3 (max) -->
+  <g text-anchor="middle">
+    <rect x="40"  y="196" width="50" height="40" rx="4" fill="#313244" stroke="#585b70"/>
+    <rect x="95"  y="196" width="50" height="40" rx="4" fill="#313244" stroke="#585b70"/>
+    <rect x="150" y="196" width="50" height="40" rx="4" fill="#89b4fa" stroke="#89b4fa" opacity="0.8"/>
+    <rect x="205" y="196" width="50" height="40" rx="4" fill="#89b4fa" stroke="#89b4fa" opacity="0.8"/>
+    <rect x="260" y="196" width="50" height="40" rx="4" fill="#89b4fa" stroke="#89b4fa" opacity="0.8"/>
+    <rect x="315" y="196" width="50" height="40" rx="4" fill="#313244" stroke="#585b70"/>
+    <text x="65"  y="221" fill="#cdd6f4">2</text>
+    <text x="120" y="221" fill="#cdd6f4">1</text>
+    <text x="175" y="221" fill="#1e1e2e" font-weight="bold">5</text>
+    <text x="230" y="221" fill="#1e1e2e" font-weight="bold">1</text>
+    <text x="285" y="221" fill="#1e1e2e" font-weight="bold">3</text>
+    <text x="340" y="221" fill="#cdd6f4">2</text>
+    <text x="395" y="221" fill="#89b4fa" font-size="13">sum = 9 ← MAX</text>
+  </g>
+
+  <!-- DYNAMIC WINDOW section -->
+  <text x="500" y="72" fill="#f9e2af" font-size="14" font-weight="bold">Dynamic Window</text>
+  <text x="500" y="92" fill="#6c7086" font-size="12">Longest substring without repeat</text>
+
+  <text x="500" y="125" fill="#cdd6f4" font-size="13">s = "abcabcbb"</text>
+  <text x="500" y="148" fill="#a6e3a1" font-size="12">EXPAND: a → ab → abc  (no repeat)</text>
+  <text x="500" y="168" fill="#f38ba8" font-size="12">SHRINK: abca → bca   (a duplicated)</text>
+  <text x="500" y="188" fill="#a6e3a1" font-size="12">EXPAND: bcab  → shrink → cab</text>
+  <text x="500" y="210" fill="#89b4fa" font-size="12">max = 3  ("abc")</text>
+
+  <!-- Key formula -->
+  <rect x="500" y="228" width="270" height="85" rx="8" fill="#313244" stroke="#f9e2af" stroke-width="1.5"/>
+  <text x="635" y="250" fill="#f9e2af" font-size="13" font-weight="bold" text-anchor="middle">Template</text>
+  <text x="510" y="272" fill="#cdd6f4" font-size="12">while (seen.has(s[right]))</text>
+  <text x="510" y="291" fill="#cdd6f4" font-size="12">  seen.delete(s[left++]);</text>
+  <text x="510" y="310" fill="#a6e3a1" font-size="12">seen.add(s[right]);  // expand</text>
+
+  <!-- Complexity boxes -->
+  <rect x="40" y="255" width="190" height="65" rx="8" fill="#313244" stroke="#a6e3a1" stroke-width="1.5"/>
+  <text x="135" y="275" fill="#a6e3a1" font-size="13" font-weight="bold" text-anchor="middle">Fixed Window</text>
+  <text x="50"  y="295" fill="#cdd6f4" font-size="12">Time:  O(n)</text>
+  <text x="50"  y="313" fill="#cdd6f4" font-size="12">Space: O(1)</text>
+
+  <rect x="250" y="255" width="220" height="65" rx="8" fill="#313244" stroke="#fab387" stroke-width="1.5"/>
+  <text x="360" y="275" fill="#fab387" font-size="13" font-weight="bold" text-anchor="middle">Dynamic Window</text>
+  <text x="260" y="295" fill="#cdd6f4" font-size="12">Time:  O(n)</text>
+  <text x="260" y="313" fill="#cdd6f4" font-size="12">Space: O(k) — window size</text>
+</svg>

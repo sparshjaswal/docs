@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 140" width="760" height="140" role="img" aria-label="Two pointers moving inward on sorted array">
+  <style>
+    .label{font:14px Inter,Arial,sans-serif;fill:#222}
+    .cell{stroke:#1565c0;stroke-width:1.4;fill:#f5faff}
+    .ptr{font:12px Inter,Arial,sans-serif;fill:#d32f2f}
+    .arrow{stroke:#555;stroke-width:2;marker-end:url(#ah);fill:none}
+  </style>
+  <defs><marker id="ah" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#555"/></marker></defs>
+  <text x="20" y="22" class="label">Two Pointers (l,r)</text>
+  <g transform="translate(20,40)">
+    <g>
+      <rect class="cell" x="0" y="0" width="60" height="34"/>
+      <rect class="cell" x="70" y="0" width="60" height="34"/>
+      <rect class="cell" x="140" y="0" width="60" height="34"/>
+      <rect class="cell" x="210" y="0" width="60" height="34"/>
+      <rect class="cell" x="280" y="0" width="60" height="34"/>
+      <rect class="cell" x="350" y="0" width="60" height="34"/>
+      <rect class="cell" x="420" y="0" width="60" height="34"/>
+    </g>
+    <g>
+      <text x="30" y="22" text-anchor="middle" class="label">1</text>
+      <text x="100" y="22" text-anchor="middle" class="label">3</text>
+      <text x="170" y="22" text-anchor="middle" class="label">5</text>
+      <text x="240" y="22" text-anchor="middle" class="label">7</text>
+      <text x="310" y="22" text-anchor="middle" class="label">9</text>
+      <text x="380" y="22" text-anchor="middle" class="label">11</text>
+      <text x="450" y="22" text-anchor="middle" class="label">13</text>
+    </g>
+    <text x="0" y="-10" class="ptr">l</text>
+    <text x="420" y="-10" class="ptr">r</text>
+    <path d="M15 60 H205" class="arrow"/>
+    <path d="M435 60 H245" class="arrow"/>
+  </g>
+  <text x="20" y="120" class="label">Compare sum → move pointer that brings closer to target</text>
+</svg>

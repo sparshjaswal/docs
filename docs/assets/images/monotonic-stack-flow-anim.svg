@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="270" viewBox="0 0 780 270" role="img" aria-labelledby="msaTitle msaDesc" aria-describedby="msaLegend" shape-rendering="crispEdges">
+  <title id="msaTitle">Monotonic Stack</title>
+  <desc id="msaDesc">Scan temps; pop on warmer; stack holds decreasing indices.</desc>
+  <style>
+    :root { --bg:#0f172a; --frame:#334155; --cell:#1e293b; --cell-border:#475569; --push:#818cf8; --pop:#f87171; --text:#ffffff; --note:#14b8a6; --res:#34d399; --highlight:#facc15; --p1:#6366f1; --p2:#f472b6; --p3:#facc15; --p4:#10b981; --p5:#14b8a6; }
+    text { font-family:Inter,'Segoe UI','Helvetica Neue',Arial,sans-serif; fill:var(--text); }
+    .title{font-size:15px;font-weight:600}
+    .cell rect { fill:var(--cell); stroke:var(--cell-border); rx:4; }
+    .note { font-size:12px; fill:var(--note); }
+    .res { font-size:12px; fill:var(--res); }
+    .frame { fill:var(--bg); stroke:var(--frame); }
+    .legend tspan{fill:#94a3b8;font-size:11px}
+    .step{font-size:11px;font-weight:600;fill:#94a3b8}
+    @media (prefers-reduced-motion: reduce){ .anim{display:none} .fallback{display:block} }
+    .fallback{display:none}
+  </style>
+  <rect class="frame" x="10" y="10" width="760" height="250" rx="8" />
+  <text x="24" y="36" class="title">Next Greater Temperature</text>
+  <!-- Array -->
+  <g id="temps" transform="translate(24,80)">
+    <g class="cell" id="t0"><rect width="60" height="40"/><text x="30" y="25" text-anchor="middle">73</text></g>
+    <g class="cell" id="t1" transform="translate(70,0)"><rect width="60" height="40"/><text x="30" y="25" text-anchor="middle">74</text></g>
+    <g class="cell" id="t2" transform="translate(140,0)"><rect width="60" height="40"/><text x="30" y="25" text-anchor="middle">75</text></g>
+    <g class="cell" id="t3" transform="translate(210,0)"><rect width="60" height="40"/><text x="30" y="25" text-anchor="middle">71</text></g>
+    <!-- Highlight current index -->
+    <rect id="cursor" class="anim" x="0" y="0" width="60" height="40" rx="4" fill="none" stroke="var(--highlight)" stroke-width="2">
+      <animate attributeName="x" dur="8s" repeatCount="indefinite" values="0;0;70;140;210;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </rect>
+    <!-- Step counter -->
+    <rect class="anim" x="300" y="-52" width="220" height="36" rx="6" fill="var(--cell)" stroke="var(--cell-border)" />
+    <rect id="phaseBox" class="anim" x="300" y="-52" width="220" height="36" rx="6" fill="var(--p1)" stroke="var(--cell-border)">
+      <animate attributeName="fill" dur="8s" repeatCount="indefinite" values="var(--p1);var(--p1);var(--p2);var(--p3);var(--p4);var(--p5)" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </rect>
+    <text x="410" y="-30" text-anchor="middle" class="step anim">Push 0
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <text x="410" y="-30" text-anchor="middle" class="step anim" opacity="0">Pop 0 → push 1
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;0;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <text x="410" y="-30" text-anchor="middle" class="step anim" opacity="0">Pop 1 → push 2
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <text x="410" y="-30" text-anchor="middle" class="step anim" opacity="0">Push 3
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <text x="410" y="-30" text-anchor="middle" class="step anim" opacity="0">Loop
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;1" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <!-- Recognition labels -->
+    <text x="0" y="60" class="note anim" opacity="1">Phase 1: push index 0
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <text x="0" y="60" class="note anim" opacity="0">Phase 2: pop 0 (warmer) push 1
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;0;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <text x="0" y="60" class="note anim" opacity="0">Phase 3: pop 1 (warmer) push 2
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <text x="0" y="60" class="note anim" opacity="0">Phase 4: push 3 (cooler)
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <text x="0" y="60" class="note anim" opacity="0">Phase 5: loop advance
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;1" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+  </g>
+  <!-- Conceptual stack slots (indices) -->
+  <g transform="translate(420,80)">
+    <rect x="0" y="0" width="60" height="40" rx="4" fill="none" stroke="#475569" />
+    <rect x="0" y="50" width="60" height="40" rx="4" fill="none" stroke="#475569" />
+    <rect x="0" y="100" width="60" height="40" rx="4" fill="none" stroke="#475569" />
+    <!-- Pushed indices appear -->
+    <text x="30" y="25" text-anchor="middle" opacity="0" class="anim">0
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;1;1;0;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <text x="30" y="75" text-anchor="middle" opacity="0" class="anim">1
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;0;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+    <text x="30" y="125" text-anchor="middle" opacity="0" class="anim">2
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;1;0" keyTimes="0;0.2;0.4;0.6;0.8;1"/>
+    </text>
+  </g>
+  <text x="24" y="150" id="action" class="note">Push index 0</text>
+  <text x="24" y="168" id="res" class="res">Result: [-1,-1,-1,-1]</text>
+  <!-- Narration (discrete via opacity instead of invalid text-content animation) -->
+  <!-- Action sequence: segments at keyTimes 0,0.16,0.32,0.48,0.64,1 -->
+  <text x="24" y="150" class="note anim" opacity="1">Push index 0
+    <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1" />
+  </text>
+  <text x="24" y="150" class="note anim" opacity="0">Pop 0 (74&gt;73) push 1
+    <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1" />
+  </text>
+  <text x="24" y="150" class="note anim" opacity="0">Pop 1 (75&gt;74) push 2
+    <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1" />
+  </text>
+  <text x="24" y="150" class="note anim" opacity="0">Push 3 (71&lt;75)
+    <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1;0" keyTimes="0;0.2;0.4;0.6;0.8;1" />
+  </text>
+  <text x="24" y="150" class="note anim" opacity="0">Loop
+    <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;1" keyTimes="0;0.2;0.4;0.6;0.8;1" />
+  </text>
+  <!-- Result sequence aligned with same segments -->
+  <text x="24" y="168" class="res anim" opacity="1">Result: [-1,-1,-1,-1]
+    <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1" />
+  </text>
+  <text x="24" y="168" class="res anim" opacity="0">Result: [74,-1,-1,-1]
+    <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.2;0.4;0.6;0.8;1" />
+  </text>
+  <text x="24" y="168" class="res anim" opacity="0">Result: [74,75,-1,-1]
+    <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;1;0" keyTimes="0;0.2;0.4;0.6;0.8;1" />
+  </text>
+  <text x="24" y="168" class="res anim" opacity="0">Result: [74,75,-1,-1]
+    <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1;0" keyTimes="0;0.2;0.4;0.6;0.8;1" />
+  </text>
+  <text x="24" y="168" class="res anim" opacity="0">Result: [74,75,-1,-1]
+    <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;1" keyTimes="0;0.2;0.4;0.6;0.8;1" />
+  </text>
+  <!-- Legend -->
+  <text x="520" y="46" class="note legend" id="msaLegend">
+    <tspan x="520" dy="0">Legend:</tspan>
+    <tspan x="520" dy="14" fill="#facc15">cursor</tspan>
+    <tspan dx="10" fill="#818cf8">push</tspan>
+    <tspan dx="10" fill="#f87171">pop</tspan>
+  </text>
+  <!-- Reduced motion fallback -->
+  <g class="fallback" transform="translate(24,80)">
+    <g class="cell"><rect width="60" height="40"/><text x="30" y="25" text-anchor="middle">73</text></g>
+    <g class="cell" transform="translate(70,0)"><rect width="60" height="40"/><text x="30" y="25" text-anchor="middle">74</text></g>
+    <g class="cell" transform="translate(140,0)"><rect width="60" height="40"/><text x="30" y="25" text-anchor="middle">75</text></g>
+    <g class="cell" transform="translate(210,0)"><rect width="60" height="40"/><text x="30" y="25" text-anchor="middle">71</text></g>
+    <text class="note" x="0" y="60">Final unresolved indices have no warmer future.</text>
+  </g>
+  <text x="24" y="220" class="note">Equal phases: push 0, pop/push 1, pop/push 2, push 3, loop.</text>
+</svg>

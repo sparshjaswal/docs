@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 210" width="780" height="210" role="img" aria-labelledby="cycTitle cycDesc" aria-describedby="cycLegend" shape-rendering="crispEdges">
+  <title id="cycTitle">Cyclic Sort</title>
+  <desc id="cycDesc">Swap mispositioned value into its slot until placed.</desc>
+  <style>
+    :root { --bg:#0f172a; --panel:#1e293b; --cell-border:#334155; --swapA:#facc15; --swapB:#fb7185; --text:#ffffff; --caption:#94a3b8; --p1:#6366f1; --p2:#f472b6; --p3:#facc15; --p4:#10b981; --p5:#14b8a6; --p6:#8b5cf6; --p7:#ec4899; }
+    text{font-family:Inter,Arial,sans-serif}
+    .title{font-size:15px;font-weight:600;fill:var(--text)}
+    .caption{font-size:12px;fill:var(--caption)}
+    .cell{stroke:var(--cell-border);stroke-width:1.1;fill:var(--panel);rx:4}
+    .val{font-size:13px;font-weight:500;fill:var(--text)}
+    .idx{font-size:10px;fill:var(--caption)}
+    .step{font-size:11px;font-weight:600;fill:var(--caption)}
+    @media (prefers-reduced-motion: reduce){ .anim{display:none} .fallback{display:block} }
+    .fallback{display:none}
+  </style>
+  <rect x="0" y="0" width="780" height="210" fill="var(--bg)" />
+  <rect x="0" y="0" width="780" height="54" fill="#1e293b" />
+  <text x="20" y="24" class="title">Cyclic Sort</text>
+  <text x="20" y="42" class="caption" id="cycLegend">Place each number at index (value-1) via swaps.</text>
+  <g transform="translate(20,70)">
+    <!-- Cells -->
+    <rect class="cell" x="0" y="0" width="60" height="40"/>
+    <rect class="cell" x="70" y="0" width="60" height="40"/>
+    <rect class="cell" x="140" y="0" width="60" height="40"/>
+    <rect class="cell" x="210" y="0" width="60" height="40"/>
+    <rect class="cell" x="280" y="0" width="60" height="40"/>
+    <!-- Values -->
+    <text class="val" x="30" y="24" text-anchor="middle">3</text>
+    <text class="val" x="100" y="24" text-anchor="middle">1</text>
+    <text class="val" x="170" y="24" text-anchor="middle">5</text>
+    <text class="val" x="240" y="24" text-anchor="middle">4</text>
+    <text class="val" x="310" y="24" text-anchor="middle">2</text>
+    <!-- Swap highlight overlays -->
+    <rect class="anim" x="0" y="0" width="60" height="40" rx="4" fill="var(--p2)" opacity="0">
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;1;0;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1"/>
+    </rect>
+    <rect class="anim" x="140" y="0" width="60" height="40" rx="4" fill="var(--p3)" opacity="0">
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1"/>
+    </rect>
+    <rect class="anim" x="0" y="0" width="60" height="40" rx="4" fill="var(--p4)" opacity="0">
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1"/>
+    </rect>
+    <rect class="anim" x="280" y="0" width="60" height="40" rx="4" fill="var(--p5)" opacity="0">
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1"/>
+    </rect>
+    <!-- Step counter -->
+    <rect id="phaseBox" class="anim" x="360" y="-46" width="170" height="34" rx="6" fill="var(--p1)" stroke="var(--cell-border)">
+      <animate attributeName="fill" dur="8s" repeatCount="indefinite" values="var(--p1);var(--p1);var(--p2);var(--p3);var(--p4);var(--p5);var(--p6)" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1"/>
+    </rect>
+    <text x="445" y="-26" text-anchor="middle" class="step anim">Swap 1
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1"/>
+    </text>
+    <text x="445" y="-26" text-anchor="middle" class="step anim" opacity="0">Swap 2
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1"/>
+    </text>
+    <text x="445" y="-26" text-anchor="middle" class="step anim" opacity="0">Swap 3
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1"/>
+    </text>
+    <text x="445" y="-26" text-anchor="middle" class="step anim" opacity="0">Swap 4
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1"/>
+    </text>
+    <text x="445" y="-26" text-anchor="middle" class="step anim" opacity="0">Loop
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;1;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1"/>
+    </text>
+    <!-- Recognition labels -->
+    <text x="0" y="90" class="caption anim" opacity="1">Phase 1: swap value 3 toward slot 2
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1"/>
+    </text>
+    <text x="0" y="90" class="caption anim" opacity="0">Phase 2: swap value 5 into slot 4
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;0;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1"/>
+    </text>
+    <text x="0" y="90" class="caption anim" opacity="0">Phase 3: swap value 3 again
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;1;0;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1"/>
+    </text>
+    <text x="0" y="90" class="caption anim" opacity="0">Phase 4: swap value 2 into slot 1
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;1;0;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1"/>
+    </text>
+    <text x="0" y="90" class="caption anim" opacity="0">Phase 5: loop until sorted
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;0;0;0;1;0" keyTimes="0;0.166;0.333;0.5;0.666;0.833;1"/>
+    </text>
+    <!-- Indices -->
+    <text class="idx" x="30" y="54" text-anchor="middle">i=0</text>
+    <text class="idx" x="100" y="54" text-anchor="middle">1</text>
+    <text class="idx" x="170" y="54" text-anchor="middle">2</text>
+    <text class="idx" x="240" y="54" text-anchor="middle">3</text>
+    <text class="idx" x="310" y="54" text-anchor="middle">4</text>
+  </g>
+  <!-- Legend -->
+  <text x="420" y="42" class="caption" id="cycLegend">
+    <tspan x="420" dy="0">Legend:</tspan>
+    <tspan x="420" dy="14" fill="#facc15">swap A</tspan>
+    <tspan dx="12" fill="#fb7185">swap B</tspan>
+  </text>
+  <!-- Reduced motion fallback (final sorted state) -->
+  <g class="fallback" transform="translate(20,70)">
+    <rect class="cell" x="0" y="0" width="60" height="40"/>
+    <rect class="cell" x="70" y="0" width="60" height="40"/>
+    <rect class="cell" x="140" y="0" width="60" height="40"/>
+    <rect class="cell" x="210" y="0" width="60" height="40"/>
+    <rect class="cell" x="280" y="0" width="60" height="40"/>
+    <text class="val" x="30" y="24" text-anchor="middle">1</text>
+    <text class="val" x="100" y="24" text-anchor="middle">2</text>
+    <text class="val" x="170" y="24" text-anchor="middle">3</text>
+    <text class="val" x="240" y="24" text-anchor="middle">4</text>
+    <text class="val" x="310" y="24" text-anchor="middle">5</text>
+  </g>
+  <text x="20" y="186" class="caption">Equal phases: successive swaps then loop continuation until A[i]==i+1.</text>
+</svg>

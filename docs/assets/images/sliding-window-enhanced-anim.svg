@@ -1,0 +1,277 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="900" height="300" role="img" aria-labelledby="swTitle swDesc" aria-describedby="swLegend" shape-rendering="crispEdges">
+  <title id="swTitle">Enhanced Sliding Window Animation</title>
+  <desc id="swDesc">Interactive sliding window technique with smooth animations, visual indicators, and educational content.</desc>
+  
+  <defs>
+    <linearGradient id="windowGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0.5" />
+    </linearGradient>
+    <linearGradient id="cellGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#374151" />
+      <stop offset="100%" stop-color="#1f2937" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/> 
+      </feMerge>
+    </filter>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="3" dy="3" stdDeviation="3" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    <pattern id="stripes" patternUnits="userSpaceOnUse" width="8" height="8">
+      <rect width="8" height="8" fill="#1f2937"/>
+      <rect width="4" height="8" fill="#374151"/>
+    </pattern>
+  </defs>
+  
+  <style>
+    :root { 
+      --bg: #0f172a; --panel: #1e293b; --border: #475569; --txt: #ffffff; 
+      --cap: #94a3b8; --window: #f59e0b; --left: #3b82f6; --right: #ec4899; 
+      --valid: #22c55e; --invalid: #ef4444; --sum: #8b5cf6;
+      --phase1: #6366f1; --phase2: #8b5cf6; --phase3: #06b6d4; --phase4: #f59e0b; --phase5: #22c55e;
+    }
+    text { font-family: 'SF Pro Display', 'Inter', Arial, sans-serif; }
+    .title { font-size: 20px; font-weight: 700; fill: var(--txt); }
+    .subtitle { font-size: 14px; font-weight: 500; fill: var(--cap); }
+    .caption { font-size: 13px; fill: var(--cap); }
+    .cell { stroke: var(--border); stroke-width: 1.5; fill: url(#cellGradient); rx: 8; }
+    .cell.active { stroke: var(--window); stroke-width: 2; filter: url(#glow); }
+    .val { font-size: 16px; font-weight: 600; fill: var(--txt); text-anchor: middle; }
+    .ptr { font-size: 14px; font-weight: 700; }
+    .ptr.left { fill: var(--left); }
+    .ptr.right { fill: var(--right); }
+    .sum-display { font-size: 14px; font-weight: 700; fill: var(--sum); }
+    .constraint { font-size: 13px; font-weight: 600; fill: var(--cap); }
+    .step-label { font-size: 13px; font-weight: 600; fill: var(--txt); text-anchor: middle; }
+    .phase-desc { font-size: 12px; font-weight: 500; fill: var(--cap); }
+    .status { font-size: 12px; font-weight: 600; }
+    .status.valid { fill: var(--valid); }
+    .status.invalid { fill: var(--invalid); }
+    @media (prefers-reduced-motion: reduce) { .anim { display: none; } .fallback { display: block; } }
+    .fallback { display: none; }
+  </style>
+  
+  <!-- Background -->
+  <rect x="0" y="0" width="900" height="300" fill="var(--bg)" />
+  
+  <!-- Header -->
+  <rect x="0" y="0" width="900" height="80" fill="var(--panel)" filter="url(#shadow)" />
+  <text x="30" y="30" class="title">Enhanced Sliding Window Technique</text>
+  <text x="30" y="50" class="subtitle">Array: [2, 1, 4, 3, 1, 2, 6] | Target Sum ≤ 7 | Find maximum window size</text>
+  <text x="30" y="68" class="constraint">Constraint: Keep sum of window elements ≤ 7</text>
+  
+  <!-- Main Animation Area -->
+  <g transform="translate(50,110)">
+    <!-- Array Cells with Enhanced Styling -->
+    <g id="array-cells">
+      <rect class="cell" x="0" y="0" width="80" height="50" />
+      <rect class="cell" x="90" y="0" width="80" height="50" />
+      <rect class="cell" x="180" y="0" width="80" height="50" />
+      <rect class="cell" x="270" y="0" width="80" height="50" />
+      <rect class="cell" x="360" y="0" width="80" height="50" />
+      <rect class="cell" x="450" y="0" width="80" height="50" />
+      <rect class="cell" x="540" y="0" width="80" height="50" />
+      
+      <!-- Values -->
+      <text class="val" x="40" y="32">2</text>
+      <text class="val" x="130" y="32">1</text>
+      <text class="val" x="220" y="32">4</text>
+      <text class="val" x="310" y="32">3</text>
+      <text class="val" x="400" y="32">1</text>
+      <text class="val" x="490" y="32">2</text>
+      <text class="val" x="580" y="32">6</text>
+      
+      <!-- Array indices -->
+      <text class="caption" x="40" y="-10" text-anchor="middle">0</text>
+      <text class="caption" x="130" y="-10" text-anchor="middle">1</text>
+      <text class="caption" x="220" y="-10" text-anchor="middle">2</text>
+      <text class="caption" x="310" y="-10" text-anchor="middle">3</text>
+      <text class="caption" x="400" y="-10" text-anchor="middle">4</text>
+      <text class="caption" x="490" y="-10" text-anchor="middle">5</text>
+      <text class="caption" x="580" y="-10" text-anchor="middle">6</text>
+    </g>
+    
+    <!-- Enhanced Window with Smooth Animation -->
+    <rect id="window" class="anim" x="0" y="0" width="80" height="60" rx="10" 
+          fill="url(#windowGradient)" stroke="var(--window)" stroke-width="3" filter="url(#glow)">
+      <animate attributeName="x" dur="15s" repeatCount="indefinite" 
+               values="0;0;90;180;270;270;180;270;360;450;0" 
+               keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+      <animate attributeName="width" dur="15s" repeatCount="indefinite" 
+               values="80;170;260;350;350;260;170;260;350;440;80" 
+               keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+    </rect>
+    
+    <!-- Enhanced Pointers -->
+    <g id="pointers">
+      <!-- Left Pointer -->
+      <text class="ptr left anim" id="left-ptr" x="0" y="-25">left
+        <animate attributeName="x" dur="15s" repeatCount="indefinite" 
+                 values="0;0;0;0;0;180;180;180;180;180;0" 
+                 keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+      </text>
+      
+      <!-- Right Pointer -->
+      <text class="ptr right anim" id="right-ptr" x="0" y="-25">right
+        <animate attributeName="x" dur="15s" repeatCount="indefinite" 
+                 values="0;90;180;270;360;360;270;360;450;540;0" 
+                 keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+      </text>
+    </g>
+    
+    <!-- Sum Display with Animation -->
+    <rect id="sum-box" class="anim" x="650" y="-10" width="120" height="35" rx="8" 
+          fill="var(--panel)" stroke="var(--border)" filter="url(#shadow)">
+    </rect>
+    <text class="sum-display anim" x="710" y="12" text-anchor="middle">Sum: 2
+      <animate dur="15s" repeatCount="indefinite">
+        <textContent values="Sum: 2;Sum: 3;Sum: 7;Sum: 10;Sum: 11;Sum: 8;Sum: 5;Sum: 8;Sum: 9;Sum: 11;Sum: 2" 
+                     keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+      </animate>
+    </text>
+    
+    <!-- Status Indicator -->
+    <text class="status anim" x="710" y="45" text-anchor="middle">✓ Valid
+      <animate attributeName="fill" dur="15s" repeatCount="indefinite" 
+               values="var(--valid);var(--valid);var(--valid);var(--invalid);var(--invalid);var(--invalid);var(--valid);var(--invalid);var(--invalid);var(--invalid);var(--valid)" 
+               keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+      <animate dur="15s" repeatCount="indefinite">
+        <textContent values="✓ Valid;✓ Valid;✓ Valid;✗ Invalid;✗ Invalid;✗ Invalid;✓ Valid;✗ Invalid;✗ Invalid;✗ Invalid;✓ Valid" 
+                     keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+      </animate>
+    </text>
+    
+    <!-- Phase Indicator Box -->
+    <rect id="phase-box" class="anim" x="650" y="70" width="150" height="45" rx="10" 
+          fill="var(--phase1)" stroke="var(--border)" stroke-width="1" filter="url(#shadow)">
+      <animate attributeName="fill" dur="15s" repeatCount="indefinite" 
+               values="var(--phase1);var(--phase2);var(--phase3);var(--phase4);var(--phase5);var(--phase4);var(--phase3);var(--phase4);var(--phase5);var(--phase4);var(--phase1)" 
+               keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+    </rect>
+    
+    <text class="step-label anim" x="725" y="90" text-anchor="middle">Initialize
+      <animate attributeName="opacity" dur="15s" repeatCount="indefinite" 
+               values="1;0;0;0;0;0;0;0;0;0;1" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+    </text>
+    <text class="step-label anim" x="725" y="90" text-anchor="middle" opacity="0">Expand Right
+      <animate attributeName="opacity" dur="15s" repeatCount="indefinite" 
+               values="0;1;0;0;0;0;0;0;0;0;0" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+    </text>
+    <text class="step-label anim" x="725" y="90" text-anchor="middle" opacity="0">Continue Expand
+      <animate attributeName="opacity" dur="15s" repeatCount="indefinite" 
+               values="0;0;1;0;0;0;0;0;0;0;0" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+    </text>
+    <text class="step-label anim" x="725" y="90" text-anchor="middle" opacity="0">Sum > Target
+      <animate attributeName="opacity" dur="15s" repeatCount="indefinite" 
+               values="0;0;0;1;0;0;0;0;0;0;0" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+    </text>
+    <text class="step-label anim" x="725" y="90" text-anchor="middle" opacity="0">Shrink Left
+      <animate attributeName="opacity" dur="15s" repeatCount="indefinite" 
+               values="0;0;0;0;1;0;0;0;0;0;0" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+    </text>
+    <text class="step-label anim" x="725" y="90" text-anchor="middle" opacity="0">Continue Shrink
+      <animate attributeName="opacity" dur="15s" repeatCount="indefinite" 
+               values="0;0;0;0;0;1;0;0;0;0;0" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+    </text>
+    <text class="step-label anim" x="725" y="90" text-anchor="middle" opacity="0">Valid Window
+      <animate attributeName="opacity" dur="15s" repeatCount="indefinite" 
+               values="0;0;0;0;0;0;1;0;0;0;0" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+    </text>
+    <text class="step-label anim" x="725" y="90" text-anchor="middle" opacity="0">Expand Again
+      <animate attributeName="opacity" dur="15s" repeatCount="indefinite" 
+               values="0;0;0;0;0;0;0;1;0;0;0" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+    </text>
+    <text class="step-label anim" x="725" y="90" text-anchor="middle" opacity="0">Max Window
+      <animate attributeName="opacity" dur="15s" repeatCount="indefinite" 
+               values="0;0;0;0;0;0;0;0;1;0;0" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+    </text>
+    <text class="step-label anim" x="725" y="90" text-anchor="middle" opacity="0">Invalid Again
+      <animate attributeName="opacity" dur="15s" repeatCount="indefinite" 
+               values="0;0;0;0;0;0;0;0;0;1;0" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+    </text>
+    
+    <!-- Detailed Phase Descriptions -->
+    <text class="phase-desc anim" x="0" y="140" opacity="1">Phase 1: Initialize window with first element [2], sum=2 ≤ 7 ✓
+      <animate attributeName="opacity" dur="15s" repeatCount="indefinite" 
+               values="1;0;0;0;0;0;0;0;0;0;0" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+    </text>
+    <text class="phase-desc anim" x="0" y="140" opacity="0">Phase 2: Expand right to include [1], window=[2,1], sum=3 ≤ 7 ✓
+      <animate attributeName="opacity" dur="15s" repeatCount="indefinite" 
+               values="0;1;0;0;0;0;0;0;0;0;0" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+    </text>
+    <text class="phase-desc anim" x="0" y="140" opacity="0">Phase 3: Expand right to include [4], window=[2,1,4], sum=7 ≤ 7 ✓
+      <animate attributeName="opacity" dur="15s" repeatCount="indefinite" 
+               values="0;0;1;0;0;0;0;0;0;0;0" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+    </text>
+    <text class="phase-desc anim" x="0" y="140" opacity="0">Phase 4: Expand right to include [3], window=[2,1,4,3], sum=10 > 7 ✗
+      <animate attributeName="opacity" dur="15s" repeatCount="indefinite" 
+               values="0;0;0;1;0;0;0;0;0;0;0" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+    </text>
+    <text class="phase-desc anim" x="0" y="140" opacity="0">Phase 5: Shrink from left, remove [2], window=[1,4,3], sum=8 > 7 ✗
+      <animate attributeName="opacity" dur="15s" repeatCount="indefinite" 
+               values="0;0;0;0;1;0;0;0;0;0;0" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+    </text>
+    <text class="phase-desc anim" x="0" y="140" opacity="0">Phase 6: Continue shrinking, remove [1], window=[4,3], sum=7 ≤ 7 ✓
+      <animate attributeName="opacity" dur="15s" repeatCount="indefinite" 
+               values="0;0;0;0;0;1;0;0;0;0;0" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+    </text>
+    <text class="phase-desc anim" x="0" y="140" opacity="0">Phase 7: Window valid again, continue algorithm...
+      <animate attributeName="opacity" dur="15s" repeatCount="indefinite" 
+               values="0;0;0;0;0;0;1;0;0;0;0" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+    </text>
+  </g>
+  
+  <!-- Enhanced Legend -->
+  <g transform="translate(30,240)">
+    <rect x="0" y="0" width="840" height="55" rx="10" fill="var(--panel)" stroke="var(--border)" filter="url(#shadow)" />
+    <text x="20" y="20" class="caption" style="font-weight: 600;">Legend & Algorithm:</text>
+    
+    <circle cx="120" cy="15" r="6" fill="var(--left)" />
+    <text x="135" y="20" class="caption">Left Pointer</text>
+    
+    <circle cx="240" cy="15" r="6" fill="var(--right)" />
+    <text x="255" y="20" class="caption">Right Pointer</text>
+    
+    <rect x="350" y="10" width="25" height="10" fill="url(#windowGradient)" stroke="var(--window)" rx="2" />
+    <text x="385" y="20" class="caption">Active Window</text>
+    
+    <circle cx="500" cy="15" r="6" fill="var(--valid)" />
+    <text x="515" y="20" class="caption">Valid Sum</text>
+    
+    <circle cx="600" cy="15" r="6" fill="var(--invalid)" />
+    <text x="615" y="20" class="caption">Invalid Sum</text>
+    
+    <text x="20" y="40" class="caption" style="font-style: italic;">Algorithm: Expand window right while valid, shrink from left when invalid. Time: O(n), Space: O(1)</text>
+  </g>
+  
+  <!-- Fallback for Reduced Motion -->
+  <g class="fallback" transform="translate(50,110)">
+    <rect class="cell" x="0" y="0" width="80" height="50" />
+    <rect class="cell" x="90" y="0" width="80" height="50" />
+    <rect class="cell active" x="180" y="0" width="80" height="50" />
+    <rect class="cell active" x="270" y="0" width="80" height="50" />
+    <rect class="cell" x="360" y="0" width="80" height="50" />
+    <rect class="cell" x="450" y="0" width="80" height="50" />
+    <rect class="cell" x="540" y="0" width="80" height="50" />
+    
+    <text class="val" x="40" y="32">2</text>
+    <text class="val" x="130" y="32">1</text>
+    <text class="val" x="220" y="32">4</text>
+    <text class="val" x="310" y="32">3</text>
+    <text class="val" x="400" y="32">1</text>
+    <text class="val" x="490" y="32">2</text>
+    <text class="val" x="580" y="32">6</text>
+    
+    <rect x="180" y="0" width="170" height="60" rx="10" fill="url(#windowGradient)" stroke="var(--window)" stroke-width="3" />
+    <text class="ptr left" x="180" y="-25">left</text>
+    <text class="ptr right" x="350" y="-25">right</text>
+    
+    <rect x="650" y="-10" width="120" height="35" rx="8" fill="var(--panel)" stroke="var(--border)" />
+    <text class="sum-display" x="710" y="12" text-anchor="middle">Sum: 7</text>
+    <text class="status valid" x="710" y="45" text-anchor="middle">✓ Valid</text>
+  </g>
+</svg>

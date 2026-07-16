@@ -1,0 +1,9 @@
+{
+  "label": "DSA",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "title": "DSA",
+    "description": "Explore Data Structures and Algorithms topics, implementations, and problem sets."
+  }
+}

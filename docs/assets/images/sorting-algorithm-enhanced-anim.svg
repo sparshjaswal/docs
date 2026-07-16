@@ -1,0 +1,272 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 350" width="1000" height="350" role="img" aria-labelledby="sortTitle sortDesc" shape-rendering="crispEdges">
+  <title id="sortTitle">Enhanced Sorting Algorithm Visualization</title>
+  <desc id="sortDesc">Interactive comparison of Bubble Sort, Quick Sort, and Merge Sort with performance metrics.</desc>
+  
+  <defs>
+    <linearGradient id="barGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    <linearGradient id="compareGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="sortedGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/> 
+      </feMerge>
+    </filter>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <style>
+    :root { 
+      --bg: #0f172a; --panel: #1e293b; --border: #475569; --txt: #ffffff; 
+      --cap: #94a3b8; --bar: #3b82f6; --compare: #f59e0b; --sorted: #10b981; 
+      --bubble: #ec4899; --quick: #8b5cf6; --merge: #06b6d4;
+    }
+    text { font-family: 'SF Pro Display', 'Inter', Arial, sans-serif; }
+    .title { font-size: 20px; font-weight: 700; fill: var(--txt); }
+    .subtitle { font-size: 14px; font-weight: 500; fill: var(--cap); }
+    .caption { font-size: 12px; fill: var(--cap); }
+    .bar { fill: url(#barGradient); stroke: var(--border); stroke-width: 1; }
+    .bar.comparing { fill: url(#compareGradient); filter: url(#glow); }
+    .bar.sorted { fill: url(#sortedGradient); }
+    .value { font-size: 11px; font-weight: 600; fill: var(--txt); text-anchor: middle; }
+    .algo-label { font-size: 14px; font-weight: 600; fill: var(--txt); }
+    .complexity { font-size: 11px; font-weight: 500; fill: var(--cap); }
+    .step-counter { font-size: 12px; font-weight: 600; fill: var(--txt); }
+    @media (prefers-reduced-motion: reduce) { .anim { display: none; } .fallback { display: block; } }
+    .fallback { display: none; }
+  </style>
+  
+  <!-- Background -->
+  <rect x="0" y="0" width="1000" height="350" fill="var(--bg)" />
+  
+  <!-- Header -->
+  <rect x="0" y="0" width="1000" height="60" fill="var(--panel)" filter="url(#shadow)" />
+  <text x="30" y="25" class="title">Enhanced Sorting Algorithm Comparison</text>
+  <text x="30" y="45" class="subtitle">Interactive visualization of Bubble Sort, Quick Sort, and Merge Sort with real-time performance metrics</text>
+  
+  <!-- Bubble Sort Section -->
+  <g transform="translate(50,80)">
+    <rect x="0" y="0" width="280" height="200" rx="8" fill="var(--panel)" stroke="var(--border)" filter="url(#shadow)" />
+    <text x="140" y="20" class="algo-label" text-anchor="middle" fill="var(--bubble)">Bubble Sort</text>
+    <text x="140" y="35" class="complexity" text-anchor="middle">O(n²) Time | O(1) Space</text>
+    
+    <!-- Bubble Sort Bars -->
+    <g transform="translate(20,50)">
+      <rect class="bar anim" x="0" y="120" width="25" height="20">
+        <animate attributeName="height" dur="15s" repeatCount="indefinite" 
+                 values="20;40;20;40;20;40;20;40;20;40;20" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+        <animate attributeName="y" dur="15s" repeatCount="indefinite" 
+                 values="120;100;120;100;120;100;120;100;120;100;120" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+        <animate attributeName="fill" dur="15s" repeatCount="indefinite" 
+                 values="url(#barGradient);url(#compareGradient);url(#barGradient);url(#compareGradient);url(#barGradient);url(#compareGradient);url(#barGradient);url(#compareGradient);url(#barGradient);url(#sortedGradient);url(#sortedGradient)" 
+                 keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+      </rect>
+      <rect class="bar anim" x="35" y="80" width="25" height="60">
+        <animate attributeName="height" dur="15s" repeatCount="indefinite" 
+                 values="60;20;60;20;60;20;60;20;60;40;40" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+        <animate attributeName="y" dur="15s" repeatCount="indefinite" 
+                 values="80;120;80;120;80;120;80;120;80;100;100" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+        <animate attributeName="fill" dur="15s" repeatCount="indefinite" 
+                 values="url(#barGradient);url(#compareGradient);url(#barGradient);url(#compareGradient);url(#barGradient);url(#compareGradient);url(#barGradient);url(#compareGradient);url(#barGradient);url(#sortedGradient);url(#sortedGradient)" 
+                 keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+      </rect>
+      <rect class="bar anim" x="70" y="100" width="25" height="40">
+        <animate attributeName="height" dur="15s" repeatCount="indefinite" 
+                 values="40;60;40;60;40;60;40;60;40;60;60" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+        <animate attributeName="y" dur="15s" repeatCount="indefinite" 
+                 values="100;80;100;80;100;80;100;80;100;80;80" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+        <animate attributeName="fill" dur="15s" repeatCount="indefinite" 
+                 values="url(#barGradient);url(#barGradient);url(#compareGradient);url(#barGradient);url(#compareGradient);url(#barGradient);url(#compareGradient);url(#barGradient);url(#compareGradient);url(#sortedGradient);url(#sortedGradient)" 
+                 keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+      </rect>
+      <rect class="bar anim" x="105" y="60" width="25" height="80">
+        <animate attributeName="height" dur="15s" repeatCount="indefinite" 
+                 values="80;80;80;40;80;40;80;40;80;80;80" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+        <animate attributeName="y" dur="15s" repeatCount="indefinite" 
+                 values="60;60;60;100;60;100;60;100;60;60;60" keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+        <animate attributeName="fill" dur="15s" repeatCount="indefinite" 
+                 values="url(#barGradient);url(#barGradient);url(#barGradient);url(#compareGradient);url(#barGradient);url(#compareGradient);url(#barGradient);url(#compareGradient);url(#barGradient);url(#sortedGradient);url(#sortedGradient)" 
+                 keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+      </rect>
+      <rect class="bar anim" x="140" y="40" width="25" height="100">
+        <animate attributeName="fill" dur="15s" repeatCount="indefinite" 
+                 values="url(#barGradient);url(#barGradient);url(#barGradient);url(#barGradient);url(#barGradient);url(#barGradient);url(#barGradient);url(#barGradient);url(#barGradient);url(#sortedGradient);url(#sortedGradient)" 
+                 keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1" />
+      </rect>
+      
+      <!-- Values -->
+      <text class="value" x="12" y="155">2</text>
+      <text class="value" x="47" y="155">6</text>
+      <text class="value" x="82" y="155">4</text>
+      <text class="value" x="117" y="155">8</text>
+      <text class="value" x="152" y="155">10</text>
+    </g>
+    
+    <text x="20" y="170" class="step-counter">Comparisons: 10 | Swaps: 6</text>
+  </g>
+  
+  <!-- Quick Sort Section -->
+  <g transform="translate(360,80)">
+    <rect x="0" y="0" width="280" height="200" rx="8" fill="var(--panel)" stroke="var(--border)" filter="url(#shadow)" />
+    <text x="140" y="20" class="algo-label" text-anchor="middle" fill="var(--quick)">Quick Sort</text>
+    <text x="140" y="35" class="complexity" text-anchor="middle">O(n log n) Time | O(log n) Space</text>
+    
+    <!-- Quick Sort Bars with Pivot Animation -->
+    <g transform="translate(20,50)">
+      <rect class="bar anim" x="0" y="120" width="25" height="20">
+        <animate attributeName="fill" dur="12s" repeatCount="indefinite" 
+                 values="url(#barGradient);url(#compareGradient);url(#barGradient);url(#sortedGradient);url(#sortedGradient)" 
+                 keyTimes="0;0.2;0.4;0.8;1" />
+      </rect>
+      <rect class="bar anim" x="35" y="80" width="25" height="60">
+        <animate attributeName="fill" dur="12s" repeatCount="indefinite" 
+                 values="url(#barGradient);url(#barGradient);#ec4899;url(#sortedGradient);url(#sortedGradient)" 
+                 keyTimes="0;0.2;0.4;0.8;1" />
+        <animate attributeName="stroke-width" dur="12s" repeatCount="indefinite" 
+                 values="1;1;3;1;1" keyTimes="0;0.2;0.4;0.8;1" />
+      </rect>
+      <rect class="bar anim" x="70" y="100" width="25" height="40">
+        <animate attributeName="fill" dur="12s" repeatCount="indefinite" 
+                 values="url(#barGradient);url(#compareGradient);url(#barGradient);url(#sortedGradient);url(#sortedGradient)" 
+                 keyTimes="0;0.2;0.4;0.8;1" />
+      </rect>
+      <rect class="bar anim" x="105" y="60" width="25" height="80">
+        <animate attributeName="fill" dur="12s" repeatCount="indefinite" 
+                 values="url(#barGradient);url(#compareGradient);url(#barGradient);url(#sortedGradient);url(#sortedGradient)" 
+                 keyTimes="0;0.2;0.4;0.8;1" />
+      </rect>
+      <rect class="bar anim" x="140" y="40" width="25" height="100">
+        <animate attributeName="fill" dur="12s" repeatCount="indefinite" 
+                 values="url(#barGradient);url(#compareGradient);url(#barGradient);url(#sortedGradient);url(#sortedGradient)" 
+                 keyTimes="0;0.2;0.4;0.8;1" />
+      </rect>
+      
+      <!-- Pivot Indicator -->
+      <text class="caption anim" x="47" y="30" text-anchor="middle" opacity="0">PIVOT
+        <animate attributeName="opacity" dur="12s" repeatCount="indefinite" 
+                 values="0;0;1;0;0" keyTimes="0;0.2;0.4;0.8;1" />
+      </text>
+      
+      <!-- Values -->
+      <text class="value" x="12" y="155">2</text>
+      <text class="value" x="47" y="155">4</text>
+      <text class="value" x="82" y="155">6</text>
+      <text class="value" x="117" y="155">8</text>
+      <text class="value" x="152" y="155">10</text>
+    </g>
+    
+    <text x="20" y="170" class="step-counter">Comparisons: 7 | Partitions: 3</text>
+  </g>
+  
+  <!-- Merge Sort Section -->
+  <g transform="translate(670,80)">
+    <rect x="0" y="0" width="280" height="200" rx="8" fill="var(--panel)" stroke="var(--border)" filter="url(#shadow)" />
+    <text x="140" y="20" class="algo-label" text-anchor="middle" fill="var(--merge)">Merge Sort</text>
+    <text x="140" y="35" class="complexity" text-anchor="middle">O(n log n) Time | O(n) Space</text>
+    
+    <!-- Merge Sort Bars with Divide & Conquer Animation -->
+    <g transform="translate(20,50)">
+      <!-- Left half -->
+      <rect class="bar anim" x="0" y="120" width="25" height="20">
+        <animate attributeName="fill" dur="10s" repeatCount="indefinite" 
+                 values="url(#barGradient);#f59e0b;url(#compareGradient);url(#sortedGradient);url(#sortedGradient)" 
+                 keyTimes="0;0.3;0.6;0.8;1" />
+      </rect>
+      <rect class="bar anim" x="35" y="80" width="25" height="60">
+        <animate attributeName="fill" dur="10s" repeatCount="indefinite" 
+                 values="url(#barGradient);#f59e0b;url(#compareGradient);url(#sortedGradient);url(#sortedGradient)" 
+                 keyTimes="0;0.3;0.6;0.8;1" />
+      </rect>
+      
+      <!-- Divider line -->
+      <line class="anim" x1="67" y1="40" x2="67" y2="140" stroke="var(--cap)" stroke-width="2" stroke-dasharray="5,5" opacity="0">
+        <animate attributeName="opacity" dur="10s" repeatCount="indefinite" 
+                 values="0;1;0;0;0" keyTimes="0;0.3;0.6;0.8;1" />
+      </animate>
+      
+      <!-- Right half -->
+      <rect class="bar anim" x="70" y="100" width="25" height="40">
+        <animate attributeName="fill" dur="10s" repeatCount="indefinite" 
+                 values="url(#barGradient);#06b6d4;url(#compareGradient);url(#sortedGradient);url(#sortedGradient)" 
+                 keyTimes="0;0.3;0.6;0.8;1" />
+      </rect>
+      <rect class="bar anim" x="105" y="60" width="25" height="80">
+        <animate attributeName="fill" dur="10s" repeatCount="indefinite" 
+                 values="url(#barGradient);#06b6d4;url(#compareGradient);url(#sortedGradient);url(#sortedGradient)" 
+                 keyTimes="0;0.3;0.6;0.8;1" />
+      </rect>
+      <rect class="bar anim" x="140" y="40" width="25" height="100">
+        <animate attributeName="fill" dur="10s" repeatCount="indefinite" 
+                 values="url(#barGradient);#06b6d4;url(#compareGradient);url(#sortedGradient);url(#sortedGradient)" 
+                 keyTimes="0;0.3;0.6;0.8;1" />
+      </rect>
+      
+      <!-- Values -->
+      <text class="value" x="12" y="155">2</text>
+      <text class="value" x="47" y="155">4</text>
+      <text class="value" x="82" y="155">6</text>
+      <text class="value" x="117" y="155">8</text>
+      <text class="value" x="152" y="155">10</text>
+    </g>
+    
+    <text x="20" y="170" class="step-counter">Comparisons: 8 | Merges: 4</text>
+  </g>
+  
+  <!-- Performance Comparison -->
+  <g transform="translate(50,300)">
+    <rect x="0" y="0" width="900" height="45" rx="8" fill="var(--panel)" stroke="var(--border)" filter="url(#shadow)" />
+    <text x="20" y="20" class="caption" style="font-weight: 600;">Performance Comparison (n=1000):</text>
+    
+    <text x="20" y="35" class="caption">Bubble Sort: ~500,000 operations | Quick Sort: ~10,000 operations | Merge Sort: ~10,000 operations</text>
+    
+    <rect x="300" y="8" width="80" height="12" fill="var(--bubble)" rx="2" />
+    <text x="390" y="18" class="caption">Bubble O(n²)</text>
+    
+    <rect x="480" y="8" width="80" height="12" fill="var(--quick)" rx="2" />
+    <text x="570" y="18" class="caption">Quick O(n log n)</text>
+    
+    <rect x="660" y="8" width="80" height="12" fill="var(--merge)" rx="2" />
+    <text x="750" y="18" class="caption">Merge O(n log n)</text>
+  </g>
+  
+  <!-- Fallback for Reduced Motion -->
+  <g class="fallback">
+    <!-- Static sorted bars for all three algorithms -->
+    <g transform="translate(50,130)">
+      <rect class="bar sorted" x="0" y="120" width="25" height="20" />
+      <rect class="bar sorted" x="35" y="100" width="25" height="40" />
+      <rect class="bar sorted" x="70" y="80" width="25" height="60" />
+      <rect class="bar sorted" x="105" y="60" width="25" height="80" />
+      <rect class="bar sorted" x="140" y="40" width="25" height="100" />
+    </g>
+    
+    <g transform="translate(360,130)">
+      <rect class="bar sorted" x="0" y="120" width="25" height="20" />
+      <rect class="bar sorted" x="35" y="100" width="25" height="40" />
+      <rect class="bar sorted" x="70" y="80" width="25" height="60" />
+      <rect class="bar sorted" x="105" y="60" width="25" height="80" />
+      <rect class="bar sorted" x="140" y="40" width="25" height="100" />
+    </g>
+    
+    <g transform="translate(670,130)">
+      <rect class="bar sorted" x="0" y="120" width="25" height="20" />
+      <rect class="bar sorted" x="35" y="100" width="25" height="40" />
+      <rect class="bar sorted" x="70" y="80" width="25" height="60" />
+      <rect class="bar sorted" x="105" y="60" width="25" height="80" />
+      <rect class="bar sorted" x="140" y="40" width="25" height="100" />
+    </g>
+  </g>
+</svg>

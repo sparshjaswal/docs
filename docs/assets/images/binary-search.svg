@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" font-family="monospace" font-size="14">
+  <rect width="800" height="360" fill="#1e1e2e" rx="12"/>
+  <text x="400" y="35" fill="#cdd6f4" font-size="18" font-weight="bold" text-anchor="middle">Binary Search — Divide and Conquer</text>
+
+  <!-- Array -->
+  <text x="40" y="90" fill="#89b4fa" font-size="13">Sorted Array — target = 11</text>
+
+  <!-- Array cells -->
+  <g font-size="15" text-anchor="middle">
+    <!-- indices -->
+    <text x="85"  y="120" fill="#6c7086">0</text>
+    <text x="165" y="120" fill="#6c7086">1</text>
+    <text x="245" y="120" fill="#6c7086">2</text>
+    <text x="325" y="120" fill="#6c7086">3</text>
+    <text x="405" y="120" fill="#6c7086">4</text>
+    <text x="485" y="120" fill="#f9e2af" font-weight="bold">5</text>
+    <text x="565" y="120" fill="#6c7086">6</text>
+    <text x="645" y="120" fill="#6c7086">7</text>
+    <text x="725" y="120" fill="#6c7086">8</text>
+
+    <!-- values -->
+    <rect x="60"  y="130" width="50" height="40" rx="4" fill="#313244" stroke="#585b70"/>
+    <rect x="140" y="130" width="50" height="40" rx="4" fill="#313244" stroke="#585b70"/>
+    <rect x="220" y="130" width="50" height="40" rx="4" fill="#313244" stroke="#585b70"/>
+    <rect x="300" y="130" width="50" height="40" rx="4" fill="#313244" stroke="#585b70"/>
+    <rect x="380" y="130" width="50" height="40" rx="4" fill="#313244" stroke="#585b70"/>
+    <rect x="460" y="130" width="50" height="40" rx="4" fill="#a6e3a1" stroke="#a6e3a1" opacity="0.9"/>
+    <rect x="540" y="130" width="50" height="40" rx="4" fill="#313244" stroke="#585b70"/>
+    <rect x="620" y="130" width="50" height="40" rx="4" fill="#313244" stroke="#585b70"/>
+    <rect x="700" y="130" width="50" height="40" rx="4" fill="#313244" stroke="#585b70"/>
+
+    <text x="85"  y="157" fill="#cdd6f4">1</text>
+    <text x="165" y="157" fill="#cdd6f4">3</text>
+    <text x="245" y="157" fill="#cdd6f4">5</text>
+    <text x="325" y="157" fill="#cdd6f4">7</text>
+    <text x="405" y="157" fill="#cdd6f4">9</text>
+    <text x="485" y="157" fill="#1e1e2e" font-weight="bold">11</text>
+    <text x="565" y="157" fill="#cdd6f4">13</text>
+    <text x="645" y="157" fill="#cdd6f4">15</text>
+    <text x="725" y="157" fill="#cdd6f4">17</text>
+  </g>
+
+  <!-- Round 1 -->
+  <text x="40" y="220" fill="#f9e2af" font-size="13">Round 1:</text>
+  <text x="120" y="220" fill="#cdd6f4" font-size="13">low=0  high=8  mid=4  arr[4]=9 &lt; 11  →  low = mid+1 = 5</text>
+  <line x1="85"  y1="175" x2="85"  y2="190" stroke="#89b4fa" stroke-width="2"/>
+  <text x="85"  y="205" fill="#89b4fa" font-size="11" text-anchor="middle">L</text>
+  <line x1="405" y1="175" x2="405" y2="190" stroke="#f9e2af" stroke-width="2"/>
+  <text x="405" y="205" fill="#f9e2af" font-size="11" text-anchor="middle">M</text>
+  <line x1="725" y1="175" x2="725" y2="190" stroke="#f38ba8" stroke-width="2"/>
+  <text x="725" y="205" fill="#f38ba8" font-size="11" text-anchor="middle">R</text>
+
+  <!-- Round 2 -->
+  <text x="40" y="250" fill="#f9e2af" font-size="13">Round 2:</text>
+  <text x="120" y="250" fill="#cdd6f4" font-size="13">low=5  high=8  mid=6  arr[6]=13 &gt; 11  →  high = mid-1 = 5</text>
+
+  <!-- Round 3 -->
+  <text x="40" y="280" fill="#a6e3a1" font-size="13">Round 3:</text>
+  <text x="120" y="280" fill="#cdd6f4" font-size="13">low=5  high=5  mid=5  arr[5]=11 = 11  →  FOUND at index 5 ✓</text>
+
+  <!-- Complexity box -->
+  <rect x="580" y="220" width="190" height="100" rx="8" fill="#313244" stroke="#89b4fa" stroke-width="1.5"/>
+  <text x="675" y="242" fill="#89b4fa" font-size="13" font-weight="bold" text-anchor="middle">Complexity</text>
+  <text x="594" y="265" fill="#a6e3a1" font-size="13">Time:  O(log n)</text>
+  <text x="594" y="288" fill="#a6e3a1" font-size="13">Space: O(1)</text>
+  <text x="594" y="310" fill="#6c7086" font-size="12">n=9 → ≤ 4 steps</text>
+</svg>
