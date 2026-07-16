@@ -12,9 +12,12 @@ permissions:
   pages: write
   id-token: write
 
+# Allow only one concurrent deployment. Per GitHub Pages best practices,
+# do NOT cancel in-progress runs so that an in-flight production deployment
+# is allowed to finish rather than being interrupted mid-deploy.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -37,6 +40,17 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        with:
+          # Auto-enable GitHub Pages during the workflow run.
+          # Fixes: "Get Pages site failed ... Not Found" (404) when Pages
+          # has not yet been enabled via the API/repository settings.
+          #
+          # NOTE: If this step still fails with
+          # "Resource not accessible by integration", the `enablement: true`
+          # parameter could not auto-enable Pages. In that case you MUST
+          # manually enable it: repository Settings > Pages, and set the
+          # "Source" to "GitHub Actions" (not "Deploy from a branch").
+          enablement: true
 
       - name: Install dependencies (with lockfile)
         if: hashFiles('**/yarn.lock') != ''
@@ -57,7 +71,7 @@ jobs:
 
       # Upload Pages artifact from build job (single upload, consumed by deploy job)
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./build
 
@@ -67,6 +81,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
+      contents: read
       pages: write
       id-token: write
 
