@@ -24,16 +24,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 24 LTS
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: '22'
           cache: yarn
           cache-dependency-path: |
             **/yarn.lock
 
       - name: Enable Corepack
         run: corepack enable
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
       - name: Install dependencies (with lockfile)
         if: hashFiles('**/yarn.lock') != ''
@@ -54,7 +57,7 @@ jobs:
 
       # Upload Pages artifact from build job (single upload, consumed by deploy job)
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./build
 
