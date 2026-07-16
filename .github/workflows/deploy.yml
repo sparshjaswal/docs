@@ -52,9 +52,6 @@ jobs:
       - name: Build site
         run: yarn build
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
       # Upload Pages artifact from build job (single upload, consumed by deploy job)
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
@@ -66,14 +63,15 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
 
+    permissions:
+      pages: write
+      id-token: write
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

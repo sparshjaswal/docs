@@ -27,7 +27,7 @@ const config: Config = {
   },
   // GitHub pages deployment config
   organizationName: 'sparshjaswal', // GitHub org/user
-  projectName: 'sparshjaswal.github.io', // Repository name should match the actual repo
+  projectName: 'docs', // Repository name must match the actual repo
   i18n: { defaultLocale: 'en', locales: ['en'] },
 
   presets: [
