@@ -25,4 +25,4 @@ Examples
 
 See also
 
-- [/javascript](/javascript)
+- [/javascript](../javascript/index.md)
