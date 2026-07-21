@@ -25,4 +25,4 @@ Examples
 
 See also
 
-- [/javascript/functions](../javascript/functions/index.md)
+- [../javascript/functions](../javascript/functions/README.md)
