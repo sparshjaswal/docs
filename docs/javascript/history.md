@@ -1,8 +1,8 @@
 ---
 id: javascript-history
-title: 📚 Chapter 1: The Complete History of JavaScript
+title: "📚 Chapter 1: The Complete History of JavaScript"
 slug: /javascript/history
-sidebar_label: 📚 Chapter 1: The Complete H...
+sidebar_label: "📚 Chapter 1: The Complete H..."
 ---
 
 # 📚 Chapter 1: The Complete History of JavaScript
