@@ -11,6 +11,45 @@ keywords:
 
 # 📊 DSA Concepts
 
+## Learning Objectives
+
+- Build solid intuition for common data structures and algorithmic patterns used in interviews and production.
+- Learn to reason about time and space complexity and pick appropriate data structures.
+- Gain pattern fluency: two pointers, sliding window, prefix sums, binary search, recursion, DP, greedy.
+- Practice problem-solving with worked examples and progressively harder exercises.
+
+## Prerequisites
+
+- Comfortable with a programming language (JavaScript/TypeScript recommended)
+- Basic math: algebra, modular arithmetic, simple combinatorics
+
+## Difficulty Level
+
+- Beginner → Advanced (topic-dependent)
+
+## Estimated Reading Time
+
+Overview: 60–90 minutes; topic deep-dives: 30–120 minutes each.
+
+## Mental Model
+
+Think in terms of abstractions: arrays provide indexed access, linked lists provide cheap insertion, trees represent hierarchies, graphs represent relationships. Algorithms manipulate these structures; the right combination makes problems tractable.
+
+## How to Use this Section
+
+- Follow the recommended learning path from Foundations → Core Techniques → Advanced Problem Solving.
+- For interview prep, practice problems by category and then mixed practice under timed conditions.
+- For production, focus on algorithmic trade-offs, memory/performance, and robust edge-case handling.
+
+## Study Workflow
+
+1. Read the concept page and understand the complexity table.
+2. Type out and run the canonical implementation (learn by doing).
+3. Solve 10 problems of increasing difficulty for each pattern.
+4. Review and refactor solutions to improve clarity and performance.
+
+
+
 > **One-line summary**: A structured, topic-wise roadmap through Data Structures & Algorithms — from first principles to advanced problem solving — with visuals, complexity tables, and curated practice.
 
 <div align="center">

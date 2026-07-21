@@ -12,6 +12,45 @@ keywords:
 
 # 🏗️ System Design
 
+## Learning Objectives
+
+- Understand core system design goals: scalability, availability, latency, and consistency.
+- Learn a repeatable interview framework: clarify, estimate, design, deep dive, summarize.
+- Choose appropriate data stores, caching, and messaging patterns for real-world systems.
+- Reason about trade-offs (CAP, consistency models, SQL vs NoSQL, caching vs freshness).
+
+## Prerequisites
+
+- Basic networking and HTTP knowledge
+- Familiarity with databases (SQL/NoSQL) and basic DSA concepts
+- Comfort with asynchronous programming and services
+
+## Difficulty Level
+
+- Intermediate → Advanced (varies by topic)
+
+## Estimated Reading Time
+
+Approximately 30–45 minutes for this overview; individual topic pages vary (15m–3h each).
+
+## Mental Model
+
+Think of a system as a set of interacting components: clients, API surface, services, caches, data stores, and infrastructure (load balancers, CDNs, message brokers). Design is choosing the right components and connections to meet functional and non-functional requirements while keeping complexity manageable.
+
+## How to use this section
+
+- Start with the high-level overview and follow the recommended order in the Table of Contents below.
+- For interview preparation, practice the approach in “How to Approach a System Design Interview” and run through mock designs.
+- For production engineering, read the deep-dive pages (databases, sharding, caching) and pay attention to the "Trade-offs" and "Operational Concerns" subsections.
+
+## Quick Links (what to read first)
+
+- [Clarify requirements and capacity estimation](#1%EF%B8%8F-clarify-requirements)
+- [High-level design pattern and example architectures](./api-design.md)
+- [Data storage and consistency guide](./databases.md)
+
+
+
 > **One-line summary**: Learn to design large-scale, reliable, and scalable systems — and to reason about the trade-offs interviewers care about.
 
 ---
