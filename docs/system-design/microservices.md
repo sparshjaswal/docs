@@ -180,22 +180,30 @@ Combine retries with **idempotency** (see [API Design](./api-design.md)) to avoi
 
 > **Note (AI-assisted draft):** The following Interview Questions, Production Checklist, and Testing & Monitoring items are a draft. Add organization-specific CI/CD links and observability dashboards as needed.
 
-## Interview Questions
+## Interview Questions (expanded answers)
 
 ### How do you decide whether to extract a component from the monolith into a microservice?
 
-Extract when the component has a clear bounded context, independent scalability or deployment needs, or when multiple teams need independent ownership. Also consider operational maturity: CI/CD, observability, and test automation must be in place. If the cost (operational complexity, network overhead) outweighs the benefits, keep it in the monolith.
+Decision factors:
+- Business ownership: separate teams owning a capability is a strong signal.
+- Scaling needs: if a component needs a different scaling profile (e.g., CPU-heavy vs I/O-light), separate it.
+- Release cadence: independent deploy cycles argue for service extraction.
+- Operational readiness: ensure CI/CD, observability, and incident processes exist before extracting.
+
+If costs (operational overhead, network latency, distributed testing) exceed benefits, delay extraction or consider modular monolith patterns.
 
 ### Compare choreography vs orchestration for sagas — when is each preferable?
 
-- Choreography: services emit and react to events with no central coordinator. Prefer when you want low coupling and simpler scaling, but the flow can be harder to observe and reason about.
-- Orchestration: a central orchestrator commands each step and compensations. Prefer when you need clear flow control, visibility, and easier error handling at the cost of a single control point.
+- Choreography (event-driven): services publish events and react. Prefer when flows are naturally decoupled, event volume is manageable, and eventual consistency is acceptable. Pros: no single coordinator, easier horizontal scale. Cons: harder to debug and reason about end-to-end.
 
-Choose choreography for lightweight event-driven flows and orchestration when correctness and clear sequencing are critical.
+- Orchestration (central controller): a saga orchestrator issues commands and tracks progress. Prefer when the sequence must be controlled, error handling needs centralized visibility, or business processes require strict ordering. Pros: clearer flow and observability. Cons: central point to scale/maintain.
 
 ### How do you design service boundaries to minimize cross-service transactions and latency?
 
-Design around business capabilities (bounded contexts) so the most common transactions and queries are local to a service. Co-locate frequently-accessed data, prefer async interactions for long-running work, and use shared caches or denormalization to avoid synchronous cross-service joins. Define SLAs for inter-service calls and instrument end-to-end traces.
+- Model around bounded contexts: group data and operations that are touched together.
+- Co-locate frequently-used data; denormalize when read latency dominates and you can tolerate eventual consistency.
+- Favor asynchronous messaging for long-running tasks and use request/response only where immediate answers are necessary.
+- Instrument and set SLAs for inter-service calls; identify hotspots and consider API gateway-level aggregation.
 
 ## Production Checklist
 

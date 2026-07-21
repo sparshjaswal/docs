@@ -164,19 +164,34 @@ sequenceDiagram
 
 > **Note (AI-assisted draft):** The following Interview Questions, Production Checklist, and Testing & Monitoring items are a draft. Add links to throttling dashboards and SDK guidelines where available.
 
-## Interview Questions
+## Interview Questions (expanded answers)
 
 ### When would you choose a distributed token bucket vs per-node local quotas?
 
-Choose a distributed token bucket when you need a global, accurate quota (per API key or tenant). Use per-node local quotas when low-latency enforcement matters and a small degree of inaccuracy is acceptable (local burst capacity with periodic reconciliation). Hybrid patterns (small local buffer + central reconciliation) give a good balance.
+- Distributed token bucket: choose when you need precise global quotas (tenant-level rate limits) and when fairness is critical. Requires a shared store (Redis, Cloud provider) and atomic operations.
+- Per-node local quotas: choose when per-request latency must be minimal and a small, bounded inaccuracy is acceptable. Combine with periodic central reconciliation or soft limits to maintain fairness.
+
+Hybrid approach: allow small local bursts (local tokens) and periodically reconcile or check central counters for sustained enforcement.
 
 ### How do you implement a global rate limiter with low latency and acceptable accuracy?
 
-Common patterns: use a fast shared store (Redis) with atomic scripts (INCR/LUA) for accurate counters; place rate limiting at the edge (CDN or API gateway) to drop traffic early; optionally use approximate structures (token buckets with local permits, or probabilistic counters) to reduce central load. Cache decisions for short TTLs to avoid per-request central hops.
+Pattern options:
+- Centralized accurate limiter: Redis Lua scripts (INCR + TTL), atomic counters, single source-of-truth — accurate but adds a network hop.
+- Edge-first approach: enforce coarse limits at CDN/edge, refine at API gateway with central store for strict quotas.
+- Approximate/local caches: grant local permits for short windows, then check central store for long-lived enforcement.
+
+Key practices: use atomic operations, add metrics for false positives/negatives, and cache decisions briefly to reduce central load.
 
 ### Describe the client and server behavior when throttled — how should SDKs politely back off?
 
-Servers should return 429 with Retry-After and rate-limit headers. Clients/SDKs should respect Retry-After, use exponential backoff with jitter on retries, and implement idempotency for retried non-idempotent operations. Instrument retries and rate-limit rejections so policy tuning is data-driven.
+Server behavior:
+- Return 429 Too Many Requests with Retry-After, X-RateLimit-* headers and an explanatory body.
+- Optionally include a quota window expiry or suggested retry delay.
+
+Client/SDK behavior:
+- Honor Retry-After when present; otherwise use exponential backoff with jitter.
+- Mark non-idempotent operations with idempotency keys so safe retries are possible.
+- Surface rate-limit metrics to telemetry so operators can tune policies.
 
 ## Production Checklist
 

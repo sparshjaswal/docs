@@ -145,22 +145,33 @@ The **ELC** dimension is the everyday reality: even without partitions, strong c
 
 > **Note (AI-assisted draft):** The following Interview Questions, Production Checklist, and Testing & Monitoring items are a draft intended to accelerate review. Please verify operational details and add any organization-specific runbook links.
 
-## Interview Questions
+## Interview Questions (expanded answers)
 
 ### When should you accept availability over consistency in a global service?
 
-Accept availability when correctness can tolerate temporary staleness and when being online is critical to user experience or revenue. Typical examples: social feeds, recommendation systems, telemetry/metrics ingestion, and some user-facing caches (shopping carts that reconcile later). The trade-off: lower latency and higher uptime, at the cost of more complex reconciliation and potential transient anomalies.
+Accept availability when the application can tolerate short-lived inconsistencies and when uptime and low latency directly affect user experience or revenue. Examples:
+
+- Social feeds: slightly out-of-order or delayed posts are acceptable; availability improves user engagement.
+- Telemetry ingestion: losing a few metrics samples is tolerable to keep the pipeline fast and always accepting data.
+- Caching layers and recommendation systems: stale recommendations are acceptable for short windows.
+
+Practical guardrails: document which data may be eventually consistent, add compensating background reconciliation jobs, and keep user-visible operations that require correctness behind strong-consistency paths.
 
 ### How does PACELC extend CAP, and why does it matter for low-latency systems?
 
-PACELC adds the "Else (E)" case to CAP: when there is no partition, systems still choose between Latency (L) and Consistency (C). This matters because even without partitions, strong consistency implies cross-node coordination and higher write/read latency. Designing for low-p99 latency often means accepting weaker consistency or tuning per-operation quorums.
+PACELC says: If a Partition occurs, choose Availability or Consistency; Else (when no partition), choose Latency or Consistency. In practice:
+
+- Strong consistency requires coordination (quorum reads/writes, consensus) which increases latency on the common path.
+- For low-p99 latency systems, you may pick relaxed consistency for non-critical operations (e.g., analytics), and strong consistency for critical operations (e.g., payments).
+
+Example: a shopping cart service might use strong consistency for final checkout (inventory/debits) but eventual consistency for view counts and recommendations.
 
 ### Practical steps to make a CP system more available during maintenance windows
 
-- Use staggered maintenance and rolling upgrades so a quorum remains available.
-- Temporarily relax non-critical quorum requirements for reads where safe (document and monitor impact).
-- Provide read-only fallbacks for non-essential endpoints and degrade gracefully.
-- Automate failover/playbooks and test them with scheduled drills; ensure backups and monitoring are in place.
+- Perform rolling upgrades so a quorum remains alive; schedule maintenance across different replicas at different times.
+- Support read-only fallbacks for non-critical endpoints (serve cached results) while maintaining write guarantees on the primary path.
+- Implement controlled quorum relaxation only for low-risk/observability endpoints and guard with monitoring/alerts.
+- Automate leader election and failure recovery with tested runbooks; run periodic drills to validate behavior and rollback procedures.
 
 
 ## Production Checklist
