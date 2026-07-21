@@ -344,4 +344,25 @@ Service discovery automatically detects services and their instances in a distri
 
 **Tools:** Consul, etcd, ZooKeeper, Kubernetes DNS, AWS Cloud Map
 
+> **Note (AI-assisted draft):** The following Interview Questions, Production Checklist, and Testing & Monitoring items are a draft to accelerate review. Add org-specific runbooks and dashboard links.
+
+## Interview Questions
+
+- How would you design a secure authentication flow for web and mobile clients? Sketch token flows and revocation strategies.
+- Explain trade-offs between JWTs and server-side sessions for a multi-region service.
+- Describe how you would scale a write-heavy service: caching, queuing, sharding — what order would you attempt them in and why?
+
+## Production Checklist
+
+- Ensure metrics: latency (p50/p95/p99), error rate, CPU/memory, connection pools
+- Document backup & restore procedures and validate recovery drills
+- Define SLOs and an alerting policy with runbooks for on-call engineers
+- Enforce secure defaults: TLS, key rotation, vulnerability scanning, dependency pinning
+
+## Testing & Monitoring
+
+- Run integration tests for authentication/authorization and key rotation scenarios
+- Simulate cache miss storms, burst traffic, and queue backpressure in staging
+- Validate observability: traces propagate across services, logs include correlation IDs
+
 [← Back to Home](../index.md) · © sparshjaswal

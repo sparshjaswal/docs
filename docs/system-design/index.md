@@ -211,6 +211,27 @@ Each fundamentals page should include: a one-line summary blockquote, **Core Con
 
 ---
 
+> **Note (AI-assisted draft):** The following Interview Questions, Production Checklist, and Testing & Monitoring items are drafted to accelerate review. Please verify wording and add organization-specific links/runbooks.
+
+## Interview Questions
+
+- Walk me through how you would design a system to handle 10× traffic. What steps and trade-offs would you describe?
+- How do you pick a shard key and how would you detect and mitigate hotspots?
+- Describe a safe failover and promotion process for a leader–follower database cluster.
+
+## Production Checklist
+
+- Capture expected peak QPS, read/write ratio, and storage growth; publish to the design doc
+- Define SLOs and alerts for p50/p95/p99 latency, error rates, and saturation
+- Provide runbooks for failover, rebalancing, and emergency rollback
+- Ensure tracing, metrics, and structured logs are in place before production rollouts
+
+## Testing & Monitoring
+
+- Load-test with realistic traffic shapes, including sudden spikes and sustained growth
+- Run chaos experiments for node/network failures and validate automated recovery
+- Monitor replication lag, cache hit ratios, and per-shard metrics; alert on skew/hotspots
+
 ## 🔗 Related Topics
 
 - [DSA (Data Structures & Algorithms)](../DSA/index.md) — data structures and algorithms
