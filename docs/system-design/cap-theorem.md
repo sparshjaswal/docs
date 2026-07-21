@@ -147,9 +147,21 @@ The **ELC** dimension is the everyday reality: even without partitions, strong c
 
 ## Interview Questions
 
-- When should you accept availability over consistency in a global service? Give examples.
-- How does PACELC extend CAP, and why does it matter for low-latency systems?
-- Explain practical steps to make a CP system more available during maintenance windows (quorum adjustments, staggered maintenance, read-only fallbacks).
+### When should you accept availability over consistency in a global service?
+
+Accept availability when correctness can tolerate temporary staleness and when being online is critical to user experience or revenue. Typical examples: social feeds, recommendation systems, telemetry/metrics ingestion, and some user-facing caches (shopping carts that reconcile later). The trade-off: lower latency and higher uptime, at the cost of more complex reconciliation and potential transient anomalies.
+
+### How does PACELC extend CAP, and why does it matter for low-latency systems?
+
+PACELC adds the "Else (E)" case to CAP: when there is no partition, systems still choose between Latency (L) and Consistency (C). This matters because even without partitions, strong consistency implies cross-node coordination and higher write/read latency. Designing for low-p99 latency often means accepting weaker consistency or tuning per-operation quorums.
+
+### Practical steps to make a CP system more available during maintenance windows
+
+- Use staggered maintenance and rolling upgrades so a quorum remains available.
+- Temporarily relax non-critical quorum requirements for reads where safe (document and monitor impact).
+- Provide read-only fallbacks for non-essential endpoints and degrade gracefully.
+- Automate failover/playbooks and test them with scheduled drills; ensure backups and monitoring are in place.
+
 
 ## Production Checklist
 

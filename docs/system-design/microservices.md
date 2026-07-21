@@ -182,9 +182,20 @@ Combine retries with **idempotency** (see [API Design](./api-design.md)) to avoi
 
 ## Interview Questions
 
-- How do you decide whether to extract a component from the monolith into a microservice?
-- Compare choreography vs orchestration for sagas — when is each preferable?
-- How do you design service boundaries to minimize cross-service transactions and latency?
+### How do you decide whether to extract a component from the monolith into a microservice?
+
+Extract when the component has a clear bounded context, independent scalability or deployment needs, or when multiple teams need independent ownership. Also consider operational maturity: CI/CD, observability, and test automation must be in place. If the cost (operational complexity, network overhead) outweighs the benefits, keep it in the monolith.
+
+### Compare choreography vs orchestration for sagas — when is each preferable?
+
+- Choreography: services emit and react to events with no central coordinator. Prefer when you want low coupling and simpler scaling, but the flow can be harder to observe and reason about.
+- Orchestration: a central orchestrator commands each step and compensations. Prefer when you need clear flow control, visibility, and easier error handling at the cost of a single control point.
+
+Choose choreography for lightweight event-driven flows and orchestration when correctness and clear sequencing are critical.
+
+### How do you design service boundaries to minimize cross-service transactions and latency?
+
+Design around business capabilities (bounded contexts) so the most common transactions and queries are local to a service. Co-locate frequently-accessed data, prefer async interactions for long-running work, and use shared caches or denormalization to avoid synchronous cross-service joins. Define SLAs for inter-service calls and instrument end-to-end traces.
 
 ## Production Checklist
 

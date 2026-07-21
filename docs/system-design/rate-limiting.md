@@ -166,9 +166,17 @@ sequenceDiagram
 
 ## Interview Questions
 
-- When would you choose a distributed token bucket vs per-node local quotas?
-- How do you implement a global rate limiter with low latency and acceptable accuracy?
-- Describe the client and server behavior when throttled — how should SDKs politely back off?
+### When would you choose a distributed token bucket vs per-node local quotas?
+
+Choose a distributed token bucket when you need a global, accurate quota (per API key or tenant). Use per-node local quotas when low-latency enforcement matters and a small degree of inaccuracy is acceptable (local burst capacity with periodic reconciliation). Hybrid patterns (small local buffer + central reconciliation) give a good balance.
+
+### How do you implement a global rate limiter with low latency and acceptable accuracy?
+
+Common patterns: use a fast shared store (Redis) with atomic scripts (INCR/LUA) for accurate counters; place rate limiting at the edge (CDN or API gateway) to drop traffic early; optionally use approximate structures (token buckets with local permits, or probabilistic counters) to reduce central load. Cache decisions for short TTLs to avoid per-request central hops.
+
+### Describe the client and server behavior when throttled — how should SDKs politely back off?
+
+Servers should return 429 with Retry-After and rate-limit headers. Clients/SDKs should respect Retry-After, use exponential backoff with jitter on retries, and implement idempotency for retried non-idempotent operations. Instrument retries and rate-limit rejections so policy tuning is data-driven.
 
 ## Production Checklist
 
