@@ -1,8 +1,8 @@
 ---
 id: javascript-fundamentals-types-of-identifiers
-title: 🔤 JavaScript Data Types & Identifiers
+title: "🔤 JavaScript Data Types & Identifiers"
 slug: /javascript/fundamentals/types-of-identifiers
-sidebar_label: 🔤 JavaScript Data Types & I...
+sidebar_label: "🔤 JavaScript Data Types & I..."
 ---
 
 # 🔤 JavaScript Data Types & Identifiers

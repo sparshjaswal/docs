@@ -1,8 +1,8 @@
 ---
 id: dsa-math-binary-floating-point-readme
-title: Binary representation of floating-point numbers
+title: "Binary representation of floating-point numbers"
 slug: /DSA/math/binary-floating-point/README
-sidebar_label: Binary representation of fl...
+sidebar_label: "Binary representation of fl..."
 ---
 
 # Binary representation of floating-point numbers

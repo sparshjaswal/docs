@@ -1,8 +1,8 @@
 ---
 id: dsa-strings-knuth-morris-pratt-readme
-title: Knuth–Morris–Pratt Algorithm
+title: "Knuth–Morris–Pratt Algorithm"
 slug: /DSA/strings/knuth-morris-pratt/README
-sidebar_label: Knuth–Morris–Pratt Algorithm
+sidebar_label: "Knuth–Morris–Pratt Algorithm"
 ---
 
 # Knuth–Morris–Pratt Algorithm

@@ -1,8 +1,8 @@
 ---
 id: javascript-error-handling
-title: Error Handling
+title: "Error Handling"
 slug: /javascript/error-handling
-sidebar_label: Error Handling
+sidebar_label: "Error Handling"
 ---
 
 # Error Handling

@@ -1,8 +1,8 @@
 ---
 id: dsa-math-sieve-of-eratosthenes-readme
-title: Sieve of Eratosthenes
+title: "Sieve of Eratosthenes"
 slug: /DSA/math/sieve-of-eratosthenes/README
-sidebar_label: Sieve of Eratosthenes
+sidebar_label: "Sieve of Eratosthenes"
 ---
 
 # Sieve of Eratosthenes

@@ -1,8 +1,8 @@
 ---
 id: dsa-strings-levenshtein-distance-readme
-title: Levenshtein Distance
+title: "Levenshtein Distance"
 slug: /DSA/strings/levenshtein-distance/README
-sidebar_label: Levenshtein Distance
+sidebar_label: "Levenshtein Distance"
 ---
 
 # Levenshtein Distance

@@ -1,8 +1,8 @@
 ---
 id: dsa-dp-readme
-title: 🧠 Dynamic Programming
+title: "🧠 Dynamic Programming"
 slug: /DSA/dp/README
-sidebar_label: 🧠 Dynamic Programming
+sidebar_label: "🧠 Dynamic Programming"
 ---
 
 # 🧠 Dynamic Programming

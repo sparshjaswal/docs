@@ -1,10 +1,9 @@
 ---
 id: dsa-stack-interview-guide
-title: Stacks
+title: "Stacks"
 slug: /DSA/stack/interview-guide
-sidebar_label: Stacks
+sidebar_label: "Stacks"
 ---
-
 
 # Stacks
 
@@ -12,10 +11,10 @@ sidebar_label: Stacks
 
 - **LIFO (Last-In, First-Out):** The last element added to the stack is the first one to be removed.
 - **Common Use Cases:**
-    - **Function Calls (Call Stack):** Managing active function calls in a program.
-    - **Undo/Redo Operations:** Keeping track of previous states.
-    - **Parsing and Expression Evaluation:** Converting infix to postfix/prefix, and evaluating expressions.
-    - **Backtracking:** Keeping track of the path taken in a search.
+  - **Function Calls (Call Stack):** Managing active function calls in a program.
+  - **Undo/Redo Operations:** Keeping track of previous states.
+  - **Parsing and Expression Evaluation:** Converting infix to postfix/prefix, and evaluating expressions.
+  - **Backtracking:** Keeping track of the path taken in a search.
 
 ## Interview Strategy
 
@@ -32,40 +31,40 @@ sidebar_label: Stacks
 
 ```javascript
 function isValid(s) {
-    const stack = [];
-    const map = {
-        "(": ")",
-        "[": "]",
-        "{": "}"
-    };
+  const stack = [];
+  const map = {
+    '(': ')',
+    '[': ']',
+    '{': '}',
+  };
 
-    for (let i = 0; i < s.length; i++) {
-        const char = s[i];
-        if (map[char]) {
-            stack.push(char);
-        } else {
-            if (stack.length === 0) {
-                return false;
-            }
-            const lastOpen = stack.pop();
-            if (map[lastOpen] !== char) {
-                return false;
-            }
-        }
+  for (let i = 0; i < s.length; i++) {
+    const char = s[i];
+    if (map[char]) {
+      stack.push(char);
+    } else {
+      if (stack.length === 0) {
+        return false;
+      }
+      const lastOpen = stack.pop();
+      if (map[lastOpen] !== char) {
+        return false;
+      }
     }
+  }
 
-    return stack.length === 0;
+  return stack.length === 0;
 }
 ```
 
 ## Complexity Analysis
 
-| Operation | Time Complexity | Space Complexity |
-| --------- | --------------- | ---------------- |
+| Operation | Time Complexity | Space Complexity                |
+| --------- | --------------- | ------------------------------- |
 | Push      | O(1)            | O(n) in worst case (all pushes) |
-| Pop       | O(1)            | O(n) in worst case |
-| Peek      | O(1)            | O(n) in worst case |
-| IsEmpty   | O(1)            | O(n) in worst case |
+| Pop       | O(1)            | O(n) in worst case              |
+| Peek      | O(1)            | O(n) in worst case              |
+| IsEmpty   | O(1)            | O(n) in worst case              |
 
 ## Dry Runs
 

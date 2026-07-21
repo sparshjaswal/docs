@@ -1,8 +1,8 @@
 ---
 id: design-pattern-structural-proxy
-title: Proxy Pattern 🛡️
+title: "Proxy Pattern 🛡️"
 slug: /design-pattern/structural/proxy
-sidebar_label: Proxy Pattern 🛡️
+sidebar_label: "Proxy Pattern 🛡️"
 ---
 
 # Proxy Pattern 🛡️

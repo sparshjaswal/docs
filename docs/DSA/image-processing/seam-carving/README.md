@@ -1,8 +1,8 @@
 ---
 id: dsa-image-processing-seam-carving-readme
-title: Content-aware image resizing in JavaScript
+title: "Content-aware image resizing in JavaScript"
 slug: /DSA/image-processing/seam-carving/README
-sidebar_label: Content-aware image resizin...
+sidebar_label: "Content-aware image resizin..."
 ---
 
 # Content-aware image resizing in JavaScript

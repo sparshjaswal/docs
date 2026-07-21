@@ -1,8 +1,8 @@
 ---
 id: dsa-graphs-hamiltonian-cycle-readme
-title: Hamiltonian Path
+title: "Hamiltonian Path"
 slug: /DSA/graphs/hamiltonian-cycle/README
-sidebar_label: Hamiltonian Path
+sidebar_label: "Hamiltonian Path"
 ---
 
 # Hamiltonian Path

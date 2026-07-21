@@ -1,8 +1,8 @@
 ---
 id: dsa-backtracking-readme
-title: 🔙 Backtracking
+title: "🔙 Backtracking"
 slug: /DSA/backtracking/README
-sidebar_label: 🔙 Backtracking
+sidebar_label: "🔙 Backtracking"
 ---
 
 # 🔙 Backtracking

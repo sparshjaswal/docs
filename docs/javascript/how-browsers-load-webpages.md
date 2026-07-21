@@ -1,8 +1,8 @@
 ---
 id: javascript-how-browsers-load-webpages
-title: How Browsers Load Webpages - Complete Guide
+title: "How Browsers Load Webpages - Complete Guide"
 slug: /javascript/how-browsers-load-webpages
-sidebar_label: How Browsers Load Webpages ...
+sidebar_label: "How Browsers Load Webpages ..."
 ---
 
 # How Browsers Load Webpages - Complete Guide

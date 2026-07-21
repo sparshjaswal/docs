@@ -1,8 +1,8 @@
 ---
 id: dsa-graphs-floyd-warshall-readme
-title: Floyd–Warshall Algorithm
+title: "Floyd–Warshall Algorithm"
 slug: /DSA/graphs/floyd-warshall/README
-sidebar_label: Floyd–Warshall Algorithm
+sidebar_label: "Floyd–Warshall Algorithm"
 ---
 
 # Floyd–Warshall Algorithm

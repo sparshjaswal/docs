@@ -1,8 +1,8 @@
 ---
 id: dsa-ml-knn-readme
-title: k-Nearest Neighbors Algorithm
+title: "k-Nearest Neighbors Algorithm"
 slug: /DSA/ml/knn/README
-sidebar_label: k-Nearest Neighbors Algorithm
+sidebar_label: "k-Nearest Neighbors Algorithm"
 ---
 
 # k-Nearest Neighbors Algorithm

@@ -1,8 +1,8 @@
 ---
 id: dsa-math-fourier-transform-readme
-title: Fourier Transform
+title: "Fourier Transform"
 slug: /DSA/math/fourier-transform/README
-sidebar_label: Fourier Transform
+sidebar_label: "Fourier Transform"
 ---
 
 # Fourier Transform

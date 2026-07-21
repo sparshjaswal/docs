@@ -1,8 +1,8 @@
 ---
 id: javascript-template-literals
-title: Template Literals [es6]
+title: "Template Literals [es6]"
 slug: /javascript/template-literals
-sidebar_label: Template Literals [es6]
+sidebar_label: "Template Literals [es6]"
 ---
 
 # Template Literals [es6]

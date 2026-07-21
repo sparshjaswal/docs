@@ -1,8 +1,8 @@
 ---
 id: javascript-asynchronous-readme
-title: ⏰ Asynchronous JavaScript
+title: "⏰ Asynchronous JavaScript"
 slug: /javascript/asynchronous/README
-sidebar_label: ⏰ Asynchronous JavaScript
+sidebar_label: "⏰ Asynchronous JavaScript"
 ---
 
 # ⏰ Asynchronous JavaScript

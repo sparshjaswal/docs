@@ -1,5 +1,5 @@
 ---
-title: Consistency Models
+title: "Consistency Models"
 sidebar_position: 9
 ---
 

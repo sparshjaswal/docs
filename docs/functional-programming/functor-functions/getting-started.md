@@ -1,8 +1,8 @@
 ---
 id: functional-programming-functor-functions-getting-started
-title: 🎭 Functor Functions & Mappable Structures
+title: "🎭 Functor Functions & Mappable Structures"
 slug: /functional-programming/functor-functions/getting-started
-sidebar_label: 🎭 Functor Functions & Mappa...
+sidebar_label: "🎭 Functor Functions & Mappa..."
 ---
 
 # 🎭 Functor Functions & Mappable Structures

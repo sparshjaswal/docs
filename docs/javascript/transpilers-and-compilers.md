@@ -1,8 +1,8 @@
 ---
 id: javascript-transpilers-and-compilers
-title: 🔄 Transpilers & Compilers in JavaScript
+title: "🔄 Transpilers & Compilers in JavaScript"
 slug: /javascript/transpilers-and-compilers
-sidebar_label: 🔄 Transpilers & Compilers i...
+sidebar_label: "🔄 Transpilers & Compilers i..."
 ---
 
 # 🔄 Transpilers & Compilers in JavaScript

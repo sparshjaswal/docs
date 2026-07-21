@@ -1,8 +1,8 @@
 ---
 id: design-pattern-creational-prototype
-title: Prototype Pattern 🧬
+title: "Prototype Pattern 🧬"
 slug: /design-pattern/creational/prototype
-sidebar_label: Prototype Pattern 🧬
+sidebar_label: "Prototype Pattern 🧬"
 ---
 
 # Prototype Pattern 🧬

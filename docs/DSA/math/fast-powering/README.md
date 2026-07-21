@@ -1,8 +1,8 @@
 ---
 id: dsa-math-fast-powering-readme
-title: Fast Powering Algorithm
+title: "Fast Powering Algorithm"
 slug: /DSA/math/fast-powering/README
-sidebar_label: Fast Powering Algorithm
+sidebar_label: "Fast Powering Algorithm"
 ---
 
 # Fast Powering Algorithm

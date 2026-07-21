@@ -1,8 +1,8 @@
 ---
 id: design-pattern-creational-builder
-title: Builder Pattern 🏗️
+title: "Builder Pattern 🏗️"
 slug: /design-pattern/creational/builder
-sidebar_label: Builder Pattern 🏗️
+sidebar_label: "Builder Pattern 🏗️"
 ---
 
 # Builder Pattern 🏗️

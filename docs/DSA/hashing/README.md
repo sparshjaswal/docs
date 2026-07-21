@@ -1,8 +1,8 @@
 ---
 id: dsa-hashing-readme
-title: 🗂️ Hashing (Map / Set)
+title: "🗂️ Hashing (Map / Set)"
 slug: /DSA/hashing/README
-sidebar_label: 🗂️ Hashing (Map / Set)
+sidebar_label: "🗂️ Hashing (Map / Set)"
 ---
 
 # 🗂️ Hashing (Map / Set)

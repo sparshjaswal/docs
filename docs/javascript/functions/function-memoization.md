@@ -1,8 +1,8 @@
 ---
 id: javascript-functions-function-memoization
-title: Memoization
+title: "Memoization"
 slug: /javascript/functions/function-memoization
-sidebar_label: Memoization
+sidebar_label: "Memoization"
 ---
 
 # Memoization

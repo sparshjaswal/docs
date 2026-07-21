@@ -1,8 +1,8 @@
 ---
 id: dsa-sets-combination-sum-readme
-title: Combination Sum Problem
+title: "Combination Sum Problem"
 slug: /DSA/sets/combination-sum/README
-sidebar_label: Combination Sum Problem
+sidebar_label: "Combination Sum Problem"
 ---
 
 # Combination Sum Problem

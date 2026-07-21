@@ -1,8 +1,8 @@
 ---
 id: javascript-symbol
-title: Symbol
+title: "Symbol"
 slug: /javascript/symbol
-sidebar_label: Symbol
+sidebar_label: "Symbol"
 ---
 
 # Symbol

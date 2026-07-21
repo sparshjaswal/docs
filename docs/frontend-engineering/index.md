@@ -1,5 +1,5 @@
 ---
-title: Frontend Engineering
+title: "Frontend Engineering"
 description: Comprehensive guide to frontend engineering — HTML, CSS, JavaScript DOM, React, Next.js, state management, performance, and rendering strategies.
 keywords:
   - frontend engineering
@@ -109,18 +109,18 @@ The Document Object Model (DOM) is a programming interface for HTML and XML docu
 
 Browsers expose a rich set of Web APIs beyond the DOM.
 
-| API | Purpose |
-| --- | --- |
-| **Fetch API** | HTTP requests with promise-based interface |
-| **Local Storage / Session Storage** | Key-value persistence in browser |
-| **IndexedDB** | Structured, transactional client-side database |
-| **Web Workers** | Background threads for CPU-intensive tasks |
-| **Service Workers** | Proxy between browser and network (offline support, push notifications) |
-| **Geolocation API** | Access user's location |
-| **Canvas / WebGL** | 2D/3D graphics rendering |
-| **WebSockets** | Full-duplex persistent connections |
-| **Intersection Observer** | Detect element visibility (lazy loading, infinite scroll) |
-| **Resize Observer** | React to element size changes |
+| API                                 | Purpose                                                                 |
+| ----------------------------------- | ----------------------------------------------------------------------- |
+| **Fetch API**                       | HTTP requests with promise-based interface                              |
+| **Local Storage / Session Storage** | Key-value persistence in browser                                        |
+| **IndexedDB**                       | Structured, transactional client-side database                          |
+| **Web Workers**                     | Background threads for CPU-intensive tasks                              |
+| **Service Workers**                 | Proxy between browser and network (offline support, push notifications) |
+| **Geolocation API**                 | Access user's location                                                  |
+| **Canvas / WebGL**                  | 2D/3D graphics rendering                                                |
+| **WebSockets**                      | Full-duplex persistent connections                                      |
+| **Intersection Observer**           | Detect element visibility (lazy loading, infinite scroll)               |
+| **Resize Observer**                 | React to element size changes                                           |
 
 ---
 
@@ -199,15 +199,15 @@ Managing application state predictably as complexity grows.
 
 ### Options
 
-| Solution | Best For |
-| --- | --- |
-| **useState + useReducer** | Local component state, small apps |
-| **React Context** | Global theme, auth, language — low-frequency updates |
-| **Zustand** | Lightweight, minimal boilerplate global state |
-| **Redux Toolkit** | Large apps with complex state logic, middleware, devtools |
-| **Jotai / Recoil** | Atomic state with fine-grained reactivity |
-| **TanStack Query** | Server state — caching, background refetch, optimistic updates |
-| **XState** | Finite state machines for predictable state transitions |
+| Solution                  | Best For                                                       |
+| ------------------------- | -------------------------------------------------------------- |
+| **useState + useReducer** | Local component state, small apps                              |
+| **React Context**         | Global theme, auth, language — low-frequency updates           |
+| **Zustand**               | Lightweight, minimal boilerplate global state                  |
+| **Redux Toolkit**         | Large apps with complex state logic, middleware, devtools      |
+| **Jotai / Recoil**        | Atomic state with fine-grained reactivity                      |
+| **TanStack Query**        | Server state — caching, background refetch, optimistic updates |
+| **XState**                | Finite state machines for predictable state transitions        |
 
 ### Principles
 
@@ -379,12 +379,12 @@ All pages are pre-built at build time. Served as static files from a CDN.
 
 ### Decision Matrix
 
-| Requirement | Recommended Strategy |
-| --- | --- |
-| Marketing site / blog | SSG or ISR |
-| E-commerce product pages | ISR (price/stock) or SSR |
-| Dashboard behind auth | CSR |
-| Social media feed | SSR with client hydration + streaming |
-| Documentation | SSG |
+| Requirement              | Recommended Strategy                  |
+| ------------------------ | ------------------------------------- |
+| Marketing site / blog    | SSG or ISR                            |
+| E-commerce product pages | ISR (price/stock) or SSR              |
+| Dashboard behind auth    | CSR                                   |
+| Social media feed        | SSR with client hydration + streaming |
+| Documentation            | SSG                                   |
 
 [← Back to Home](../index.md) · © sparshjaswal

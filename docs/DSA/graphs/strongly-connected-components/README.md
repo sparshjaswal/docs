@@ -1,8 +1,8 @@
 ---
 id: dsa-graphs-strongly-connected-components-readme
-title: Strongly Connected Component
+title: "Strongly Connected Component"
 slug: /DSA/graphs/strongly-connected-components/README
-sidebar_label: Strongly Connected Component
+sidebar_label: "Strongly Connected Component"
 ---
 
 # Strongly Connected Component

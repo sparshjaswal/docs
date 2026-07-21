@@ -1,8 +1,8 @@
 ---
 id: dsa-sets-knapsack-problem-readme
-title: Knapsack Problem
+title: "Knapsack Problem"
 slug: /DSA/sets/knapsack-problem/README
-sidebar_label: Knapsack Problem
+sidebar_label: "Knapsack Problem"
 ---
 
 # Knapsack Problem

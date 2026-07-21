@@ -1,8 +1,8 @@
 ---
 id: dsa-math-integer-partition-readme
-title: Integer Partition
+title: "Integer Partition"
 slug: /DSA/math/integer-partition/README
-sidebar_label: Integer Partition
+sidebar_label: "Integer Partition"
 ---
 
 # Integer Partition
@@ -37,5 +37,5 @@ are conjugate partitions.
 
 ## References
 
-- [Wikipedia](https://en.wikipedia.org/wiki/Partition_(number_theory))
+- [Wikipedia](<https://en.wikipedia.org/wiki/Partition_(number_theory)>)
 - [YouTube](https://www.youtube.com/watch?v=ZaVM057DuzE&list=PLLXdhg_r2hKA7DPDsunoDZ-Z769jWn4R8)

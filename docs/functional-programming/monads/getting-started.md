@@ -1,8 +1,8 @@
 ---
 id: functional-programming-monads-getting-started
-title: 🏗️ Monads: Advanced Functional Patterns
+title: "🏗️ Monads: Advanced Functional Patterns"
 slug: /functional-programming/monads/getting-started
-sidebar_label: 🏗️ Monads: Advanced Functio...
+sidebar_label: "🏗️ Monads: Advanced Functio..."
 ---
 
 # 🏗️ Monads: Advanced Functional Patterns

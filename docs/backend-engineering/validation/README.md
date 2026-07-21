@@ -1,5 +1,5 @@
 ---
-title: Validation
+title: "Validation"
 description: Comprehensive guide to input validation in backend applications — Joi, Zod, class-validator, sanitization, error formatting, and defense-in-depth patterns.
 keywords:
   - input validation
@@ -24,14 +24,14 @@ Input validation is the first line of defense in any backend application. It ens
 
 Skipping validation is like leaving your front door unlocked. Attackers constantly probe endpoints for injection vectors, malformed payloads, and edge cases. Even non-malicious clients send bad data — empty fields, wrong types, strings where numbers belong.
 
-| Risk | Without Validation | With Validation |
-| --- | --- | --- |
-| **SQL Injection** | Raw user input concatenated into queries | Rejected before touching the database |
-| **XSS** | Stored malicious scripts rendered to users | Stripped or escaped on input |
-| **Data corruption** | `null` in NOT NULL columns, wrong types | Schema enforcement catches mismatches |
-| **Business logic bugs** | Negative prices, future birth dates | Custom rules reject invalid states |
-| **API contract violations** | Downstream services receive garbage | Contract enforced at the boundary |
-| **Debugging hell** | Error discovered deep in the stack | Error caught at the boundary with clear message |
+| Risk                        | Without Validation                         | With Validation                                 |
+| --------------------------- | ------------------------------------------ | ----------------------------------------------- |
+| **SQL Injection**           | Raw user input concatenated into queries   | Rejected before touching the database           |
+| **XSS**                     | Stored malicious scripts rendered to users | Stripped or escaped on input                    |
+| **Data corruption**         | `null` in NOT NULL columns, wrong types    | Schema enforcement catches mismatches           |
+| **Business logic bugs**     | Negative prices, future birth dates        | Custom rules reject invalid states              |
+| **API contract violations** | Downstream services receive garbage        | Contract enforced at the boundary               |
+| **Debugging hell**          | Error discovered deep in the stack         | Error caught at the boundary with clear message |
 
 **Core principle:** Fail fast and fail loudly. Catch bad data as early as possible, and return actionable error messages to the caller.
 
@@ -54,13 +54,13 @@ graph LR
     style E fill:#e8f5e9,stroke:#1b5e20
 ```
 
-| Layer | Responsibility | Tools / Techniques | Must-Have? |
-| --- | --- | --- | --- |
-| **Client** | Immediate UX feedback, reduce round-trips | HTML5 validation, Zod (shared schemas) | ❌ Nice-to-have (never trust alone) |
-| **Gateway / Proxy** | Basic request validation, rate limiting | WAF rules, NGINX/Envoy Lua scripting, AWS WAF | ✅ For public-facing APIs |
-| **Application (Server)** | **Primary validation layer** — schema, types, business rules | Joi, Zod, class-validator, custom middleware | ✅ **Mandatory** |
-| **Business Logic** | Domain invariants, cross-field rules | Service-layer checks, domain-driven design | ✅ For complex domains |
-| **Database** | Last line of defense — type constraints, NOT NULL, CHECK | SQL constraints, triggers, foreign keys | ✅ Always |
+| Layer                    | Responsibility                                               | Tools / Techniques                            | Must-Have?                          |
+| ------------------------ | ------------------------------------------------------------ | --------------------------------------------- | ----------------------------------- |
+| **Client**               | Immediate UX feedback, reduce round-trips                    | HTML5 validation, Zod (shared schemas)        | ❌ Nice-to-have (never trust alone) |
+| **Gateway / Proxy**      | Basic request validation, rate limiting                      | WAF rules, NGINX/Envoy Lua scripting, AWS WAF | ✅ For public-facing APIs           |
+| **Application (Server)** | **Primary validation layer** — schema, types, business rules | Joi, Zod, class-validator, custom middleware  | ✅ **Mandatory**                    |
+| **Business Logic**       | Domain invariants, cross-field rules                         | Service-layer checks, domain-driven design    | ✅ For complex domains              |
+| **Database**             | Last line of defense — type constraints, NOT NULL, CHECK     | SQL constraints, triggers, foreign keys       | ✅ Always                           |
 
 **The golden rule:** Client-side validation is for UX. Server-side validation is for security. Never substitute one for the other.
 
@@ -70,18 +70,18 @@ graph LR
 
 Choosing the right validation library shapes your entire codebase. Here's how the four major contenders stack up:
 
-| Criteria | **Joi** | **Zod** | **Yup** | **class-validator** |
-| --- | --- | --- | --- | --- |
-| **TypeScript inference** | ❌ Manual types | ✅ First-class, `z.infer` | ❌ Limited (`InferType`) | ❌ Decorator-based, no inference |
-| **Bundle size (minified)** | ~150 KB | ~12 KB | ~60 KB | ~40 KB (+ `class-transformer`) |
-| **Learning curve** | Medium | Low (TypeScript-native feel) | Low | Medium (requires decorator knowledge) |
-| **Async validation** | ✅ `external()` | ✅ `.refine()` with async | ✅ `.test()` with async | ✅ `@Validate` with promises |
-| **Custom messages** | Excellent, template-based | Good, string/method-based | Good | Good, decorator options |
-| **Conditional schemas** | ✅ `.when()`, `.alternatives()` | ✅ `.discriminatedUnion()`, `.refine()` | ✅ `.when()` | ✅ `@ValidateIf()` |
-| **Transforms / coercion** | ✅ Built-in | ✅ `.transform()`, `.coerce` | ✅ `.transform()` | ✅ `@Transform()` via class-transformer |
-| **Framework integration** | Express/Hapi (native) | Any (unopinionated) | Formik (React), Express | NestJS (first-class), Express |
-| **Ecosystem / plugins** | Mature (since 2013) | Rapidly growing (since 2020) | Stable | NestJS-only |
-| **Best for** | Legacy Express apps, Hapi | Modern TypeScript projects, full-stack (tRPC) | React form validation, Express | NestJS DTO validation |
+| Criteria                   | **Joi**                         | **Zod**                                       | **Yup**                        | **class-validator**                     |
+| -------------------------- | ------------------------------- | --------------------------------------------- | ------------------------------ | --------------------------------------- |
+| **TypeScript inference**   | ❌ Manual types                 | ✅ First-class, `z.infer`                     | ❌ Limited (`InferType`)       | ❌ Decorator-based, no inference        |
+| **Bundle size (minified)** | ~150 KB                         | ~12 KB                                        | ~60 KB                         | ~40 KB (+ `class-transformer`)          |
+| **Learning curve**         | Medium                          | Low (TypeScript-native feel)                  | Low                            | Medium (requires decorator knowledge)   |
+| **Async validation**       | ✅ `external()`                 | ✅ `.refine()` with async                     | ✅ `.test()` with async        | ✅ `@Validate` with promises            |
+| **Custom messages**        | Excellent, template-based       | Good, string/method-based                     | Good                           | Good, decorator options                 |
+| **Conditional schemas**    | ✅ `.when()`, `.alternatives()` | ✅ `.discriminatedUnion()`, `.refine()`       | ✅ `.when()`                   | ✅ `@ValidateIf()`                      |
+| **Transforms / coercion**  | ✅ Built-in                     | ✅ `.transform()`, `.coerce`                  | ✅ `.transform()`              | ✅ `@Transform()` via class-transformer |
+| **Framework integration**  | Express/Hapi (native)           | Any (unopinionated)                           | Formik (React), Express        | NestJS (first-class), Express           |
+| **Ecosystem / plugins**    | Mature (since 2013)             | Rapidly growing (since 2020)                  | Stable                         | NestJS-only                             |
+| **Best for**               | Legacy Express apps, Hapi       | Modern TypeScript projects, full-stack (tRPC) | React form validation, Express | NestJS DTO validation                   |
 
 ### When to Choose What
 
@@ -133,13 +133,13 @@ const userSchema = Joi.object({
 
 // Validate
 const { error, value } = userSchema.validate(req.body, {
-  abortEarly: false,   // Return ALL errors, not just the first
-  stripUnknown: true,  // Remove properties not in schema
+  abortEarly: false, // Return ALL errors, not just the first
+  stripUnknown: true, // Remove properties not in schema
 });
 
 if (error) {
   // error.details is an array of { message, path, type, context }
-  const messages = error.details.map(d => d.message);
+  const messages = error.details.map((d) => d.message);
 }
 ```
 
@@ -151,15 +151,15 @@ if (error) {
 Joi.string()
   .min(2)
   .max(100)
-  .alphanum()               // a-z, A-Z, 0-9
-  .email({ tlds: false })   // Email validation
-  .uri()                     // Valid URI
-  .isoDate()                 // ISO 8601 date
+  .alphanum() // a-z, A-Z, 0-9
+  .email({ tlds: false }) // Email validation
+  .uri() // Valid URI
+  .isoDate() // ISO 8601 date
   .guid({ version: 'uuidv4' })
-  .trim()                    // Auto-trim whitespace
-  .lowercase()               // Auto-lowercase
-  .uppercase()               // Auto-uppercase
-  .pattern(/^[a-zA-Z ]+$/)  // Custom regex
+  .trim() // Auto-trim whitespace
+  .lowercase() // Auto-lowercase
+  .uppercase() // Auto-uppercase
+  .pattern(/^[a-zA-Z ]+$/) // Custom regex
   .message('Invalid string format');
 ```
 
@@ -172,8 +172,8 @@ Joi.number()
   .max(99999)
   .positive()
   .negative()
-  .precision(2)       // Max 2 decimal places
-  .port()             // 0–65535
+  .precision(2) // Max 2 decimal places
+  .port() // 0–65535
   .default(0);
 ```
 
@@ -181,13 +181,13 @@ Joi.number()
 
 ```typescript
 Joi.array()
-  .items(Joi.string().email())   // Array of emails
+  .items(Joi.string().email()) // Array of emails
   .min(1)
   .max(100)
-  .unique()                       // No duplicates
+  .unique() // No duplicates
   .ordered(Joi.string(), Joi.number()) // First item string, second number
-  .single()                       // Accept single value as array of one
-  .sparse(false);                 // Reject undefined/null items
+  .single() // Accept single value as array of one
+  .sparse(false); // Reject undefined/null items
 ```
 
 #### Objects & Nested Schemas
@@ -219,7 +219,7 @@ const productSchema = Joi.object({
     return value.toUpperCase(); // Can transform!
   }),
   price: Joi.number().custom((value, helpers) => {
-    if (value * 100 % 1 !== 0) {
+    if ((value * 100) % 1 !== 0) {
       return helpers.error('price.precision');
     }
     return value;
@@ -264,7 +264,7 @@ const registrationSchema = Joi.object({
         throw new Joi.ValidationError(
           'Email already registered',
           [{ message: 'Email already registered', path: ['email'] }],
-          value
+          value,
         );
       }
     }),
@@ -276,7 +276,7 @@ const registrationSchema = Joi.object({
         throw new Joi.ValidationError(
           'Username taken',
           [{ message: 'Username is already taken', path: ['username'] }],
-          value
+          value,
         );
       }
     }),
@@ -308,13 +308,13 @@ function validate(schemas: ValidationSchemas) {
     for (const [location, schema] of Object.entries(schemas)) {
       if (!schema) continue;
 
-      const { error, value } = schema.validate(
-        (req as any)[location],
-        { abortEarly: false, stripUnknown: location !== 'query' },
-      );
+      const { error, value } = schema.validate((req as any)[location], {
+        abortEarly: false,
+        stripUnknown: location !== 'query',
+      });
 
       if (error) {
-        errors[location] = error.details.map(d => d.message);
+        errors[location] = error.details.map((d) => d.message);
       } else {
         // Replace with validated & sanitized data
         (req as any)[location] = value;
@@ -337,7 +337,8 @@ function validate(schemas: ValidationSchemas) {
 }
 
 // Usage in routes
-router.post('/users',
+router.post(
+  '/users',
   validate({
     body: Joi.object({
       email: Joi.string().email().required(),
@@ -371,7 +372,11 @@ import { z } from 'zod';
 
 // Define a schema — notice the TypeScript-like syntax
 const userSchema = z.object({
-  username: z.string().min(3).max(30).regex(/^[a-zA-Z0-9_]+$/),
+  username: z
+    .string()
+    .min(3)
+    .max(30)
+    .regex(/^[a-zA-Z0-9_]+$/),
   email: z.string().email(),
   password: z.string().min(8).max(128),
   age: z.number().int().min(18).max(120).optional(),
@@ -401,15 +406,15 @@ if (!result.success) {
 ```typescript
 // Coercion — automatically convert strings from query params / form data
 const querySchema = z.object({
-  page: z.coerce.number().int().min(1).default(1),       // "3" → 3
+  page: z.coerce.number().int().min(1).default(1), // "3" → 3
   limit: z.coerce.number().int().min(1).max(100).default(20),
-  active: z.coerce.boolean(),                             // "true" → true
-  createdAt: z.coerce.date(),                             // "2024-01-15" → Date
+  active: z.coerce.boolean(), // "true" → true
+  createdAt: z.coerce.date(), // "2024-01-15" → Date
 });
 
 // Without coercion — strict type checking
 const strictSchema = z.object({
-  page: z.number().int().min(1),  // Passes only if page is actually a number
+  page: z.number().int().min(1), // Passes only if page is actually a number
 });
 ```
 
@@ -423,11 +428,11 @@ z.string()
   .url()
   .uuid()
   .cuid()
-  .datetime()          // ISO 8601 datetime
-  .trim()              // Auto-trim
-  .toLowerCase()       // Auto-transform to lowercase
+  .datetime() // ISO 8601 datetime
+  .trim() // Auto-trim
+  .toLowerCase() // Auto-transform to lowercase
   .regex(/^[a-z]+$/i)
-  .includes('@')       // Must contain '@'
+  .includes('@') // Must contain '@'
   .startsWith('USER_')
   .length(10);
 ```
@@ -435,31 +440,25 @@ z.string()
 #### Numbers
 
 ```typescript
-z.number()
-  .int()
-  .positive()
-  .nonnegative()
-  .min(0)
-  .max(100)
-  .multipleOf(5)
-  .finite()
-  .safe();             // Between Number.MIN_SAFE_INTEGER and MAX_SAFE_INTEGER
+z.number().int().positive().nonnegative().min(0).max(100).multipleOf(5).finite().safe(); // Between Number.MIN_SAFE_INTEGER and MAX_SAFE_INTEGER
 ```
 
 #### Arrays
 
 ```typescript
-z.array(z.string())        // string[]
-z.string().array()         // Equivalent syntax
+z.array(z.string()); // string[]
+z.string().array(); // Equivalent syntax
 
-z.array(z.object({
-  name: z.string(),
-  quantity: z.number().int().positive(),
-}))
-  .min(1)                  // At least 1 item
+z.array(
+  z.object({
+    name: z.string(),
+    quantity: z.number().int().positive(),
+  }),
+)
+  .min(1) // At least 1 item
   .max(100)
-  .nonempty()              // Alias for .min(1)
-  .length(5);              // Exactly 5 items
+  .nonempty() // Alias for .min(1)
+  .length(5); // Exactly 5 items
 ```
 
 #### Objects — Shape, Extend, Merge, Pick, Omit
@@ -493,7 +492,7 @@ const deepPatchUser = fullUser.deepPartial();
 
 // Passthrough / Strip — handle unknown keys
 z.object({ email: z.string() }).passthrough(); // Keep unknown keys
-z.object({ email: z.string() }).strict();      // Error on unknown keys
+z.object({ email: z.string() }).strict(); // Error on unknown keys
 ```
 
 ### Unions, Discriminated Unions & Enums
@@ -517,44 +516,47 @@ type Event = z.infer<typeof eventSchema>;
 
 ```typescript
 // .refine() — simple predicate (returns boolean)
-const passwordSchema = z.string().refine(
-  (val) => /[A-Z]/.test(val) && /[0-9]/.test(val),
-  { message: 'Password must contain at least one uppercase letter and one number' },
-);
+const passwordSchema = z
+  .string()
+  .refine((val) => /[A-Z]/.test(val) && /[0-9]/.test(val), {
+    message: 'Password must contain at least one uppercase letter and one number',
+  });
 
 // .superRefine() — multi-issue refinement with full control
-const bookingSchema = z.object({
-  checkIn: z.coerce.date(),
-  checkOut: z.coerce.date(),
-  guests: z.number().int().positive(),
-}).superRefine((data, ctx) => {
-  const now = new Date();
+const bookingSchema = z
+  .object({
+    checkIn: z.coerce.date(),
+    checkOut: z.coerce.date(),
+    guests: z.number().int().positive(),
+  })
+  .superRefine((data, ctx) => {
+    const now = new Date();
 
-  if (data.checkIn < now) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: 'Check-in date must be in the future',
-      path: ['checkIn'],
-    });
-  }
+    if (data.checkIn < now) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Check-in date must be in the future',
+        path: ['checkIn'],
+      });
+    }
 
-  if (data.checkOut <= data.checkIn) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: 'Check-out must be after check-in',
-      path: ['checkOut'],
-    });
-  }
+    if (data.checkOut <= data.checkIn) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Check-out must be after check-in',
+        path: ['checkOut'],
+      });
+    }
 
-  const daysDiff = (data.checkOut.getTime() - data.checkIn.getTime()) / (1000 * 3600 * 24);
-  if (daysDiff > 30) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: 'Maximum stay is 30 days',
-      path: ['checkOut'],
-    });
-  }
-});
+    const daysDiff = (data.checkOut.getTime() - data.checkIn.getTime()) / (1000 * 3600 * 24);
+    if (daysDiff > 30) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Maximum stay is 30 days',
+        path: ['checkOut'],
+      });
+    }
+  });
 ```
 
 ### Transforms — Reshaping Data During Validation
@@ -574,7 +576,8 @@ const dateFromString = z.string().transform((val, ctx) => {
 });
 
 // Trim + lowercase + transform
-const emailSchema = z.string()
+const emailSchema = z
+  .string()
   .trim()
   .toLowerCase()
   .email()
@@ -602,11 +605,7 @@ import { ZodSchema, ZodError } from 'zod';
  * On success: replaces req.{body,params,query} with parsed (coerced & sanitized) data.
  * On failure: returns 422 with structured error details.
  */
-function validate(schemas: {
-  body?: ZodSchema;
-  params?: ZodSchema;
-  query?: ZodSchema;
-}) {
+function validate(schemas: { body?: ZodSchema; params?: ZodSchema; query?: ZodSchema }) {
   return (req: Request, res: Response, next: NextFunction): void => {
     const errors: Array<{ location: string; field: string; message: string }> = [];
 
@@ -645,13 +644,19 @@ function validate(schemas: {
 }
 
 // Usage
-router.post('/orders',
+router.post(
+  '/orders',
   validate({
     body: z.object({
-      items: z.array(z.object({
-        productId: z.string().uuid(),
-        quantity: z.number().int().min(1).max(99),
-      })).min(1).max(50),
+      items: z
+        .array(
+          z.object({
+            productId: z.string().uuid(),
+            quantity: z.number().int().min(1).max(99),
+          }),
+        )
+        .min(1)
+        .max(50),
       shippingAddress: z.string().min(20).max(500),
     }),
     query: z.object({
@@ -685,15 +690,15 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true,           // Strip properties not in DTO
+      whitelist: true, // Strip properties not in DTO
       forbidNonWhitelisted: true, // Throw error on unknown properties
-      transform: true,            // Auto-transform payloads to DTO instances
+      transform: true, // Auto-transform payloads to DTO instances
       transformOptions: {
         enableImplicitConversion: true, // Auto-coerce types from query strings
       },
       validationError: {
-        target: false,            // Don't expose the DTO in error response
-        value: false,             // Don't expose the invalid value
+        target: false, // Don't expose the DTO in error response
+        value: false, // Don't expose the invalid value
       },
     }),
   );
@@ -707,9 +712,23 @@ bootstrap();
 
 ```typescript
 import {
-  IsString, IsEmail, IsInt, Min, Max, IsEnum, IsOptional,
-  IsUUID, IsArray, ArrayMinSize, ArrayMaxSize, ValidateNested,
-  IsBoolean, IsDateString, Matches, Length, MaxLength,
+  IsString,
+  IsEmail,
+  IsInt,
+  Min,
+  Max,
+  IsEnum,
+  IsOptional,
+  IsUUID,
+  IsArray,
+  ArrayMinSize,
+  ArrayMaxSize,
+  ValidateNested,
+  IsBoolean,
+  IsDateString,
+  Matches,
+  Length,
+  MaxLength,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -737,8 +756,8 @@ export class CreateOrderDto {
   @IsArray()
   @ArrayMinSize(1)
   @ArrayMaxSize(50)
-  @ValidateNested({ each: true })       // Validate EACH item in the array
-  @Type(() => OrderItemDto)              // Required for nested validation
+  @ValidateNested({ each: true }) // Validate EACH item in the array
+  @Type(() => OrderItemDto) // Required for nested validation
   items: OrderItemDto[];
 
   @IsString()
@@ -766,10 +785,7 @@ export class OrdersController {
   }
 
   @Get()
-  findAll(
-    @Query('page') page: number = 1,
-    @Query('limit') limit: number = 20,
-  ) {
+  findAll(@Query('page') page: number = 1, @Query('limit') limit: number = 20) {
     return this.ordersService.findAll({ page, limit });
   }
 }
@@ -864,7 +880,7 @@ export class CreateBookingDto {
 
 ```typescript
 @ValidatorConstraint({ name: 'isUniqueEmail', async: true })
-@Injectable()  // Make injectable to use services
+@Injectable() // Make injectable to use services
 export class IsUniqueEmailConstraint implements ValidatorConstraintInterface {
   constructor(private readonly usersService: UsersService) {}
 
@@ -1011,10 +1027,9 @@ const authHeaders = z.object({
   'x-request-id': z.string().uuid().optional(),
 });
 
-router.post('/secure-endpoint',
-  validate({ headers: authHeaders }),
-  (req, res) => { /* ... */ },
-);
+router.post('/secure-endpoint', validate({ headers: authHeaders }), (req, res) => {
+  /* ... */
+});
 ```
 
 ---
@@ -1040,14 +1055,18 @@ const variantSchema = z.object({
 
 const createProductSchema = z.object({
   name: z.string().min(3).max(200),
-  variants: z.array(variantSchema).min(1).max(100).refine(
-    (variants) => {
-      // Business rule: all SKUs within a product must be unique
-      const skus = variants.map(v => v.sku);
-      return new Set(skus).size === skus.length;
-    },
-    { message: 'Duplicate SKU within product variants' },
-  ),
+  variants: z
+    .array(variantSchema)
+    .min(1)
+    .max(100)
+    .refine(
+      (variants) => {
+        // Business rule: all SKUs within a product must be unique
+        const skus = variants.map((v) => v.sku);
+        return new Set(skus).size === skus.length;
+      },
+      { message: 'Duplicate SKU within product variants' },
+    ),
   tags: z.array(z.string().min(1).max(30)).max(20).default([]),
   metadata: z.record(z.string(), z.union([z.string(), z.number()])).optional(),
 });
@@ -1061,71 +1080,73 @@ Schema validation handles structure and types. Business rules enforce domain con
 
 ```typescript
 // Example: Shipment validation with complex business rules
-const shipmentSchema = z.object({
-  origin: z.object({
-    country: z.string().length(2),
-    city: z.string().min(1),
-    postalCode: z.string(),
-  }),
-  destination: z.object({
-    country: z.string().length(2),
-    city: z.string().min(1),
-    postalCode: z.string(),
-  }),
-  packageDetails: z.object({
-    weightKg: z.number().positive().max(1000),
-    dimensionsCm: z.object({
-      length: z.number().positive().max(300),
-      width: z.number().positive().max(300),
-      height: z.number().positive().max(300),
+const shipmentSchema = z
+  .object({
+    origin: z.object({
+      country: z.string().length(2),
+      city: z.string().min(1),
+      postalCode: z.string(),
     }),
-    isHazardous: z.boolean(),
-    isFragile: z.boolean(),
-  }),
-  shippingSpeed: z.enum(['standard', 'express', 'overnight']),
-}).superRefine((data, ctx) => {
-  // Rule 1: Domestic shipments can't be 'overnight'
-  if (data.origin.country === data.destination.country && data.shippingSpeed === 'overnight') {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: 'Overnight shipping is only available for international shipments',
-      path: ['shippingSpeed'],
-    });
-  }
+    destination: z.object({
+      country: z.string().length(2),
+      city: z.string().min(1),
+      postalCode: z.string(),
+    }),
+    packageDetails: z.object({
+      weightKg: z.number().positive().max(1000),
+      dimensionsCm: z.object({
+        length: z.number().positive().max(300),
+        width: z.number().positive().max(300),
+        height: z.number().positive().max(300),
+      }),
+      isHazardous: z.boolean(),
+      isFragile: z.boolean(),
+    }),
+    shippingSpeed: z.enum(['standard', 'express', 'overnight']),
+  })
+  .superRefine((data, ctx) => {
+    // Rule 1: Domestic shipments can't be 'overnight'
+    if (data.origin.country === data.destination.country && data.shippingSpeed === 'overnight') {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Overnight shipping is only available for international shipments',
+        path: ['shippingSpeed'],
+      });
+    }
 
-  // Rule 2: Hazardous materials can't use express or overnight
-  if (data.packageDetails.isHazardous && data.shippingSpeed !== 'standard') {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: 'Hazardous materials can only be shipped via standard',
-      path: ['shippingSpeed'],
-    });
-  }
+    // Rule 2: Hazardous materials can't use express or overnight
+    if (data.packageDetails.isHazardous && data.shippingSpeed !== 'standard') {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Hazardous materials can only be shipped via standard',
+        path: ['shippingSpeed'],
+      });
+    }
 
-  // Rule 3: Fragile items must have volumetric weight under 30kg
-  const volumetricWeight = (
-    data.packageDetails.dimensionsCm.length *
-    data.packageDetails.dimensionsCm.width *
-    data.packageDetails.dimensionsCm.height
-  ) / 5000;
-  if (data.packageDetails.isFragile && volumetricWeight > 30) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: 'Fragile items must have volumetric weight under 30kg',
-      path: ['packageDetails', 'dimensionsCm'],
-    });
-  }
+    // Rule 3: Fragile items must have volumetric weight under 30kg
+    const volumetricWeight =
+      (data.packageDetails.dimensionsCm.length *
+        data.packageDetails.dimensionsCm.width *
+        data.packageDetails.dimensionsCm.height) /
+      5000;
+    if (data.packageDetails.isFragile && volumetricWeight > 30) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Fragile items must have volumetric weight under 30kg',
+        path: ['packageDetails', 'dimensionsCm'],
+      });
+    }
 
-  // Rule 4: Specific country restrictions
-  const restrictedDestinations = ['KP', 'IR', 'SY', 'CU'];
-  if (restrictedDestinations.includes(data.destination.country)) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: `Shipping to ${data.destination.country} is restricted`,
-      path: ['destination', 'country'],
-    });
-  }
-});
+    // Rule 4: Specific country restrictions
+    const restrictedDestinations = ['KP', 'IR', 'SY', 'CU'];
+    if (restrictedDestinations.includes(data.destination.country)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `Shipping to ${data.destination.country} is restricted`,
+        path: ['destination', 'country'],
+      });
+    }
+  });
 ```
 
 ---
@@ -1136,13 +1157,13 @@ Validation **rejects** bad data. Sanitization **cleans** acceptable data. Both a
 
 ### What to Sanitize
 
-| Input Type | Risk | Sanitization |
-| --- | --- | --- |
-| Free-text fields (comments, bios) | XSS via stored `<script>` tags | Strip HTML, or use allowlist-based HTML sanitizer |
-| File names | Path traversal (`../../etc/passwd`) | Strip path separators, allow only safe characters |
-| URLs / redirect params | Open redirect phishing | Validate against allowlist of domains |
-| Rich text (WYSIWYG editors) | XSS, CSS injection | Sanitize with DOMPurify (server-side) |
-| Markdown | XSS via raw HTML in markdown | Render then sanitize, or strip raw HTML before rendering |
+| Input Type                        | Risk                                | Sanitization                                             |
+| --------------------------------- | ----------------------------------- | -------------------------------------------------------- |
+| Free-text fields (comments, bios) | XSS via stored `<script>` tags      | Strip HTML, or use allowlist-based HTML sanitizer        |
+| File names                        | Path traversal (`../../etc/passwd`) | Strip path separators, allow only safe characters        |
+| URLs / redirect params            | Open redirect phishing              | Validate against allowlist of domains                    |
+| Rich text (WYSIWYG editors)       | XSS, CSS injection                  | Sanitize with DOMPurify (server-side)                    |
+| Markdown                          | XSS via raw HTML in markdown        | Render then sanitize, or strip raw HTML before rendering |
 
 ### XSS Sanitization
 
@@ -1166,7 +1187,8 @@ function sanitizeHtml(dirty: string): string {
 }
 
 // Intercept in validation middleware or use as Zod transform
-const commentSchema = z.string()
+const commentSchema = z
+  .string()
   .max(5000)
   .transform((val) => sanitizeHtml(val))
   .refine((val) => val.length > 0, 'Comment cannot be empty after sanitization');
@@ -1180,10 +1202,7 @@ const query = `SELECT * FROM users WHERE email = '${req.body.email}'`;
 
 // ✅ ALWAYS use parameterized queries / ORM
 // Raw SQL with parameterized query
-const { rows } = await pool.query(
-  'SELECT * FROM users WHERE email = $1',
-  [req.body.email],
-);
+const { rows } = await pool.query('SELECT * FROM users WHERE email = $1', [req.body.email]);
 
 // ORM (Prisma example — parameterized by design)
 const user = await prisma.user.findUnique({
@@ -1217,23 +1236,26 @@ Some validations require database queries or external service calls. Handle them
 ### Zod Async Refinement
 
 ```typescript
-const registerSchema = z.object({
-  email: z.string().email(),
-  username: z.string().min(3).max(30),
-}).refine(
-  async (data) => {
-    // Returns true if email is NOT taken
-    const existing = await userRepository.findByEmail(data.email);
-    return !existing;
-  },
-  { message: 'Email is already registered', path: ['email'] },
-).refine(
-  async (data) => {
-    const existing = await userRepository.findByUsername(data.username);
-    return !existing;
-  },
-  { message: 'Username is already taken', path: ['username'] },
-);
+const registerSchema = z
+  .object({
+    email: z.string().email(),
+    username: z.string().min(3).max(30),
+  })
+  .refine(
+    async (data) => {
+      // Returns true if email is NOT taken
+      const existing = await userRepository.findByEmail(data.email);
+      return !existing;
+    },
+    { message: 'Email is already registered', path: ['email'] },
+  )
+  .refine(
+    async (data) => {
+      const existing = await userRepository.findByUsername(data.username);
+      return !existing;
+    },
+    { message: 'Username is already taken', path: ['username'] },
+  );
 
 // Must use .parseAsync() or .safeParseAsync()
 const result = await registerSchema.safeParseAsync(req.body);
@@ -1252,9 +1274,7 @@ const [emailExists, usernameExists] = await Promise.all([
 // ✅ TIMEOUT: Add timeouts to external service calls
 const product = await Promise.race([
   externalCatalogService.lookup(data.productId),
-  new Promise((_, reject) =>
-    setTimeout(() => reject(new Error('Catalog service timeout')), 2000)
-  ),
+  new Promise((_, reject) => setTimeout(() => reject(new Error('Catalog service timeout')), 2000)),
 ]);
 ```
 
@@ -1310,12 +1330,7 @@ class AppError extends Error {
   }
 }
 
-function validationErrorHandler(
-  err: Error,
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): void {
+function validationErrorHandler(err: Error, req: Request, res: Response, next: NextFunction): void {
   if (err instanceof ZodError) {
     res.status(422).json({
       error: {
@@ -1455,35 +1470,35 @@ flowchart TD
 
 ## Best Practices Summary
 
-| # | Practice | Why |
-| --- | --- | --- |
-| 1 | **Validate at the boundary** | Catch bad data before it enters your domain layer |
-| 2 | **Use schema-first validation** | Schemas are self-documenting, testable, and reusable |
-| 3 | **Prefer Zod for TypeScript projects** | Eliminate dual type/schema maintenance with `z.infer` |
-| 4 | **Always strip unknown properties** | Prevents mass-assignment attacks (`stripUnknown` / `whitelist`) |
-| 5 | **Validate all four input sources** | Body, params, query, headers — no blind spots |
-| 6 | **Coerce query params** | Everything from a query string is a string |
-| 7 | **Use discriminated unions for polymorphic payloads** | Exhaustive type narrowing in TypeScript |
-| 8 | **Format errors consistently** | Clients should get the same structure from every endpoint |
-| 9 | **Never expose stack traces or internal details in errors** | Production errors should be generic; details go to logs |
-| 10 | **Batch independent async validations** | `Promise.all` to minimize latency |
-| 11 | **Sanitize free-text fields** | XSS prevention even if HTML is never "supposed" to be there |
-| 12 | **Use parameterized queries — always** | The only reliable defense against SQL injection |
-| 13 | **Validate file uploads separately** | Check MIME type, magic bytes, file size BEFORE processing |
-| 14 | **Test your validation** | Write unit tests for schemas and integration tests for middleware |
+| #   | Practice                                                    | Why                                                               |
+| --- | ----------------------------------------------------------- | ----------------------------------------------------------------- |
+| 1   | **Validate at the boundary**                                | Catch bad data before it enters your domain layer                 |
+| 2   | **Use schema-first validation**                             | Schemas are self-documenting, testable, and reusable              |
+| 3   | **Prefer Zod for TypeScript projects**                      | Eliminate dual type/schema maintenance with `z.infer`             |
+| 4   | **Always strip unknown properties**                         | Prevents mass-assignment attacks (`stripUnknown` / `whitelist`)   |
+| 5   | **Validate all four input sources**                         | Body, params, query, headers — no blind spots                     |
+| 6   | **Coerce query params**                                     | Everything from a query string is a string                        |
+| 7   | **Use discriminated unions for polymorphic payloads**       | Exhaustive type narrowing in TypeScript                           |
+| 8   | **Format errors consistently**                              | Clients should get the same structure from every endpoint         |
+| 9   | **Never expose stack traces or internal details in errors** | Production errors should be generic; details go to logs           |
+| 10  | **Batch independent async validations**                     | `Promise.all` to minimize latency                                 |
+| 11  | **Sanitize free-text fields**                               | XSS prevention even if HTML is never "supposed" to be there       |
+| 12  | **Use parameterized queries — always**                      | The only reliable defense against SQL injection                   |
+| 13  | **Validate file uploads separately**                        | Check MIME type, magic bytes, file size BEFORE processing         |
+| 14  | **Test your validation**                                    | Write unit tests for schemas and integration tests for middleware |
 
 ---
 
 ### Quick Decision Matrix
 
-| Situation | Tool | Pattern |
-| --- | --- | --- |
-| NestJS app, DTOs with decorators | class-validator + ValidationPipe | `@IsString()`, `@IsEmail()`, `whitelist: true` |
-| TypeScript Express app, team values type safety | Zod | `z.object({ ... }).safeParse(req.body)` |
-| Legacy Node.js app, Hapi framework | Joi | `Joi.object({ ... }).validate(req.payload)` |
-| React form validation shared with server | Zod | Share schemas via monorepo package |
-| Simple API, minimal dependencies | Zod (12 KB) | Lightweight, tree-shakeable |
-| Complex conditional logic, alternatives | Joi `.when()` / Zod `.discriminatedUnion()` | Match library to complexity |
-| DB lookup required for uniqueness | Zod `.refine(async ...)` / class-validator async | Use safeParseAsync or async custom validator |
+| Situation                                       | Tool                                             | Pattern                                        |
+| ----------------------------------------------- | ------------------------------------------------ | ---------------------------------------------- |
+| NestJS app, DTOs with decorators                | class-validator + ValidationPipe                 | `@IsString()`, `@IsEmail()`, `whitelist: true` |
+| TypeScript Express app, team values type safety | Zod                                              | `z.object({ ... }).safeParse(req.body)`        |
+| Legacy Node.js app, Hapi framework              | Joi                                              | `Joi.object({ ... }).validate(req.payload)`    |
+| React form validation shared with server        | Zod                                              | Share schemas via monorepo package             |
+| Simple API, minimal dependencies                | Zod (12 KB)                                      | Lightweight, tree-shakeable                    |
+| Complex conditional logic, alternatives         | Joi `.when()` / Zod `.discriminatedUnion()`      | Match library to complexity                    |
+| DB lookup required for uniqueness               | Zod `.refine(async ...)` / class-validator async | Use safeParseAsync or async custom validator   |
 
 [← Back to Backend Engineering](../README.md) · © sparshjaswal

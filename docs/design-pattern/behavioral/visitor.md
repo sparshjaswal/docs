@@ -1,8 +1,8 @@
 ---
 id: design-pattern-behavioral-visitor
-title: Visitor Pattern 🏃‍♂️
+title: "Visitor Pattern 🏃‍♂️"
 slug: /design-pattern/behavioral/visitor
-sidebar_label: Visitor Pattern 🏃‍♂️
+sidebar_label: "Visitor Pattern 🏃‍♂️"
 ---
 
 # Visitor Pattern 🏃‍♂️

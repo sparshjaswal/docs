@@ -1,8 +1,8 @@
 ---
 id: javascript-functions-readme
-title: 🔧 JavaScript Functions
+title: "🔧 JavaScript Functions"
 slug: /javascript/functions/README
-sidebar_label: 🔧 JavaScript Functions
+sidebar_label: "🔧 JavaScript Functions"
 ---
 
 # 🔧 JavaScript Functions

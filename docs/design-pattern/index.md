@@ -1,5 +1,5 @@
 ---
-title: Design Patterns Guide
+title: "Design Patterns Guide"
 description: Comprehensive guide to creational, structural, and behavioral design patterns with JavaScript examples.
 keywords:
   - design patterns

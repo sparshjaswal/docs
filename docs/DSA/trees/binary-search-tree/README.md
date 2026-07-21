@@ -1,8 +1,8 @@
 ---
 id: dsa-trees-binary-search-tree-readme
-title: Binary Search Tree
+title: "Binary Search Tree"
 slug: /DSA/trees/binary-search-tree/README
-sidebar_label: Binary Search Tree
+sidebar_label: "Binary Search Tree"
 ---
 
 # Binary Search Tree

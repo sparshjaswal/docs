@@ -1,8 +1,8 @@
 ---
 id: dsa-strings-longest-common-substring-readme
-title: Longest Common Substring Problem
+title: "Longest Common Substring Problem"
 slug: /DSA/strings/longest-common-substring/README
-sidebar_label: Longest Common Substring Pr...
+sidebar_label: "Longest Common Substring Pr..."
 ---
 
 # Longest Common Substring Problem

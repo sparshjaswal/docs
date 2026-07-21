@@ -1,8 +1,8 @@
 ---
 id: dsa-sorting-insertion-sort-readme
-title: Insertion Sort
+title: "Insertion Sort"
 slug: /DSA/sorting/insertion-sort/README
-sidebar_label: Insertion Sort
+sidebar_label: "Insertion Sort"
 ---
 
 # Insertion Sort

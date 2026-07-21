@@ -1,8 +1,8 @@
 ---
 id: dsa-math-euclidean-distance-readme
-title: Euclidean Distance
+title: "Euclidean Distance"
 slug: /DSA/math/euclidean-distance/README
-sidebar_label: Euclidean Distance
+sidebar_label: "Euclidean Distance"
 ---
 
 # Euclidean Distance

@@ -1,6 +1,6 @@
 ---
 slug: /
-title: Learning Portal Docs
+title: "Learning Portal Docs"
 description: Structured learning tracks for JavaScript, DSA, design patterns, functional programming, design systems, and SOLID principles.
 keywords:
   - javascript

@@ -1,8 +1,8 @@
 ---
 id: dsa-sorting-bubble-sort-readme
-title: Bubble Sort
+title: "Bubble Sort"
 slug: /DSA/sorting/bubble-sort/README
-sidebar_label: Bubble Sort
+sidebar_label: "Bubble Sort"
 ---
 
 # Bubble Sort

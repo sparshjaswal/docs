@@ -1,8 +1,8 @@
 ---
 id: javascript-functions-function-closure
-title: JavaScript Closures
+title: "JavaScript Closures"
 slug: /javascript/functions/function-closure
-sidebar_label: JavaScript Closures
+sidebar_label: "JavaScript Closures"
 ---
 
 # JavaScript Closures

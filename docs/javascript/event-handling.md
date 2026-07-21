@@ -1,8 +1,8 @@
 ---
 id: javascript-event-handling
-title: Event Handling
+title: "Event Handling"
 slug: /javascript/event-handling
-sidebar_label: Event Handling
+sidebar_label: "Event Handling"
 ---
 
 # Event Handling

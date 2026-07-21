@@ -1,8 +1,8 @@
 ---
 id: javascript-testing-guide
-title: 🧪 JavaScript Testing Mastery Guide
+title: "🧪 JavaScript Testing Mastery Guide"
 slug: /javascript/testing-guide
-sidebar_label: 🧪 JavaScript Testing Master...
+sidebar_label: "🧪 JavaScript Testing Master..."
 ---
 
 # 🧪 JavaScript Testing Mastery Guide

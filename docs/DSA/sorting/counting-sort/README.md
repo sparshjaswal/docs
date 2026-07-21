@@ -1,8 +1,8 @@
 ---
 id: dsa-sorting-counting-sort-readme
-title: Counting Sort
+title: "Counting Sort"
 slug: /DSA/sorting/counting-sort/README
-sidebar_label: Counting Sort
+sidebar_label: "Counting Sort"
 ---
 
 # Counting Sort

@@ -1,8 +1,8 @@
 ---
 id: dsa-trie-readme
-title: Trie
+title: "Trie"
 slug: /DSA/trie/README
-sidebar_label: Trie
+sidebar_label: "Trie"
 ---
 
 # Trie

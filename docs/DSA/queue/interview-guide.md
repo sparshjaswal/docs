@@ -1,10 +1,9 @@
 ---
 id: dsa-queue-interview-guide
-title: Queues
+title: "Queues"
 slug: /DSA/queue/interview-guide
-sidebar_label: Queues
+sidebar_label: "Queues"
 ---
-
 
 # Queues
 
@@ -12,10 +11,10 @@ sidebar_label: Queues
 
 - **FIFO (First-In, First-Out):** The first element added to the queue is the first one to be removed.
 - **Common Use Cases:**
-    - **Breadth-First Search (BFS):** To explore a graph or tree level by level.
-    - **Scheduling:** In operating systems for task scheduling.
-    - **Buffering:** In networking to handle data streams.
-    - **Order Processing:** In e-commerce systems to process orders in the order they were received.
+  - **Breadth-First Search (BFS):** To explore a graph or tree level by level.
+  - **Scheduling:** In operating systems for task scheduling.
+  - **Buffering:** In networking to handle data streams.
+  - **Order Processing:** In e-commerce systems to process orders in the order they were received.
 
 ## Interview Strategy
 
@@ -32,41 +31,41 @@ sidebar_label: Queues
 
 ```javascript
 class StackUsingQueues {
-    constructor() {
-        this.q1 = [];
-        this.q2 = [];
-    }
+  constructor() {
+    this.q1 = [];
+    this.q2 = [];
+  }
 
-    push(x) {
-        this.q2.push(x);
-        while (this.q1.length > 0) {
-            this.q2.push(this.q1.shift());
-        }
-        [this.q1, this.q2] = [this.q2, this.q1];
+  push(x) {
+    this.q2.push(x);
+    while (this.q1.length > 0) {
+      this.q2.push(this.q1.shift());
     }
+    [this.q1, this.q2] = [this.q2, this.q1];
+  }
 
-    pop() {
-        return this.q1.shift();
-    }
+  pop() {
+    return this.q1.shift();
+  }
 
-    top() {
-        return this.q1[0];
-    }
+  top() {
+    return this.q1[0];
+  }
 
-    empty() {
-        return this.q1.length === 0;
-    }
+  empty() {
+    return this.q1.length === 0;
+  }
 }
 ```
 
 ## Complexity Analysis
 
-| Operation      | Time Complexity (Array-based) | Space Complexity |
-| -------------- | ----------------------------- | ---------------- |
-| Enqueue        | O(1) (amortized)              | O(n)             |
-| Dequeue        | O(n) (if at beginning of array) or O(1) (if using a proper queue implementation) | O(n)             |
-| Peek           | O(1)                          | O(n)             |
-| IsEmpty        | O(1)                          | O(n)             |
+| Operation | Time Complexity (Array-based)                                                    | Space Complexity |
+| --------- | -------------------------------------------------------------------------------- | ---------------- |
+| Enqueue   | O(1) (amortized)                                                                 | O(n)             |
+| Dequeue   | O(n) (if at beginning of array) or O(1) (if using a proper queue implementation) | O(n)             |
+| Peek      | O(1)                                                                             | O(n)             |
+| IsEmpty   | O(1)                                                                             | O(n)             |
 
 ## Dry Runs
 

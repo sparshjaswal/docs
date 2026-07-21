@@ -1,8 +1,8 @@
 ---
 id: dsa-backtracking-algorithms-overview
-title: Backtracking
+title: "Backtracking"
 slug: /DSA/backtracking/algorithms-overview
-sidebar_label: Backtracking
+sidebar_label: "Backtracking"
 ---
 
 # Backtracking

@@ -1,5 +1,5 @@
 ---
-title: Scalability
+title: "Scalability"
 sidebar_position: 2
 ---
 

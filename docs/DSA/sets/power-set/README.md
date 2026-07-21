@@ -1,8 +1,8 @@
 ---
 id: dsa-sets-power-set-readme
-title: Power Set
+title: "Power Set"
 slug: /DSA/sets/power-set/README
-sidebar_label: Power Set
+sidebar_label: "Power Set"
 ---
 
 # Power Set

@@ -1,8 +1,8 @@
 ---
 id: javascript-loops
-title: Loop
+title: "Loop"
 slug: /javascript/loops
-sidebar_label: Loop
+sidebar_label: "Loop"
 ---
 
 # Loop

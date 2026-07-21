@@ -1,8 +1,8 @@
 ---
 id: javascript-functions-function-iife
-title: IIFE (Immediately Invoked Function Expression)
+title: "IIFE (Immediately Invoked Function Expression)"
 slug: /javascript/functions/function-iife
-sidebar_label: IIFE (Immediately Invoked F...
+sidebar_label: "IIFE (Immediately Invoked F..."
 ---
 
 # IIFE (Immediately Invoked Function Expression)

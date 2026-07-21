@@ -1,8 +1,8 @@
 ---
 id: dsa-sorting-heap-sort-readme
-title: Heap Sort
+title: "Heap Sort"
 slug: /DSA/sorting/heap-sort/README
-sidebar_label: Heap Sort
+sidebar_label: "Heap Sort"
 ---
 
 # Heap Sort

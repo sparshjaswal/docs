@@ -1,8 +1,8 @@
 ---
 id: dsa-strings-z-algorithm-readme
-title: Z Algorithm
+title: "Z Algorithm"
 slug: /DSA/strings/z-algorithm/README
-sidebar_label: Z Algorithm
+sidebar_label: "Z Algorithm"
 ---
 
 # Z Algorithm

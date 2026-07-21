@@ -1,5 +1,5 @@
 ---
-title: Complete JavaScript Mastery Guide
+title: "Complete JavaScript Mastery Guide"
 description: A complete JavaScript learning path from web fundamentals to advanced patterns, testing, and interview preparation.
 keywords:
   - javascript
@@ -21,79 +21,83 @@ A structured learning path from fundamentals to advanced JavaScript, covering la
 
 _Duration: 3–4 weeks | Prerequisites: None_
 
-| # | Topic | File | Time | Description |
-| :--- | :--- | :--- | :--- | :--- |
-| 1.1 | [How Browsers Load Webpages](./how-browsers-load-webpages.md) | 📄 | 2h | HTTP, parsing, rendering pipeline — start here |
-| 1.2 | [JavaScript History & Evolution](./history.md) | 📄 | 1h | ECMAScript versions, language evolution |
-| 1.3 | [JavaScript Engine Architecture](./javascript-engine-basic-unit.md) | 📄 | 3h | Call stack, memory heap, event loop intro |
-| 2.1 | [Keywords & Identifiers](./keyword.md) | 📄 | 2h | `let`, `const`, `var`, reserved words |
-| 2.2 | [Operators and Operands](./operators-and-operands.md) | 📄 | 2h | Arithmetic, comparison, logical, bitwise |
-| 2.3 | [Flow of Control](./flow-of-control.md) | 📄 | 3h | `if/else`, `switch`, ternary, truthy/falsy |
-| 2.4 | [Loops](./loops.md) | 📄 | 2h | `for`, `while`, `for...of`, `for...in` |
-| 2.5 | [Use Strict Mode](./use-strict.md) | 📄 | 1h | Catching silent errors, ES5+ safety |
+| #   | Topic                                                               | File | Time | Description                                    |
+| :-- | :------------------------------------------------------------------ | :--- | :--- | :--------------------------------------------- |
+| 1.1 | [How Browsers Load Webpages](./how-browsers-load-webpages.md)       | 📄   | 2h   | HTTP, parsing, rendering pipeline — start here |
+| 1.2 | [JavaScript History & Evolution](./history.md)                      | 📄   | 1h   | ECMAScript versions, language evolution        |
+| 1.3 | [JavaScript Engine Architecture](./javascript-engine-basic-unit.md) | 📄   | 3h   | Call stack, memory heap, event loop intro      |
+| 2.1 | [Keywords & Identifiers](./keyword.md)                              | 📄   | 2h   | `let`, `const`, `var`, reserved words          |
+| 2.2 | [Operators and Operands](./operators-and-operands.md)               | 📄   | 2h   | Arithmetic, comparison, logical, bitwise       |
+| 2.3 | [Flow of Control](./flow-of-control.md)                             | 📄   | 3h   | `if/else`, `switch`, ternary, truthy/falsy     |
+| 2.4 | [Loops](./loops.md)                                                 | 📄   | 2h   | `for`, `while`, `for...of`, `for...in`         |
+| 2.5 | [Use Strict Mode](./use-strict.md)                                  | 📄   | 1h   | Catching silent errors, ES5+ safety            |
 
 ### Part 2: Building Skills (Intermediate)
 
 _Duration: 4–5 weeks | Prerequisites: Foundation_
 
-| # | Topic | File | Time | Description |
-| :--- | :--- | :--- | :--- | :--- |
-| 3.1 | [Arrays](./arrays/) | 📁 | 4h | Creation, methods, iteration, searching |
-| 3.2 | [Fundamentals](./fundamentals/README.md) | 📁 | 6h | Types, coercion, scope, hoisting, closures |
-| 4.1 | [Functions](./functions/README.md) | 📁 | 6h | Declarations, expressions, arrows, IIFE, recursion |
-| 4.2 | [Object Composition](./object-composition.md) | 📄 | 3h | Mixins, prototypes, `Object.create`, factory patterns |
-| 5.1 | [Destructuring](./destructuring.md) | 📄 | 2h | Array and object destructuring, defaults, nesting |
-| 5.2 | [Spread Operator](./spread-operator.md) | 📄 | 2h | Copying, merging, rest parameters |
-| 5.3 | [Template Literals](./template-literals.md) | 📄 | 1h | String interpolation, tagged templates |
-| 5.4 | [Symbol](./symbol.md) | 📄 | 2h | Unique keys, well-known symbols, metaprogramming |
-| 5.5 | [Import & Export](./import-and-export.md) | 📄 | 3h | ESM vs CJS, named vs default exports, dynamic imports |
+| #   | Topic                                         | File | Time | Description                                           |
+| :-- | :-------------------------------------------- | :--- | :--- | :---------------------------------------------------- |
+| 3.1 | [Arrays](./arrays/)                           | 📁   | 4h   | Creation, methods, iteration, searching               |
+| 3.2 | [Fundamentals](./fundamentals/README.md)      | 📁   | 6h   | Types, coercion, scope, hoisting, closures            |
+| 4.1 | [Functions](./functions/README.md)            | 📁   | 6h   | Declarations, expressions, arrows, IIFE, recursion    |
+| 4.2 | [Object Composition](./object-composition.md) | 📄   | 3h   | Mixins, prototypes, `Object.create`, factory patterns |
+| 5.1 | [Destructuring](./destructuring.md)           | 📄   | 2h   | Array and object destructuring, defaults, nesting     |
+| 5.2 | [Spread Operator](./spread-operator.md)       | 📄   | 2h   | Copying, merging, rest parameters                     |
+| 5.3 | [Template Literals](./template-literals.md)   | 📄   | 1h   | String interpolation, tagged templates                |
+| 5.4 | [Symbol](./symbol.md)                         | 📄   | 2h   | Unique keys, well-known symbols, metaprogramming      |
+| 5.5 | [Import & Export](./import-and-export.md)     | 📄   | 3h   | ESM vs CJS, named vs default exports, dynamic imports |
 
 ### Part 3: Mastering Concepts (Advanced)
 
 _Duration: 4–5 weeks | Prerequisites: Intermediate_
 
-| # | Topic | File | Time | Description |
-| :--- | :--- | :--- | :--- | :--- |
-| 6.1 | [Asynchronous Programming](./asynchronous/README.md) | 📁 | 8h | Callbacks, Promises, async/await, event loop in depth |
-| 7.1 | [Document Object Model](./document-object-model.md) | 📄 | 4h | DOM traversal, manipulation, reflow/repaint |
-| 7.2 | [Event Handling](./event-handling.md) | 📄 | 3h | Event propagation, delegation, custom events |
-| 8.1 | [Error Handling](./error-handling.md) | 📄 | 3h | `try/catch`, custom errors, global handlers |
-| 8.2 | [Testing Guide](./testing-guide.md) | 📄 | 4h | Unit testing, Jest, mocking, TDD basics |
+| #   | Topic                                                | File | Time | Description                                           |
+| :-- | :--------------------------------------------------- | :--- | :--- | :---------------------------------------------------- |
+| 6.1 | [Asynchronous Programming](./asynchronous/README.md) | 📁   | 8h   | Callbacks, Promises, async/await, event loop in depth |
+| 7.1 | [Document Object Model](./document-object-model.md)  | 📄   | 4h   | DOM traversal, manipulation, reflow/repaint           |
+| 7.2 | [Event Handling](./event-handling.md)                | 📄   | 3h   | Event propagation, delegation, custom events          |
+| 8.1 | [Error Handling](./error-handling.md)                | 📄   | 3h   | `try/catch`, custom errors, global handlers           |
+| 8.2 | [Testing Guide](./testing-guide.md)                  | 📄   | 4h   | Unit testing, Jest, mocking, TDD basics               |
 
 ### Part 4: Professional Development (Expert)
 
 _Duration: 3–4 weeks | Prerequisites: Advanced_
 
-| # | Topic | File | Time | Description |
-| :--- | :--- | :--- | :--- | :--- |
-| 9.1 | [Modern JS Patterns](./modern-js-patterns.md) | 📄 | 4h | Module, observer, singleton, factory, dependency injection |
-| 9.2 | [Modular JavaScript](./modular-javascript.md) | 📄 | 3h | Code splitting, barrel exports, package structure |
-| 9.3 | [JS Best Practices](./js-best-practices.md) | 📄 | 3h | Clean code, naming, immutability, avoiding anti-patterns |
-| 10.1 | [Transpilers & Compilers](./transpilers-and-compilers.md) | 📄 | 2h | Babel, TypeScript compilation, build pipelines |
+| #    | Topic                                                     | File | Time | Description                                                |
+| :--- | :-------------------------------------------------------- | :--- | :--- | :--------------------------------------------------------- |
+| 9.1  | [Modern JS Patterns](./modern-js-patterns.md)             | 📄   | 4h   | Module, observer, singleton, factory, dependency injection |
+| 9.2  | [Modular JavaScript](./modular-javascript.md)             | 📄   | 3h   | Code splitting, barrel exports, package structure          |
+| 9.3  | [JS Best Practices](./js-best-practices.md)               | 📄   | 3h   | Clean code, naming, immutability, avoiding anti-patterns   |
+| 10.1 | [Transpilers & Compilers](./transpilers-and-compilers.md) | 📄   | 2h   | Babel, TypeScript compilation, build pipelines             |
 
 ---
 
 ## Reference Materials
 
-| Resource | File | Description |
-| :--- | :--- | :--- |
-| Quick Reference | [quick-reference.md](./quick-reference.md) | Syntax cheat sheet |
-| Cheat Sheet | [quick-reference-cheatsheet.md](./quick-reference-cheatsheet.md) | Common patterns and APIs |
+| Resource        | File                                                             | Description              |
+| :-------------- | :--------------------------------------------------------------- | :----------------------- |
+| Quick Reference | [quick-reference.md](./quick-reference.md)                       | Syntax cheat sheet       |
+| Cheat Sheet     | [quick-reference-cheatsheet.md](./quick-reference-cheatsheet.md) | Common patterns and APIs |
 
 ---
 
 ## Topic Deep-Dives
 
 ### [Fundamentals](./fundamentals/README.md)
+
 Variables, data types, scope, hoisting, type coercion, and equality — the building blocks every JS developer must internalize.
 
 ### [Functions](./functions/README.md)
+
 Function types, higher-order functions, closures, IIFE patterns, recursion, and memoization.
 
 ### [Arrays](./arrays/)
+
 Creation, built-in methods (`map`, `filter`, `reduce`, `sort`, `splice`), typed arrays, and performance considerations.
 
 ### [Asynchronous Programming](./asynchronous/README.md)
+
 Callbacks → Promises → async/await, error handling patterns, concurrency control, and the event loop in detail.
 
 ---
@@ -101,24 +105,28 @@ Callbacks → Promises → async/await, error handling patterns, concurrency con
 ## Projects by Level
 
 ### Beginner
+
 - **Calculator** — DOM manipulation with basic arithmetic
 - **To-Do List** — CRUD operations with local storage
 - **Digital Clock** — `Date` object and `setInterval`
 - **Color Guessing Game** — Randomization and event handling
 
 ### Intermediate
+
 - **Weather Dashboard** — Fetch API, async data, dynamic rendering
 - **Quiz Application** — Timer, scoring, object-based question bank
 - **Expense Tracker** — Form handling, data persistence, filtering
 - **Memory Card Game** — State management, animations, event delegation
 
 ### Advanced
+
 - **Real-Time Chat** — WebSocket client, message queuing
 - **Shopping Cart** — Complex state, inventory management
 - **Data Dashboard** — Chart.js or Canvas, data transformation
 - **Markdown Previewer** — Parsing, sanitization, live preview
 
 ### Expert
+
 - **Mini Framework** — Virtual DOM, reactivity, component system
 - **Browser Extension** — Chrome APIs, content scripts, messaging
 - **CLI Tool** — Node.js, argument parsing, file system operations
@@ -155,16 +163,19 @@ touch index.html src/app.js css/style.css
 ## Additional Resources
 
 ### Books
-- *You Don't Know JS* (Kyle Simpson) — deep dive into JS mechanics
-- *Eloquent JavaScript* (Marijn Haverbeke) — beginner to intermediate
-- *JavaScript: The Good Parts* (Douglas Crockford) — concise best-practices classic
+
+- _You Don't Know JS_ (Kyle Simpson) — deep dive into JS mechanics
+- _Eloquent JavaScript_ (Marijn Haverbeke) — beginner to intermediate
+- _JavaScript: The Good Parts_ (Douglas Crockford) — concise best-practices classic
 
 ### Online
+
 - [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript) — official reference
 - [JavaScript.info](https://javascript.info/) — modern tutorial with examples
 - [Can I Use](https://caniuse.com/) — browser compatibility data
 
 ### Practice
+
 - [LeetCode](https://leetcode.com/) — algorithm problems
 - [Codewars](https://www.codewars.com/) — progressive katas
 - [Frontend Mentor](https://www.frontendmentor.io/) — real-world UI challenges

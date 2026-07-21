@@ -1,8 +1,8 @@
 ---
 id: dsa-graphs-eulerian-path-readme
-title: Eulerian Path
+title: "Eulerian Path"
 slug: /DSA/graphs/eulerian-path/README
-sidebar_label: Eulerian Path
+sidebar_label: "Eulerian Path"
 ---
 
 # Eulerian Path

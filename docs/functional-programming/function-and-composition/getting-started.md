@@ -1,8 +1,8 @@
 ---
 id: functional-programming-function-and-composition-getting-started
-title: 🔄 Function Composition & Higher-Order Functions
+title: "🔄 Function Composition & Higher-Order Functions"
 slug: /functional-programming/function-and-composition/getting-started
-sidebar_label: 🔄 Function Composition & Hi...
+sidebar_label: "🔄 Function Composition & Hi..."
 ---
 
 # 🔄 Function Composition & Higher-Order Functions

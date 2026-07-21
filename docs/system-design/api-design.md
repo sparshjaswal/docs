@@ -1,5 +1,5 @@
 ---
-title: API Design
+title: "API Design"
 sidebar_position: 11
 ---
 

@@ -1,8 +1,8 @@
 ---
 id: design-pattern-behavioral-observer
-title: Observer Pattern 🔔
+title: "Observer Pattern 🔔"
 slug: /design-pattern/behavioral/observer
-sidebar_label: Observer Pattern 🔔
+sidebar_label: "Observer Pattern 🔔"
 ---
 
 # Observer Pattern 🔔
@@ -143,7 +143,10 @@ interface StockData {
 }
 
 class Stock extends Subject {
-  constructor(public symbol: string, private price: number) {
+  constructor(
+    public symbol: string,
+    private price: number,
+  ) {
     super();
   }
 
@@ -361,25 +364,25 @@ class DebouncedSubject extends Subject {
 
 These terms are often confused. They're related but distinct:
 
-| Aspect                    | Observer Pattern                        | Publish/Subscribe                        |
-| ------------------------- | --------------------------------------- | ---------------------------------------- |
-| **Coupling**              | Subject knows about its observers       | Publishers don't know subscribers        |
-| **Channel**               | Direct method call                      | Through an event bus/broker              |
-| **Filtering**             | Observers receive all notifications     | Subscribers pick specific topics/events  |
-| **Location**              | Same process/address space              | Can be cross-process (message queues)    |
-| **Typical use**           | UI updates, model-view binding          | Microservices, event-driven architecture |
+| Aspect          | Observer Pattern                    | Publish/Subscribe                        |
+| --------------- | ----------------------------------- | ---------------------------------------- |
+| **Coupling**    | Subject knows about its observers   | Publishers don't know subscribers        |
+| **Channel**     | Direct method call                  | Through an event bus/broker              |
+| **Filtering**   | Observers receive all notifications | Subscribers pick specific topics/events  |
+| **Location**    | Same process/address space          | Can be cross-process (message queues)    |
+| **Typical use** | UI updates, model-view binding      | Microservices, event-driven architecture |
 
 ## 🔄 Built-in JavaScript Observers
 
 JavaScript ships with observer-like APIs that follow the same pattern:
 
-| API                      | Observes                              | Use Case                          |
-| ------------------------ | ------------------------------------- | --------------------------------- |
-| `EventTarget`            | DOM events (click, keydown, etc.)     | UI interactivity                  |
-| `MutationObserver`       | DOM tree mutations                    | Lazy-loading, attribute watching  |
-| `IntersectionObserver`   | Element visibility in viewport        | Infinite scroll, lazy images      |
-| `ResizeObserver`         | Element size changes                  | Responsive layouts                |
-| `PerformanceObserver`    | Performance timeline entries          | Real metrics monitoring           |
+| API                    | Observes                          | Use Case                         |
+| ---------------------- | --------------------------------- | -------------------------------- |
+| `EventTarget`          | DOM events (click, keydown, etc.) | UI interactivity                 |
+| `MutationObserver`     | DOM tree mutations                | Lazy-loading, attribute watching |
+| `IntersectionObserver` | Element visibility in viewport    | Infinite scroll, lazy images     |
+| `ResizeObserver`       | Element size changes              | Responsive layouts               |
+| `PerformanceObserver`  | Performance timeline entries      | Real metrics monitoring          |
 
 ```typescript
 // IntersectionObserver - lazy-load images

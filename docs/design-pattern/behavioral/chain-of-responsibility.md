@@ -1,8 +1,8 @@
 ---
 id: design-pattern-behavioral-chain-of-responsibility
-title: Chain of Responsibility Pattern ⛓️
+title: "Chain of Responsibility Pattern ⛓️"
 slug: /design-pattern/behavioral/chain-of-responsibility
-sidebar_label: Chain of Responsibility Pat...
+sidebar_label: "Chain of Responsibility Pat..."
 ---
 
 # Chain of Responsibility Pattern ⛓️

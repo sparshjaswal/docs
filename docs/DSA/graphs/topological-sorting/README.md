@@ -1,8 +1,8 @@
 ---
 id: dsa-graphs-topological-sorting-readme
-title: Topological Sorting
+title: "Topological Sorting"
 slug: /DSA/graphs/topological-sorting/README
-sidebar_label: Topological Sorting
+sidebar_label: "Topological Sorting"
 ---
 
 # Topological Sorting

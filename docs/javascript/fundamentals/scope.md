@@ -1,8 +1,8 @@
 ---
 id: javascript-fundamentals-scope
-title: JavaScript Scope
+title: "JavaScript Scope"
 slug: /javascript/fundamentals/scope
-sidebar_label: JavaScript Scope
+sidebar_label: "JavaScript Scope"
 ---
 
 # JavaScript Scope

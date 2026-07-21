@@ -1,10 +1,9 @@
 ---
 id: dsa-trees-interview-guide
-title: Trees
+title: "Trees"
 slug: /DSA/trees/interview-guide
-sidebar_label: Trees
+sidebar_label: "Trees"
 ---
-
 
 # Trees
 
@@ -13,13 +12,13 @@ sidebar_label: Trees
 - **Hierarchical Structure:** Trees represent hierarchical data with a root node and child nodes.
 - **Recursive Nature:** Many tree problems can be solved recursively, as a tree is a recursive data structure.
 - **Traversal Algorithms:**
-    - **Depth-First Search (DFS):** In-order, Pre-order, Post-order.
-    - **Breadth-First Search (BFS):** Level-order traversal.
+  - **Depth-First Search (DFS):** In-order, Pre-order, Post-order.
+  - **Breadth-First Search (BFS):** Level-order traversal.
 - **Types of Trees:**
-    - **Binary Tree:** Each node has at most two children.
-    - **Binary Search Tree (BST):** A binary tree where the left child is smaller than the parent, and the right child is larger.
-    - **Balanced Binary Tree (e.g., AVL Tree, Red-Black Tree):** A BST that automatically keeps its height small.
-    - **Trie:** A tree-like data structure for storing strings.
+  - **Binary Tree:** Each node has at most two children.
+  - **Binary Search Tree (BST):** A binary tree where the left child is smaller than the parent, and the right child is larger.
+  - **Balanced Binary Tree (e.g., AVL Tree, Red-Black Tree):** A BST that automatically keeps its height small.
+  - **Trie:** A tree-like data structure for storing strings.
 
 ## Interview Strategy
 
@@ -37,12 +36,12 @@ sidebar_label: Trees
 
 ```javascript
 function maxDepthRecursive(root) {
-    if (root === null) {
-        return 0;
-    }
-    const leftDepth = maxDepthRecursive(root.left);
-    const rightDepth = maxDepthRecursive(root.right);
-    return Math.max(leftDepth, rightDepth) + 1;
+  if (root === null) {
+    return 0;
+  }
+  const leftDepth = maxDepthRecursive(root.left);
+  const rightDepth = maxDepthRecursive(root.right);
+  return Math.max(leftDepth, rightDepth) + 1;
 }
 ```
 
@@ -50,34 +49,34 @@ function maxDepthRecursive(root) {
 
 ```javascript
 function maxDepthIterative(root) {
-    if (root === null) {
-        return 0;
+  if (root === null) {
+    return 0;
+  }
+  const queue = [root];
+  let depth = 0;
+  while (queue.length > 0) {
+    depth++;
+    const levelSize = queue.length;
+    for (let i = 0; i < levelSize; i++) {
+      const node = queue.shift();
+      if (node.left) {
+        queue.push(node.left);
+      }
+      if (node.right) {
+        queue.push(node.right);
+      }
     }
-    const queue = [root];
-    let depth = 0;
-    while (queue.length > 0) {
-        depth++;
-        const levelSize = queue.length;
-        for (let i = 0; i < levelSize; i++) {
-            const node = queue.shift();
-            if (node.left) {
-                queue.push(node.left);
-            }
-            if (node.right) {
-                queue.push(node.right);
-            }
-        }
-    }
-    return depth;
+  }
+  return depth;
 }
 ```
 
 ## Complexity Analysis
 
-| Algorithm          | Time Complexity | Space Complexity (Balanced Tree) | Space Complexity (Unbalanced Tree) |
-| ------------------ | --------------- | -------------------------------- | ---------------------------------- |
-| DFS (Recursive)    | O(n)            | O(log n)                         | O(n)                               |
-| BFS (Iterative)    | O(n)            | O(w) where w is max width of tree | O(n)                               |
+| Algorithm       | Time Complexity | Space Complexity (Balanced Tree)  | Space Complexity (Unbalanced Tree) |
+| --------------- | --------------- | --------------------------------- | ---------------------------------- |
+| DFS (Recursive) | O(n)            | O(log n)                          | O(n)                               |
+| BFS (Iterative) | O(n)            | O(w) where w is max width of tree | O(n)                               |
 
 ## Dry Runs
 

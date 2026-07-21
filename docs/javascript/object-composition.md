@@ -1,8 +1,8 @@
 ---
 id: javascript-object-composition
-title: Object Composition in JavaScript
+title: "Object Composition in JavaScript"
 slug: /javascript/object-composition
-sidebar_label: Object Composition in JavaS...
+sidebar_label: "Object Composition in JavaS..."
 ---
 
 # Object Composition in JavaScript

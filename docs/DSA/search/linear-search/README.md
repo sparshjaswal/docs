@@ -1,8 +1,8 @@
 ---
 id: dsa-search-linear-search-readme
-title: Linear Search
+title: "Linear Search"
 slug: /DSA/search/linear-search/README
-sidebar_label: Linear Search
+sidebar_label: "Linear Search"
 ---
 
 # Linear Search

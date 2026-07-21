@@ -1,8 +1,8 @@
 ---
 id: backend-engineering-nodejs-readme
-title: Node.js 🟢
+title: "Node.js 🟢"
 slug: /backend-engineering/nodejs/README
-sidebar_label: Node.js 🟢
+sidebar_label: "Node.js 🟢"
 ---
 
 # Node.js 🟢
@@ -23,28 +23,28 @@ Operating System
 
 **Key characteristics:**
 
-| Feature | Description |
-| --- | --- |
-| **Single-threaded event loop** | One main thread handles all JS execution; I/O is offloaded to the kernel or thread pool |
-| **Non-blocking I/O** | Operations that would block use callbacks/promises, keeping the thread free for other requests |
-| **Event-driven** | The event loop picks up completed I/O operations and invokes their callbacks |
-| **Cross-platform** | Runs on Linux, macOS, Windows, and more |
+| Feature                        | Description                                                                                    |
+| ------------------------------ | ---------------------------------------------------------------------------------------------- |
+| **Single-threaded event loop** | One main thread handles all JS execution; I/O is offloaded to the kernel or thread pool        |
+| **Non-blocking I/O**           | Operations that would block use callbacks/promises, keeping the thread free for other requests |
+| **Event-driven**               | The event loop picks up completed I/O operations and invokes their callbacks                   |
+| **Cross-platform**             | Runs on Linux, macOS, Windows, and more                                                        |
 
 ### Core Modules
 
-| Module | Purpose |
-| --- | --- |
-| `fs` | File system operations |
-| `http` / `https` | HTTP server and client |
-| `path` | File path utilities |
-| `crypto` | Cryptographic functions |
-| `stream` | Streaming data processing |
-| `events` | EventEmitter base class |
-| `child_process` | Spawn subprocesses |
+| Module           | Purpose                                  |
+| ---------------- | ---------------------------------------- |
+| `fs`             | File system operations                   |
+| `http` / `https` | HTTP server and client                   |
+| `path`           | File path utilities                      |
+| `crypto`         | Cryptographic functions                  |
+| `stream`         | Streaming data processing                |
+| `events`         | EventEmitter base class                  |
+| `child_process`  | Spawn subprocesses                       |
 | `worker_threads` | True multi-threading for CPU-bound tasks |
-| `cluster` | Multi-process load balancing |
-| `os` | Operating system utilities |
-| `url` | URL parsing and formatting |
+| `cluster`        | Multi-process load balancing             |
+| `os`             | Operating system utilities               |
+| `url`            | URL parsing and formatting               |
 
 ---
 
@@ -55,14 +55,16 @@ Express is the most popular Node.js web framework — minimal, unopinionated, an
 ### Core Concepts
 
 **Middleware pipeline:**
+
 ```javascript
 const express = require('express');
 const app = express();
 
 // Application-level middleware
-app.use(express.json());        // parse JSON bodies
+app.use(express.json()); // parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // parse form data
-app.use((req, res, next) => {   // custom logger
+app.use((req, res, next) => {
+  // custom logger
   console.log(`${req.method} ${req.url}`);
   next();
 });
@@ -72,6 +74,7 @@ app.get('/api/users', authenticate, getUsers);
 ```
 
 **Routing:**
+
 ```javascript
 // Basic routes
 app.get('/api/users', getUsers);
@@ -87,11 +90,12 @@ app.use('/api/users', userRouter);
 ```
 
 **Error handling middleware** (4 parameters):
+
 ```javascript
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(err.status || 500).json({
-    error: { message: err.message }
+    error: { message: err.message },
   });
 });
 ```
@@ -126,6 +130,7 @@ NestJS is a progressive framework for building efficient, scalable server-side a
 ### Core Concepts
 
 **Modules** — organize application structure:
+
 ```typescript
 @Module({
   imports: [UsersModule, AuthModule],
@@ -136,6 +141,7 @@ export class AppModule {}
 ```
 
 **Controllers** — handle incoming requests:
+
 ```typescript
 @Controller('users')
 export class UsersController {
@@ -159,6 +165,7 @@ export class UsersController {
 ```
 
 **Providers / Services** — business logic, injectable via DI:
+
 ```typescript
 @Injectable()
 export class UsersService {
@@ -174,6 +181,7 @@ export class UsersService {
 ```
 
 **Guards** — authorization (roles, permissions):
+
 ```typescript
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -191,18 +199,18 @@ getAdminData() {}
 ```
 
 **Interceptors** — transform responses, wrap logic:
+
 ```typescript
 @Injectable()
 export class TransformInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    return next.handle().pipe(
-      map(data => ({ success: true, data, timestamp: new Date() }))
-    );
+    return next.handle().pipe(map((data) => ({ success: true, data, timestamp: new Date() })));
   }
 }
 ```
 
 **Pipes** — validate and transform input:
+
 ```typescript
 @Post()
 create(@Body(new ValidationPipe()) createUserDto: CreateUserDto) {
@@ -226,15 +234,15 @@ nest g pipe validation
 
 ### Express vs NestJS
 
-| Criteria | Express | NestJS |
-| --- | --- | --- |
-| **Philosophy** | Minimal, unopinionated | Opinionated, batteries-included |
-| **Architecture** | Middleware functions | Modules, controllers, providers |
-| **TypeScript** | Optional, manual setup | First-class, built-in |
-| **Dependency Injection** | Manual, not built-in | Built-in DI container |
-| **Testing** | Manual setup (Jest, Mocha) | Built-in testing module with Jest |
-| **GraphQL** | Manual setup | Built-in code-first and schema-first |
-| **Microservices** | Manual | Built-in transport layer (Redis, NATS, MQTT) |
-| **Best for** | Small to medium apps, APIs | Large enterprise apps, complex architectures |
+| Criteria                 | Express                    | NestJS                                       |
+| ------------------------ | -------------------------- | -------------------------------------------- |
+| **Philosophy**           | Minimal, unopinionated     | Opinionated, batteries-included              |
+| **Architecture**         | Middleware functions       | Modules, controllers, providers              |
+| **TypeScript**           | Optional, manual setup     | First-class, built-in                        |
+| **Dependency Injection** | Manual, not built-in       | Built-in DI container                        |
+| **Testing**              | Manual setup (Jest, Mocha) | Built-in testing module with Jest            |
+| **GraphQL**              | Manual setup               | Built-in code-first and schema-first         |
+| **Microservices**        | Manual                     | Built-in transport layer (Redis, NATS, MQTT) |
+| **Best for**             | Small to medium apps, APIs | Large enterprise apps, complex architectures |
 
 [← Back to Backend Engineering](../README.md) · © sparshjaswal

@@ -1,5 +1,5 @@
 ---
-title: Trees
+title: "Trees"
 description: Hierarchical node structures — master traversals (inorder, BFS, DFS), BST properties, and path problems.
 keywords:
   - trees
@@ -40,17 +40,17 @@ Formally, a tree can be defined recursively: a node (the root) containing a valu
 
 ### Key Terminology
 
-| Term           | Definition                                                              |
-| -------------- | ----------------------------------------------------------------------- |
-| **Root**       | The topmost node with no parent                                         |
-| **Leaf**       | A node with no children                                                 |
-| **Edge**       | The link between a parent and child node                                |
-| **Height**     | Length of the longest path from node to a leaf (edges)                  |
-| **Depth**      | Length of the path from root to node (edges)                            |
-| **Subtree**    | Any node and all its descendants, itself a valid tree                   |
-| **Sibling**    | Nodes sharing the same parent                                           |
-| **Ancestor**   | Any node on the path from root to a given node (including the root)     |
-| **Descendant** | Any node reachable by repeatedly following child pointers               |
+| Term           | Definition                                                          |
+| -------------- | ------------------------------------------------------------------- |
+| **Root**       | The topmost node with no parent                                     |
+| **Leaf**       | A node with no children                                             |
+| **Edge**       | The link between a parent and child node                            |
+| **Height**     | Length of the longest path from node to a leaf (edges)              |
+| **Depth**      | Length of the path from root to node (edges)                        |
+| **Subtree**    | Any node and all its descendants, itself a valid tree               |
+| **Sibling**    | Nodes sharing the same parent                                       |
+| **Ancestor**   | Any node on the path from root to a given node (including the root) |
+| **Descendant** | Any node reachable by repeatedly following child pointers           |
 
 ### Types of Trees
 
@@ -108,22 +108,22 @@ Formally, a tree can be defined recursively: a node (the root) containing a valu
 
 ### BST Operations
 
-| Operation  | Average   | Worst     | Space     | Notes                                         |
-| ---------- | --------- | --------- | --------- | --------------------------------------------- |
-| **Search** | O(log n)  | O(n)      | O(h)      | Degenerates to O(n) if tree becomes a chain   |
-| **Insert** | O(log n)  | O(n)      | O(h)      | Must maintain BST property after insertion    |
-| **Delete** | O(log n)  | O(n)      | O(h)      | Three cases: leaf, one child, or two children |
+| Operation  | Average  | Worst | Space | Notes                                         |
+| ---------- | -------- | ----- | ----- | --------------------------------------------- |
+| **Search** | O(log n) | O(n)  | O(h)  | Degenerates to O(n) if tree becomes a chain   |
+| **Insert** | O(log n) | O(n)  | O(h)  | Must maintain BST property after insertion    |
+| **Delete** | O(log n) | O(n)  | O(h)  | Three cases: leaf, one child, or two children |
 
 _h = height of tree (log n for balanced, n for skewed)_
 
 ### Tree Traversal Complexities
 
-| Traversal            | Time  | Space  | Notes                                   |
-| -------------------- | ----- | ------ | --------------------------------------- |
-| **Inorder (DFS)**    | O(n)  | O(h)   | Stack depth for recursion               |
-| **Preorder (DFS)**   | O(n)  | O(h)   | Same as above                           |
-| **Postorder (DFS)**  | O(n)  | O(h)   | Same as above                           |
-| **Level-order (BFS)**| O(n)  | O(w)   | Queue stores at most the widest level   |
+| Traversal             | Time | Space | Notes                                 |
+| --------------------- | ---- | ----- | ------------------------------------- |
+| **Inorder (DFS)**     | O(n) | O(h)  | Stack depth for recursion             |
+| **Preorder (DFS)**    | O(n) | O(h)  | Same as above                         |
+| **Postorder (DFS)**   | O(n) | O(h)  | Same as above                         |
+| **Level-order (BFS)** | O(n) | O(w)  | Queue stores at most the widest level |
 
 _w = maximum width of tree (up to n/2 for a complete binary tree, so O(n) worst case)_
 
@@ -148,9 +148,11 @@ function inorder(root, result = []) {
 ```javascript
 function levelOrder(root) {
   if (!root) return [];
-  const queue = [root], result = [];
+  const queue = [root],
+    result = [];
   while (queue.length) {
-    const size = queue.length, level = [];
+    const size = queue.length,
+      level = [];
     for (let i = 0; i < size; i++) {
       const n = queue.shift();
       level.push(n.val);
@@ -179,7 +181,8 @@ function lowestCommonAncestor(root, p, q) {
 ```javascript
 function dfsIterative(root) {
   if (!root) return [];
-  const stack = [root], result = [];
+  const stack = [root],
+    result = [];
   while (stack.length) {
     const node = stack.pop();
     result.push(node.val);
@@ -196,8 +199,7 @@ function dfsIterative(root) {
 function isValidBST(root, min = -Infinity, max = Infinity) {
   if (!root) return true;
   if (root.val <= min || root.val >= max) return false;
-  return isValidBST(root.left, min, root.val)
-      && isValidBST(root.right, root.val, max);
+  return isValidBST(root.left, min, root.val) && isValidBST(root.right, root.val, max);
 }
 ```
 
@@ -253,7 +255,7 @@ Also see the [Interview Guide](./interview-guide.md) for curated practice sets.
 
 ## References
 
-- [Wikipedia — Tree (data structure)](https://en.wikipedia.org/wiki/Tree_(data_structure))
+- [Wikipedia — Tree (data structure)](<https://en.wikipedia.org/wiki/Tree_(data_structure)>)
 - [HackerRank — Trees video playlist](https://www.youtube.com/watch?v=oSWTXtMglKE&list=PLLXdhg_r2hKA7DPDsunoDZ-Z769jWn4R8&index=8)
 - [Visualgo — BST visualization](https://visualgo.net/en/bst)
 

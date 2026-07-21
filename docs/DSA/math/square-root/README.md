@@ -1,8 +1,8 @@
 ---
 id: dsa-math-square-root-readme
-title: Square Root (Newton's Method)
+title: "Square Root (Newton's Method)"
 slug: /DSA/math/square-root/README
-sidebar_label: Square Root (Newton's Method)
+sidebar_label: "Square Root (Newton's Method)"
 ---
 
 # Square Root (Newton's Method)

@@ -1,8 +1,8 @@
 ---
 id: dsa-binary-search-linked-list-readme
-title: Linked List
+title: "Linked List"
 slug: /DSA/binary-search/linked-list/README
-sidebar_label: Linked List
+sidebar_label: "Linked List"
 ---
 
 # Linked List

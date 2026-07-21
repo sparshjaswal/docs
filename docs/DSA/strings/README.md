@@ -1,8 +1,8 @@
 ---
 id: dsa-strings-readme
-title: 🔤 Strings
+title: "🔤 Strings"
 slug: /DSA/strings/README
-sidebar_label: 🔤 Strings
+sidebar_label: "🔤 Strings"
 ---
 
 # 🔤 Strings

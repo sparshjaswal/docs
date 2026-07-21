@@ -1,8 +1,8 @@
 ---
 id: design-pattern-behavioral-strategy
-title: Strategy Pattern 🎯
+title: "Strategy Pattern 🎯"
 slug: /design-pattern/behavioral/strategy
-sidebar_label: Strategy Pattern 🎯
+sidebar_label: "Strategy Pattern 🎯"
 ---
 
 # Strategy Pattern 🎯

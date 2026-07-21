@@ -1,8 +1,8 @@
 ---
 id: dsa-graphs-articulation-points-readme
-title: Articulation Points (or Cut Vertices)
+title: "Articulation Points (or Cut Vertices)"
 slug: /DSA/graphs/articulation-points/README
-sidebar_label: Articulation Points (or Cut...
+sidebar_label: "Articulation Points (or Cut..."
 ---
 
 # Articulation Points (or Cut Vertices)

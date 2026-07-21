@@ -1,8 +1,8 @@
 ---
 id: design-pattern-structural-composite
-title: Composite Pattern 🌳
+title: "Composite Pattern 🌳"
 slug: /design-pattern/structural/composite
-sidebar_label: Composite Pattern 🌳
+sidebar_label: "Composite Pattern 🌳"
 ---
 
 # Composite Pattern 🌳

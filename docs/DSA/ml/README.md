@@ -1,8 +1,8 @@
 ---
 id: dsa-ml-readme
-title: 🤖 Machine Learning Algorithms
+title: "🤖 Machine Learning Algorithms"
 slug: /DSA/ml/README
-sidebar_label: 🤖 Machine Learning Algorithms
+sidebar_label: "🤖 Machine Learning Algorithms"
 ---
 
 # 🤖 Machine Learning Algorithms

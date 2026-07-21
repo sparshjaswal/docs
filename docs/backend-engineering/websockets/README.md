@@ -1,5 +1,5 @@
 ---
-title: WebSockets
+title: "WebSockets"
 description: Full-duplex real-time communication over a single TCP connection — protocol, scaling, Socket.io, and production patterns with Node.js.
 keywords:
   - websockets
@@ -24,27 +24,27 @@ WebSocket is a communication protocol that provides **full-duplex**, **persisten
 
 Before WebSockets, real-time communication over HTTP was achieved through workarounds — each with significant trade-offs:
 
-| Technique | How it works | Drawbacks |
-| --- | --- | --- |
-| **Short Polling** | Client sends HTTP requests at fixed intervals (e.g., every 2s) | Wasted requests when no new data; latency up to polling interval |
-| **Long Polling** | Client sends HTTP request; server holds it open until data is available, then responds; client immediately reconnects | Still request–response; high connection overhead; complex server state |
-| **Server-Sent Events (SSE)** | Server pushes data over a single HTTP connection; client receives a stream | **Unidirectional only** (server → client); limited browser support for custom headers |
-| **WebSocket** | Persistent TCP connection upgraded from HTTP; bidirectional, low overhead | Requires protocol upgrade; slightly more complex infrastructure |
+| Technique                    | How it works                                                                                                          | Drawbacks                                                                             |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| **Short Polling**            | Client sends HTTP requests at fixed intervals (e.g., every 2s)                                                        | Wasted requests when no new data; latency up to polling interval                      |
+| **Long Polling**             | Client sends HTTP request; server holds it open until data is available, then responds; client immediately reconnects | Still request–response; high connection overhead; complex server state                |
+| **Server-Sent Events (SSE)** | Server pushes data over a single HTTP connection; client receives a stream                                            | **Unidirectional only** (server → client); limited browser support for custom headers |
+| **WebSocket**                | Persistent TCP connection upgraded from HTTP; bidirectional, low overhead                                             | Requires protocol upgrade; slightly more complex infrastructure                       |
 
 ### WebSocket vs HTTP/2 SSE vs Long Polling
 
-| Criteria | WebSocket | SSE (Server-Sent Events) | Long Polling |
-| --- | --- | --- | --- |
-| **Direction** | Bidirectional (full-duplex) | Unidirectional (server → client) | Bidirectional (simulated) |
-| **Protocol** | `ws://` / `wss://` | Plain HTTP | Plain HTTP |
-| **Connection** | Persistent single TCP connection | Persistent single HTTP connection | New request per message |
-| **Overhead** | 2–6 bytes per frame after handshake | HTTP headers per event; text-only | Full HTTP headers per request |
-| **Binary support** | ✅ Native (blob, arraybuffer) | ❌ Text-only (base64-encode binary) | ✅ (base64-encode) |
-| **Browser support** | All modern browsers | All modern browsers (except IE) | Universal |
-| **Auto-reconnection** | Manual (or via library like Socket.io) | Built-in (`EventSource` auto-reconnects) | Manual |
-| **HTTP/2 compatibility** | ✅ Works over HTTP/2 (h2c upgrade) | ✅ Native | ✅ Native |
-| **Firewall friendliness** | Can be blocked by some corporate proxies | Rarely blocked (plain HTTP) | Rarely blocked |
-| **Best for** | Chat, gaming, collaboration, live dashboards | Feeds, notifications, live scores, stock tickers | Simple real-time with legacy support |
+| Criteria                  | WebSocket                                    | SSE (Server-Sent Events)                         | Long Polling                         |
+| ------------------------- | -------------------------------------------- | ------------------------------------------------ | ------------------------------------ |
+| **Direction**             | Bidirectional (full-duplex)                  | Unidirectional (server → client)                 | Bidirectional (simulated)            |
+| **Protocol**              | `ws://` / `wss://`                           | Plain HTTP                                       | Plain HTTP                           |
+| **Connection**            | Persistent single TCP connection             | Persistent single HTTP connection                | New request per message              |
+| **Overhead**              | 2–6 bytes per frame after handshake          | HTTP headers per event; text-only                | Full HTTP headers per request        |
+| **Binary support**        | ✅ Native (blob, arraybuffer)                | ❌ Text-only (base64-encode binary)              | ✅ (base64-encode)                   |
+| **Browser support**       | All modern browsers                          | All modern browsers (except IE)                  | Universal                            |
+| **Auto-reconnection**     | Manual (or via library like Socket.io)       | Built-in (`EventSource` auto-reconnects)         | Manual                               |
+| **HTTP/2 compatibility**  | ✅ Works over HTTP/2 (h2c upgrade)           | ✅ Native                                        | ✅ Native                            |
+| **Firewall friendliness** | Can be blocked by some corporate proxies     | Rarely blocked (plain HTTP)                      | Rarely blocked                       |
+| **Best for**              | Chat, gaming, collaboration, live dashboards | Feeds, notifications, live scores, stock tickers | Simple real-time with legacy support |
 
 > **Rule of thumb:** If you need bidirectional communication → WebSocket. If you only need server→client push → SSE is simpler. If you need maximum compatibility and simplicity → Long Polling.
 
@@ -110,6 +110,7 @@ After the handshake, data is exchanged in **frames** — compact binary packets 
 ```
 
 **Key frame fields:**
+
 - **FIN** (1 bit): Final fragment in a message
 - **Opcode** (4 bits): Frame type — `0x1` (text), `0x2` (binary), `0x8` (close), `0x9` (ping), `0xA` (pong)
 - **MASK** (1 bit): All client→server frames must be masked (prevents cache poisoning attacks)
@@ -179,7 +180,8 @@ console.log('WebSocket server listening on ws://localhost:8080');
 function broadcast(wss, data, excludeWs = null) {
   const payload = JSON.stringify(data);
   wss.clients.forEach((client) => {
-    if (client !== excludeWs && client.readyState === 1) { // 1 = OPEN
+    if (client !== excludeWs && client.readyState === 1) {
+      // 1 = OPEN
       client.send(payload);
     }
   });
@@ -252,22 +254,23 @@ ws.onerror = (err) => {
 
 [Socket.io](https://socket.io/) is a library that builds on top of WebSocket (using `ws` under the hood for Node.js servers, and the `engine.io` protocol). It adds critical features missing from raw WebSockets:
 
-| Feature | Raw WebSocket | Socket.io |
-| --- | --- | --- |
-| **Fallback transport** | ❌ None | HTTP long polling (automatic) |
-| **Auto-reconnection** | ❌ Manual | ✅ Built-in, with exponential backoff |
-| **Acknowledgments** | ❌ Manual | ✅ Request–response pattern (`ack` callback) |
-| **Broadcasting** | ❌ Manual (loop over clients) | ✅ `socket.broadcast.emit()` |
-| **Rooms** | ❌ Manual | ✅ `socket.join('room')` / `socket.to('room').emit()` |
-| **Namespaces** | ❌ Manual paths | ✅ `io.of('/namespace')` |
-| **Middleware** | ❌ None | ✅ `io.use()` for auth, logging |
-| **Multiplexing** | ❌ One connection per URL | ✅ Namespaces share one connection |
-| **Disconnection detection** | ❌ Manual via ping/pong | ✅ Built-in heartbeat with configurable timeout |
-| **Binary streaming** | ✅ Native blobs/arraybuffers | ✅ Buffer support |
+| Feature                     | Raw WebSocket                 | Socket.io                                             |
+| --------------------------- | ----------------------------- | ----------------------------------------------------- |
+| **Fallback transport**      | ❌ None                       | HTTP long polling (automatic)                         |
+| **Auto-reconnection**       | ❌ Manual                     | ✅ Built-in, with exponential backoff                 |
+| **Acknowledgments**         | ❌ Manual                     | ✅ Request–response pattern (`ack` callback)          |
+| **Broadcasting**            | ❌ Manual (loop over clients) | ✅ `socket.broadcast.emit()`                          |
+| **Rooms**                   | ❌ Manual                     | ✅ `socket.join('room')` / `socket.to('room').emit()` |
+| **Namespaces**              | ❌ Manual paths               | ✅ `io.of('/namespace')`                              |
+| **Middleware**              | ❌ None                       | ✅ `io.use()` for auth, logging                       |
+| **Multiplexing**            | ❌ One connection per URL     | ✅ Namespaces share one connection                    |
+| **Disconnection detection** | ❌ Manual via ping/pong       | ✅ Built-in heartbeat with configurable timeout       |
+| **Binary streaming**        | ✅ Native blobs/arraybuffers  | ✅ Buffer support                                     |
 
 ### Core Architecture
 
 Socket.io has two parts:
+
 - **Server**: `socket.io` package (Node.js), handling connections, rooms, and events
 - **Client**: `socket.io-client` package (browser/Node.js), connecting to the server
 
@@ -318,10 +321,10 @@ const io = new Server(server, {
     origin: ['http://localhost:3000', 'https://myapp.com'],
     methods: ['GET', 'POST'],
   },
-  pingTimeout: 60000,      // How long to wait for pong before disconnecting (ms)
-  pingInterval: 25000,     // How often to ping (ms)
-  connectTimeout: 45000,   // How long to wait for the initial handshake
-  maxHttpBufferSize: 1e6,  // Max message size (1 MB)
+  pingTimeout: 60000, // How long to wait for pong before disconnecting (ms)
+  pingInterval: 25000, // How often to ping (ms)
+  connectTimeout: 45000, // How long to wait for the initial handshake
+  maxHttpBufferSize: 1e6, // Max message size (1 MB)
 });
 
 io.on('connection', (socket) => {
@@ -452,7 +455,9 @@ adminNamespace.use((socket, next) => {
 adminNamespace.on('connection', (socket) => {
   console.log(`Admin connected: ${socket.id}`);
   // Admin-only events
-  socket.on('ban-user', (userId) => { /* ... */ });
+  socket.on('ban-user', (userId) => {
+    /* ... */
+  });
 });
 
 // Chat namespace
@@ -464,11 +469,12 @@ chatNamespace.on('connection', (socket) => {
 
 ```javascript
 // Client — Connecting to namespaces
-const mainSocket = io('ws://localhost:3000');           // '/' namespace
-const adminSocket = io('ws://localhost:3000/admin', {   // '/admin' namespace
+const mainSocket = io('ws://localhost:3000'); // '/' namespace
+const adminSocket = io('ws://localhost:3000/admin', {
+  // '/admin' namespace
   auth: { token: 'admin-secret' },
 });
-const chatSocket = io('ws://localhost:3000/chat');     // '/chat' namespace
+const chatSocket = io('ws://localhost:3000/chat'); // '/chat' namespace
 ```
 
 > **Namespaces vs Rooms:** Namespaces are a **connection-level** separation (different middleware, different event handlers). Rooms are a **message-routing** separation within a namespace. Use namespaces for truly separate concerns (admin vs user, public vs authenticated); use rooms for grouping within a concern (chat room A vs chat room B).
@@ -500,6 +506,7 @@ const io = new Server(server, {
 ```
 
 **How the Redis adapter works:**
+
 - When a socket joins a room, the adapter publishes a message to Redis
 - Other server instances receive the message and update their local adapter state
 - When broadcasting, the adapter publishes the event to a Redis channel; all instances forward it to their local sockets
@@ -525,13 +532,15 @@ io.on('connection', (socket) => {
   io.to('room:lobby').to('room:vip').emit('announcement', { text: 'VIP event starting' });
 
   // 6. Broadcast with acknowledgment (wait for client confirmation)
-  io.to('room:lobby').timeout(5000).emit('sync-request', { data: 'sync' }, (err, responses) => {
-    if (err) {
-      console.log('Some clients did not acknowledge:', err);
-      return;
-    }
-    console.log('All clients acknowledged:', responses);
-  });
+  io.to('room:lobby')
+    .timeout(5000)
+    .emit('sync-request', { data: 'sync' }, (err, responses) => {
+      if (err) {
+        console.log('Some clients did not acknowledge:', err);
+        return;
+      }
+      console.log('All clients acknowledged:', responses);
+    });
 
   // 7. Volatile messages — skip if client is not reachable (no queuing)
   io.to('room:game').volatile.emit('game-state', { position: { x: 10, y: 20 } });
@@ -626,7 +635,7 @@ JWT tokens expire. For long-lived WebSocket connections, you need a way to refre
 ```javascript
 // Client — Listen for auth expiry and refresh
 socket.on('auth:expiring', async () => {
-  const newToken = await fetch('/api/auth/refresh', { method: 'POST' }).then(r => r.json());
+  const newToken = await fetch('/api/auth/refresh', { method: 'POST' }).then((r) => r.json());
   socket.emit('auth:refresh', { token: newToken.accessToken });
 });
 
@@ -635,9 +644,12 @@ io.on('connection', (socket) => {
   const tokenExpiry = socket.user.exp * 1000; // JWT 'exp' claim
   const refreshBuffer = 60_000; // Warn 1 minute before expiry
 
-  const timer = setTimeout(() => {
-    socket.emit('auth:expiring');
-  }, tokenExpiry - Date.now() - refreshBuffer);
+  const timer = setTimeout(
+    () => {
+      socket.emit('auth:expiring');
+    },
+    tokenExpiry - Date.now() - refreshBuffer,
+  );
 
   // Client sends refreshed token
   socket.on('auth:refresh', (data) => {
@@ -787,15 +799,15 @@ const subClient = pubClient.duplicate();
 
 ### Scaling with Multiple Nodes: Checklist
 
-| Concern | Without Redis Adapter | With Redis Adapter |
-| --- | --- | --- |
-| **Load balancer** | Must use sticky sessions | Any routing (round-robin, least-conn) |
-| **Broadcasting** | Only reaches sockets on the same server | Reaches all sockets across all servers |
-| **Rooms** | Room membership per-server only | Global room membership via Redis |
-| **Socket IDs** | Server-local only | Still server-local (use custom rooms for cross-server identification) |
-| **Redis dependency** | None | Required; becomes single point of failure (use Redis Cluster/Sentinel) |
-| **Latency** | Minimal (local) | Small overhead for cross-server events (Redis round-trip) |
-| **Disconnection handling** | Local only | `disconnect` event fires only on the server the socket was connected to |
+| Concern                    | Without Redis Adapter                   | With Redis Adapter                                                      |
+| -------------------------- | --------------------------------------- | ----------------------------------------------------------------------- |
+| **Load balancer**          | Must use sticky sessions                | Any routing (round-robin, least-conn)                                   |
+| **Broadcasting**           | Only reaches sockets on the same server | Reaches all sockets across all servers                                  |
+| **Rooms**                  | Room membership per-server only         | Global room membership via Redis                                        |
+| **Socket IDs**             | Server-local only                       | Still server-local (use custom rooms for cross-server identification)   |
+| **Redis dependency**       | None                                    | Required; becomes single point of failure (use Redis Cluster/Sentinel)  |
+| **Latency**                | Minimal (local)                         | Small overhead for cross-server events (Redis round-trip)               |
+| **Disconnection handling** | Local only                              | `disconnect` event fires only on the server the socket was connected to |
 
 ---
 
@@ -836,8 +848,8 @@ wss.on('close', () => clearInterval(interval));
 ```javascript
 // Socket.io — built-in heartbeat (configure at server level)
 const io = new Server(server, {
-  pingInterval: 25000,   // Send a ping every 25 seconds
-  pingTimeout: 20000,    // Disconnect if no pong within 20 seconds
+  pingInterval: 25000, // Send a ping every 25 seconds
+  pingTimeout: 20000, // Disconnect if no pong within 20 seconds
   // Total disconnect detection time: pingInterval + pingTimeout = 45s max
 });
 ```
@@ -850,11 +862,11 @@ const io = new Server(server, {
 
 ```javascript
 const socket = io('ws://localhost:3000', {
-  reconnection: true,              // Enable auto-reconnect
-  reconnectionAttempts: Infinity,  // Or a number like 10
-  reconnectionDelay: 1000,        // Start at 1 second
-  reconnectionDelayMax: 30000,    // Cap at 30 seconds
-  randomizationFactor: 0.5,       // Add jitter: delay * (1 ± 0.5)
+  reconnection: true, // Enable auto-reconnect
+  reconnectionAttempts: Infinity, // Or a number like 10
+  reconnectionDelay: 1000, // Start at 1 second
+  reconnectionDelayMax: 30000, // Cap at 30 seconds
+  randomizationFactor: 0.5, // Add jitter: delay * (1 ± 0.5)
   // Formula: min(reconnectionDelay * 2^attempt, reconnectionDelayMax) * (1 ± randomizationFactor)
 });
 
@@ -918,16 +930,18 @@ process.on('SIGTERM', async () => {
   io.emit('server:restart', { message: 'Server restarting — please reconnect' });
 
   // 3. Give clients time to reconnect elsewhere
-  await new Promise(resolve => setTimeout(resolve, 5000));
+  await new Promise((resolve) => setTimeout(resolve, 5000));
 
   // 4. Close all socket connections
   const sockets = await io.fetchSockets();
-  await Promise.all(sockets.map(socket => {
-    return new Promise((resolve) => {
-      socket.disconnect(true); // true = close the underlying connection
-      socket.on('disconnect', resolve);
-    });
-  }));
+  await Promise.all(
+    sockets.map((socket) => {
+      return new Promise((resolve) => {
+        socket.disconnect(true); // true = close the underlying connection
+        socket.on('disconnect', resolve);
+      });
+    }),
+  );
 
   // 5. Close Redis adapter connections
   await pubClient.quit();
@@ -965,7 +979,7 @@ chatNamespace.on('connection', (socket) => {
     }
 
     // Leave previous room (optional — you can be in multiple)
-    socket.rooms.forEach(room => {
+    socket.rooms.forEach((room) => {
       if (room.startsWith('chatroom:')) socket.leave(room);
     });
 
@@ -1104,7 +1118,7 @@ collabNamespace.on('connection', (socket) => {
 
     // Track connected users in this document
     const usersInDoc = await collabNamespace.in(`doc:${docId}`).fetchSockets();
-    const userList = usersInDoc.map(s => ({ id: s.user.id, username: s.user.username }));
+    const userList = usersInDoc.map((s) => ({ id: s.user.id, username: s.user.username }));
     collabNamespace.to(`doc:${docId}`).emit('collab:users', userList);
   });
 
@@ -1211,15 +1225,15 @@ dashboardNamespace.on('connection', (socket) => {
 
 ### Common Attacks & Mitigations
 
-| Attack | Description | Mitigation |
-| --- | --- | --- |
-| **Cross-Site WebSocket Hijacking (CSWSH)** | Malicious site opens a WebSocket to your server using the victim's cookies (no same-origin policy for WebSocket) | Validate `Origin` header on handshake; use token-based auth (not cookies) |
-| **Denial of Service** | Attacker opens thousands of connections, exhausting server resources | Rate limit connections by IP; set `maxHttpBufferSize`; use connection timeouts |
-| **Message Injection** | Malicious client sends crafted messages to exploit server logic | Validate ALL incoming messages; use schema validation (Zod, Joi) before processing |
-| **Unauthenticated Access** | Attacker connects without credentials | Require authentication in middleware; reject unauthenticated connections |
-| **Data Leakage** | Broadcasting sensitive data to wrong rooms or namespaces | Authorize room joins; validate room membership against database |
-| **Replay Attacks** | Attacker captures and replays messages | Include sequence numbers or timestamps; use short-lived tokens |
-| **Downgrade Attacks** | Attacker forces fallback to insecure transport | Enforce `wss://` (TLS); disable insecure transports in production |
+| Attack                                     | Description                                                                                                      | Mitigation                                                                         |
+| ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| **Cross-Site WebSocket Hijacking (CSWSH)** | Malicious site opens a WebSocket to your server using the victim's cookies (no same-origin policy for WebSocket) | Validate `Origin` header on handshake; use token-based auth (not cookies)          |
+| **Denial of Service**                      | Attacker opens thousands of connections, exhausting server resources                                             | Rate limit connections by IP; set `maxHttpBufferSize`; use connection timeouts     |
+| **Message Injection**                      | Malicious client sends crafted messages to exploit server logic                                                  | Validate ALL incoming messages; use schema validation (Zod, Joi) before processing |
+| **Unauthenticated Access**                 | Attacker connects without credentials                                                                            | Require authentication in middleware; reject unauthenticated connections           |
+| **Data Leakage**                           | Broadcasting sensitive data to wrong rooms or namespaces                                                         | Authorize room joins; validate room membership against database                    |
+| **Replay Attacks**                         | Attacker captures and replays messages                                                                           | Include sequence numbers or timestamps; use short-lived tokens                     |
+| **Downgrade Attacks**                      | Attacker forces fallback to insecure transport                                                                   | Enforce `wss://` (TLS); disable insecure transports in production                  |
 
 ### Origin Validation
 
@@ -1385,15 +1399,15 @@ server {
 
 ## Performance Optimization
 
-| Technique | Impact | Implementation |
-| --- | --- | --- |
-| **Use `wss://` (TLS)** | Security + avoids proxy issues | Always in production |
-| **Binary transport** | 30–50% smaller payloads vs JSON | Use MessagePack, Protocol Buffers, or native `ArrayBuffer` |
-| **Volatile events** | No queuing for stale data | `socket.volatile.emit(...)` for ephemeral data (typing indicators, cursor positions) |
-| **Batch messages** | Fewer TCP packets | Combine small messages into one frame |
-| **Connection pooling** | Reduce handshake overhead | On the client, reuse a single connection per namespace |
-| **Disable long polling** (Socket.io) | Eliminate polling overhead | `transports: ['websocket']` if all clients support it |
-| **Compress messages** | Smaller payloads | Use `perMessageDeflate` (ws) or `wsEngine` compression (Socket.io) |
+| Technique                            | Impact                          | Implementation                                                                       |
+| ------------------------------------ | ------------------------------- | ------------------------------------------------------------------------------------ |
+| **Use `wss://` (TLS)**               | Security + avoids proxy issues  | Always in production                                                                 |
+| **Binary transport**                 | 30–50% smaller payloads vs JSON | Use MessagePack, Protocol Buffers, or native `ArrayBuffer`                           |
+| **Volatile events**                  | No queuing for stale data       | `socket.volatile.emit(...)` for ephemeral data (typing indicators, cursor positions) |
+| **Batch messages**                   | Fewer TCP packets               | Combine small messages into one frame                                                |
+| **Connection pooling**               | Reduce handshake overhead       | On the client, reuse a single connection per namespace                               |
+| **Disable long polling** (Socket.io) | Eliminate polling overhead      | `transports: ['websocket']` if all clients support it                                |
+| **Compress messages**                | Smaller payloads                | Use `perMessageDeflate` (ws) or `wsEngine` compression (Socket.io)                   |
 
 ```javascript
 // Enable per-message deflate compression (ws library)
@@ -1403,12 +1417,12 @@ const wss = new WebSocketServer({
     zlibDeflateOptions: {
       chunkSize: 1024,
       memLevel: 7,
-      level: 3,          // Compression level 0–9 (3 is a good balance)
+      level: 3, // Compression level 0–9 (3 is a good balance)
     },
     zlibInflateOptions: {
       chunkSize: 10 * 1024,
     },
-    threshold: 1024,     // Only compress messages > 1KB
+    threshold: 1024, // Only compress messages > 1KB
   },
 });
 ```
@@ -1493,12 +1507,12 @@ flowchart TD
     click G "https://github.com/websockets/ws"
 ```
 
-| Library | Use when | Avoid when |
-| --- | --- | --- |
-| **`ws`** | You need lightweight, spec-compliant WebSocket; full control over protocol; high throughput (gaming, market data) | You need auto-reconnection, rooms, or fallback; low-level protocol management is undesired |
-| **Socket.io** | You need batteries-included: rooms, namespaces, auto-reconnect, fallback to polling; chat apps, notifications, collaboration | You're building a gRPC streaming endpoint; you need raw binary frames without the Engine.IO overhead |
-| **SSE (EventSource)** | You only need server→client push; simpler than WebSocket; built-in auto-reconnect | You need client→server messages (use WebSocket); you need binary support |
-| **gRPC streams** | You already use gRPC; need strongly typed bidirectional streaming with code generation | You're building a browser-only client (limited gRPC-web support); you need simple event broadcast |
+| Library               | Use when                                                                                                                     | Avoid when                                                                                           |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **`ws`**              | You need lightweight, spec-compliant WebSocket; full control over protocol; high throughput (gaming, market data)            | You need auto-reconnection, rooms, or fallback; low-level protocol management is undesired           |
+| **Socket.io**         | You need batteries-included: rooms, namespaces, auto-reconnect, fallback to polling; chat apps, notifications, collaboration | You're building a gRPC streaming endpoint; you need raw binary frames without the Engine.IO overhead |
+| **SSE (EventSource)** | You only need server→client push; simpler than WebSocket; built-in auto-reconnect                                            | You need client→server messages (use WebSocket); you need binary support                             |
+| **gRPC streams**      | You already use gRPC; need strongly typed bidirectional streaming with code generation                                       | You're building a browser-only client (limited gRPC-web support); you need simple event broadcast    |
 
 ---
 

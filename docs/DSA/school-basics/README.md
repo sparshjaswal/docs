@@ -1,8 +1,8 @@
 ---
 id: dsa-school-basics-readme
-title: 🏫 School Level Basics
+title: "🏫 School Level Basics"
 slug: /DSA/school-basics/README
-sidebar_label: 🏫 School Level Basics
+sidebar_label: "🏫 School Level Basics"
 ---
 
 # 🏫 School Level Basics

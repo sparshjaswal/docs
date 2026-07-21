@@ -1,8 +1,8 @@
 ---
 id: dsa-monotonic-stack-readme
-title: 📉 Monotonic Stack
+title: "📉 Monotonic Stack"
 slug: /DSA/monotonic-stack/README
-sidebar_label: 📉 Monotonic Stack
+sidebar_label: "📉 Monotonic Stack"
 ---
 
 # 📉 Monotonic Stack

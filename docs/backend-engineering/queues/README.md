@@ -1,5 +1,5 @@
 ---
-title: Message Queues & Job Processing
+title: "Message Queues & Job Processing"
 description: Comprehensive guide to message queues, job processing patterns, delivery guarantees, and tools — BullMQ, RabbitMQ, Kafka, and SQS.
 keywords:
   - message queues
@@ -25,13 +25,13 @@ A message queue is a durable, asynchronous communication layer that decouples pr
 
 Without queues, every service-to-service call is synchronous and fragile — a slow or dead downstream service cascades failure upstream. Queues introduce a buffer:
 
-| Problem | Without Queues | With Queues |
-| --- | --- | --- |
-| **Service downtime** | Requests fail immediately | Messages wait until service recovers |
-| **Traffic spikes** | Overwhelm downstream, cause cascading failures | Queue absorbs burst; consumers process steadily |
-| **Long-running work** | Client waits (timeout risk) | Client gets immediate acknowledgment; work happens later |
-| **Retry on failure** | Manual or ad-hoc retry logic | Built-in retry with backoff |
-| **Tight coupling** | Producer must know consumer address | Producer only knows the queue |
+| Problem               | Without Queues                                 | With Queues                                              |
+| --------------------- | ---------------------------------------------- | -------------------------------------------------------- |
+| **Service downtime**  | Requests fail immediately                      | Messages wait until service recovers                     |
+| **Traffic spikes**    | Overwhelm downstream, cause cascading failures | Queue absorbs burst; consumers process steadily          |
+| **Long-running work** | Client waits (timeout risk)                    | Client gets immediate acknowledgment; work happens later |
+| **Retry on failure**  | Manual or ad-hoc retry logic                   | Built-in retry with backoff                              |
+| **Tight coupling**    | Producer must know consumer address            | Producer only knows the queue                            |
 
 **Common use cases:**
 
@@ -57,6 +57,7 @@ Producer → [Queue] → Consumer
 **Examples:** Send a single email, resize one image, charge a credit card.
 
 **Characteristics:**
+
 - One-to-one: each message is delivered to exactly one consumer
 - Load-balanced across multiple consumer instances
 - Order not strictly guaranteed unless using a FIFO queue
@@ -74,6 +75,7 @@ Publisher → [Exchange/Topic] ─→ [Queue A] → Subscriber A
 **Examples:** "OrderPlaced" event triggers: email notification, inventory update, analytics tracking, loyalty points accrual — all in parallel.
 
 **Characteristics:**
+
 - One-to-many: each subscriber gets its own copy
 - Subscribers can join or leave without affecting others
 - Each subscriber has its own delivery/retry semantics
@@ -83,22 +85,32 @@ Publisher → [Exchange/Topic] ─→ [Queue A] → Subscriber A
 Jobs are submitted now but processed at a future time. Useful for time-based workflows.
 
 **Examples:**
+
 - Send a reminder 24 hours before an appointment
 - Unlock an account after a 15-minute cooldown
 - Retry a failed webhook after 30 seconds
 - Expire an abandoned cart after 1 hour
 
 **Implementation with BullMQ:**
+
 ```typescript
 // Schedule a job to run 1 hour from now
-await queue.add('send-reminder', { appointmentId: 'apt_123' }, {
-  delay: 60 * 60 * 1000, // 1 hour in milliseconds
-});
+await queue.add(
+  'send-reminder',
+  { appointmentId: 'apt_123' },
+  {
+    delay: 60 * 60 * 1000, // 1 hour in milliseconds
+  },
+);
 
 // Schedule a job at an exact timestamp
-await queue.add('subscription-renewal', { userId: 'usr_456' }, {
-  delay: targetDate.getTime() - Date.now(),
-});
+await queue.add(
+  'subscription-renewal',
+  { userId: 'usr_456' },
+  {
+    delay: targetDate.getTime() - Date.now(),
+  },
+);
 ```
 
 ### 4. Priority Queues
@@ -107,7 +119,7 @@ Higher-priority jobs jump ahead of lower-priority ones. Not all queue systems su
 
 ```typescript
 await queue.add('critical-alert', { message: 'CPU > 95%' }, { priority: 1 });
-await queue.add('daily-report',   { reportType: 'sales' }, { priority: 100 });
+await queue.add('daily-report', { reportType: 'sales' }, { priority: 100 });
 // Priority 1 processes before priority 100 (lower number = higher priority)
 ```
 
@@ -129,11 +141,11 @@ The output of one job becomes the input of another, forming a processing pipelin
 
 Distributed queues face an inherent trade-off between safety and performance. Choose the guarantee that matches your business requirements:
 
-| Guarantee | Description | Risk | Best For |
-| --- | --- | --- | --- |
-| **At-most-once** | Message delivered 0 or 1 time; no retry | Messages can be lost | Metrics, logs, non-critical telemetry |
-| **At-least-once** | Message delivered ≥1 time; retry on failure | Duplicates possible (must handle idempotently) | Most business workflows — email, payments, orders |
-| **Exactly-once** | Message delivered and processed exactly 1 time | Extremely difficult in practice; requires idempotency + deduplication + transactions | Ledger entries, financial settlements |
+| Guarantee         | Description                                    | Risk                                                                                 | Best For                                          |
+| ----------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------- |
+| **At-most-once**  | Message delivered 0 or 1 time; no retry        | Messages can be lost                                                                 | Metrics, logs, non-critical telemetry             |
+| **At-least-once** | Message delivered ≥1 time; retry on failure    | Duplicates possible (must handle idempotently)                                       | Most business workflows — email, payments, orders |
+| **Exactly-once**  | Message delivered and processed exactly 1 time | Extremely difficult in practice; requires idempotency + deduplication + transactions | Ledger entries, financial settlements             |
 
 > **Practical reality:** True "exactly-once" delivery is impossible in distributed systems (the Two Generals' Problem). What most systems call "exactly-once" is actually **at-least-once delivery + idempotent processing** — the consumer recognizes and ignores duplicates.
 
@@ -175,15 +187,15 @@ stateDiagram-v2
 
 **State descriptions:**
 
-| State | Meaning |
-| --- | --- |
-| `waiting` | Job is enqueued, waiting for an available worker |
-| `active` | A worker has claimed the job and is processing it |
-| `completed` | Job finished successfully; result is stored (if configured) |
-| `failed` | Job threw an error; may be retried if attempts remain |
-| `delayed` | Job is scheduled for a future time; not yet ready for processing |
-| `paused` | Queue is paused — no jobs move to `active` until resumed |
-| `stalled` (implied) | Worker died or timed out; job goes back to `waiting` |
+| State               | Meaning                                                          |
+| ------------------- | ---------------------------------------------------------------- |
+| `waiting`           | Job is enqueued, waiting for an available worker                 |
+| `active`            | A worker has claimed the job and is processing it                |
+| `completed`         | Job finished successfully; result is stored (if configured)      |
+| `failed`            | Job threw an error; may be retried if attempts remain            |
+| `delayed`           | Job is scheduled for a future time; not yet ready for processing |
+| `paused`            | Queue is paused — no jobs move to `active` until resumed         |
+| `stalled` (implied) | Worker died or timed out; job goes back to `waiting`             |
 
 **Job retention:** Completed and failed jobs are retained in Redis for inspection (configurable). BullMQ can auto-clean old jobs:
 
@@ -191,8 +203,8 @@ stateDiagram-v2
 const queue = new Queue('emails', {
   connection,
   defaultJobOptions: {
-    removeOnComplete: { age: 3600, count: 1000 },  // keep last 1000, or 1 hour
-    removeOnFail: { age: 24 * 3600 },               // keep failed jobs for 24 hours
+    removeOnComplete: { age: 3600, count: 1000 }, // keep last 1000, or 1 hour
+    removeOnFail: { age: 24 * 3600 }, // keep failed jobs for 24 hours
   },
 });
 ```
@@ -232,14 +244,18 @@ import { Queue, Worker, QueueEvents } from 'bullmq';
 const mainQueue = new Queue('orders', { connection });
 const dlq = new Queue('orders-dlq', { connection });
 
-const worker = new Worker('orders', async (job) => {
-  // Process the job
-  await processOrder(job.data);
-}, {
-  connection,
-  attempts: 5,                    // Max retry attempts
-  backoff: { type: 'exponential', delay: 1000 },
-});
+const worker = new Worker(
+  'orders',
+  async (job) => {
+    // Process the job
+    await processOrder(job.data);
+  },
+  {
+    connection,
+    attempts: 5, // Max retry attempts
+    backoff: { type: 'exponential', delay: 1000 },
+  },
+);
 
 // Listen for exhausted jobs and move them to DLQ
 const queueEvents = new QueueEvents('orders', { connection });
@@ -261,6 +277,7 @@ queueEvents.on('failed', async ({ jobId, failedReason, attemptsMade }) => {
 ```
 
 **DLQ best practices:**
+
 - Set up monitoring/alerting on DLQ depth
 - Build a simple admin UI or CLI to inspect and replay DLQ messages
 - Store the original queue name, job ID, error message, and timestamp
@@ -274,13 +291,13 @@ Backpressure is the mechanism that prevents a fast producer from overwhelming a 
 
 ### Backpressure Strategies
 
-| Strategy | How It Works | When to Use |
-| --- | --- | --- |
-| **Consumer concurrency limit** | Limit how many jobs a worker processes simultaneously | BullMQ: set `concurrency` on Worker |
-| **Rate limiting** | Cap the number of jobs processed per time window | API calls to rate-limited external services |
-| **Queue size cap** | Reject new jobs when queue depth exceeds a threshold | Prevent unbounded memory growth |
-| **Producer throttling** | Producer slows down or pauses submission | Upstream awareness of downstream capacity |
-| **Load shedding** | Drop non-critical jobs when overloaded | Graceful degradation under extreme load |
+| Strategy                       | How It Works                                          | When to Use                                 |
+| ------------------------------ | ----------------------------------------------------- | ------------------------------------------- |
+| **Consumer concurrency limit** | Limit how many jobs a worker processes simultaneously | BullMQ: set `concurrency` on Worker         |
+| **Rate limiting**              | Cap the number of jobs processed per time window      | API calls to rate-limited external services |
+| **Queue size cap**             | Reject new jobs when queue depth exceeds a threshold  | Prevent unbounded memory growth             |
+| **Producer throttling**        | Producer slows down or pauses submission              | Upstream awareness of downstream capacity   |
+| **Load shedding**              | Drop non-critical jobs when overloaded                | Graceful degradation under extreme load     |
 
 ### Implementing Backpressure in BullMQ
 
@@ -297,7 +314,7 @@ const worker = new Worker('image-processing', processImage, {
 const worker = new Worker('api-calls', callExternalApi, {
   connection,
   limiter: {
-    max: 5,        // 5 jobs
+    max: 5, // 5 jobs
     duration: 1000, // per 1 second
   },
 });
@@ -335,13 +352,13 @@ When a job fails, retrying is often the right approach — transient failures (n
 
 ### Common Retry Strategies
 
-| Strategy | Formula | Behavior |
-| --- | --- | --- |
-| **Fixed delay** | `delay_ms` after each failure | Simple, but can cause thundering herd |
-| **Linear backoff** | `attempt × delay_ms` | Waits longer each attempt |
-| **Exponential backoff** | `delay_ms × 2^attempt` | Rapidly increases wait — standard for most systems |
-| **Exponential with jitter** | `delay_ms × 2^attempt + random(0, jitter_ms)` | Spreads retries, prevents synchronization |
-| **Immediate retry** | Retry instantly (1–3 times) | For transient deadlocks, connection resets |
+| Strategy                    | Formula                                       | Behavior                                           |
+| --------------------------- | --------------------------------------------- | -------------------------------------------------- |
+| **Fixed delay**             | `delay_ms` after each failure                 | Simple, but can cause thundering herd              |
+| **Linear backoff**          | `attempt × delay_ms`                          | Waits longer each attempt                          |
+| **Exponential backoff**     | `delay_ms × 2^attempt`                        | Rapidly increases wait — standard for most systems |
+| **Exponential with jitter** | `delay_ms × 2^attempt + random(0, jitter_ms)` | Spreads retries, prevents synchronization          |
+| **Immediate retry**         | Retry instantly (1–3 times)                   | For transient deadlocks, connection resets         |
 
 ### BullMQ Backoff Configuration
 
@@ -414,10 +431,7 @@ function generateIdempotencyKey(data: any): string {
   return `idem:order:${data.orderId}:action:sendConfirmation`;
 }
 
-async function processWithIdempotency(
-  jobData: any,
-  handler: () => Promise<void>
-): Promise<void> {
+async function processWithIdempotency(jobData: any, handler: () => Promise<void>): Promise<void> {
   const key = generateIdempotencyKey(jobData);
 
   // SET NX (set if not exists) — atomic check-and-set
@@ -455,7 +469,8 @@ async function processOrder(job: { data: OrderPayload }) {
       ...job.data,
     });
   } catch (error) {
-    if (error.code === '23505') { // PostgreSQL unique violation
+    if (error.code === '23505') {
+      // PostgreSQL unique violation
       console.log('Duplicate — order already processed');
       return; // Idempotent — skip
     }
@@ -470,11 +485,14 @@ Only allow transitions from valid states:
 
 ```typescript
 // Only confirm an order if it's in 'pending' state
-const result = await db.query(`
+const result = await db.query(
+  `
   UPDATE orders SET status = 'confirmed'
   WHERE id = $1 AND status = 'pending'
   RETURNING id
-`, [orderId]);
+`,
+  [orderId],
+);
 
 if (result.rowCount === 0) {
   return; // Already confirmed (or doesn't exist) — idempotent skip
@@ -483,12 +501,12 @@ if (result.rowCount === 0) {
 
 ### Choosing an Idempotency Strategy
 
-| Strategy | Best For | Limitations |
-| --- | --- | --- |
-| Idempotency key in Redis | General purpose, fast lookups | Requires Redis; must set TTL |
-| DB unique constraint | Jobs that insert unique records | Only works for inserts/unique fields |
-| State machine guard | Workflows with defined states | Requires well-modeled state machine |
-| Deduplication at queue level | SQS FIFO (dedup ID), Kafka (idempotent producer) | Tool-specific; limited dedup window |
+| Strategy                     | Best For                                         | Limitations                          |
+| ---------------------------- | ------------------------------------------------ | ------------------------------------ |
+| Idempotency key in Redis     | General purpose, fast lookups                    | Requires Redis; must set TTL         |
+| DB unique constraint         | Jobs that insert unique records                  | Only works for inserts/unique fields |
+| State machine guard          | Workflows with defined states                    | Requires well-modeled state machine  |
+| Deduplication at queue level | SQS FIFO (dedup ID), Kafka (idempotent producer) | Tool-specific; limited dedup window  |
 
 ---
 
@@ -498,40 +516,43 @@ Choosing the right queue technology depends on your scale, latency requirements,
 
 ### BullMQ vs RabbitMQ vs Apache Kafka vs AWS SQS
 
-| Criteria | BullMQ | RabbitMQ | Apache Kafka | AWS SQS |
-| --- | --- | --- | --- | --- |
-| **Type** | Job queue (library) | Message broker | Distributed event streaming platform | Managed queue service |
-| **Protocol** | Redis-based (custom) | AMQP 0-9-1 (pluggable) | Custom binary over TCP | HTTPS / AWS SDK |
-| **Hosting** | Self-hosted (needs Redis) | Self-hosted or CloudAMQP | Self-hosted or Confluent/MSK | Fully managed (AWS) |
-| **Delivery model** | Point-to-point (jobs) | Point-to-point + pub/sub | Pub/sub (consumers poll) | Point-to-point + fan-out (SNS + SQS) |
-| **Message ordering** | Best-effort (FIFO when concurrency=1) | Per-queue FIFO with single consumer | Per-partition strict ordering | Standard: best-effort; FIFO: strict ordering |
-| **Throughput** | ~10k jobs/sec (Redis-bound) | ~50k msg/sec per node | ~1M+ msg/sec (partitioned) | Unlimited (AWS scales automatically) |
-| **Latency** | Sub-millisecond | Sub-millisecond | Low ms (batching trades latency for throughput) | Single-digit ms (variable) |
-| **Persistence** | Optional (Redis RDB/AOF) | Yes (disk, memory, or both) | Yes (append-only log, durable) | Yes (redundant across AZs) |
-| **Retry / DLQ** | Built-in retry; manual DLQ pattern | Built-in DLX (Dead Letter Exchange) | No built-in; app-level retry handles this | Built-in DLQ (redrive policy) |
-| **Scheduling** | Built-in (delay option) | Via plugin (rabbitmq_delayed_message) | No native scheduling | Yes (DelaySeconds up to 15 min; or use Scheduler) |
-| **Message size** | Up to Redis limit (512MB default) | Configurable (128MB typical) | Up to 1MB default (configurable) | 256KB (Standard); Extended client up to 2GB via S3 |
-| **Authentication** | Redis AUTH | Built-in (SASL, TLS, LDAP) | SASL, TLS, Kerberos | IAM (AWS Identity) |
-| **Monitoring** | Bull Board / QueueEvents | Management UI + Prometheus plugin | JMX, Prometheus, Confluent Control Center | CloudWatch metrics |
-| **Ecosystem** | Node.js / TypeScript native | All major languages | All major languages | AWS SDK (all major languages) |
-| **Use case** | Background job processing in Node.js apps | General-purpose messaging, microservice communication | Event sourcing, stream processing, high-throughput ingest | AWS-native apps, zero-ops queue |
-| **Operational complexity** | Low (just Redis) | Medium (Erlang clustering) | High (ZooKeeper/KRaft, partitioning, rebalancing) | None (fully managed) |
+| Criteria                   | BullMQ                                    | RabbitMQ                                              | Apache Kafka                                              | AWS SQS                                            |
+| -------------------------- | ----------------------------------------- | ----------------------------------------------------- | --------------------------------------------------------- | -------------------------------------------------- |
+| **Type**                   | Job queue (library)                       | Message broker                                        | Distributed event streaming platform                      | Managed queue service                              |
+| **Protocol**               | Redis-based (custom)                      | AMQP 0-9-1 (pluggable)                                | Custom binary over TCP                                    | HTTPS / AWS SDK                                    |
+| **Hosting**                | Self-hosted (needs Redis)                 | Self-hosted or CloudAMQP                              | Self-hosted or Confluent/MSK                              | Fully managed (AWS)                                |
+| **Delivery model**         | Point-to-point (jobs)                     | Point-to-point + pub/sub                              | Pub/sub (consumers poll)                                  | Point-to-point + fan-out (SNS + SQS)               |
+| **Message ordering**       | Best-effort (FIFO when concurrency=1)     | Per-queue FIFO with single consumer                   | Per-partition strict ordering                             | Standard: best-effort; FIFO: strict ordering       |
+| **Throughput**             | ~10k jobs/sec (Redis-bound)               | ~50k msg/sec per node                                 | ~1M+ msg/sec (partitioned)                                | Unlimited (AWS scales automatically)               |
+| **Latency**                | Sub-millisecond                           | Sub-millisecond                                       | Low ms (batching trades latency for throughput)           | Single-digit ms (variable)                         |
+| **Persistence**            | Optional (Redis RDB/AOF)                  | Yes (disk, memory, or both)                           | Yes (append-only log, durable)                            | Yes (redundant across AZs)                         |
+| **Retry / DLQ**            | Built-in retry; manual DLQ pattern        | Built-in DLX (Dead Letter Exchange)                   | No built-in; app-level retry handles this                 | Built-in DLQ (redrive policy)                      |
+| **Scheduling**             | Built-in (delay option)                   | Via plugin (rabbitmq_delayed_message)                 | No native scheduling                                      | Yes (DelaySeconds up to 15 min; or use Scheduler)  |
+| **Message size**           | Up to Redis limit (512MB default)         | Configurable (128MB typical)                          | Up to 1MB default (configurable)                          | 256KB (Standard); Extended client up to 2GB via S3 |
+| **Authentication**         | Redis AUTH                                | Built-in (SASL, TLS, LDAP)                            | SASL, TLS, Kerberos                                       | IAM (AWS Identity)                                 |
+| **Monitoring**             | Bull Board / QueueEvents                  | Management UI + Prometheus plugin                     | JMX, Prometheus, Confluent Control Center                 | CloudWatch metrics                                 |
+| **Ecosystem**              | Node.js / TypeScript native               | All major languages                                   | All major languages                                       | AWS SDK (all major languages)                      |
+| **Use case**               | Background job processing in Node.js apps | General-purpose messaging, microservice communication | Event sourcing, stream processing, high-throughput ingest | AWS-native apps, zero-ops queue                    |
+| **Operational complexity** | Low (just Redis)                          | Medium (Erlang clustering)                            | High (ZooKeeper/KRaft, partitioning, rebalancing)         | None (fully managed)                               |
 
 ### When to Choose What
 
 **Choose BullMQ when:**
+
 - You're building a Node.js/TypeScript application
 - You need background job processing with scheduling, retries, and progress
 - You already use Redis (no new infrastructure)
 - You value developer experience (TypeScript types, Bull Board UI)
 
 **Choose RabbitMQ when:**
+
 - You need flexible routing (topic exchanges, headers exchanges, fan-out)
 - You have a polyglot environment (multiple languages)
 - You need both point-to-point and pub/sub in one broker
 - You want battle-tested AMQP compliance
 
 **Choose Apache Kafka when:**
+
 - You need to process millions of events per second
 - You need event replay capability (consumers can rewind to any offset)
 - You're building event sourcing or CQRS systems
@@ -539,6 +560,7 @@ Choosing the right queue technology depends on your scale, latency requirements,
 - You have a data engineering / stream processing use case
 
 **Choose AWS SQS when:**
+
 - You're already on AWS and want zero operational overhead
 - You don't want to manage broker infrastructure
 - Your throughput needs are variable and you want auto-scaling
@@ -575,14 +597,14 @@ BullMQ is the modern, TypeScript-native successor to Bull. It's built on top of 
 
 ### Core Components
 
-| Component | Responsibility |
-| --- | --- |
-| **Queue** | Holds jobs; producers add to it |
-| **Worker** | Picks up and processes jobs from the queue |
-| **Job** | A single unit of work with data, options, and state |
-| **QueueEvents** | Real-time event emitter for job state changes |
-| **QueueScheduler** | Manages delayed jobs and stalled job recovery |
-| **FlowProducer** | Creates job flows/chains with parent-child relationships |
+| Component          | Responsibility                                           |
+| ------------------ | -------------------------------------------------------- |
+| **Queue**          | Holds jobs; producers add to it                          |
+| **Worker**         | Picks up and processes jobs from the queue               |
+| **Job**            | A single unit of work with data, options, and state      |
+| **QueueEvents**    | Real-time event emitter for job state changes            |
+| **QueueScheduler** | Manages delayed jobs and stalled job recovery            |
+| **FlowProducer**   | Creates job flows/chains with parent-child relationships |
 
 ### QueueScheduler — The Silent Hero
 
@@ -690,32 +712,36 @@ emailEvents.on('delayed', ({ jobId, delay }) => {
 // ---------------------------------------------------------------
 // Worker definition
 // ---------------------------------------------------------------
-const emailWorker = new Worker('order-emails', async (job) => {
-  const { orderId, customerEmail, customerName } = job.data;
+const emailWorker = new Worker(
+  'order-emails',
+  async (job) => {
+    const { orderId, customerEmail, customerName } = job.data;
 
-  // Simulate sending an email
-  console.log(`Sending confirmation email to ${customerEmail} for order ${orderId}`);
+    // Simulate sending an email
+    console.log(`Sending confirmation email to ${customerEmail} for order ${orderId}`);
 
-  // Update progress so Bull Board shows real-time status
-  await job.updateProgress(50);
+    // Update progress so Bull Board shows real-time status
+    await job.updateProgress(50);
 
-  // Call your email service
-  await emailService.sendTemplate('order-confirmation', customerEmail, {
-    name: customerName,
-    orderId,
-  });
+    // Call your email service
+    await emailService.sendTemplate('order-confirmation', customerEmail, {
+      name: customerName,
+      orderId,
+    });
 
-  await job.updateProgress(100);
+    await job.updateProgress(100);
 
-  return { sent: true, email: customerEmail };
-}, {
-  connection,
-  concurrency: 20,              // Send up to 20 emails simultaneously
-  limiter: {
-    max: 50,                    // But not more than 50 per second
-    duration: 1000,
+    return { sent: true, email: customerEmail };
   },
-});
+  {
+    connection,
+    concurrency: 20, // Send up to 20 emails simultaneously
+    limiter: {
+      max: 50, // But not more than 50 per second
+      duration: 1000,
+    },
+  },
+);
 
 // ---------------------------------------------------------------
 // Producer: Called from your order service
@@ -731,7 +757,7 @@ async function onOrderPlaced(order: Order) {
     },
     {
       jobId: `email-confirmation-${order.id}`, // Idempotent key as job ID
-    }
+    },
   );
 
   // Add the invoice generation job with a 30-second delay
@@ -744,8 +770,8 @@ async function onOrderPlaced(order: Order) {
       totalAmount: order.totalAmount,
     },
     {
-      delay: 30_000,          // Process 30 seconds later
-    }
+      delay: 30_000, // Process 30 seconds later
+    },
   );
 }
 ```
@@ -815,22 +841,34 @@ async function createProcessingPipeline(pdfPath: string, targetLanguage: string)
 }
 
 // --- Worker implementations ---
-new Worker('pdf-extract', async (job) => {
-  const text = await extractTextFromPdf(job.data.pdfPath);
-  return { extractedText: text }; // Passed to next job in chain
-}, { connection });
+new Worker(
+  'pdf-extract',
+  async (job) => {
+    const text = await extractTextFromPdf(job.data.pdfPath);
+    return { extractedText: text }; // Passed to next job in chain
+  },
+  { connection },
+);
 
-new Worker('pdf-ocr', async (job) => {
-  const { extractedText, ...parentResult } = job.data; // Inherits parent data
-  // ...
-}, { connection });
+new Worker(
+  'pdf-ocr',
+  async (job) => {
+    const { extractedText, ...parentResult } = job.data; // Inherits parent data
+    // ...
+  },
+  { connection },
+);
 
-new Worker('pdf-translate', async (job) => {
-  // Receives combined data from all ancestors
-  const { extractedText, targetLanguage } = job.data;
-  const translated = await translateText(extractedText, targetLanguage);
-  return { translated };
-}, { connection });
+new Worker(
+  'pdf-translate',
+  async (job) => {
+    // Receives combined data from all ancestors
+    const { extractedText, targetLanguage } = job.data;
+    const translated = await translateText(extractedText, targetLanguage);
+    return { translated };
+  },
+  { connection },
+);
 ```
 
 ### Preventing Duplicate Jobs (Idempotency via jobId)
@@ -911,11 +949,7 @@ const serverAdapter = new ExpressAdapter();
 serverAdapter.setBasePath('/admin/queues');
 
 createBullBoard({
-  queues: [
-    new BullMQAdapter(emailQueue),
-    new BullMQAdapter(invoiceQueue),
-    new BullMQAdapter(dlq),
-  ],
+  queues: [new BullMQAdapter(emailQueue), new BullMQAdapter(invoiceQueue), new BullMQAdapter(dlq)],
   serverAdapter,
 });
 

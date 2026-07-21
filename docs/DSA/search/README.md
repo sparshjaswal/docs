@@ -1,8 +1,8 @@
 ---
 id: dsa-search-readme
-title: 🔍 Search
+title: "🔍 Search"
 slug: /DSA/search/README
-sidebar_label: 🔍 Search
+sidebar_label: "🔍 Search"
 ---
 
 # 🔍 Search

@@ -1,8 +1,8 @@
 ---
 id: dsa-disjoint-set-readme
-title: Disjoint Set
+title: "Disjoint Set"
 slug: /DSA/disjoint-set/README
-sidebar_label: Disjoint Set
+sidebar_label: "Disjoint Set"
 ---
 
 # Disjoint Set

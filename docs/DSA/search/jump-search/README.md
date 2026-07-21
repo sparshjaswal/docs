@@ -1,8 +1,8 @@
 ---
 id: dsa-search-jump-search-readme
-title: Jump Search
+title: "Jump Search"
 slug: /DSA/search/jump-search/README
-sidebar_label: Jump Search
+sidebar_label: "Jump Search"
 ---
 
 # Jump Search

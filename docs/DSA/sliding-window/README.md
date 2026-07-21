@@ -1,8 +1,8 @@
 ---
 id: dsa-sliding-window-readme
-title: 🪟 Sliding Window
+title: "🪟 Sliding Window"
 slug: /DSA/sliding-window/README
-sidebar_label: 🪟 Sliding Window
+sidebar_label: "🪟 Sliding Window"
 ---
 
 # 🪟 Sliding Window

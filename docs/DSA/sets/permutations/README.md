@@ -1,8 +1,8 @@
 ---
 id: dsa-sets-permutations-readme
-title: Permutations
+title: "Permutations"
 slug: /DSA/sets/permutations/README
-sidebar_label: Permutations
+sidebar_label: "Permutations"
 ---
 
 # Permutations

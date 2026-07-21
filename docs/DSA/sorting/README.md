@@ -1,8 +1,8 @@
 ---
 id: dsa-sorting-readme
-title: 🔃 Sorting
+title: "🔃 Sorting"
 slug: /DSA/sorting/README
-sidebar_label: 🔃 Sorting
+sidebar_label: "🔃 Sorting"
 ---
 
 # 🔃 Sorting

@@ -1,8 +1,8 @@
 ---
 id: dsa-lru-cache-readme
-title: Least Recently Used (LRU) Cache
+title: "Least Recently Used (LRU) Cache"
 slug: /DSA/lru-cache/README
-sidebar_label: Least Recently Used (LRU) C...
+sidebar_label: "Least Recently Used (LRU) C..."
 ---
 
 # Least Recently Used (LRU) Cache

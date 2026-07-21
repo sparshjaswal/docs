@@ -1,8 +1,8 @@
 ---
 id: dsa-strings-rabin-karp-readme
-title: Rabin Karp Algorithm
+title: "Rabin Karp Algorithm"
 slug: /DSA/strings/rabin-karp/README
-sidebar_label: Rabin Karp Algorithm
+sidebar_label: "Rabin Karp Algorithm"
 ---
 
 # Rabin Karp Algorithm

@@ -1,8 +1,8 @@
 ---
 id: dsa-uncategorized-jump-game-readme
-title: Jump Game
+title: "Jump Game"
 slug: /DSA/uncategorized/jump-game/README
-sidebar_label: Jump Game
+sidebar_label: "Jump Game"
 ---
 
 # Jump Game

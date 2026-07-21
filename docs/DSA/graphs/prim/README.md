@@ -1,8 +1,8 @@
 ---
 id: dsa-graphs-prim-readme
-title: Prim's Algorithm
+title: "Prim's Algorithm"
 slug: /DSA/graphs/prim/README
-sidebar_label: Prim's Algorithm
+sidebar_label: "Prim's Algorithm"
 ---
 
 # Prim's Algorithm

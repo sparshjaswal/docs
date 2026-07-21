@@ -1,8 +1,8 @@
 ---
 id: dsa-cryptography-readme
-title: 🔐 Cryptography
+title: "🔐 Cryptography"
 slug: /DSA/cryptography/README
-sidebar_label: 🔐 Cryptography
+sidebar_label: "🔐 Cryptography"
 ---
 
 # 🔐 Cryptography

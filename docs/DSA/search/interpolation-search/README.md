@@ -1,8 +1,8 @@
 ---
 id: dsa-search-interpolation-search-readme
-title: Interpolation Search
+title: "Interpolation Search"
 slug: /DSA/search/interpolation-search/README
-sidebar_label: Interpolation Search
+sidebar_label: "Interpolation Search"
 ---
 
 # Interpolation Search

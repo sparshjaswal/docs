@@ -1,8 +1,8 @@
 ---
 id: javascript-functions-function-recursion
-title: Recursion in JavaScript
+title: "Recursion in JavaScript"
 slug: /javascript/functions/function-recursion
-sidebar_label: Recursion in JavaScript
+sidebar_label: "Recursion in JavaScript"
 ---
 
 # Recursion in JavaScript

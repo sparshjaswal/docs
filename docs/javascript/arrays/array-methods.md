@@ -1,8 +1,8 @@
 ---
 id: javascript-arrays-array-methods
-title: JavaScript Array Methods
+title: "JavaScript Array Methods"
 slug: /javascript/arrays/array-methods
-sidebar_label: JavaScript Array Methods
+sidebar_label: "JavaScript Array Methods"
 ---
 
 # JavaScript Array Methods

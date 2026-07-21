@@ -1,8 +1,8 @@
 ---
 id: dsa-cryptography-caesar-cipher-readme
-title: Caesar Cipher Algorithm
+title: "Caesar Cipher Algorithm"
 slug: /DSA/cryptography/caesar-cipher/README
-sidebar_label: Caesar Cipher Algorithm
+sidebar_label: "Caesar Cipher Algorithm"
 ---
 
 # Caesar Cipher Algorithm

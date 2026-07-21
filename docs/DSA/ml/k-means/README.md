@@ -1,8 +1,8 @@
 ---
 id: dsa-ml-k-means-readme
-title: k-Means Algorithm
+title: "k-Means Algorithm"
 slug: /DSA/ml/k-means/README
-sidebar_label: k-Means Algorithm
+sidebar_label: "k-Means Algorithm"
 ---
 
 # k-Means Algorithm

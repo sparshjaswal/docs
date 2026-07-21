@@ -1,5 +1,5 @@
 ---
-title: Replication
+title: "Replication"
 sidebar_position: 8
 ---
 

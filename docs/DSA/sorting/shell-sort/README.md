@@ -1,8 +1,8 @@
 ---
 id: dsa-sorting-shell-sort-readme
-title: Shellsort
+title: "Shellsort"
 slug: /DSA/sorting/shell-sort/README
-sidebar_label: Shellsort
+sidebar_label: "Shellsort"
 ---
 
 # Shellsort

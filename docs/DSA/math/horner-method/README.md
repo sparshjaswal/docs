@@ -1,8 +1,8 @@
 ---
 id: dsa-math-horner-method-readme
-title: Horner's Method
+title: "Horner's Method"
 slug: /DSA/math/horner-method/README
-sidebar_label: Horner's Method
+sidebar_label: "Horner's Method"
 ---
 
 # Horner's Method

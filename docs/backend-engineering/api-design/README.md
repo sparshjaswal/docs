@@ -1,5 +1,5 @@
 ---
-title: API Design
+title: "API Design"
 description: REST and GraphQL API design principles, patterns, and best practices for building robust and maintainable APIs.
 ---
 
@@ -17,44 +17,44 @@ REST is an architectural style for distributed hypermedia systems. It defines a 
 
 ### Core Principles
 
-| Principle | Description |
-| --- | --- |
-| **Stateless** | Each request contains all information the server needs — no server-side session |
-| **Resource-based** | URLs represent resources (nouns), not actions (verbs) |
-| **Uniform interface** | Standard HTTP methods: GET, POST, PUT, PATCH, DELETE |
-| **Representation** | Resources can have multiple representations (JSON, XML, HTML) |
-| **HATEOAS** | Hypermedia as the Engine of Application State — responses include links to related resources |
+| Principle             | Description                                                                                  |
+| --------------------- | -------------------------------------------------------------------------------------------- |
+| **Stateless**         | Each request contains all information the server needs — no server-side session              |
+| **Resource-based**    | URLs represent resources (nouns), not actions (verbs)                                        |
+| **Uniform interface** | Standard HTTP methods: GET, POST, PUT, PATCH, DELETE                                         |
+| **Representation**    | Resources can have multiple representations (JSON, XML, HTML)                                |
+| **HATEOAS**           | Hypermedia as the Engine of Application State — responses include links to related resources |
 
 ### HTTP Methods & Status Codes
 
-| Method | CRUD | Idempotent? | Safe? |
-| --- | --- | --- | --- |
-| `GET` | Read | ✅ | ✅ |
-| `POST` | Create | ❌ | ❌ |
-| `PUT` | Update (full) | ✅ | ❌ |
-| `PATCH` | Update (partial) | ❌ | ❌ |
-| `DELETE` | Delete | ✅ | ❌ |
-| `HEAD` | Metadata only | ✅ | ✅ |
-| `OPTIONS` | Supported methods | ✅ | ✅ |
+| Method    | CRUD              | Idempotent? | Safe? |
+| --------- | ----------------- | ----------- | ----- |
+| `GET`     | Read              | ✅          | ✅    |
+| `POST`    | Create            | ❌          | ❌    |
+| `PUT`     | Update (full)     | ✅          | ❌    |
+| `PATCH`   | Update (partial)  | ❌          | ❌    |
+| `DELETE`  | Delete            | ✅          | ❌    |
+| `HEAD`    | Metadata only     | ✅          | ✅    |
+| `OPTIONS` | Supported methods | ✅          | ✅    |
 
 **Common status codes:**
 
-| Code | Meaning | When to use |
-| --- | --- | --- |
-| `200 OK` | Success | GET, PUT, PATCH success |
-| `201 Created` | Resource created | POST success (include Location header) |
-| `204 No Content` | Success, no body | DELETE success |
-| `301 Moved Permanently` | URL changed | Resource moved to new canonical URL |
-| `304 Not Modified` | Not modified | Caching — use with ETag/If-None-Match |
-| `400 Bad Request` | Client error | Invalid input, malformed JSON |
-| `401 Unauthorized` | Authentication required | Missing/invalid credentials |
-| `403 Forbidden` | Not allowed | Authenticated but insufficient permissions |
-| `404 Not Found` | Resource not found | Single resource or collection |
-| `409 Conflict` | State conflict | Duplicate resource, version mismatch |
-| `422 Unprocessable Entity` | Validation failure | Semantic errors (well-formed, but invalid) |
-| `429 Too Many Requests` | Rate limited | Include Retry-After header |
-| `500 Internal Server Error` | Unexpected error | Unhandled exception (never expose stack trace) |
-| `503 Service Unavailable` | Temporary outage | Maintenance, overload — include Retry-After |
+| Code                        | Meaning                 | When to use                                    |
+| --------------------------- | ----------------------- | ---------------------------------------------- |
+| `200 OK`                    | Success                 | GET, PUT, PATCH success                        |
+| `201 Created`               | Resource created        | POST success (include Location header)         |
+| `204 No Content`            | Success, no body        | DELETE success                                 |
+| `301 Moved Permanently`     | URL changed             | Resource moved to new canonical URL            |
+| `304 Not Modified`          | Not modified            | Caching — use with ETag/If-None-Match          |
+| `400 Bad Request`           | Client error            | Invalid input, malformed JSON                  |
+| `401 Unauthorized`          | Authentication required | Missing/invalid credentials                    |
+| `403 Forbidden`             | Not allowed             | Authenticated but insufficient permissions     |
+| `404 Not Found`             | Resource not found      | Single resource or collection                  |
+| `409 Conflict`              | State conflict          | Duplicate resource, version mismatch           |
+| `422 Unprocessable Entity`  | Validation failure      | Semantic errors (well-formed, but invalid)     |
+| `429 Too Many Requests`     | Rate limited            | Include Retry-After header                     |
+| `500 Internal Server Error` | Unexpected error        | Unhandled exception (never expose stack trace) |
+| `503 Service Unavailable`   | Temporary outage        | Maintenance, overload — include Retry-After    |
 
 ### REST Design Patterns
 
@@ -117,12 +117,12 @@ GET /api/users?fields=id,name,email  // sparse fieldsets
 
 ### Versioning Strategies
 
-| Strategy | Example | Pros | Cons |
-| --- | --- | --- | --- |
-| URL path | `/api/v1/users` | Explicit, easy to route | URL pollution |
-| Query param | `/api/users?version=1` | Clean URLs | Caching issues |
-| Custom header | `Accept: application/vnd.api.v1+json` | Clean URLs, flexible | Harder to test (curl, browser) |
-| Content negotiation | `Accept: application/json; version=1` | Most RESTful | Complex, tooling support limited |
+| Strategy            | Example                               | Pros                    | Cons                             |
+| ------------------- | ------------------------------------- | ----------------------- | -------------------------------- |
+| URL path            | `/api/v1/users`                       | Explicit, easy to route | URL pollution                    |
+| Query param         | `/api/users?version=1`                | Clean URLs              | Caching issues                   |
+| Custom header       | `Accept: application/vnd.api.v1+json` | Clean URLs, flexible    | Harder to test (curl, browser)   |
+| Content negotiation | `Accept: application/json; version=1` | Most RESTful            | Complex, tooling support limited |
 
 **Recommendation:** URL path versioning for public APIs (simplest for consumers).
 
@@ -135,6 +135,7 @@ GraphQL is a query language and runtime for APIs. Unlike REST's multiple endpoin
 ### Core Concepts
 
 **Schema** — defines types and their relationships:
+
 ```graphql
 type User {
   id: ID!
@@ -162,6 +163,7 @@ type Mutation {
 ```
 
 **Queries** — read data (client specifies shape):
+
 ```graphql
 # Client request — only these fields will be returned
 query {
@@ -176,6 +178,7 @@ query {
 ```
 
 **Mutations** — write/update data:
+
 ```graphql
 mutation {
   createUser(name: "Alice", email: "alice@example.com") {
@@ -186,16 +189,20 @@ mutation {
 ```
 
 **Subscriptions** — real-time updates over WebSocket:
+
 ```graphql
 subscription {
   postCreated {
     title
-    author { name }
+    author {
+      name
+    }
   }
 }
 ```
 
 **Resolvers** — functions that resolve each field:
+
 ```javascript
 const resolvers = {
   Query: {
@@ -214,16 +221,16 @@ const resolvers = {
 
 ### GraphQL vs REST
 
-| Criteria | REST | GraphQL |
-| --- | --- | --- |
-| **Data fetching** | Multiple endpoints, fixed responses | Single endpoint, client-specified fields |
-| **Over-fetching** | Common — getting more data than needed | None — client requests exact fields |
-| **Under-fetching** | Common — multiple round-trips for related data | None — nested resources in one request |
-| **Versioning** | Required over time | No versioning — schema evolves via deprecation |
-| **Caching** | HTTP caching (CDN, browser) | Requires client-side caches (Apollo, Urql, Relay) |
-| **Tooling** | Swagger, Postman, curl | GraphiQL, Apollo Studio, GraphQL Playground |
-| **Learning curve** | Low | Medium — requires understanding schema and queries |
-| **Best for** | Simple CRUD APIs, public APIs | Complex data models, mobile apps, rapid UIs |
+| Criteria           | REST                                           | GraphQL                                            |
+| ------------------ | ---------------------------------------------- | -------------------------------------------------- |
+| **Data fetching**  | Multiple endpoints, fixed responses            | Single endpoint, client-specified fields           |
+| **Over-fetching**  | Common — getting more data than needed         | None — client requests exact fields                |
+| **Under-fetching** | Common — multiple round-trips for related data | None — nested resources in one request             |
+| **Versioning**     | Required over time                             | No versioning — schema evolves via deprecation     |
+| **Caching**        | HTTP caching (CDN, browser)                    | Requires client-side caches (Apollo, Urql, Relay)  |
+| **Tooling**        | Swagger, Postman, curl                         | GraphiQL, Apollo Studio, GraphQL Playground        |
+| **Learning curve** | Low                                            | Medium — requires understanding schema and queries |
+| **Best for**       | Simple CRUD APIs, public APIs                  | Complex data models, mobile apps, rapid UIs        |
 
 ### Anti-Patterns to Avoid
 

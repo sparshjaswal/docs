@@ -1,8 +1,8 @@
 ---
 id: dsa-sorting-selection-sort-readme
-title: Selection Sort
+title: "Selection Sort"
 slug: /DSA/sorting/selection-sort/README
-sidebar_label: Selection Sort
+sidebar_label: "Selection Sort"
 ---
 
 # Selection Sort

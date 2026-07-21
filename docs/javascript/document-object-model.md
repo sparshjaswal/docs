@@ -1,8 +1,8 @@
 ---
 id: javascript-document-object-model
-title: 🌐 Document Object Model (DOM) - Complete Guide
+title: "🌐 Document Object Model (DOM) - Complete Guide"
 slug: /javascript/document-object-model
-sidebar_label: 🌐 Document Object Model (DO...
+sidebar_label: "🌐 Document Object Model (DO..."
 ---
 
 # 🌐 Document Object Model (DOM) - Complete Guide

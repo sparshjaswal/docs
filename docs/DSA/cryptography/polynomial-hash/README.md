@@ -1,8 +1,8 @@
 ---
 id: dsa-cryptography-polynomial-hash-readme
-title: Polynomial Rolling Hash
+title: "Polynomial Rolling Hash"
 slug: /DSA/cryptography/polynomial-hash/README
-sidebar_label: Polynomial Rolling Hash
+sidebar_label: "Polynomial Rolling Hash"
 ---
 
 # Polynomial Rolling Hash

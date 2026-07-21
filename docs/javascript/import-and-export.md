@@ -1,8 +1,8 @@
 ---
 id: javascript-import-and-export
-title: 📦 Import & Export in JavaScript (ES6)
+title: "📦 Import & Export in JavaScript (ES6)"
 slug: /javascript/import-and-export
-sidebar_label: 📦 Import & Export in JavaSc...
+sidebar_label: "📦 Import & Export in JavaSc..."
 ---
 
 # 📦 Import & Export in JavaScript (ES6)

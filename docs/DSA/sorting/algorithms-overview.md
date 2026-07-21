@@ -1,8 +1,8 @@
 ---
 id: dsa-sorting-algorithms-overview
-title: Sorting
+title: "Sorting"
 slug: /DSA/sorting/algorithms-overview
-sidebar_label: Sorting
+sidebar_label: "Sorting"
 ---
 
 # Sorting

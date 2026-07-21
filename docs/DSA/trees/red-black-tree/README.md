@@ -1,8 +1,8 @@
 ---
 id: dsa-trees-red-black-tree-readme
-title: Red–Black Tree
+title: "Red–Black Tree"
 slug: /DSA/trees/red-black-tree/README
-sidebar_label: Red–Black Tree
+sidebar_label: "Red–Black Tree"
 ---
 
 # Red–Black Tree

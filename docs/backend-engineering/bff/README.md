@@ -1,5 +1,5 @@
 ---
-title: BFF (Backend for Frontend)
+title: "BFF (Backend for Frontend)"
 description: The Backend for Frontend pattern — creating tailored backend layers for each client. Aggregation, transformation, caching, error handling, and production-ready implementations in Express and NestJS.
 keywords:
   - bff
@@ -25,15 +25,15 @@ The BFF pattern introduces a dedicated backend layer for each client type — mo
 
 In a microservices architecture, clients often need data from multiple services to render a single screen. Without BFF, clients face several problems:
 
-| Problem | Without BFF | With BFF |
-| --- | --- | --- |
-| **Over-fetching** | Mobile receives 60 fields for a list view that only needs 6 | BFF strips unused fields before sending to mobile |
-| **Under-fetching** | Client makes 5–8 round-trips to different services for one screen | BFF aggregates into 1 request |
-| **Chatty clients** | High-latency mobile networks amplify round-trip cost | BFF reduces calls; client pays one network round-trip |
-| **Protocol mismatch** | Mobile wants compact binary; service speaks verbose JSON | BFF translates protocols per client |
-| **Client-side logic bloat** | Data transformation, merging, and error handling live in the app | All orchestration lives in the BFF |
-| **Tight coupling** | Every client embeds knowledge of every service endpoint | Clients know only their BFF contract |
-| **Versioning pain** | Changing a downstream service breaks all clients | BFF absorbs the change; client contract stays stable |
+| Problem                     | Without BFF                                                       | With BFF                                              |
+| --------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------- |
+| **Over-fetching**           | Mobile receives 60 fields for a list view that only needs 6       | BFF strips unused fields before sending to mobile     |
+| **Under-fetching**          | Client makes 5–8 round-trips to different services for one screen | BFF aggregates into 1 request                         |
+| **Chatty clients**          | High-latency mobile networks amplify round-trip cost              | BFF reduces calls; client pays one network round-trip |
+| **Protocol mismatch**       | Mobile wants compact binary; service speaks verbose JSON          | BFF translates protocols per client                   |
+| **Client-side logic bloat** | Data transformation, merging, and error handling live in the app  | All orchestration lives in the BFF                    |
+| **Tight coupling**          | Every client embeds knowledge of every service endpoint           | Clients know only their BFF contract                  |
+| **Versioning pain**         | Changing a downstream service breaks all clients                  | BFF absorbs the change; client contract stays stable  |
 
 ---
 
@@ -128,13 +128,13 @@ Reshape, rename, and restructure data so the client receives exactly the shape i
 
 Clients may speak different protocols than downstream services. A BFF bridges that gap:
 
-| Client → BFF | BFF → Services |
-| --- | --- |
-| REST (JSON) | gRPC |
-| GraphQL | REST |
-| WebSocket | REST + Redis Pub/Sub |
-| MQTT (IoT) | gRPC / REST |
-| Binary (protobuf) | REST (JSON) |
+| Client → BFF      | BFF → Services       |
+| ----------------- | -------------------- |
+| REST (JSON)       | gRPC                 |
+| GraphQL           | REST                 |
+| WebSocket         | REST + Redis Pub/Sub |
+| MQTT (IoT)        | gRPC / REST          |
+| Binary (protobuf) | REST (JSON)          |
 
 ### 4. Response Stripping & Field Selection
 
@@ -180,6 +180,7 @@ Each downstream service may return errors in its own format. The BFF normalizes 
 The web BFF serves browser-based SPAs (React, Vue, Angular) and server-rendered apps (Next.js, Nuxt).
 
 **Characteristics:**
+
 - Returns rich, fully-hydrated JSON payloads
 - Cookie-based session handling (HttpOnly, Secure, SameSite)
 - CSRF token management
@@ -192,18 +193,17 @@ The web BFF serves browser-based SPAs (React, Vue, Angular) and server-rendered 
 // Web BFF endpoint for a product detail page
 // Next.js App Router — Route Handler
 // app/api/products/[id]/route.ts
-export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: Request, { params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
   if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
-  const [product, reviews, recommendations] = await Promise.all([
-    fetch(`http://product-service/products/${params.id}`),
-    fetch(`http://review-service/products/${params.id}/reviews?limit=10`),
-    fetch(`http://rec-service/products/${params.id}/similar?limit=4`),
-  ].map(p => p.then(r => r.json())));
+  const [product, reviews, recommendations] = await Promise.all(
+    [
+      fetch(`http://product-service/products/${params.id}`),
+      fetch(`http://review-service/products/${params.id}/reviews?limit=10`),
+      fetch(`http://rec-service/products/${params.id}/similar?limit=4`),
+    ].map((p) => p.then((r) => r.json())),
+  );
 
   return Response.json({
     product,
@@ -224,6 +224,7 @@ export async function GET(
 The mobile BFF optimizes for constrained environments: high-latency cellular networks, limited bandwidth, and battery-conscious applications.
 
 **Characteristics:**
+
 - **Payload minimization** — strip every unused field; every byte matters
 - **Batched endpoints** — one request per screen, not per widget
 - **Delta/partial updates** — send only what changed (e.g., via `If-Modified-Since` or ETags)
@@ -238,10 +239,10 @@ The mobile BFF optimizes for constrained environments: high-latency cellular net
 interface MobileProductDTO {
   id: string;
   title: string;
-  price: string;          // Pre-formatted: "$29.99"
-  thumb: string;          // 120×120 thumbnail URL
+  price: string; // Pre-formatted: "$29.99"
+  thumb: string; // 120×120 thumbnail URL
   inStock: boolean;
-  rating: number;         // 4.5 (not the full breakdown)
+  rating: number; // 4.5 (not the full breakdown)
 }
 
 app.get('/api/mobile/products/:id', async (req, res) => {
@@ -265,6 +266,7 @@ app.get('/api/mobile/products/:id', async (req, res) => {
 IoT devices often have severe constraints: limited RAM (kilobytes), narrow bandwidth (kilobits/sec), and intermittent connectivity.
 
 **Characteristics:**
+
 - Compact binary protocols (protobuf, CBOR, MessagePack)
 - MQTT or CoAP for transport (not HTTP)
 - Register device-specific data contracts
@@ -276,6 +278,7 @@ IoT devices often have severe constraints: limited RAM (kilobytes), narrow bandw
 When exposing APIs to external partners, a dedicated BFF provides a stable, versioned, and well-documented contract that insulates partners from internal service changes.
 
 **Characteristics:**
+
 - Strict versioning (`/v1/`, `/v2/`)
 - API key or OAuth2 Client Credentials authentication
 - Rate limiting per partner
@@ -308,17 +311,17 @@ graph LR
     BFF_M --> SVC
 ```
 
-| Criteria | API Gateway | BFF | GraphQL |
-| --- | --- | --- | --- |
-| **Purpose** | Single entry point, cross-cutting concerns | Tailored API per client | Flexible query language |
-| **How many?** | One per system | One per client type (web, mobile, IoT...) | One (or federated) |
-| **Client specificity** | Generic — all clients share the same API | High — each BFF is client-specific | Medium — clients control what they query |
-| **Data shape control** | Service decides | BFF decides | Client decides |
-| **Cross-cutting** | Auth, rate limiting, TLS, logging | Auth, aggregation, transformation, caching | Auth, query validation, depth limiting |
-| **N+1 problem** | Upstream (gateway calls services sequentially or in parallel) | Controlled internally by BFF | Classic N+1 resolved with DataLoader |
-| **Over-fetching** | Yes — fixed responses from services | No — BFF strips unused fields | No — client asks for exact fields |
-| **Complexity** | Low — mostly routing | Medium — per-client codebase | Medium–High — schema design, resolver optimization, security |
-| **Best for** | Routing, rate limiting, initial setup | Teams with distinct client needs | Data-rich apps with deeply nested entities |
+| Criteria               | API Gateway                                                   | BFF                                        | GraphQL                                                      |
+| ---------------------- | ------------------------------------------------------------- | ------------------------------------------ | ------------------------------------------------------------ |
+| **Purpose**            | Single entry point, cross-cutting concerns                    | Tailored API per client                    | Flexible query language                                      |
+| **How many?**          | One per system                                                | One per client type (web, mobile, IoT...)  | One (or federated)                                           |
+| **Client specificity** | Generic — all clients share the same API                      | High — each BFF is client-specific         | Medium — clients control what they query                     |
+| **Data shape control** | Service decides                                               | BFF decides                                | Client decides                                               |
+| **Cross-cutting**      | Auth, rate limiting, TLS, logging                             | Auth, aggregation, transformation, caching | Auth, query validation, depth limiting                       |
+| **N+1 problem**        | Upstream (gateway calls services sequentially or in parallel) | Controlled internally by BFF               | Classic N+1 resolved with DataLoader                         |
+| **Over-fetching**      | Yes — fixed responses from services                           | No — BFF strips unused fields              | No — client asks for exact fields                            |
+| **Complexity**         | Low — mostly routing                                          | Medium — per-client codebase               | Medium–High — schema design, resolver optimization, security |
+| **Best for**           | Routing, rate limiting, initial setup                         | Teams with distinct client needs           | Data-rich apps with deeply nested entities                   |
 
 ### Decision Framework
 
@@ -378,20 +381,19 @@ app.get('/api/dashboard', cache({ ttl: 30 }), async (req, res, next) => {
     const userId = req.user!.id;
 
     // Parallel aggregation of independent calls
-    const [profile, activeOrders, notifications, recommendations] =
-      await Promise.allSettled([
-        userService.getProfile(userId),
-        orderService.getActiveOrders(userId),
-        notificationService.getUnreadCount(userId),
-        recommendationService.getForUser(userId),
-      ]);
+    const [profile, activeOrders, notifications, recommendations] = await Promise.allSettled([
+      userService.getProfile(userId),
+      orderService.getActiveOrders(userId),
+      notificationService.getUnreadCount(userId),
+      recommendationService.getForUser(userId),
+    ]);
 
     // Graceful degradation: partial data is better than no data
     res.json({
-      profile:     getValue(profile),
+      profile: getValue(profile),
       activeOrders: getValue(activeOrders, []),
       unreadNotifications: getValue(notifications, 0),
-      recommendations:    getValue(recommendations, []),
+      recommendations: getValue(recommendations, []),
       degraded: getDegradedFields({ profile, activeOrders, notifications, recommendations }),
     });
   } catch (err) {
@@ -499,12 +501,8 @@ export class BffWebService {
     const degraded: string[] = [];
 
     const [profile, orders, notifications] = await Promise.allSettled([
-      this.circuitBreaker.execute('user-service', () =>
-        this.userClient.getProfile(userId),
-      ),
-      this.circuitBreaker.execute('order-service', () =>
-        this.orderClient.getActiveOrders(userId),
-      ),
+      this.circuitBreaker.execute('user-service', () => this.userClient.getProfile(userId)),
+      this.circuitBreaker.execute('order-service', () => this.orderClient.getActiveOrders(userId)),
       this.circuitBreaker.execute('notification-service', () =>
         this.notificationClient.getUnreadCount(userId),
       ),
@@ -588,20 +586,22 @@ async function getDashboard(userId: string) {
   const serviceToken = await getServiceToken({ scope: 'bff:web' });
 
   const headers = { Authorization: `Bearer ${serviceToken}` };
-  const [profile, orders] = await Promise.all([
-    fetch(`http://user-service/users/${userId}`, { headers }),
-    fetch(`http://order-service/orders?userId=${userId}`, { headers }),
-  ].map(p => p.then(r => r.json())));
+  const [profile, orders] = await Promise.all(
+    [
+      fetch(`http://user-service/users/${userId}`, { headers }),
+      fetch(`http://order-service/orders?userId=${userId}`, { headers }),
+    ].map((p) => p.then((r) => r.json())),
+  );
 
   return { profile, orders };
 }
 ```
 
-| Approach | Pros | Cons |
-| --- | --- | --- |
-| **Token Relay** | True end-to-end user context; audit trail intact | User tokens may not have downstream permissions; token expiry mid-request |
+| Approach          | Pros                                                          | Cons                                                                        |
+| ----------------- | ------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| **Token Relay**   | True end-to-end user context; audit trail intact              | User tokens may not have downstream permissions; token expiry mid-request   |
 | **Service Token** | BFF controls scope; no expiry issues; simpler downstream auth | Downstream loses original user context (pass `X-User-Id` header explicitly) |
-| **Hybrid** | Service token for auth + `X-On-Behalf-Of` header with user ID | Best of both worlds — recommended |
+| **Hybrid**        | Service token for auth + `X-On-Behalf-Of` header with user ID | Best of both worlds — recommended                                           |
 
 ---
 
@@ -616,13 +616,13 @@ Use when one call depends on the result of a previous call:
 ```typescript
 async function getOrderWithDetails(orderId: string) {
   // Step 1: Fetch the order
-  const order = await orderService.getById(orderId);        // 60 ms
+  const order = await orderService.getById(orderId); // 60 ms
 
   // Step 2: Fetch related data (depends on order)
   const [user, tracking, invoice] = await Promise.all([
-    userService.getById(order.userId),                        // 45 ms
-    shippingService.getTracking(order.trackingNumber),        // 80 ms
-    billingService.getInvoice(order.invoiceId),               // 50 ms
+    userService.getById(order.userId), // 45 ms
+    shippingService.getTracking(order.trackingNumber), // 80 ms
+    billingService.getInvoice(order.invoiceId), // 50 ms
   ]);
 
   // Total: 60 + max(45, 80, 50) = 60 + 80 = 140 ms
@@ -637,16 +637,16 @@ Use when calls are independent. Always use `Promise.allSettled` (not `Promise.al
 ```typescript
 async function getDashboard(userId: string) {
   const [profile, orders, notifications, recs] = await Promise.allSettled([
-    userService.getProfile(userId),            // independent
-    orderService.getActiveOrders(userId),      // independent
+    userService.getProfile(userId), // independent
+    orderService.getActiveOrders(userId), // independent
     notificationService.getUnreadCount(userId), // independent
-    recommendationService.getForUser(userId),  // independent
+    recommendationService.getForUser(userId), // independent
   ]);
 
   return {
-    profile:     settle(profile, null),
-    orders:      settle(orders, []),
-    unread:      settle(notifications, 0),
+    profile: settle(profile, null),
+    orders: settle(orders, []),
+    unread: settle(notifications, 0),
     recommended: settle(recs, []),
   };
 }
@@ -680,21 +680,22 @@ async function getFullUserContext(userId: string, cartId: string) {
 
   // Level 2: Depends on results from Level 1
   const [wishlist, orderHistory] = await Promise.all([
-    wishlistService.getForUser(userId),                       // can run with L1
-    orderService.getHistory(userId),                          // can run with L1
+    wishlistService.getForUser(userId), // can run with L1
+    orderService.getHistory(userId), // can run with L1
   ]);
 
   // Level 3: Depends on cart items from Level 1 + orderHistory from Level 2
   const [inventory, shippingStatuses] = await Promise.all([
-    inventoryService.getForSkus(cart.items.map(i => i.sku)),  // depends on cart
-    shippingService.getStatuses(                               // depends on orderHistory
-      orderHistory.orders.slice(0, 3).map(o => o.trackingId)
+    inventoryService.getForSkus(cart.items.map((i) => i.sku)), // depends on cart
+    shippingService.getStatuses(
+      // depends on orderHistory
+      orderHistory.orders.slice(0, 3).map((o) => o.trackingId),
     ),
   ]);
 
   // Level 4: Recommendations based on cart + order history
   const recommendations = await recommendationService.getForUser(userId, {
-    basedOnCart: cart.items.map(i => i.productId),
+    basedOnCart: cart.items.map((i) => i.productId),
     excludePreviouslyPurchased: orderHistory.productIds,
   });
 
@@ -704,11 +705,11 @@ async function getFullUserContext(userId: string, cartId: string) {
 
 ### Aggregation Comparison
 
-| Pattern | Latency | Complexity | Failure Isolation | When to Use |
-| --- | --- | --- | --- | --- |
-| **Sequential** | Sum of all calls | Low | Must abort on first failure | Strict dependencies |
-| **Parallel** | Max of all calls | Low–Medium | Use `allSettled` for partial results | Independent calls |
-| **Hybrid (DAG)** | Critical path length | Medium–High | Per-node fallbacks | Complex screens, 5+ services |
+| Pattern          | Latency              | Complexity  | Failure Isolation                    | When to Use                  |
+| ---------------- | -------------------- | ----------- | ------------------------------------ | ---------------------------- |
+| **Sequential**   | Sum of all calls     | Low         | Must abort on first failure          | Strict dependencies          |
+| **Parallel**     | Max of all calls     | Low–Medium  | Use `allSettled` for partial results | Independent calls            |
+| **Hybrid (DAG)** | Critical path length | Medium–High | Per-node fallbacks                   | Complex screens, 5+ services |
 
 ---
 
@@ -727,7 +728,9 @@ async function getWithSWR<T>(key: string, fetcher: () => Promise<T>, ttl: number
   const cached = await redis.get(key);
   if (cached) {
     // Trigger background refresh
-    fetcher().then(data => redis.setex(key, ttl, JSON.stringify(data))).catch(() => {});
+    fetcher()
+      .then((data) => redis.setex(key, ttl, JSON.stringify(data)))
+      .catch(() => {});
     return JSON.parse(cached);
   }
   const data = await fetcher();
@@ -754,12 +757,12 @@ app.get('/api/products/:id', async (req, res) => {
 
 ### What to Cache at the BFF
 
-| Good Candidates | Poor Candidates |
-| --- | --- |
-| Dashboard aggregations (TTL: 15–60s) | Real-time stock prices |
-| Product detail pages (TTL: 5–15 min) | User-specific live notifications |
-| Category listings (TTL: 5–30 min) | Shopping cart contents |
-| User preferences/settings (TTL: 5–60 min) | Order status during checkout flow |
+| Good Candidates                            | Poor Candidates                       |
+| ------------------------------------------ | ------------------------------------- |
+| Dashboard aggregations (TTL: 15–60s)       | Real-time stock prices                |
+| Product detail pages (TTL: 5–15 min)       | User-specific live notifications      |
+| Category listings (TTL: 5–30 min)          | Shopping cart contents                |
+| User preferences/settings (TTL: 5–60 min)  | Order status during checkout flow     |
 | Configuration/feature flags (TTL: 1–5 min) | Anything requiring strong consistency |
 
 ---
@@ -830,13 +833,13 @@ class CircuitBreaker {
 
 ### Fallback Strategies
 
-| Strategy | Description | Example |
-| --- | --- | --- |
-| **Static fallback** | Return hardcoded default value | `recommendations: []` |
-| **Stale cache** | Serve expired cached data when service is down | Last known dashboard from 5 min ago |
-| **Graceful degradation** | Omit the failed section, signal it in the response | `{ degraded: ["recommendations"] }` |
-| **Feature flag off** | Disable the feature if its service is down | Hide "You might also like" section |
-| **Retry with backoff** | Retry 2–3 times with exponential delay before fallback | 100ms → 200ms → 400ms → fallback |
+| Strategy                 | Description                                            | Example                             |
+| ------------------------ | ------------------------------------------------------ | ----------------------------------- |
+| **Static fallback**      | Return hardcoded default value                         | `recommendations: []`               |
+| **Stale cache**          | Serve expired cached data when service is down         | Last known dashboard from 5 min ago |
+| **Graceful degradation** | Omit the failed section, signal it in the response     | `{ degraded: ["recommendations"] }` |
+| **Feature flag off**     | Disable the feature if its service is down             | Hide "You might also like" section  |
+| **Retry with backoff**   | Retry 2–3 times with exponential delay before fallback | 100ms → 200ms → 400ms → fallback    |
 
 ### Graceful Degradation Pattern
 
@@ -846,9 +849,9 @@ interface DashboardResponse {
   activeOrders: OrderDTO[];
   unreadNotifications: number;
   recommendations: ProductDTO[];
-  degraded: string[];          // Tells the client which sections are incomplete
-  stale: string[];             // Tells the client which sections are from cache
-  retryAfter?: number;         // Suggested retry time in seconds for failed sections
+  degraded: string[]; // Tells the client which sections are incomplete
+  stale: string[]; // Tells the client which sections are from cache
+  retryAfter?: number; // Suggested retry time in seconds for failed sections
 }
 
 async function getDegradedDashboard(userId: string): Promise<DashboardResponse> {
@@ -863,7 +866,10 @@ async function getDegradedDashboard(userId: string): Promise<DashboardResponse> 
       execute: () => userService.getProfile(userId),
       fallback: async () => {
         const cached = await cache.get(`profile:${userId}`);
-        if (cached) { stale.push('profile'); return cached; }
+        if (cached) {
+          stale.push('profile');
+          return cached;
+        }
         return null;
       },
     },
@@ -887,15 +893,17 @@ async function getDegradedDashboard(userId: string): Promise<DashboardResponse> 
     },
   ];
 
-  await Promise.all(calls.map(async ({ key, execute, fallback }) => {
-    try {
-      results[key] = await execute();
-    } catch (err) {
-      logger.warn(`[BFF] ${key} failed, applying fallback`, { error: err });
-      degraded.push(key);
-      results[key] = await fallback();
-    }
-  }));
+  await Promise.all(
+    calls.map(async ({ key, execute, fallback }) => {
+      try {
+        results[key] = await execute();
+      } catch (err) {
+        logger.warn(`[BFF] ${key} failed, applying fallback`, { error: err });
+        degraded.push(key);
+        results[key] = await fallback();
+      }
+    }),
+  );
 
   return {
     profile: results.profile,
@@ -1000,7 +1008,7 @@ export class UserServiceClient extends BaseServiceClient {
 
   async batchGetProfiles(userIds: string[]): Promise<UserProfileDTO[]> {
     const { users } = await this.post<{ users: any[] }>('/users/batch', { ids: userIds });
-    return users.map(user => ({
+    return users.map((user) => ({
       id: user.id,
       displayName: `${user.first_name} ${user.last_name}`,
       avatar: user.avatar_url,
@@ -1062,24 +1070,27 @@ describe('BffWebService', () => {
   beforeEach(() => {
     mockUserClient = { getProfile: jest.fn() } as any;
     mockOrderClient = { getActiveOrders: jest.fn() } as any;
-    service = new BffWebService(mockUserClient, mockOrderClient, /* ... */);
+    service = new BffWebService(mockUserClient, mockOrderClient /* ... */);
   });
 
   it('should return partial data when order service fails', async () => {
     mockUserClient.getProfile.mockResolvedValue({
-      id: '42', displayName: 'Alice', avatar: '/alice.png', joinedAt: '2024-01-01',
+      id: '42',
+      displayName: 'Alice',
+      avatar: '/alice.png',
+      joinedAt: '2024-01-01',
     });
     mockOrderClient.getActiveOrders.mockRejectedValue(new Error('Connection refused'));
 
     const result = await service.getDashboard('42');
 
     expect(result.profile).toBeDefined();
-    expect(result.activeOrders).toEqual([]);           // Fallback
-    expect(result.degraded).toContain('activeOrders');  // Signaled
+    expect(result.activeOrders).toEqual([]); // Fallback
+    expect(result.degraded).toContain('activeOrders'); // Signaled
   });
 
   it('should aggregate data from multiple services', async () => {
-    mockUserClient.getProfile.mockResolvedValue({ /* ... */ });
+    mockUserClient.getProfile.mockResolvedValue({/* ... */});
     mockOrderClient.getActiveOrders.mockResolvedValue([{ id: '1' }, { id: '2' }]);
 
     const result = await service.getDashboard('42');
@@ -1108,7 +1119,7 @@ describe('BFF Integration', () => {
     // Stub downstream services
     await wiremock.stubFor({
       request: { method: 'GET', urlPath: '/users/42' },
-      response: { status: 200, jsonBody: { id: 42, first_name: 'Alice', /* ... */ } },
+      response: { status: 200, jsonBody: { id: 42, first_name: 'Alice' /* ... */ } },
     });
     await wiremock.stubFor({
       request: { method: 'GET', urlPath: '/orders', queryParameters: { userId: '42' } },
@@ -1138,9 +1149,9 @@ describe('BFF Integration', () => {
     const response = await supertest(app)
       .get('/api/dashboard')
       .set('Authorization', 'Bearer valid-token')
-      .expect(200);                                    // Still 200 — graceful degradation
+      .expect(200); // Still 200 — graceful degradation
 
-    expect(response.body.activeOrders).toEqual([]);    // Fallback
+    expect(response.body.activeOrders).toEqual([]); // Fallback
     expect(response.body.degraded).toContain('activeOrders');
   });
 });
@@ -1176,18 +1187,18 @@ describe('UserService Contract', () => {
 
 ## Anti-Patterns
 
-| Anti-Pattern | Why It's Harmful | What to Do Instead |
-| --- | --- | --- |
-| **Generic BFF** | One BFF serving all clients defeats the purpose — you've built a slower API Gateway | Create separate BFFs per client type; share common code via libraries |
-| **Business logic in BFF** | The BFF becomes a monolith with domain logic spread across multiple BFFs | Keep BFFs thin — orchestration only. Business rules belong in downstream services |
-| **No fallbacks** | One downstream failure returns a 500 to the client, even when partial data would be useful | Every downstream call should have a fallback. Use `allSettled` and graceful degradation |
-| **Unbounded parallelism** | Firing 20+ downstream calls in parallel saturates thread pools and connection limits | Cap parallelism; use a DAG to identify true dependencies; batch calls where possible |
-| **BFF calling BFF** | Creates spaghetti dependencies; debugging becomes impossible | Each BFF calls downstream services directly or through the API Gateway — never another BFF |
-| **Ignoring client constraints** | A Mobile BFF that returns 500 KB payloads is worse than no BFF | Profile payloads on real devices over throttled networks. Set size budgets per endpoint |
-| **Leaking downstream errors** | Exposing internal service names, stack traces, or DB errors to clients | Normalize all errors into a client-friendly format. Never expose internal details |
-| **Over-fetching in BFF** | Calling a downstream endpoint that returns 80 fields when the BFF only needs 5 | If you control the service, add sparse fieldsets (`?fields=id,name,price`). If not, at least strip before forwarding to client |
-| **BFF as an ESB** | Adding message transformation, routing rules, and orchestration engines to the BFF | BFF should be simple Node.js apps. If you need an ESB, use a dedicated integration layer |
-| **No monitoring** | You can't see which downstream service is degrading the BFF experience | Instrument every downstream call: latency, error rate, circuit breaker state. Export to Prometheus/Datadog |
+| Anti-Pattern                    | Why It's Harmful                                                                           | What to Do Instead                                                                                                             |
+| ------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| **Generic BFF**                 | One BFF serving all clients defeats the purpose — you've built a slower API Gateway        | Create separate BFFs per client type; share common code via libraries                                                          |
+| **Business logic in BFF**       | The BFF becomes a monolith with domain logic spread across multiple BFFs                   | Keep BFFs thin — orchestration only. Business rules belong in downstream services                                              |
+| **No fallbacks**                | One downstream failure returns a 500 to the client, even when partial data would be useful | Every downstream call should have a fallback. Use `allSettled` and graceful degradation                                        |
+| **Unbounded parallelism**       | Firing 20+ downstream calls in parallel saturates thread pools and connection limits       | Cap parallelism; use a DAG to identify true dependencies; batch calls where possible                                           |
+| **BFF calling BFF**             | Creates spaghetti dependencies; debugging becomes impossible                               | Each BFF calls downstream services directly or through the API Gateway — never another BFF                                     |
+| **Ignoring client constraints** | A Mobile BFF that returns 500 KB payloads is worse than no BFF                             | Profile payloads on real devices over throttled networks. Set size budgets per endpoint                                        |
+| **Leaking downstream errors**   | Exposing internal service names, stack traces, or DB errors to clients                     | Normalize all errors into a client-friendly format. Never expose internal details                                              |
+| **Over-fetching in BFF**        | Calling a downstream endpoint that returns 80 fields when the BFF only needs 5             | If you control the service, add sparse fieldsets (`?fields=id,name,price`). If not, at least strip before forwarding to client |
+| **BFF as an ESB**               | Adding message transformation, routing rules, and orchestration engines to the BFF         | BFF should be simple Node.js apps. If you need an ESB, use a dedicated integration layer                                       |
+| **No monitoring**               | You can't see which downstream service is degrading the BFF experience                     | Instrument every downstream call: latency, error rate, circuit breaker state. Export to Prometheus/Datadog                     |
 
 ---
 
@@ -1228,7 +1239,10 @@ export async function instrumentedCall<T>(
   const start = Date.now();
   try {
     const result = await fn();
-    downstreamLatency.observe({ service, endpoint, status: 'success' }, (Date.now() - start) / 1000);
+    downstreamLatency.observe(
+      { service, endpoint, status: 'success' },
+      (Date.now() - start) / 1000,
+    );
     return result;
   } catch (err) {
     downstreamLatency.observe({ service, endpoint, status: 'error' }, (Date.now() - start) / 1000);
@@ -1242,15 +1256,15 @@ export async function instrumentedCall<T>(
 
 ## Quick Reference: When to Use BFF
 
-| Scenario | Recommendation |
-| --- | --- |
-| Single client type, simple data needs | **No BFF** — direct REST API is sufficient |
-| Web + Mobile with significantly different UI | **Separate BFFs** for each |
-| 2+ downstream services needed per screen | **BFF** to aggregate and reduce round trips |
-| Mobile app on unreliable networks | **Mobile BFF** with minified payloads, SWR caching, and offline hints |
-| Public API for third-party developers | **Partner BFF** with versioning, docs, and rate limiting |
-| IoT fleet with constrained devices | **IoT BFF** with binary protocol and edge deployment |
-| Micro-frontend architecture | **BFF per micro-frontend** (or per domain slice) |
+| Scenario                                     | Recommendation                                                        |
+| -------------------------------------------- | --------------------------------------------------------------------- |
+| Single client type, simple data needs        | **No BFF** — direct REST API is sufficient                            |
+| Web + Mobile with significantly different UI | **Separate BFFs** for each                                            |
+| 2+ downstream services needed per screen     | **BFF** to aggregate and reduce round trips                           |
+| Mobile app on unreliable networks            | **Mobile BFF** with minified payloads, SWR caching, and offline hints |
+| Public API for third-party developers        | **Partner BFF** with versioning, docs, and rate limiting              |
+| IoT fleet with constrained devices           | **IoT BFF** with binary protocol and edge deployment                  |
+| Micro-frontend architecture                  | **BFF per micro-frontend** (or per domain slice)                      |
 
 ---
 

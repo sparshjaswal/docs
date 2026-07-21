@@ -1,5 +1,5 @@
 ---
-title: API Gateway
+title: "API Gateway"
 description: Deep dive into API gateways — architecture, routing, authentication, rate limiting, transformation, and comparisons of Kong, Envoy, NGINX, Traefik, and AWS API Gateway.
 ---
 
@@ -110,13 +110,13 @@ The gateway verifies credentials at the edge before any request reaches internal
 
 **Authentication methods at the gateway:**
 
-| Method | How it works | Use case |
-| --- | --- | --- |
-| **JWT** | Gateway validates token signature, expiry, and claims | Service-to-service and client-to-service |
-| **API Key** | Static key passed in header or query param | Simple service access, rate-limiting per consumer |
-| **OAuth2 / OIDC** | Gateway acts as resource server, validates tokens from an identity provider | User-facing applications with delegated access |
-| **mTLS** | Mutual TLS — both client and gateway present certificates | Zero-trust, service mesh internal traffic |
-| **HMAC** | Request signed with shared secret | Webhook validation, legacy system integration |
+| Method            | How it works                                                                | Use case                                          |
+| ----------------- | --------------------------------------------------------------------------- | ------------------------------------------------- |
+| **JWT**           | Gateway validates token signature, expiry, and claims                       | Service-to-service and client-to-service          |
+| **API Key**       | Static key passed in header or query param                                  | Simple service access, rate-limiting per consumer |
+| **OAuth2 / OIDC** | Gateway acts as resource server, validates tokens from an identity provider | User-facing applications with delegated access    |
+| **mTLS**          | Mutual TLS — both client and gateway present certificates                   | Zero-trust, service mesh internal traffic         |
+| **HMAC**          | Request signed with shared secret                                           | Webhook validation, legacy system integration     |
 
 **Kong JWT plugin example:**
 
@@ -164,7 +164,7 @@ interface AuthenticatedRequest extends Request {
 export function authenticateJwt(
   req: AuthenticatedRequest,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void {
   const authHeader = req.headers.authorization;
 
@@ -220,9 +220,9 @@ plugins:
   - name: rate-limiting
     service: user-service
     config:
-      minute: 100        # 100 requests per minute
-      hour: 5000         # 5000 requests per hour
-      policy: local       # local (per node) or redis (cluster-wide)
+      minute: 100 # 100 requests per minute
+      hour: 5000 # 5000 requests per hour
+      policy: local # local (per node) or redis (cluster-wide)
       fault_tolerant: true
       hide_client_headers: false
 ```
@@ -235,8 +235,8 @@ import { createClient } from 'redis';
 const redis = createClient({ url: process.env.REDIS_URL });
 
 interface RateLimitConfig {
-  windowMs: number;     // window size in milliseconds
-  max: number;          // max requests in the window
+  windowMs: number; // window size in milliseconds
+  max: number; // max requests in the window
 }
 
 export function slidingWindowRateLimiter(config: RateLimitConfig) {
@@ -289,15 +289,15 @@ The gateway can modify requests before forwarding and responses before returning
 
 **Common transformations:**
 
-| Transformation | Direction | Example |
-| --- | --- | --- |
-| **Add headers** | Request | Inject `X-Request-ID`, `X-User-ID` for tracing |
-| **Strip headers** | Response | Remove `Server`, `X-Powered-By` for security |
-| **Protocol translation** | Both | Accept HTTP/JSON from client, forward gRPC to service |
-| **Payload restructuring** | Response | Convert snake_case to camelCase, flatten nested response |
-| **Legacy compatibility** | Both | Map old API surface to new service endpoints |
-| **Response compression** | Response | Gzip/Brotli for payloads > threshold |
-| **Request validation** | Request | Validate JSON schema, reject malformed payloads at edge |
+| Transformation            | Direction | Example                                                  |
+| ------------------------- | --------- | -------------------------------------------------------- |
+| **Add headers**           | Request   | Inject `X-Request-ID`, `X-User-ID` for tracing           |
+| **Strip headers**         | Response  | Remove `Server`, `X-Powered-By` for security             |
+| **Protocol translation**  | Both      | Accept HTTP/JSON from client, forward gRPC to service    |
+| **Payload restructuring** | Response  | Convert snake_case to camelCase, flatten nested response |
+| **Legacy compatibility**  | Both      | Map old API surface to new service endpoints             |
+| **Response compression**  | Response  | Gzip/Brotli for payloads > threshold                     |
+| **Request validation**    | Request   | Validate JSON schema, reject malformed payloads at edge  |
 
 **Kong request transformer:**
 
@@ -308,13 +308,13 @@ plugins:
     config:
       add:
         headers:
-          - "X-Request-ID:$(uuid)"
-          - "X-Gateway-Timestamp:$(timestamp)"
+          - 'X-Request-ID:$(uuid)'
+          - 'X-Gateway-Timestamp:$(timestamp)'
         querystring:
-          - "gateway:kong"
+          - 'gateway:kong'
       remove:
         headers:
-          - "X-Internal-Debug"
+          - 'X-Internal-Debug'
 ```
 
 **Custom transformation middleware:**
@@ -449,10 +449,10 @@ stateDiagram-v2
 
 ```typescript
 interface CircuitBreakerConfig {
-  failureThreshold: number;   // consecutive failures to open circuit
-  successThreshold: number;   // consecutive successes in half-open to close
-  timeout: number;            // ms before moving from open → half-open
-  requestTimeout: number;     // ms before a request times out
+  failureThreshold: number; // consecutive failures to open circuit
+  successThreshold: number; // consecutive successes in half-open to close
+  timeout: number; // ms before moving from open → half-open
+  requestTimeout: number; // ms before a request times out
 }
 
 enum CircuitState {
@@ -510,10 +510,7 @@ export class CircuitBreaker {
 
   private onFailure(): void {
     this.failureCount++;
-    if (
-      this.state === CircuitState.CLOSED &&
-      this.failureCount >= this.config.failureThreshold
-    ) {
+    if (this.state === CircuitState.CLOSED && this.failureCount >= this.config.failureThreshold) {
       this.state = CircuitState.OPEN;
       this.nextAttempt = Date.now() + this.config.timeout;
       this.successCount = 0;
@@ -530,7 +527,7 @@ export class CircuitBreaker {
     return Promise.race([
       promise,
       new Promise<T>((_, reject) =>
-        setTimeout(() => reject(new Error(`Request timed out after ${ms}ms`)), ms)
+        setTimeout(() => reject(new Error(`Request timed out after ${ms}ms`)), ms),
       ),
     ]);
   }
@@ -546,7 +543,7 @@ const orderServiceBreaker = new CircuitBreaker({
 app.get('/api/orders', async (req: Request, res: Response) => {
   try {
     const orders = await orderServiceBreaker.call(() =>
-      axios.get('http://order-service/api/orders').then((r) => r.data)
+      axios.get('http://order-service/api/orders').then((r) => r.data),
     );
     res.json(orders);
   } catch (err) {
@@ -567,12 +564,12 @@ The gateway is the ideal place for observability — every request passes throug
 
 **What to observe:**
 
-| Pillar | Data | Tools |
-| --- | --- | --- |
-| **Logging** | Request/response metadata, errors, latencies | ELK stack, Loki |
-| **Metrics** | Request count, error rate, latency percentiles | Prometheus + Grafana |
-| **Tracing** | Distributed traces with correlation IDs | Jaeger, Zipkin, OpenTelemetry |
-| **Health checks** | Upstream service health, gateway self-health | Built-in health endpoints |
+| Pillar            | Data                                           | Tools                         |
+| ----------------- | ---------------------------------------------- | ----------------------------- |
+| **Logging**       | Request/response metadata, errors, latencies   | ELK stack, Loki               |
+| **Metrics**       | Request count, error rate, latency percentiles | Prometheus + Grafana          |
+| **Tracing**       | Distributed traces with correlation IDs        | Jaeger, Zipkin, OpenTelemetry |
+| **Health checks** | Upstream service health, gateway self-health   | Built-in health endpoints     |
 
 **Gateway metrics middleware (prom-client):**
 
@@ -639,7 +636,7 @@ app.get('/health', async (_req: Request, res: Response) => {
 
 async function checkService(
   name: string,
-  url: string
+  url: string,
 ): Promise<{ name: string; healthy: boolean; latencyMs: number }> {
   const start = Date.now();
   try {
@@ -682,37 +679,37 @@ graph TD
     RP --> Service3[Legacy Monolith]
 ```
 
-| Feature | Load Balancer | Reverse Proxy | API Gateway |
-| --- | --- | --- | --- |
-| **Primary role** | Distribute traffic across instances | Forward requests, hide origin | Route to different services, cross-cutting concerns |
-| **Routing granularity** | Instance-level (same service) | Single backend | Service/endpoint-level (multiple services) |
-| **Protocol handled** | TCP, HTTP, UDP | HTTP, TCP | HTTP, WebSocket, gRPC |
-| **Authentication** | Rarely | Sometimes | Core feature |
-| **Rate limiting** | Connection-level | Sometimes | Core feature |
-| **Transformation** | No | Header manipulation | Full request/response transformation |
-| **API composition** | No | No | Yes |
-| **Service discovery** | Static or basic health checks | Static | Dynamic (Consul, Kubernetes, DNS) |
-| **Examples** | HAProxy, AWS ELB, NGINX (stream) | NGINX, Apache httpd | Kong, Envoy, AWS API Gateway, Traefik |
+| Feature                 | Load Balancer                       | Reverse Proxy                 | API Gateway                                         |
+| ----------------------- | ----------------------------------- | ----------------------------- | --------------------------------------------------- |
+| **Primary role**        | Distribute traffic across instances | Forward requests, hide origin | Route to different services, cross-cutting concerns |
+| **Routing granularity** | Instance-level (same service)       | Single backend                | Service/endpoint-level (multiple services)          |
+| **Protocol handled**    | TCP, HTTP, UDP                      | HTTP, TCP                     | HTTP, WebSocket, gRPC                               |
+| **Authentication**      | Rarely                              | Sometimes                     | Core feature                                        |
+| **Rate limiting**       | Connection-level                    | Sometimes                     | Core feature                                        |
+| **Transformation**      | No                                  | Header manipulation           | Full request/response transformation                |
+| **API composition**     | No                                  | No                            | Yes                                                 |
+| **Service discovery**   | Static or basic health checks       | Static                        | Dynamic (Consul, Kubernetes, DNS)                   |
+| **Examples**            | HAProxy, AWS ELB, NGINX (stream)    | NGINX, Apache httpd           | Kong, Envoy, AWS API Gateway, Traefik               |
 
-**Key distinction:** A load balancer spreads load for one service across many instances. A reverse proxy sits in front of one backend. An API gateway routes to *different* backend services based on the request and adds intelligence at the edge.
+**Key distinction:** A load balancer spreads load for one service across many instances. A reverse proxy sits in front of one backend. An API gateway routes to _different_ backend services based on the request and adds intelligence at the edge.
 
 ---
 
 ## Gateway Solutions Comparison
 
-| Feature | Kong | NGINX | Traefik | AWS API Gateway | Envoy | Express Gateway |
-| --- | --- | --- | --- | --- | --- | --- |
-| **Type** | API Gateway | Web server / Reverse proxy | Cloud-native reverse proxy | Managed API Gateway | L7 Proxy / Service mesh | API Gateway framework |
-| **License** | Apache 2.0 (OSS) | Open-source (nginx) / Plus (paid) | MIT | Managed service | Apache 2.0 | Apache 2.0 |
-| **Configuration** | Declarative (YAML/JSON), Admin API | `nginx.conf` (text) | Dynamic (labels, CRDs, providers) | Console, CloudFormation, SDK | xDS APIs (dynamic) | YAML config files |
-| **Plugin ecosystem** | ✅ 200+ plugins, Lua/Go/JS | Limited (nginx modules) | Middleware system | AWS integrations | Filters (C++, WASM, Lua) | Node.js middleware |
-| **Service discovery** | DNS, Consul, Kubernetes | DNS, Plus (paid) | Docker, K8s, Consul, etcd, ZooKeeper | N/A (managed) | xDS (EDS) | Static endpoints |
-| **gRPC support** | ✅ (via plugin) | ✅ (via module) | ✅ (native) | ❌ (REST only) | ✅ (first-class) | ❌ |
-| **WebSocket** | ✅ | ✅ | ✅ | ✅ (API Gateway V2) | ✅ | ✅ |
-| **Rate limiting** | ✅ (multiple algorithms) | ✅ (limit_req, limit_conn) | ✅ (RateLimit middleware) | ✅ (usage plans, API keys) | ✅ (local & global) | ✅ (built-in policy) |
-| **Clustering** | ✅ (Postgres/Cassandra) | Plus only | ✅ (distributed Let's Encrypt, KV store) | Managed | ✅ (xDS control plane) | ❌ (single node) |
-| **Learning curve** | Medium | Low (simple) / High (advanced) | Low | Low | High | Low |
-| **Best for** | API management, multi-team platforms | Simple routing, static content, ingress | Kubernetes ingress, Docker | Serverless, AWS ecosystem | Service mesh, high-scale L7 proxy | Node.js projects, simple gateways |
+| Feature               | Kong                                 | NGINX                                   | Traefik                                  | AWS API Gateway              | Envoy                             | Express Gateway                   |
+| --------------------- | ------------------------------------ | --------------------------------------- | ---------------------------------------- | ---------------------------- | --------------------------------- | --------------------------------- |
+| **Type**              | API Gateway                          | Web server / Reverse proxy              | Cloud-native reverse proxy               | Managed API Gateway          | L7 Proxy / Service mesh           | API Gateway framework             |
+| **License**           | Apache 2.0 (OSS)                     | Open-source (nginx) / Plus (paid)       | MIT                                      | Managed service              | Apache 2.0                        | Apache 2.0                        |
+| **Configuration**     | Declarative (YAML/JSON), Admin API   | `nginx.conf` (text)                     | Dynamic (labels, CRDs, providers)        | Console, CloudFormation, SDK | xDS APIs (dynamic)                | YAML config files                 |
+| **Plugin ecosystem**  | ✅ 200+ plugins, Lua/Go/JS           | Limited (nginx modules)                 | Middleware system                        | AWS integrations             | Filters (C++, WASM, Lua)          | Node.js middleware                |
+| **Service discovery** | DNS, Consul, Kubernetes              | DNS, Plus (paid)                        | Docker, K8s, Consul, etcd, ZooKeeper     | N/A (managed)                | xDS (EDS)                         | Static endpoints                  |
+| **gRPC support**      | ✅ (via plugin)                      | ✅ (via module)                         | ✅ (native)                              | ❌ (REST only)               | ✅ (first-class)                  | ❌                                |
+| **WebSocket**         | ✅                                   | ✅                                      | ✅                                       | ✅ (API Gateway V2)          | ✅                                | ✅                                |
+| **Rate limiting**     | ✅ (multiple algorithms)             | ✅ (limit_req, limit_conn)              | ✅ (RateLimit middleware)                | ✅ (usage plans, API keys)   | ✅ (local & global)               | ✅ (built-in policy)              |
+| **Clustering**        | ✅ (Postgres/Cassandra)              | Plus only                               | ✅ (distributed Let's Encrypt, KV store) | Managed                      | ✅ (xDS control plane)            | ❌ (single node)                  |
+| **Learning curve**    | Medium                               | Low (simple) / High (advanced)          | Low                                      | Low                          | High                              | Low                               |
+| **Best for**          | API management, multi-team platforms | Simple routing, static content, ingress | Kubernetes ingress, Docker               | Serverless, AWS ecosystem    | Service mesh, high-scale L7 proxy | Node.js projects, simple gateways |
 
 ---
 
@@ -751,14 +748,14 @@ graph TD
 
 ### Key Concepts
 
-| Concept | Description |
-| --- | --- |
-| **Service** | A logical abstraction of an upstream API or microservice (URL + optional path/host/port config) |
-| **Route** | A path (or host/header/method) matching rule that directs traffic to a Service |
-| **Upstream** | A virtual hostname representing a set of backend targets with optional health checking |
-| **Target** | An IP address or hostname with a port that receives proxied traffic |
-| **Consumer** | An entity that consumes the API — often a developer or application with an API key |
-| **Plugin** | Modular components that add functionality to routes, services, or consumers |
+| Concept      | Description                                                                                     |
+| ------------ | ----------------------------------------------------------------------------------------------- |
+| **Service**  | A logical abstraction of an upstream API or microservice (URL + optional path/host/port config) |
+| **Route**    | A path (or host/header/method) matching rule that directs traffic to a Service                  |
+| **Upstream** | A virtual hostname representing a set of backend targets with optional health checking          |
+| **Target**   | An IP address or hostname with a port that receives proxied traffic                             |
+| **Consumer** | An entity that consumes the API — often a developer or application with an API key              |
+| **Plugin**   | Modular components that add functionality to routes, services, or consumers                     |
 
 ### Kong in DB-less (Declarative) Mode
 
@@ -766,7 +763,7 @@ For infrastructure-as-code and Kubernetes-native deployments, Kong can run witho
 
 ```yaml
 # kong.yml — declarative configuration
-_format_version: "3.0"
+_format_version: '3.0'
 
 services:
   - name: user-service
@@ -796,11 +793,11 @@ services:
         config:
           add:
             headers:
-              - "X-Gateway:Kong"
+              - 'X-Gateway:Kong'
       - name: cors
         config:
           origins:
-            - "https://myapp.example.com"
+            - 'https://myapp.example.com'
           methods:
             - GET
             - POST
@@ -896,36 +893,36 @@ static_resources:
         - filters:
             - name: envoy.filters.network.http_connection_manager
               typed_config:
-                "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                '@type': type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
                 stat_prefix: ingress_http
                 route_config:
                   name: local_route
                   virtual_hosts:
                     - name: backend
-                      domains: ["*"]
+                      domains: ['*']
                       routes:
                         - match:
-                            prefix: "/api/users"
+                            prefix: '/api/users'
                           route:
                             cluster: user_service
-                            prefix_rewrite: "/"
+                            prefix_rewrite: '/'
                         - match:
-                            prefix: "/api/orders"
+                            prefix: '/api/orders'
                           route:
                             cluster: order_service
-                            prefix_rewrite: "/"
+                            prefix_rewrite: '/'
                 http_filters:
                   - name: envoy.filters.http.jwt_authn
                     typed_config:
-                      "@type": type.googleapis.com/envoy.extensions.filters.http.jwt_authn.v3.JwtAuthentication
+                      '@type': type.googleapis.com/envoy.extensions.filters.http.jwt_authn.v3.JwtAuthentication
                       providers:
                         my_provider:
-                          issuer: "my-auth-server"
+                          issuer: 'my-auth-server'
                           audiences:
-                            - "my-api"
+                            - 'my-api'
                           from_headers:
                             - name: Authorization
-                              value_prefix: "Bearer "
+                              value_prefix: 'Bearer '
                           remote_jwks:
                             http_uri:
                               uri: https://auth.example.com/.well-known/jwks.json
@@ -934,12 +931,12 @@ static_resources:
                             cache_duration: 300s
                       rules:
                         - match:
-                            prefix: "/api/"
+                            prefix: '/api/'
                           requires:
-                            provider_name: "my_provider"
+                            provider_name: 'my_provider'
                   - name: envoy.filters.http.router
                     typed_config:
-                      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+                      '@type': type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
 
   clusters:
     - name: user_service
@@ -1029,13 +1026,13 @@ graph TD
 
 **Gateway in a mesh:** The same Envoy proxy serves as both the sidecar for inter-service traffic AND the edge gateway for external ingress. This unifies the configuration and observability model.
 
-| Aspect | API Gateway (Edge) | Service Mesh Sidecar |
-| --- | --- | --- |
-| **Scope** | North-south traffic (external ↔ internal) | East-west traffic (service ↔ service) |
-| **Authentication** | End-user (JWT, OAuth, API keys) | Workload identity (mTLS, SPIFFE) |
-| **Rate limiting** | Per consumer / API key | Per service / instance |
-| **Resilience** | Circuit breaking at edge | Circuit breaking between services |
-| **Tool** | Kong, AWS API Gateway, NGINX | Envoy (via Istio, Linkerd, Consul Connect) |
+| Aspect             | API Gateway (Edge)                        | Service Mesh Sidecar                       |
+| ------------------ | ----------------------------------------- | ------------------------------------------ |
+| **Scope**          | North-south traffic (external ↔ internal) | East-west traffic (service ↔ service)      |
+| **Authentication** | End-user (JWT, OAuth, API keys)           | Workload identity (mTLS, SPIFFE)           |
+| **Rate limiting**  | Per consumer / API key                    | Per service / instance                     |
+| **Resilience**     | Circuit breaking at edge                  | Circuit breaking between services          |
+| **Tool**           | Kong, AWS API Gateway, NGINX              | Envoy (via Istio, Linkerd, Consul Connect) |
 
 ---
 
@@ -1094,6 +1091,7 @@ Separate gateways for different client types, each tailored to that client's spe
 Resist the temptation to put business logic in the gateway. It should handle cross-cutting infrastructure concerns — not domain rules. Business logic belongs in services.
 
 **✅ Gateway responsibilities:**
+
 - Authentication and token validation
 - Rate limiting and throttling
 - Request routing and load balancing
@@ -1102,6 +1100,7 @@ Resist the temptation to put business logic in the gateway. It should handle cro
 - Observability (logging, metrics, tracing)
 
 **❌ NOT gateway responsibilities:**
+
 - Order validation rules
 - Discount calculation
 - Inventory allocation
@@ -1122,7 +1121,7 @@ req.headers['x-correlation-id'] = correlationId;
 
 // Propagate to downstream calls
 axios.get('http://user-service/users', {
-  headers: { 'X-Correlation-ID': correlationId }
+  headers: { 'X-Correlation-ID': correlationId },
 });
 ```
 
@@ -1165,14 +1164,14 @@ deck validate -s kong.yml
 
 ## Security at the Gateway
 
-| Layer | Threat | Mitigation |
-| --- | --- | --- |
-| **Transport** | Eavesdropping, MITM | TLS termination at gateway, HSTS headers |
-| **Authentication** | Impersonation, credential theft | JWT validation, API key rotation, OAuth2 token introspection |
-| **Injection** | SQLi, XSS, command injection | Request validation, body size limits, content-type enforcement |
-| **DDoS** | Volumetric attacks | Rate limiting, IP reputation, WAF rules, CDN |
-| **Data exposure** | Sensitive data in responses | Response filtering, strip internal headers |
-| **Reconnaissance** | API probing, schema discovery | Rate limit unknown routes, obfuscate error messages |
+| Layer              | Threat                          | Mitigation                                                     |
+| ------------------ | ------------------------------- | -------------------------------------------------------------- |
+| **Transport**      | Eavesdropping, MITM             | TLS termination at gateway, HSTS headers                       |
+| **Authentication** | Impersonation, credential theft | JWT validation, API key rotation, OAuth2 token introspection   |
+| **Injection**      | SQLi, XSS, command injection    | Request validation, body size limits, content-type enforcement |
+| **DDoS**           | Volumetric attacks              | Rate limiting, IP reputation, WAF rules, CDN                   |
+| **Data exposure**  | Sensitive data in responses     | Response filtering, strip internal headers                     |
+| **Reconnaissance** | API probing, schema discovery   | Rate limit unknown routes, obfuscate error messages            |
 
 **Hardening checklist:**
 
@@ -1183,16 +1182,22 @@ import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 
 // Security middleware stack for a custom gateway
-gatewayApp.use(helmet());                       // Secure HTTP headers
-gatewayApp.use(hpp());                          // HTTP parameter pollution protection
-gatewayApp.use(cors({                            // Strict CORS
-  origin: process.env.ALLOWED_ORIGINS?.split(','),
-  credentials: true,
-}));
-gatewayApp.use(rateLimit({                       // Global rate limit
-  windowMs: 60_000,
-  max: 1000,
-}));
+gatewayApp.use(helmet()); // Secure HTTP headers
+gatewayApp.use(hpp()); // HTTP parameter pollution protection
+gatewayApp.use(
+  cors({
+    // Strict CORS
+    origin: process.env.ALLOWED_ORIGINS?.split(','),
+    credentials: true,
+  }),
+);
+gatewayApp.use(
+  rateLimit({
+    // Global rate limit
+    windowMs: 60_000,
+    max: 1000,
+  }),
+);
 
 // Body size limits prevent large payload attacks
 gatewayApp.use(express.json({ limit: '1mb' }));
@@ -1206,14 +1211,14 @@ gatewayApp.disable('x-powered-by');
 
 ## Troubleshooting Common Issues
 
-| Symptom | Likely Cause | Fix |
-| --- | --- | --- |
-| `502 Bad Gateway` | Upstream service unreachable or crashed | Check upstream health, DNS resolution, network policies |
-| `504 Gateway Timeout` | Upstream took too long to respond | Increase proxy timeout or optimize downstream service |
-| `429 Too Many Requests` | Client exceeded rate limit | Check consumer quotas, adjust limits, verify Redis (if cluster mode) |
-| Intermittent `503` | Circuit breaker open due to cascading failures | Investigate downstream, check timeout configurations |
-| `CORS` errors in browser | Gateway not handling preflight or missing headers | Enable CORS plugin, verify `Access-Control-Allow-Origin` |
-| Stale routes after deploy | Gateway caching old service discovery data | Reduce DNS TTL, restart gateway, use dynamic service discovery |
+| Symptom                   | Likely Cause                                      | Fix                                                                  |
+| ------------------------- | ------------------------------------------------- | -------------------------------------------------------------------- |
+| `502 Bad Gateway`         | Upstream service unreachable or crashed           | Check upstream health, DNS resolution, network policies              |
+| `504 Gateway Timeout`     | Upstream took too long to respond                 | Increase proxy timeout or optimize downstream service                |
+| `429 Too Many Requests`   | Client exceeded rate limit                        | Check consumer quotas, adjust limits, verify Redis (if cluster mode) |
+| Intermittent `503`        | Circuit breaker open due to cascading failures    | Investigate downstream, check timeout configurations                 |
+| `CORS` errors in browser  | Gateway not handling preflight or missing headers | Enable CORS plugin, verify `Access-Control-Allow-Origin`             |
+| Stale routes after deploy | Gateway caching old service discovery data        | Reduce DNS TTL, restart gateway, use dynamic service discovery       |
 
 ---
 
@@ -1410,7 +1415,12 @@ function createServiceProxy(serviceUrl: string): ReturnType<typeof createProxyMi
 // ─── Register Routes ─────────────────────────────────
 app.use('/api/users', authenticate, rateLimiter(60_000, 100), createServiceProxy(SERVICES.users));
 app.use('/api/orders', authenticate, rateLimiter(60_000, 50), createServiceProxy(SERVICES.orders));
-app.use('/api/inventory', authenticate, rateLimiter(60_000, 200), createServiceProxy(SERVICES.inventory));
+app.use(
+  '/api/inventory',
+  authenticate,
+  rateLimiter(60_000, 200),
+  createServiceProxy(SERVICES.inventory),
+);
 
 // ─── Health & Metrics Endpoints ──────────────────────
 app.get('/health', async (_req: Request, res: Response) => {
@@ -1423,7 +1433,7 @@ app.get('/health', async (_req: Request, res: Response) => {
       } catch {
         return { service: name, healthy: false, latencyMs: Date.now() - start };
       }
-    })
+    }),
   );
 
   const allHealthy = checks.every((c) => c.healthy);

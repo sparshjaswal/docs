@@ -1,5 +1,5 @@
 ---
-title: gRPC
+title: "gRPC"
 description: High-performance RPC framework with Protocol Buffers, HTTP/2, streaming, code generation, interceptors, deadlines, error handling, load balancing, and gRPC-Web — all with TypeScript.
 ---
 
@@ -40,11 +40,11 @@ graph LR
 
 ### The Three Pillars
 
-| Pillar | Role | Why It Matters |
-| --- | --- | --- |
-| **Protocol Buffers** | Interface Definition Language (IDL) + binary serialization | Schema-first design. Payloads are 3–10× smaller than JSON. Strongly typed. Backward-compatible evolution. |
-| **HTTP/2** | Transport layer | Multiplexed streams over one TCP connection (no head-of-line blocking). Binary framing. Header compression (HPACK). Server push. |
-| **Code Generation** | Auto-generated client/server stubs | Write the schema once — generated code handles serialization, deserialization, and network plumbing. Supports 12+ languages. |
+| Pillar               | Role                                                       | Why It Matters                                                                                                                   |
+| -------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Protocol Buffers** | Interface Definition Language (IDL) + binary serialization | Schema-first design. Payloads are 3–10× smaller than JSON. Strongly typed. Backward-compatible evolution.                        |
+| **HTTP/2**           | Transport layer                                            | Multiplexed streams over one TCP connection (no head-of-line blocking). Binary framing. Header compression (HPACK). Server push. |
+| **Code Generation**  | Auto-generated client/server stubs                         | Write the schema once — generated code handles serialization, deserialization, and network plumbing. Supports 12+ languages.     |
 
 ### gRPC vs REST vs GraphQL
 
@@ -64,21 +64,21 @@ graph TD
     style F fill:#2196f3,stroke:#333,color:#fff
 ```
 
-| Criteria | gRPC | REST | GraphQL |
-| --- | --- | --- | --- |
-| **Paradigm** | RPC (call methods) | Resource-oriented | Query language |
-| **Contract** | `.proto` file (IDL) | OpenAPI / Swagger | GraphQL schema |
-| **Serialization** | Protocol Buffers (binary) | JSON (text) | JSON (text) |
-| **Payload size** | Smallest (3–10× smaller) | Medium | Small (client-specified) |
-| **Streaming** | Native: unary, server, client, bidirectional | Chunked transfer / SSE (limited) | Subscriptions (WebSocket) |
-| **Code generation** | Built-in (`protoc`) | Optional (OpenAPI Generator) | Optional (GraphQL Codegen) |
-| **Browser support** | Via gRPC-Web or gRPC-gateway | Native | Native |
-| **Caching** | Application-level | HTTP caching (CDN-friendly) | Client-side (Apollo, Relay) |
-| **Tooling** | grpcurl, grpcui, BloomRPC, Kreya | curl, Postman, Insomnia | GraphiQL, Apollo Studio |
-| **Versioning** | Schema evolution (no breaking changes by default) | URL or header versioning | Schema deprecation (`@deprecated`) |
-| **Error handling** | Rich status codes + metadata | HTTP status codes + JSON body | `errors` array in response |
-| **Learning curve** | Medium (proto syntax + tooling) | Low | Medium |
-| **Best for** | Internal microservices, real-time streaming, mobile backends, IoT | Public APIs, CRUD apps, CDN-cached content | Complex data graphs, mobile apps, rapid frontend iteration |
+| Criteria            | gRPC                                                              | REST                                       | GraphQL                                                    |
+| ------------------- | ----------------------------------------------------------------- | ------------------------------------------ | ---------------------------------------------------------- |
+| **Paradigm**        | RPC (call methods)                                                | Resource-oriented                          | Query language                                             |
+| **Contract**        | `.proto` file (IDL)                                               | OpenAPI / Swagger                          | GraphQL schema                                             |
+| **Serialization**   | Protocol Buffers (binary)                                         | JSON (text)                                | JSON (text)                                                |
+| **Payload size**    | Smallest (3–10× smaller)                                          | Medium                                     | Small (client-specified)                                   |
+| **Streaming**       | Native: unary, server, client, bidirectional                      | Chunked transfer / SSE (limited)           | Subscriptions (WebSocket)                                  |
+| **Code generation** | Built-in (`protoc`)                                               | Optional (OpenAPI Generator)               | Optional (GraphQL Codegen)                                 |
+| **Browser support** | Via gRPC-Web or gRPC-gateway                                      | Native                                     | Native                                                     |
+| **Caching**         | Application-level                                                 | HTTP caching (CDN-friendly)                | Client-side (Apollo, Relay)                                |
+| **Tooling**         | grpcurl, grpcui, BloomRPC, Kreya                                  | curl, Postman, Insomnia                    | GraphiQL, Apollo Studio                                    |
+| **Versioning**      | Schema evolution (no breaking changes by default)                 | URL or header versioning                   | Schema deprecation (`@deprecated`)                         |
+| **Error handling**  | Rich status codes + metadata                                      | HTTP status codes + JSON body              | `errors` array in response                                 |
+| **Learning curve**  | Medium (proto syntax + tooling)                                   | Low                                        | Medium                                                     |
+| **Best for**        | Internal microservices, real-time streaming, mobile backends, IoT | Public APIs, CRUD apps, CDN-cached content | Complex data graphs, mobile apps, rapid frontend iteration |
 
 ---
 
@@ -198,19 +198,19 @@ message SupportMessage {
 
 ### Scalar Types
 
-| Proto Type | C++ | Java | Go | TypeScript / Node.js | Notes |
-| --- | --- | --- | --- | --- | --- |
-| `double` | double | double | float64 | number | 64-bit IEEE 754 |
-| `float` | float | float | float32 | number | 32-bit IEEE 754 |
-| `int32` | int32 | int | int32 | number | Variable-length encoding. Negative values are inefficient — use `sint32`. |
-| `int64` | int64 | long | int64 | number | Not exactly representable in JS beyond 2⁵³. Consider `string` representation. |
-| `sint32` | int32 | int | int32 | number | Zigzag-encoded — efficient for negative values |
-| `sint64` | int64 | long | int64 | number | Zigzag-encoded 64-bit |
-| `uint32` | uint32 | int | uint32 | number | Unsigned. Use `int32` in proto3 (no real uint). |
-| `uint64` | uint64 | long | uint64 | number | Unsigned 64-bit |
-| `bool` | bool | boolean | bool | boolean | |
-| `string` | string | String | string | string | UTF-8 encoded. Must be valid UTF-8. |
-| `bytes` | string | ByteString | []byte | Buffer / Uint8Array | Arbitrary binary data |
+| Proto Type | C++    | Java       | Go      | TypeScript / Node.js | Notes                                                                         |
+| ---------- | ------ | ---------- | ------- | -------------------- | ----------------------------------------------------------------------------- |
+| `double`   | double | double     | float64 | number               | 64-bit IEEE 754                                                               |
+| `float`    | float  | float      | float32 | number               | 32-bit IEEE 754                                                               |
+| `int32`    | int32  | int        | int32   | number               | Variable-length encoding. Negative values are inefficient — use `sint32`.     |
+| `int64`    | int64  | long       | int64   | number               | Not exactly representable in JS beyond 2⁵³. Consider `string` representation. |
+| `sint32`   | int32  | int        | int32   | number               | Zigzag-encoded — efficient for negative values                                |
+| `sint64`   | int64  | long       | int64   | number               | Zigzag-encoded 64-bit                                                         |
+| `uint32`   | uint32 | int        | uint32  | number               | Unsigned. Use `int32` in proto3 (no real uint).                               |
+| `uint64`   | uint64 | long       | uint64  | number               | Unsigned 64-bit                                                               |
+| `bool`     | bool   | boolean    | bool    | boolean              |                                                                               |
+| `string`   | string | String     | string  | string               | UTF-8 encoded. Must be valid UTF-8.                                           |
+| `bytes`    | string | ByteString | []byte  | Buffer / Uint8Array  | Arbitrary binary data                                                         |
 
 ### Field Number Rules
 
@@ -243,15 +243,15 @@ message PaymentMethod {
 
 ### Well-Known Types
 
-| Type | Use |
-| --- | --- |
-| `google.protobuf.Timestamp` | Time with nanosecond precision (`seconds` + `nanos`) |
-| `google.protobuf.Duration` | A span of time (`seconds` + `nanos`) |
-| `google.protobuf.Empty` | No data — used when a method takes no input or returns no output |
-| `google.protobuf.Struct` | Arbitrary JSON object (when you can't define a strict schema) |
-| `google.protobuf.Any` | Embed any serialized message (type URL + bytes). Good for generic containers |
-| `google.protobuf.FieldMask` | Partial update — specifies which fields to modify |
-| `google.protobuf.wrappers` | Wraps scalars (`google.protobuf.Int32Value`) to allow `null` distinction. In proto3, every field has a default zero-value — wrappers give you optionality |
+| Type                        | Use                                                                                                                                                       |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `google.protobuf.Timestamp` | Time with nanosecond precision (`seconds` + `nanos`)                                                                                                      |
+| `google.protobuf.Duration`  | A span of time (`seconds` + `nanos`)                                                                                                                      |
+| `google.protobuf.Empty`     | No data — used when a method takes no input or returns no output                                                                                          |
+| `google.protobuf.Struct`    | Arbitrary JSON object (when you can't define a strict schema)                                                                                             |
+| `google.protobuf.Any`       | Embed any serialized message (type URL + bytes). Good for generic containers                                                                              |
+| `google.protobuf.FieldMask` | Partial update — specifies which fields to modify                                                                                                         |
+| `google.protobuf.wrappers`  | Wraps scalars (`google.protobuf.Int32Value`) to allow `null` distinction. In proto3, every field has a default zero-value — wrappers give you optionality |
 
 ---
 
@@ -423,11 +423,11 @@ const PROTO_PATH = path.join(__dirname, '../proto/orders/v1/orders.proto');
 
 // Load the proto file with options
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
-  keepCase: true,                    // Preserve field casing (not snake_case → camelCase)
-  longs: String,                     // Represent int64 as string (JS can't represent full range)
-  enums: String,                     // Represent enums as their string names
-  defaults: true,                    // Include default values on the output
-  oneofs: true,                      // Include oneof fields as named groups
+  keepCase: true, // Preserve field casing (not snake_case → camelCase)
+  longs: String, // Represent int64 as string (JS can't represent full range)
+  enums: String, // Represent enums as their string names
+  defaults: true, // Include default values on the output
+  oneofs: true, // Include oneof fields as named groups
 });
 
 // Compile into a gRPC object
@@ -439,7 +439,7 @@ const orderService = proto.ecommerce.v1.OrderService;
 // Implement the service
 function createOrder(
   call: grpc.ServerUnaryCall<any, any>,
-  callback: grpc.sendUnaryData<any>
+  callback: grpc.sendUnaryData<any>,
 ): void {
   const { user_id, items } = call.request;
 
@@ -472,17 +472,13 @@ function main(): void {
     // ... other methods
   });
 
-  server.bindAsync(
-    '0.0.0.0:50051',
-    grpc.ServerCredentials.createInsecure(),
-    (err, port) => {
-      if (err) {
-        console.error('Failed to bind:', err);
-        return;
-      }
-      console.log(`gRPC server running on port ${port}`);
+  server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), (err, port) => {
+    if (err) {
+      console.error('Failed to bind:', err);
+      return;
     }
-  );
+    console.log(`gRPC server running on port ${port}`);
+  });
 }
 
 main();
@@ -515,7 +511,7 @@ export interface Order {
   items: OrderItem[];
   status: OrderStatus;
   total: number;
-  createdAt: Date | undefined;  // Timestamp → Date!
+  createdAt: Date | undefined; // Timestamp → Date!
   metadata: { [key: string]: string };
 }
 
@@ -537,7 +533,7 @@ import { CreateOrderRequest, CreateOrderResponse } from '../generated/orders/v1/
 const orderServiceImpl: IOrderServiceServer = {
   async CreateOrder(
     call: grpc.ServerUnaryCall<CreateOrderRequest, CreateOrderResponse>,
-    callback: grpc.sendUnaryData<CreateOrderResponse>
+    callback: grpc.sendUnaryData<CreateOrderResponse>,
   ): Promise<void> {
     const { userId, items } = call.request;
     // TypeScript knows userId is string, items is OrderItem[]
@@ -555,9 +551,7 @@ const orderServiceImpl: IOrderServiceServer = {
   },
 
   // Server streaming example
-  WatchOrders(
-    call: grpc.ServerWritableStream<ListOrdersRequest, Order>
-  ): void {
+  WatchOrders(call: grpc.ServerWritableStream<ListOrdersRequest, Order>): void {
     const { userId } = call.request;
 
     const interval = setInterval(() => {
@@ -580,9 +574,7 @@ const orderServiceImpl: IOrderServiceServer = {
   },
 
   // Bidirectional streaming example
-  ChatSupport(
-    call: grpc.ServerDuplexStream<SupportMessage, SupportMessage>
-  ): void {
+  ChatSupport(call: grpc.ServerDuplexStream<SupportMessage, SupportMessage>): void {
     call.on('data', (msg: SupportMessage) => {
       console.log(`[${msg.userId}]: ${msg.text}`);
       // Echo back with a response — in a real app, route to an agent
@@ -617,10 +609,7 @@ import { OrderServiceClient } from '../generated/orders/v1/orders';
 import { CreateOrderRequest, Order } from '../generated/orders/v1/orders';
 
 // Create a client instance
-const client = new OrderServiceClient(
-  'localhost:50051',
-  grpc.credentials.createInsecure()
-);
+const client = new OrderServiceClient('localhost:50051', grpc.credentials.createInsecure());
 
 // ─── Unary Call ─────────────────────────────────────────
 function placeOrder(): void {
@@ -628,7 +617,7 @@ function placeOrder(): void {
     userId: 'user_42',
     items: [
       { productId: 'prod_abc', quantity: 2, unitPrice: 29.99 },
-      { productId: 'prod_xyz', quantity: 1, unitPrice: 149.50 },
+      { productId: 'prod_xyz', quantity: 1, unitPrice: 149.5 },
     ],
   };
 
@@ -741,7 +730,7 @@ import * as grpc from '@grpc/grpc-js';
 function loggingInterceptor(
   methodDescriptor: grpc.UntypedServiceImplementation,
   call: grpc.ServerUnaryCall<any, any>,
-  callback: grpc.sendUnaryData<any>
+  callback: grpc.sendUnaryData<any>,
 ): void {
   const start = Date.now();
   const method = call.getPath(); // e.g., "/ecommerce.v1.OrderService/CreateOrder"
@@ -778,7 +767,7 @@ class AuthInterceptor extends grpc.InterceptingCall {
   constructor(
     options: grpc.InterceptingCall.InterceptingOptions,
     nextCall: grpc.InterceptingCall.NextCall,
-    private accessToken: string
+    private accessToken: string,
   ) {
     super(options, nextCall);
   }
@@ -807,13 +796,9 @@ export function createAuthInterceptor(accessToken: string): grpc.Interceptor {
 }
 
 // Use the interceptor
-const client = new OrderServiceClient(
-  'localhost:50051',
-  grpc.credentials.createInsecure(),
-  {
-    interceptors: [createAuthInterceptor('eyJhbGciOi...')],
-  }
-);
+const client = new OrderServiceClient('localhost:50051', grpc.credentials.createInsecure(), {
+  interceptors: [createAuthInterceptor('eyJhbGciOi...')],
+});
 ```
 
 ### Server-Side Auth Verification Interceptor
@@ -826,7 +811,11 @@ function authServerInterceptor(
   methodDescriptor: any,
   call: grpc.ServerUnaryCall<any, any>,
   callback: grpc.sendUnaryData<any>,
-  next: (methodDescriptor: any, call: grpc.ServerUnaryCall<any, any>, callback: grpc.sendUnaryData<any>) => void
+  next: (
+    methodDescriptor: any,
+    call: grpc.ServerUnaryCall<any, any>,
+    callback: grpc.sendUnaryData<any>,
+  ) => void,
 ): void {
   const metadata = call.metadata;
   const authHeader = metadata.get('authorization');
@@ -863,6 +852,7 @@ Every gRPC call should have a **deadline** — the point in time by which the ca
 ### Why Deadlines Matter
 
 Without a deadline, a slow or hung downstream can cause:
+
 - **Resource leaks** — open connections that never close
 - **Cascading failures** — one slow service saturates thread pools everywhere upstream
 - **Poor user experience** — requests that hang indefinitely
@@ -892,7 +882,7 @@ sequenceDiagram
 // Server side — enforce deadlines on incoming calls
 function orderHandler(
   call: grpc.ServerUnaryCall<OrderRequest, OrderResponse>,
-  callback: grpc.sendUnaryData<OrderResponse>
+  callback: grpc.sendUnaryData<OrderResponse>,
 ): void {
   // Check if there's an incoming deadline
   const deadline = call.getDeadline();
@@ -931,19 +921,15 @@ function orderHandler(
 const deadline = new Date();
 deadline.setMilliseconds(deadline.getMilliseconds() + 500); // 500ms deadline
 
-client.GetOrder(
-  { orderId: 'ord_123' },
-  { deadline },
-  (error, response) => {
-    if (error) {
-      if (error.code === grpc.status.DEADLINE_EXCEEDED) {
-        console.error('Request timed out — fallback to cache or retry');
-      }
-      return;
+client.GetOrder({ orderId: 'ord_123' }, { deadline }, (error, response) => {
+  if (error) {
+    if (error.code === grpc.status.DEADLINE_EXCEEDED) {
+      console.error('Request timed out — fallback to cache or retry');
     }
-    console.log(response);
+    return;
   }
-);
+  console.log(response);
+});
 ```
 
 ### Cancellation
@@ -963,9 +949,7 @@ call.on('data', (order) => {
 });
 
 // Server-side handling of cancellation
-function WatchOrders(
-  call: grpc.ServerWritableStream<WatchRequest, Order>
-): void {
+function WatchOrders(call: grpc.ServerWritableStream<WatchRequest, Order>): void {
   const dbStream = db.query('SELECT * FROM orders').stream();
 
   dbStream.on('data', (row) => {
@@ -1021,25 +1005,25 @@ gRPC uses a well-defined set of **status codes** — much richer than HTTP statu
 
 ### gRPC Status Codes
 
-| Code | Description | When to Use |
-| --- | --- | --- |
-| `OK` (0) | Success | Not an error — the call succeeded |
-| `CANCELLED` (1) | Call was cancelled | Client cancelled the call or server is shutting down |
-| `UNKNOWN` (2) | Unknown error | Catch-all — prefer more specific codes |
-| `INVALID_ARGUMENT` (3) | Bad input | Missing or malformed field, invalid enum value |
-| `DEADLINE_EXCEEDED` (4) | Too slow | Operation took longer than the deadline |
-| `NOT_FOUND` (5) | Resource not found | Entity doesn't exist |
-| `ALREADY_EXISTS` (6) | Duplicate | Resource already exists (idempotency concern) |
-| `PERMISSION_DENIED` (7) | Not authorized | Authenticated but insufficient permissions |
-| `RESOURCE_EXHAUSTED` (8) | Quota/rate limit | Rate limit, storage full, connection pool exhausted |
-| `FAILED_PRECONDITION` (9) | State conflict | Request conflicts with current system state |
-| `ABORTED` (10) | Concurrency conflict | Optimistic lock failure, retriable |
-| `OUT_OF_RANGE` (11) | Value out of range | Pagination `page_token` invalid, number beyond valid range |
-| `UNIMPLEMENTED` (12) | Not implemented | Method not implemented on this server |
-| `INTERNAL` (13) | Internal server error | Unhandled exception — never expose internals! |
-| `UNAVAILABLE` (14) | Service unavailable | Transient failure — retriable |
-| `DATA_LOSS` (15) | Unrecoverable data loss | Corruption, disk failure |
-| `UNAUTHENTICATED` (16) | Missing credentials | No valid auth token |
+| Code                      | Description             | When to Use                                                |
+| ------------------------- | ----------------------- | ---------------------------------------------------------- |
+| `OK` (0)                  | Success                 | Not an error — the call succeeded                          |
+| `CANCELLED` (1)           | Call was cancelled      | Client cancelled the call or server is shutting down       |
+| `UNKNOWN` (2)             | Unknown error           | Catch-all — prefer more specific codes                     |
+| `INVALID_ARGUMENT` (3)    | Bad input               | Missing or malformed field, invalid enum value             |
+| `DEADLINE_EXCEEDED` (4)   | Too slow                | Operation took longer than the deadline                    |
+| `NOT_FOUND` (5)           | Resource not found      | Entity doesn't exist                                       |
+| `ALREADY_EXISTS` (6)      | Duplicate               | Resource already exists (idempotency concern)              |
+| `PERMISSION_DENIED` (7)   | Not authorized          | Authenticated but insufficient permissions                 |
+| `RESOURCE_EXHAUSTED` (8)  | Quota/rate limit        | Rate limit, storage full, connection pool exhausted        |
+| `FAILED_PRECONDITION` (9) | State conflict          | Request conflicts with current system state                |
+| `ABORTED` (10)            | Concurrency conflict    | Optimistic lock failure, retriable                         |
+| `OUT_OF_RANGE` (11)       | Value out of range      | Pagination `page_token` invalid, number beyond valid range |
+| `UNIMPLEMENTED` (12)      | Not implemented         | Method not implemented on this server                      |
+| `INTERNAL` (13)           | Internal server error   | Unhandled exception — never expose internals!              |
+| `UNAVAILABLE` (14)        | Service unavailable     | Transient failure — retriable                              |
+| `DATA_LOSS` (15)          | Unrecoverable data loss | Corruption, disk failure                                   |
+| `UNAUTHENTICATED` (16)    | Missing credentials     | No valid auth token                                        |
 
 ### Structured Error Details
 
@@ -1050,19 +1034,21 @@ import * as grpc from '@grpc/grpc-js';
 import { status as StatusBuilder } from '@grpc/grpc-js';
 
 // Custom error factory
-function validationError(fieldViolations: Array<{ field: string; description: string }>): grpc.ServiceError {
+function validationError(
+  fieldViolations: Array<{ field: string; description: string }>,
+): grpc.ServiceError {
   const error: any = new Error('Validation failed');
   error.code = grpc.status.INVALID_ARGUMENT;
   error.details = 'One or more fields failed validation';
   error.metadata = new grpc.Metadata();
   // Attach structured error info
   error.metadata.add(
-    'bad-request-bin',  // "-bin" suffix for binary metadata
+    'bad-request-bin', // "-bin" suffix for binary metadata
     Buffer.from(
       JSON.stringify({
         field_violations: fieldViolations,
-      })
-    )
+      }),
+    ),
   );
   return error;
 }
@@ -1070,7 +1056,7 @@ function validationError(fieldViolations: Array<{ field: string; description: st
 // Usage in handler
 function createOrder(
   call: grpc.ServerUnaryCall<CreateOrderRequest, CreateOrderResponse>,
-  callback: grpc.sendUnaryData<CreateOrderResponse>
+  callback: grpc.sendUnaryData<CreateOrderResponse>,
 ): void {
   const violations: Array<{ field: string; description: string }> = [];
 
@@ -1161,11 +1147,11 @@ graph TB
 
 ### Strategies
 
-| Strategy | Description | Best For |
-| --- | --- | --- |
-| **Proxy (L7)** | Envoy, NGINX, or Linkerd sits in front of servers and distributes RPCs | Kubernetes, large fleets. Simplest to operate. |
-| **Client-side** | Client resolves server addresses and load-balances itself | Low-latency, no extra hop. Requires DNS / naming service (Consul, etc). |
-| **Look-aside** | Control plane publishes endpoints; client queries it for the server list | Medium-to-large deployments |
+| Strategy        | Description                                                              | Best For                                                                |
+| --------------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------- |
+| **Proxy (L7)**  | Envoy, NGINX, or Linkerd sits in front of servers and distributes RPCs   | Kubernetes, large fleets. Simplest to operate.                          |
+| **Client-side** | Client resolves server addresses and load-balances itself                | Low-latency, no extra hop. Requires DNS / naming service (Consul, etc). |
+| **Look-aside**  | Control plane publishes endpoints; client queries it for the server list | Medium-to-large deployments                                             |
 
 ### Client-Side Load Balancing with DNS Resolution
 
@@ -1181,7 +1167,7 @@ const client = new OrderServiceClient(
     'grpc.service_config': JSON.stringify({
       loadBalancingConfig: [{ round_robin: {} }],
     }),
-  }
+  },
 );
 ```
 
@@ -1200,29 +1186,29 @@ static_resources:
         - filters:
             - name: envoy.filters.network.http_connection_manager
               typed_config:
-                "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                '@type': type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
                 codec_type: AUTO
                 stat_prefix: grpc_json
                 route_config:
                   name: local_route
                   virtual_hosts:
                     - name: backend
-                      domains: ["*"]
+                      domains: ['*']
                       routes:
                         - match:
-                            prefix: "/"
+                            prefix: '/'
                           route:
                             cluster: grpc_backend_cluster
                 http_filters:
                   - name: envoy.filters.http.router
                     typed_config:
-                      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+                      '@type': type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
 
   clusters:
     - name: grpc_backend_cluster
       type: STRICT_DNS
       lb_policy: ROUND_ROBIN
-      http2_protocol_options: {}  # Enable HTTP/2!
+      http2_protocol_options: {} # Enable HTTP/2!
       load_assignment:
         cluster_name: grpc_backend_cluster
         endpoints:
@@ -1277,7 +1263,7 @@ import { health } from '@grpc/grpc-js';
 
 const server = new grpc.Server();
 const healthImpl = new health.HealthImplementation({
-  '': health.ServingStatus.SERVING,                // Overall server status
+  '': health.ServingStatus.SERVING, // Overall server status
   'ecommerce.v1.OrderService': health.ServingStatus.SERVING, // Per-service status
 });
 
@@ -1322,10 +1308,10 @@ graph LR
 http_filters:
   - name: envoy.filters.http.grpc_web
     typed_config:
-      "@type": type.googleapis.com/envoy.extensions.filters.http.grpc_web.v3.GrpcWeb
+      '@type': type.googleapis.com/envoy.extensions.filters.http.grpc_web.v3.GrpcWeb
   - name: envoy.filters.http.router
     typed_config:
-      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+      '@type': type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
 ```
 
 ### gRPC-Web TypeScript Client
@@ -1413,14 +1399,14 @@ import fs from 'fs';
 const server = new grpc.Server();
 
 const serverCredentials = grpc.ServerCredentials.createSsl(
-  /* rootCerts */ null,  // null = don't require client certs (TLS, not mTLS)
+  /* rootCerts */ null, // null = don't require client certs (TLS, not mTLS)
   [
     {
       cert_chain: fs.readFileSync('./certs/server.crt'),
       private_key: fs.readFileSync('./certs/server.key'),
     },
   ],
-  /* checkClientCertificate */ false
+  /* checkClientCertificate */ false,
 );
 
 server.addService(OrderServiceService, orderServiceImpl);
@@ -1432,9 +1418,9 @@ server.bindAsync('0.0.0.0:50051', serverCredentials, (err, port) => {
 
 // ─── Client Connecting with TLS ─────────────────────────
 const clientCredentials = grpc.credentials.createSsl(
-  fs.readFileSync('./certs/ca.crt'),    // Root CA to verify server
+  fs.readFileSync('./certs/ca.crt'), // Root CA to verify server
   fs.readFileSync('./certs/client.key'), // Optional: client key (for mTLS)
-  fs.readFileSync('./certs/client.crt')  // Optional: client cert (for mTLS)
+  fs.readFileSync('./certs/client.crt'), // Optional: client cert (for mTLS)
 );
 
 const client = new OrderServiceClient('localhost:50051', clientCredentials);
@@ -1445,21 +1431,21 @@ const client = new OrderServiceClient('localhost:50051', clientCredentials);
 ```typescript
 // Server with mTLS — requires AND verifies client certificates
 const mTLSServerCredentials = grpc.ServerCredentials.createSsl(
-  fs.readFileSync('./certs/ca.crt'),  // Root CA to verify client certs
+  fs.readFileSync('./certs/ca.crt'), // Root CA to verify client certs
   [
     {
       cert_chain: fs.readFileSync('./certs/server.crt'),
       private_key: fs.readFileSync('./certs/server.key'),
     },
   ],
-  /* checkClientCertificate */ true  // ← Enforce mTLS!
+  /* checkClientCertificate */ true, // ← Enforce mTLS!
 );
 
 // Client with mTLS — presents its own certificate
 const mTLSClientCredentials = grpc.credentials.createSsl(
-  fs.readFileSync('./certs/ca.crt'),      // Root CA to verify server
-  fs.readFileSync('./certs/client.key'),  // Client private key
-  fs.readFileSync('./certs/client.crt')   // Client certificate
+  fs.readFileSync('./certs/ca.crt'), // Root CA to verify server
+  fs.readFileSync('./certs/client.key'), // Client private key
+  fs.readFileSync('./certs/client.crt'), // Client certificate
 );
 
 const mTLSClient = new OrderServiceClient('orders.internal:50051', mTLSClientCredentials);
@@ -1503,19 +1489,14 @@ import * as grpc from '@grpc/grpc-js';
 const channelCreds = grpc.credentials.createSsl(caCert);
 
 // Call credentials — per-request metadata (JWT, API key)
-const jwtCallCreds = grpc.credentials.createFromMetadataGenerator(
-  (_params, callback) => {
-    const metadata = new grpc.Metadata();
-    metadata.add('authorization', `Bearer ${getAccessToken()}`);
-    callback(null, metadata);
-  }
-);
+const jwtCallCreds = grpc.credentials.createFromMetadataGenerator((_params, callback) => {
+  const metadata = new grpc.Metadata();
+  metadata.add('authorization', `Bearer ${getAccessToken()}`);
+  callback(null, metadata);
+});
 
 // Combine: TLS + JWT per call
-const combinedCredentials = grpc.credentials.combineChannelCredentials(
-  channelCreds,
-  jwtCallCreds
-);
+const combinedCredentials = grpc.credentials.combineChannelCredentials(channelCreds, jwtCallCreds);
 
 const client = new OrderServiceClient('api.mycompany.com:443', combinedCredentials);
 ```
@@ -1548,34 +1529,34 @@ Configure HTTP/2 keepalive to detect dead connections and prevent idle timeouts:
 
 ```typescript
 const client = new OrderServiceClient('server:50051', creds, {
-  'grpc.keepalive_time_ms': 30_000,        // Ping every 30 seconds
-  'grpc.keepalive_timeout_ms': 10_000,     // Wait 10 seconds for ping ack
+  'grpc.keepalive_time_ms': 30_000, // Ping every 30 seconds
+  'grpc.keepalive_timeout_ms': 10_000, // Wait 10 seconds for ping ack
   'grpc.keepalive_permit_without_calls': 1, // Allow pings even with no active calls
-  'grpc.http2.max_pings_without_data': 0,  // Unlimited pings without data
+  'grpc.http2.max_pings_without_data': 0, // Unlimited pings without data
 });
 
 const server = new grpc.Server({
   'grpc.keepalive_time_ms': 60_000,
   'grpc.keepalive_timeout_ms': 15_000,
   'grpc.http2.min_ping_interval_without_data_ms': 30_000, // Throttle client pings
-  'grpc.max_connection_age_ms': 300_000,   // Force refresh connections every 5 min
+  'grpc.max_connection_age_ms': 300_000, // Force refresh connections every 5 min
   'grpc.max_connection_age_grace_ms': 10_000,
 });
 ```
 
 ### Channel & Call Options Reference
 
-| Option | Default | Description |
-| --- | --- | --- |
-| `grpc.ssl_target_name_override` | — | Override the TLS server name for hostname verification |
-| `grpc.default_authority` | — | Override the `:authority` pseudo-header |
-| `grpc.keepalive_time_ms` | `MAX_INT` | Ping interval — disables keepalive by default |
-| `grpc.keepalive_timeout_ms` | `20_000` | How long to wait for ping ack before closing |
-| `grpc.http2.max_pings_without_data` | `2` | Close connection after N pings without data/header frames |
-| `grpc.max_connection_idle_ms` | `MAX_INT` | Close connections idle for this long |
-| `grpc.max_connection_age_ms` | `MAX_INT` | Force close connection after this age |
-| `grpc.max_connection_age_grace_ms` | `MAX_INT` | Grace period after max age, before force close |
-| `grpc.enable_retries` | `1` | Enable automatic retries (service config must also permit) |
+| Option                              | Default   | Description                                                |
+| ----------------------------------- | --------- | ---------------------------------------------------------- |
+| `grpc.ssl_target_name_override`     | —         | Override the TLS server name for hostname verification     |
+| `grpc.default_authority`            | —         | Override the `:authority` pseudo-header                    |
+| `grpc.keepalive_time_ms`            | `MAX_INT` | Ping interval — disables keepalive by default              |
+| `grpc.keepalive_timeout_ms`         | `20_000`  | How long to wait for ping ack before closing               |
+| `grpc.http2.max_pings_without_data` | `2`       | Close connection after N pings without data/header frames  |
+| `grpc.max_connection_idle_ms`       | `MAX_INT` | Close connections idle for this long                       |
+| `grpc.max_connection_age_ms`        | `MAX_INT` | Force close connection after this age                      |
+| `grpc.max_connection_age_grace_ms`  | `MAX_INT` | Grace period after max age, before force close             |
+| `grpc.enable_retries`               | `1`       | Enable automatic retries (service config must also permit) |
 
 ### Message Size Limits
 
@@ -1584,13 +1565,17 @@ By default, gRPC limits messages to **4 MB**. For large payloads (file uploads, 
 ```typescript
 const server = new grpc.Server({
   'grpc.max_receive_message_length': 100 * 1024 * 1024, // 100 MB
-  'grpc.max_send_message_length': 100 * 1024 * 1024,    // 100 MB
+  'grpc.max_send_message_length': 100 * 1024 * 1024, // 100 MB
 });
 
 // Client-side
-client.GetLargePayload(request, {
-  'grpc.max_receive_message_length': 100 * 1024 * 1024,
-}, callback);
+client.GetLargePayload(
+  request,
+  {
+    'grpc.max_receive_message_length': 100 * 1024 * 1024,
+  },
+  callback,
+);
 ```
 
 > ⚠️ Increasing message size limits has memory implications. For truly large payloads (>100 MB), prefer **client streaming** — chunk the data into multiple smaller messages and stream them.
@@ -1601,20 +1586,20 @@ client.GetLargePayload(request, {
 
 Following Google's [AIPs](https://google.aip.dev/) (API Improvement Proposals) and the [Uber Protobuf Style Guide](https://github.com/uber/prototool):
 
-| Guideline | Example ✅ | Anti-Pattern ❌ |
-| --- | --- | --- |
-| Use `snake_case` for field names | `user_id`, `created_at` | `userId`, `createdAt` |
-| Use `PascalCase` for message/enum names | `CreateOrderRequest` | `createOrderRequest` |
-| Use `UPPER_SNAKE_CASE` for enum values, prefixed with enum name | `ORDER_STATUS_PENDING` | `PENDING` (ambiguous) |
-| Version packages | `package ecommerce.v1;` | `package ecommerce;` |
-| Use separate request/response messages (even if identical) | `GetOrderRequest`, `GetOrderResponse` | Reusing `Order` for both |
-| Reserve deleted field numbers and names | `reserved 2, 5 to 7; reserved "old_name";` | Delete and reuse numbers |
-| Default enum value must be `0` and should be `UNSPECIFIED` | `ORDER_STATUS_UNSPECIFIED = 0;` | `ORDER_STATUS_PENDING = 0;` (can't distinguish unset from pending) |
-| Fields 1–15 for frequently used fields | `user_id = 1;`, `status = 2;` | `user_id = 20;` (2-byte tag) |
-| Never remove or reuse field numbers | Keep them, mark `reserved` | Drop a field and reuse its number |
-| Use `google.protobuf.Timestamp` for time, not `int64` | `Timestamp created_at = 5;` | `int64 created_at_ms = 5;` |
-| Request messages: resources as nouns, methods as verbs | `CreateOrderRequest`, `ListOrdersRequest` | `OrderRequest` (ambiguous) |
-| Use `google.protobuf.FieldMask` for partial updates | `FieldMask update_mask = 2;` | `bool clear_name = 2;` (messy) |
+| Guideline                                                       | Example ✅                                 | Anti-Pattern ❌                                                    |
+| --------------------------------------------------------------- | ------------------------------------------ | ------------------------------------------------------------------ |
+| Use `snake_case` for field names                                | `user_id`, `created_at`                    | `userId`, `createdAt`                                              |
+| Use `PascalCase` for message/enum names                         | `CreateOrderRequest`                       | `createOrderRequest`                                               |
+| Use `UPPER_SNAKE_CASE` for enum values, prefixed with enum name | `ORDER_STATUS_PENDING`                     | `PENDING` (ambiguous)                                              |
+| Version packages                                                | `package ecommerce.v1;`                    | `package ecommerce;`                                               |
+| Use separate request/response messages (even if identical)      | `GetOrderRequest`, `GetOrderResponse`      | Reusing `Order` for both                                           |
+| Reserve deleted field numbers and names                         | `reserved 2, 5 to 7; reserved "old_name";` | Delete and reuse numbers                                           |
+| Default enum value must be `0` and should be `UNSPECIFIED`      | `ORDER_STATUS_UNSPECIFIED = 0;`            | `ORDER_STATUS_PENDING = 0;` (can't distinguish unset from pending) |
+| Fields 1–15 for frequently used fields                          | `user_id = 1;`, `status = 2;`              | `user_id = 20;` (2-byte tag)                                       |
+| Never remove or reuse field numbers                             | Keep them, mark `reserved`                 | Drop a field and reuse its number                                  |
+| Use `google.protobuf.Timestamp` for time, not `int64`           | `Timestamp created_at = 5;`                | `int64 created_at_ms = 5;`                                         |
+| Request messages: resources as nouns, methods as verbs          | `CreateOrderRequest`, `ListOrdersRequest`  | `OrderRequest` (ambiguous)                                         |
+| Use `google.protobuf.FieldMask` for partial updates             | `FieldMask update_mask = 2;`               | `bool clear_name = 2;` (messy)                                     |
 
 ---
 
@@ -1682,10 +1667,7 @@ describe('OrderService Integration', () => {
     server = createTestServer();
     server.bindAsync('localhost:0', grpc.ServerCredentials.createInsecure(), (err, port) => {
       if (err) throw err;
-      client = new OrderServiceClient(
-        `localhost:${port}`,
-        grpc.credentials.createInsecure()
-      );
+      client = new OrderServiceClient(`localhost:${port}`, grpc.credentials.createInsecure());
       done();
     });
   });
@@ -1710,9 +1692,9 @@ describe('OrderService Integration', () => {
             expect(err2).toBeNull();
             expect(getRes?.order?.orderId).toBe(createRes!.order!.orderId);
             done();
-          }
+          },
         );
-      }
+      },
     );
   });
 });
@@ -1767,6 +1749,7 @@ graph TD
 ```
 
 **gRPC shines when:**
+
 - Communication is between **internal services** you control (same proto, same team)
 - You need **streaming** — server, client, or bidirectional
 - **Payload efficiency** matters (mobile, IoT, high-throughput systems)
@@ -1774,6 +1757,7 @@ graph TD
 - **Low latency** is critical — binary serialization + multiplexed HTTP/2
 
 **Consider alternatives when:**
+
 - Your API is **public-facing** for unknown clients (REST is more universally accessible)
 - **Browser clients** need full bidirectional streaming (use WebSockets or Socket.IO)
 - **HTTP caching** (CDN, browser cache) is essential

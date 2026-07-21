@@ -1,5 +1,5 @@
 ---
-title: Message Queues
+title: "Message Queues"
 sidebar_position: 10
 ---
 

@@ -1,8 +1,8 @@
 ---
 id: dsa-math-pascal-triangle-readme
-title: Pascal's Triangle
+title: "Pascal's Triangle"
 slug: /DSA/math/pascal-triangle/README
-sidebar_label: Pascal's Triangle
+sidebar_label: "Pascal's Triangle"
 ---
 
 # Pascal's Triangle

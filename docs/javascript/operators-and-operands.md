@@ -1,8 +1,8 @@
 ---
 id: javascript-operators-and-operands
-title: OPERATORS & OPERANDS
+title: "OPERATORS & OPERANDS"
 slug: /javascript/operators-and-operands
-sidebar_label: OPERATORS & OPERANDS
+sidebar_label: "OPERATORS & OPERANDS"
 ---
 
 # OPERATORS & OPERANDS

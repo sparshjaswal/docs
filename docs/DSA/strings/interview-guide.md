@@ -1,10 +1,9 @@
 ---
 id: dsa-strings-interview-guide
-title: Strings
+title: "Strings"
 slug: /DSA/strings/interview-guide
-sidebar_label: Strings
+sidebar_label: "Strings"
 ---
-
 
 # Strings
 
@@ -12,10 +11,10 @@ sidebar_label: Strings
 
 - **Sequence of Characters:** Strings are essentially arrays of characters.
 - **Common Patterns:**
-    - **Two Pointers:** For problems like palindromes, reversing, or finding substrings.
-    - **Sliding Window:** For finding the longest substring with certain properties.
-    - **Hashing:** To count character frequencies or find anagrams.
-    - **Tries:** For problems involving prefixes and searching for words.
+  - **Two Pointers:** For problems like palindromes, reversing, or finding substrings.
+  - **Sliding Window:** For finding the longest substring with certain properties.
+  - **Hashing:** To count character frequencies or find anagrams.
+  - **Tries:** For problems involving prefixes and searching for words.
 
 ## Interview Strategy
 
@@ -33,17 +32,17 @@ sidebar_label: Strings
 
 ```javascript
 function lengthOfLongestSubstringBruteForce(s) {
-    let maxLength = 0;
-    for (let i = 0; i < s.length; i++) {
-        for (let j = i; j < s.length; j++) {
-            const substring = s.substring(i, j + 1);
-            const charSet = new Set(substring);
-            if (substring.length === charSet.size) {
-                maxLength = Math.max(maxLength, substring.length);
-            }
-        }
+  let maxLength = 0;
+  for (let i = 0; i < s.length; i++) {
+    for (let j = i; j < s.length; j++) {
+      const substring = s.substring(i, j + 1);
+      const charSet = new Set(substring);
+      if (substring.length === charSet.size) {
+        maxLength = Math.max(maxLength, substring.length);
+      }
     }
-    return maxLength;
+  }
+  return maxLength;
 }
 ```
 
@@ -51,27 +50,27 @@ function lengthOfLongestSubstringBruteForce(s) {
 
 ```javascript
 function lengthOfLongestSubstringSlidingWindow(s) {
-    let maxLength = 0;
-    let start = 0;
-    const charMap = new Map();
-    for (let end = 0; end < s.length; end++) {
-        const char = s[end];
-        if (charMap.has(char)) {
-            start = Math.max(charMap.get(char) + 1, start);
-        }
-        charMap.set(char, end);
-        maxLength = Math.max(maxLength, end - start + 1);
+  let maxLength = 0;
+  let start = 0;
+  const charMap = new Map();
+  for (let end = 0; end < s.length; end++) {
+    const char = s[end];
+    if (charMap.has(char)) {
+      start = Math.max(charMap.get(char) + 1, start);
     }
-    return maxLength;
+    charMap.set(char, end);
+    maxLength = Math.max(maxLength, end - start + 1);
+  }
+  return maxLength;
 }
 ```
 
 ## Complexity Analysis
 
-| Algorithm        | Time Complexity | Space Complexity |
-| ---------------- | --------------- | ---------------- |
-| Brute Force      | O(n^3)          | O(k) where k is the size of the substring |
-| Sliding Window   | O(n)            | O(min(n, m)) where m is the size of the character set |
+| Algorithm      | Time Complexity | Space Complexity                                      |
+| -------------- | --------------- | ----------------------------------------------------- |
+| Brute Force    | O(n^3)          | O(k) where k is the size of the substring             |
+| Sliding Window | O(n)            | O(min(n, m)) where m is the size of the character set |
 
 ## Dry Runs
 

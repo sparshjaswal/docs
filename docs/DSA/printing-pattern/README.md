@@ -1,8 +1,8 @@
 ---
 id: dsa-printing-pattern-readme
-title: 📉 Printing Patterns
+title: "📉 Printing Patterns"
 slug: /DSA/printing-pattern/README
-sidebar_label: 📉 Printing Patterns
+sidebar_label: "📉 Printing Patterns"
 ---
 
 # 📉 Printing Patterns

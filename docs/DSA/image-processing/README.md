@@ -1,8 +1,8 @@
 ---
 id: dsa-image-processing-readme
-title: 🖼️ Image Processing
+title: "🖼️ Image Processing"
 slug: /DSA/image-processing/README
-sidebar_label: 🖼️ Image Processing
+sidebar_label: "🖼️ Image Processing"
 ---
 
 # 🖼️ Image Processing

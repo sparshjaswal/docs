@@ -1,8 +1,8 @@
 ---
 id: dsa-array-readme
-title: Array
+title: "Array"
 slug: /DSA/Array/README
-sidebar_label: Array
+sidebar_label: "Array"
 ---
 
 # Array
@@ -196,8 +196,8 @@ O(n) to store n elements. Dynamic arrays may over-allocate capacity (up to O(n))
 
 ## Practice Problems
 
-| Problem                                                  | Difficulty | Solution                              |
-| -------------------------------------------------------- | ---------- | ------------------------------------- |
+| Problem                                                  | Difficulty | Solution                                 |
+| -------------------------------------------------------- | ---------- | ---------------------------------------- |
 | [LC 1 — Two Sum](https://leetcode.com/problems/two-sum/) | Easy       | [View Solution](../hashing/LC-1-two-sum) |
 
 ## References

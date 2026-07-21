@@ -1,8 +1,8 @@
 ---
 id: dsa-math-factorial-readme
-title: Factorial
+title: "Factorial"
 slug: /DSA/math/factorial/README
-sidebar_label: Factorial
+sidebar_label: "Factorial"
 ---
 
 # Factorial

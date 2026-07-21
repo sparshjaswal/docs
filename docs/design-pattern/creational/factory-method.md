@@ -1,8 +1,8 @@
 ---
 id: design-pattern-creational-factory-method
-title: Factory Method Pattern 🏭
+title: "Factory Method Pattern 🏭"
 slug: /design-pattern/creational/factory-method
-sidebar_label: Factory Method Pattern 🏭
+sidebar_label: "Factory Method Pattern 🏭"
 ---
 
 # Factory Method Pattern 🏭

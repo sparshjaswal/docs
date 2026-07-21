@@ -1,8 +1,8 @@
 ---
 id: dsa-hash-table-readme
-title: Hash Table
+title: "Hash Table"
 slug: /DSA/hash-table/README
-sidebar_label: Hash Table
+sidebar_label: "Hash Table"
 ---
 
 # Hash Table

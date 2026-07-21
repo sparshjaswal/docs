@@ -1,5 +1,5 @@
 ---
-title: Programming Fundamentals
+title: "Programming Fundamentals"
 sidebar_position: 1
 description: A comprehensive guide to core programming concepts — JavaScript, TypeScript, Node.js, and programming paradigms.
 keywords:
@@ -41,6 +41,7 @@ JavaScript is a high-level, dynamically-typed, interpreted (and JIT-compiled) la
 ### Core Building Blocks
 
 **Variables and scope:**
+
 ```javascript
 // Block-scoped, cannot be redeclared
 let count = 0;
@@ -54,60 +55,87 @@ var legacy = 'pre-ES6';
 
 **Data types** — JavaScript has 7 primitive types and 1 structural type:
 
-| Type        | Example                    | Notes                           |
-| ----------- | -------------------------- | ------------------------------- |
-| `string`    | `'hello'`                  | Immutable, indexed by character |
-| `number`    | `42`, `3.14`, `Infinity`   | IEEE 754 double (no int/float)  |
-| `bigint`    | `9007199254740991n`        | Arbitrary-precision integer     |
-| `boolean`   | `true`, `false`            |                                 |
-| `undefined` | `let x;`                   | Variable declared but unassigned|
-| `null`      | `let x = null;`            | Intentional absence of value    |
-| `symbol`    | `Symbol('id')`             | Guaranteed unique key           |
-| `object`    | `{ name: 'Alice' }`        | Structural type — arrays, functions, dates are all objects |
+| Type        | Example                  | Notes                                                      |
+| ----------- | ------------------------ | ---------------------------------------------------------- |
+| `string`    | `'hello'`                | Immutable, indexed by character                            |
+| `number`    | `42`, `3.14`, `Infinity` | IEEE 754 double (no int/float)                             |
+| `bigint`    | `9007199254740991n`      | Arbitrary-precision integer                                |
+| `boolean`   | `true`, `false`          |                                                            |
+| `undefined` | `let x;`                 | Variable declared but unassigned                           |
+| `null`      | `let x = null;`          | Intentional absence of value                               |
+| `symbol`    | `Symbol('id')`           | Guaranteed unique key                                      |
+| `object`    | `{ name: 'Alice' }`      | Structural type — arrays, functions, dates are all objects |
 
 **Operators:** arithmetic (`+`, `-`, `*`, `**`, `/`, `%`), assignment (`=`, `+=`, etc.), comparison (`==` vs `===`, `!=` vs `!==`), logical (`&&`, `||`, `??`, `!`), bitwise (`&`, `|`, `^`, `~`, `<<`, `>>`, `>>>`), and the ternary operator (`condition ? a : b`).
 
 **Control flow:**
+
 ```javascript
 // Conditional
-if (score > 90) { /* ... */ }
-else if (score > 70) { /* ... */ }
-else { /* ... */ }
+if (score > 90) {
+  /* ... */
+} else if (score > 70) {
+  /* ... */
+} else {
+  /* ... */
+}
 
 // Switch (uses strict comparison)
 switch (status) {
-  case 'active':  /* ... */ break;
-  case 'pending': /* ... */ break;
-  default:        /* ... */
+  case 'active':
+    /* ... */ break;
+  case 'pending':
+    /* ... */ break;
+  default: /* ... */
 }
 
 // Loops
-for (let i = 0; i < items.length; i++) { /* ... */ }
-for (const item of iterable) { /* ... */ }       // values
-for (const key in object) { /* ... */ }           // keys
-while (condition) { /* ... */ }
-do { /* ... */ } while (condition);
+for (let i = 0; i < items.length; i++) {
+  /* ... */
+}
+for (const item of iterable) {
+  /* ... */
+} // values
+for (const key in object) {
+  /* ... */
+} // keys
+while (condition) {
+  /* ... */
+}
+do {
+  /* ... */
+} while (condition);
 ```
 
 **Functions:**
+
 ```javascript
 // Declaration (hoisted)
-function add(a, b) { return a + b; }
+function add(a, b) {
+  return a + b;
+}
 
 // Expression (not hoisted)
-const multiply = function(a, b) { return a * b; };
+const multiply = function (a, b) {
+  return a * b;
+};
 
 // Arrow (lexical this, no arguments object)
 const divide = (a, b) => a / b;
 
 // Default parameters
-function greet(name = 'guest') { return `Hello, ${name}`; }
+function greet(name = 'guest') {
+  return `Hello, ${name}`;
+}
 
 // Rest parameters
-function sum(...numbers) { return numbers.reduce((a, b) => a + b, 0); }
+function sum(...numbers) {
+  return numbers.reduce((a, b) => a + b, 0);
+}
 ```
 
 **Objects and arrays:**
+
 ```javascript
 // Object literal
 const user = { name: 'Alice', age: 30 };
@@ -125,8 +153,8 @@ const arr = [1, 2, 3];
 const [first, second] = arr;
 
 // Common array methods
-const doubled = arr.map(x => x * 2);
-const evens = arr.filter(x => x % 2 === 0);
+const doubled = arr.map((x) => x * 2);
+const evens = arr.filter((x) => x % 2 === 0);
 const sum = arr.reduce((acc, x) => acc + x, 0);
 ```
 
@@ -159,7 +187,10 @@ let active: boolean = true;
 
 // Arrays
 let scores: number[] = [95, 87, 91];
-let matrix: number[][] = [[1, 2], [3, 4]];
+let matrix: number[][] = [
+  [1, 2],
+  [3, 4],
+];
 
 // Tuples (fixed-length, typed positions)
 let pair: [string, number] = ['age', 30];
@@ -174,7 +205,7 @@ type Status = 'idle' | 'loading' | 'success' | 'error';
 interface User {
   id: number;
   name: string;
-  email?: string;          // optional property
+  email?: string; // optional property
   readonly createdAt: Date; // immutable after creation
 }
 
@@ -184,11 +215,11 @@ function firstElement<T>(arr: T[]): T | undefined {
 }
 
 // Utility types
-type PartialUser = Partial<User>;        // all properties optional
-type RequiredUser = Required<User>;      // all properties required
-type ReadonlyUser = Readonly<User>;      // all properties readonly
-type UserContact = Pick<User, 'email'>;  // select subset
-type UserWithoutId = Omit<User, 'id'>;   // exclude subset
+type PartialUser = Partial<User>; // all properties optional
+type RequiredUser = Required<User>; // all properties required
+type ReadonlyUser = Readonly<User>; // all properties readonly
+type UserContact = Pick<User, 'email'>; // select subset
+type UserWithoutId = Omit<User, 'id'>; // exclude subset
 ```
 
 ### Key Concepts
@@ -211,16 +242,20 @@ FP treats computation as the evaluation of mathematical functions, avoiding muta
 **Core principles:**
 
 - **Pure functions** — same input always produces same output, no side effects (no mutation, no I/O, no external state changes)
+
   ```javascript
   // Pure
   const add = (a, b) => a + b;
 
   // Impure — mutates external state
   let total = 0;
-  const addToTotal = (n) => { total += n; };
+  const addToTotal = (n) => {
+    total += n;
+  };
   ```
 
 - **Immutability** — data is never changed in place; new copies are returned
+
   ```javascript
   // Instead of arr.push(4), use:
   const newArr = [...arr, 4];
@@ -230,6 +265,7 @@ FP treats computation as the evaluation of mathematical functions, avoiding muta
   ```
 
 - **Higher-order functions** — functions that take or return other functions
+
   ```javascript
   const multiply = (factor) => (value) => value * factor;
   const double = multiply(2);
@@ -237,6 +273,7 @@ FP treats computation as the evaluation of mathematical functions, avoiding muta
   ```
 
 - **Function composition** — combining simple functions into complex pipelines
+
   ```javascript
   const compose = (f, g) => (x) => f(g(x));
   const addOne = (x) => x + 1;
@@ -245,7 +282,7 @@ FP treats computation as the evaluation of mathematical functions, avoiding muta
   squareThenAddOne(3); // 10
   ```
 
-- **Declarative style** — describe *what* to do, not *how*
+- **Declarative style** — describe _what_ to do, not _how_
   ```javascript
   // Imperative
   const doubled = [];
@@ -254,7 +291,7 @@ FP treats computation as the evaluation of mathematical functions, avoiding muta
   }
 
   // Declarative
-  const doubled = nums.map(x => x * 2);
+  const doubled = nums.map((x) => x * 2);
   ```
 
 **Common FP techniques:** currying, partial application, recursion over loops, monads (Promise, Array.flatMap), and pattern matching (TC39 proposal).
@@ -266,6 +303,7 @@ OOP models programs as collections of objects that contain data and behavior.
 **Core principles:**
 
 - **Encapsulation** — bundle data and methods, control access
+
   ```javascript
   class BankAccount {
     #balance = 0; // ES2022 private field
@@ -275,26 +313,36 @@ OOP models programs as collections of objects that contain data and behavior.
       return this.#balance;
     }
 
-    get balance() { return this.#balance; }
+    get balance() {
+      return this.#balance;
+    }
   }
   ```
 
 - **Inheritance** — create specialized classes from general ones
+
   ```javascript
   class Animal {
-    constructor(name) { this.name = name; }
-    speak() { return `${this.name} makes a sound`; }
+    constructor(name) {
+      this.name = name;
+    }
+    speak() {
+      return `${this.name} makes a sound`;
+    }
   }
 
   class Dog extends Animal {
-    speak() { return `${this.name} barks`; }
+    speak() {
+      return `${this.name} barks`;
+    }
   }
   ```
 
 - **Polymorphism** — objects of different types respond to the same interface
+
   ```javascript
   const animals = [new Animal('generic'), new Dog('Rex')];
-  animals.forEach(a => console.log(a.speak()));
+  animals.forEach((a) => console.log(a.speak()));
   // "generic makes a sound"
   // "Rex barks"
   ```
@@ -304,7 +352,11 @@ OOP models programs as collections of objects that contain data and behavior.
 **Prototype-based nature of JS:** JavaScript uses prototypal inheritance under the hood. `class` syntax is syntactic sugar over the prototype chain. Every object has an internal `[[Prototype]]` link; property access walks up this chain.
 
 ```javascript
-const parent = { greet() { return 'hello'; } };
+const parent = {
+  greet() {
+    return 'hello';
+  },
+};
 const child = Object.create(parent);
 child.greet(); // 'hello' — found via prototype chain
 ```
@@ -318,11 +370,18 @@ JavaScript is single-threaded with a non-blocking event loop. Long-running opera
 ### Evolution of Async Patterns
 
 **Callbacks (original approach):**
+
 ```javascript
 fetchData('/api/users', (err, data) => {
-  if (err) { console.error(err); return; }
+  if (err) {
+    console.error(err);
+    return;
+  }
   processUsers(data, (err, result) => {
-    if (err) { console.error(err); return; }
+    if (err) {
+      console.error(err);
+      return;
+    }
     console.log(result);
   });
 });
@@ -330,16 +389,18 @@ fetchData('/api/users', (err, data) => {
 ```
 
 **Promises (ES6):**
+
 ```javascript
 fetchData('/api/users')
-  .then(data => processUsers(data))
-  .then(result => console.log(result))
-  .catch(err => console.error(err));
+  .then((data) => processUsers(data))
+  .then((result) => console.log(result))
+  .catch((err) => console.error(err));
 // Promise states: pending → fulfilled (resolved) or rejected
 // .then() returns a new promise, enabling chaining
 ```
 
 **Async/await (ES2017):**
+
 ```javascript
 async function loadUsers() {
   try {
@@ -380,6 +441,7 @@ Microtasks run before the next macrotask. This is why `Promise.resolve().then(..
 Event-driven architecture decouples producers (emitters) from consumers (listeners). The flow of execution is determined by events rather than a sequential script.
 
 **Pattern:**
+
 ```javascript
 // Node.js EventEmitter
 import { EventEmitter } from 'events';
@@ -396,6 +458,7 @@ emitter.emit('orderPlaced', { id: 1234 });
 ```
 
 **Browser events:**
+
 ```javascript
 button.addEventListener('click', (event) => {
   console.log('Button clicked', event.target);
@@ -403,6 +466,7 @@ button.addEventListener('click', (event) => {
 ```
 
 **Key concepts:**
+
 - **Observer pattern** — subject maintains a list of observers and notifies them of state changes
 - **Event bubbling/capturing** (DOM) — events propagate up (bubble) or down (capture) the DOM tree
 - **Custom events** — `new CustomEvent('myEvent', { detail: {...} })` for application-specific events
@@ -421,10 +485,10 @@ JavaScript uses automatic garbage collection (GC), but understanding how memory 
 
 ### Stack vs Heap
 
-| Region  | What goes there                         | Lifetime              |
-| ------- | --------------------------------------- | --------------------- |
+| Region    | What goes there                                              | Lifetime                                 |
+| --------- | ------------------------------------------------------------ | ---------------------------------------- |
 | **Stack** | Primitives, function call frames, references to heap objects | Automatic (push/pop with function calls) |
-| **Heap**  | Objects, arrays, functions, closures    | Managed by GC         |
+| **Heap**  | Objects, arrays, functions, closures                         | Managed by GC                            |
 
 ### Garbage Collection Algorithms
 
@@ -526,10 +590,14 @@ const { add } = require('./math');
 ```javascript
 // Named export
 export const add = (a, b) => a + b;
-export function subtract(a, b) { return a - b; }
+export function subtract(a, b) {
+  return a - b;
+}
 
 // Default export
-export default class Calculator { /* ... */ }
+export default class Calculator {
+  /* ... */
+}
 
 // Import
 import Calculator, { add, subtract } from './math.js';
@@ -543,14 +611,14 @@ import * as math from './math.js';
 
 ### Key Differences
 
-| Feature               | CJS                    | ESM                       |
-| --------------------- | ---------------------- | ------------------------- |
-| Syntax                | `require` / `module.exports` | `import` / `export` |
-| Loading               | Synchronous            | Asynchronous              |
-| This at top level     | `this === module.exports` | `this === undefined`   |
-| Live bindings         | No (copy of exports)   | Yes (bindings are live)   |
-| Dynamic import        | Always dynamic         | `import()` expression     |
-| File extension        | `.js` / `.cjs`         | `.mjs` / `.js` (with `"type": "module"`) |
+| Feature           | CJS                          | ESM                                      |
+| ----------------- | ---------------------------- | ---------------------------------------- |
+| Syntax            | `require` / `module.exports` | `import` / `export`                      |
+| Loading           | Synchronous                  | Asynchronous                             |
+| This at top level | `this === module.exports`    | `this === undefined`                     |
+| Live bindings     | No (copy of exports)         | Yes (bindings are live)                  |
+| Dynamic import    | Always dynamic               | `import()` expression                    |
+| File extension    | `.js` / `.cjs`               | `.mjs` / `.js` (with `"type": "module"`) |
 
 ---
 
@@ -581,6 +649,7 @@ npm run build
 ### Versioning (SemVer)
 
 Packages follow `MAJOR.MINOR.PATCH`:
+
 - `^1.2.3` — compatible with `>=1.2.3 <2.0.0` (default for `npm install`)
 - `~1.2.3` — compatible with `>=1.2.3 <1.3.0`
 - `1.2.3` — exact version only
@@ -629,17 +698,17 @@ Operating System
 
 ### Core Modules (selection)
 
-| Module     | Purpose                          |
-| ---------- | -------------------------------- |
-| `fs`       | File system operations           |
-| `http`     | HTTP server and client           |
-| `path`     | File path utilities              |
-| `crypto`   | Cryptographic functions          |
-| `stream`   | Streaming data processing        |
-| `events`   | EventEmitter base class          |
-| `child_process` | Spawn subprocesses          |
-| `worker_threads` | True multi-threading       |
-| `cluster`  | Multi-process load balancing     |
+| Module           | Purpose                      |
+| ---------------- | ---------------------------- |
+| `fs`             | File system operations       |
+| `http`           | HTTP server and client       |
+| `path`           | File path utilities          |
+| `crypto`         | Cryptographic functions      |
+| `stream`         | Streaming data processing    |
+| `events`         | EventEmitter base class      |
+| `child_process`  | Spawn subprocesses           |
+| `worker_threads` | True multi-threading         |
+| `cluster`        | Multi-process load balancing |
 
 ### The Event Loop in Detail
 
@@ -698,6 +767,7 @@ JavaScript Source Code
 ### Memory Layout
 
 V8's heap is divided into spaces:
+
 - **New space** — young generation, scavenged quickly
 - **Old space** — survived multiple GC cycles, includes old pointer and old data spaces
 - **Large object space** — objects exceeding size threshold

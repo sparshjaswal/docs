@@ -1,8 +1,8 @@
 ---
 id: design-pattern-structural-decorator
-title: Decorator Pattern 🎨
+title: "Decorator Pattern 🎨"
 slug: /design-pattern/structural/decorator
-sidebar_label: Decorator Pattern 🎨
+sidebar_label: "Decorator Pattern 🎨"
 ---
 
 # Decorator Pattern 🎨

@@ -1,8 +1,8 @@
 ---
 id: dsa-sets-cartesian-product-readme
-title: Cartesian Product
+title: "Cartesian Product"
 slug: /DSA/sets/cartesian-product/README
-sidebar_label: Cartesian Product
+sidebar_label: "Cartesian Product"
 ---
 
 # Cartesian Product

@@ -1,8 +1,8 @@
 ---
 id: javascript-javascript-engine-basic-unit
-title: Unit of JavaScript Compiler
+title: "Unit of JavaScript Compiler"
 slug: /javascript/javascript-engine-basic-unit
-sidebar_label: Unit of JavaScript Compiler
+sidebar_label: "Unit of JavaScript Compiler"
 ---
 
 # Unit of JavaScript Compiler

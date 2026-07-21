@@ -1,7 +1,7 @@
 ---
 id: az-204-study-guide
-title: AZ-204 Study Guide (Developer Associate)
-sidebar_label: AZ-204 Study Guide
+title: "AZ-204 Study Guide (Developer Associate)"
+sidebar_label: "AZ-204 Study Guide"
 
 description: A practical, step‑by‑step study plan to maximize your chances of passing Microsoft Azure AZ‑204 using official docs, hands‑on labs, checklists, and exam‑style drills.
 ---

@@ -1,8 +1,8 @@
 ---
 id: dsa-uncategorized-recursive-staircase-readme
-title: Recursive Staircase Problem
+title: "Recursive Staircase Problem"
 slug: /DSA/uncategorized/recursive-staircase/README
-sidebar_label: Recursive Staircase Problem
+sidebar_label: "Recursive Staircase Problem"
 ---
 
 # Recursive Staircase Problem

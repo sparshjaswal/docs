@@ -1,8 +1,8 @@
 ---
 id: dsa-uncategorized-n-queens-readme
-title: N-Queens Problem
+title: "N-Queens Problem"
 slug: /DSA/uncategorized/n-queens/README
-sidebar_label: N-Queens Problem
+sidebar_label: "N-Queens Problem"
 ---
 
 # N-Queens Problem

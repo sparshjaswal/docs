@@ -1,8 +1,8 @@
 ---
 id: dsa-bit-manipulation-readme
-title: 🔢 Bit Manipulation
+title: "🔢 Bit Manipulation"
 slug: /DSA/bit-manipulation/README
-sidebar_label: 🔢 Bit Manipulation
+sidebar_label: "🔢 Bit Manipulation"
 ---
 
 # 🔢 Bit Manipulation

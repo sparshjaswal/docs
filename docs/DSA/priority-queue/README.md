@@ -1,8 +1,8 @@
 ---
 id: dsa-priority-queue-readme
-title: Priority Queue
+title: "Priority Queue"
 slug: /DSA/priority-queue/README
-sidebar_label: Priority Queue
+sidebar_label: "Priority Queue"
 ---
 
 # Priority Queue

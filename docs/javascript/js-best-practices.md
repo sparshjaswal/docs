@@ -1,8 +1,8 @@
 ---
 id: javascript-js-best-practices
-title: 🚀 Modern JavaScript Best Practices & Performance Guide
+title: "🚀 Modern JavaScript Best Practices & Performance Guide"
 slug: /javascript/js-best-practices
-sidebar_label: 🚀 Modern JavaScript Best Pr...
+sidebar_label: "🚀 Modern JavaScript Best Pr..."
 ---
 
 # 🚀 Modern JavaScript Best Practices & Performance Guide

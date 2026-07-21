@@ -1,5 +1,5 @@
 ---
-title: Event-Driven Architecture
+title: "Event-Driven Architecture"
 description: A comprehensive guide to event-driven architecture — events, producers, consumers, brokers, patterns, schema design, delivery semantics, Saga, Outbox, and more.
 keywords:
   - event-driven architecture
@@ -38,28 +38,27 @@ An **event** is an immutable, factual record of something that happened in the p
   "data": {
     "orderId": "ord_7821",
     "customerId": "cust_4491",
-    "total": 124.50,
-    "items": [
-      { "productId": "prd_001", "quantity": 2, "price": 49.99 }
-    ]
+    "total": 124.5,
+    "items": [{ "productId": "prd_001", "quantity": 2, "price": 49.99 }]
   }
 }
 ```
 
 **Event naming conventions:**
 
-| Convention | Example | Rationale |
-| --- | --- | --- |
-| **Past tense** | `order.placed`, `payment.refunded` | Events describe things that already happened |
-| **Domain language** | `shipment.delivered` | Use terms your business stakeholders understand |
-| **Namespace by domain** | `order.*`, `payment.*`, `inventory.*` | Clear ownership and routing boundaries |
-| **Not CRUD verbs** | ❌ `OrderCreated`, ❌ `UserUpdated` | Too generic; use meaningful domain names instead |
+| Convention              | Example                               | Rationale                                        |
+| ----------------------- | ------------------------------------- | ------------------------------------------------ |
+| **Past tense**          | `order.placed`, `payment.refunded`    | Events describe things that already happened     |
+| **Domain language**     | `shipment.delivered`                  | Use terms your business stakeholders understand  |
+| **Namespace by domain** | `order.*`, `payment.*`, `inventory.*` | Clear ownership and routing boundaries           |
+| **Not CRUD verbs**      | ❌ `OrderCreated`, ❌ `UserUpdated`   | Too generic; use meaningful domain names instead |
 
 ### Producers
 
 A **producer** (or publisher) is any service or component that emits events. It owns the truth of what happened and broadcasts that fact to the system.
 
 **Responsibilities of a producer:**
+
 - Publish events only after the local transaction succeeds (use the Outbox pattern!)
 - Assign unique, monotonically increasing event IDs
 - Include source, timestamp, and schema version in every event
@@ -76,18 +75,20 @@ await producer.connect();
 
 await producer.send({
   topic: 'order.placed',
-  messages: [{
-    key: 'ord_7821',                          // partition key for ordering
-    value: JSON.stringify({
-      id: 'evt_9a3f2b1c',
-      type: 'order.placed',
-      source: 'order-service',
-      schemaVersion: '1.0.0',
-      timestamp: new Date().toISOString(),
-      data: { orderId: 'ord_7821', customerId: 'cust_4491', total: 124.50 }
-    }),
-    headers: { 'message-id': 'evt_9a3f2b1c' }
-  }]
+  messages: [
+    {
+      key: 'ord_7821', // partition key for ordering
+      value: JSON.stringify({
+        id: 'evt_9a3f2b1c',
+        type: 'order.placed',
+        source: 'order-service',
+        schemaVersion: '1.0.0',
+        timestamp: new Date().toISOString(),
+        data: { orderId: 'ord_7821', customerId: 'cust_4491', total: 124.5 },
+      }),
+      headers: { 'message-id': 'evt_9a3f2b1c' },
+    },
+  ],
 });
 ```
 
@@ -96,6 +97,7 @@ await producer.send({
 A **consumer** (or subscriber) listens for events and reacts to them. Consumers are decoupled — they can be added, removed, or changed without modifying the producer.
 
 **Responsibilities of a consumer:**
+
 - Be **idempotent** — handle the same event multiple times without side effects
 - Process events in the correct order (when ordering matters)
 - Acknowledge after successful processing (for at-least-once brokers)
@@ -138,14 +140,14 @@ A **broker** (or event bus) is the infrastructure that receives events from prod
 
 **Core broker capabilities:**
 
-| Capability | Description |
-| --- | --- |
-| **Routing** | Deliver events to the right consumers (topic, queue, exchange bindings) |
-| **Persistence** | Store events on disk so they survive broker restarts |
-| **Replay** | Allow consumers to re-read events from a point in time |
-| **Partitioning** | Split event streams for parallelism and ordering |
-| **Replication** | Copy events across nodes for durability and high availability |
-| **Dead-lettering** | Route unprocessable events to a separate topic/queue |
+| Capability         | Description                                                             |
+| ------------------ | ----------------------------------------------------------------------- |
+| **Routing**        | Deliver events to the right consumers (topic, queue, exchange bindings) |
+| **Persistence**    | Store events on disk so they survive broker restarts                    |
+| **Replay**         | Allow consumers to re-read events from a point in time                  |
+| **Partitioning**   | Split event streams for parallelism and ordering                        |
+| **Replication**    | Copy events across nodes for durability and high availability           |
+| **Dead-lettering** | Route unprocessable events to a separate topic/queue                    |
 
 ---
 
@@ -189,11 +191,9 @@ Events carry **all the data** consumers need, eliminating callback requests. Con
     "orderId": "ord_7821",
     "customerId": "cust_4491",
     "customerEmail": "alice@example.com",
-    "total": 124.50,
+    "total": 124.5,
     "status": "placed",
-    "items": [
-      { "productId": "prd_001", "name": "Widget Pro", "quantity": 2, "price": 49.99 }
-    ],
+    "items": [{ "productId": "prd_001", "name": "Widget Pro", "quantity": 2, "price": 49.99 }],
     "shippingAddress": { "street": "123 Main St", "city": "Austin", "zip": "78701" }
   }
 }
@@ -240,10 +240,10 @@ interface AccountEvent {
 }
 
 const events: AccountEvent[] = [
-  { type: 'opened',   amount: 0,    timestamp: '2025-01-01T10:00:00Z' },
+  { type: 'opened', amount: 0, timestamp: '2025-01-01T10:00:00Z' },
   { type: 'deposited', amount: 100, timestamp: '2025-01-02T09:00:00Z' },
-  { type: 'withdrew',  amount: 30,  timestamp: '2025-01-03T14:00:00Z' },
-  { type: 'withdrew',  amount: 20,  timestamp: '2025-01-05T11:00:00Z' },
+  { type: 'withdrew', amount: 30, timestamp: '2025-01-03T14:00:00Z' },
+  { type: 'withdrew', amount: 20, timestamp: '2025-01-05T11:00:00Z' },
 ];
 
 // Rebuild current state by replaying all events
@@ -251,9 +251,12 @@ function rebuildState(events: AccountEvent[]): number {
   return events.reduce((balance, event) => {
     switch (event.type) {
       case 'opened':
-      case 'deposited': return balance + event.amount;
-      case 'withdrew':  return balance - event.amount;
-      default:          return balance;
+      case 'deposited':
+        return balance + event.amount;
+      case 'withdrew':
+        return balance - event.amount;
+      default:
+        return balance;
     }
   }, 0);
 }
@@ -263,12 +266,12 @@ console.log(`Current balance: $${rebuildState(events)}`); // $50
 
 **Key concepts:**
 
-| Concept | Description |
-| --- | --- |
-| **Event Store** | Append-only database of events (EventStoreDB, Kafka, PostgreSQL) |
-| **Snapshot** | Periodic state snapshot to avoid replaying all events from the beginning |
-| **Projection** | A read model built from events (e.g., current balance, monthly statement) |
-| **Replay** | Rebuild state by re-processing events — great for bug fixes and new features |
+| Concept         | Description                                                                  |
+| --------------- | ---------------------------------------------------------------------------- |
+| **Event Store** | Append-only database of events (EventStoreDB, Kafka, PostgreSQL)             |
+| **Snapshot**    | Periodic state snapshot to avoid replaying all events from the beginning     |
+| **Projection**  | A read model built from events (e.g., current balance, monthly statement)    |
+| **Replay**      | Rebuild state by re-processing events — great for bug fixes and new features |
 
 - **Pros**: Full audit trail, temporal queries ("what was the balance on Tuesday?"), easy debugging
 - **Cons**: Complex; eventual consistency; snapshots needed for performance; unfamiliar to many devs
@@ -296,17 +299,17 @@ graph TD
 
 **Why separate?**
 
-| Aspect | Command Side (Write) | Query Side (Read) |
-| --- | --- | --- |
-| **Goal** | Enforce business rules, maintain consistency | Optimize for fast, flexible reads |
-| **Database** | Normalized, relational (or Event Store) | Denormalized, materialized views, NoSQL |
-| **Model** | Domain model, aggregates | Read model, DTOs, flattened structures |
-| **Scaling** | Scale by business capability | Scale based on read load, add replicas |
+| Aspect       | Command Side (Write)                         | Query Side (Read)                       |
+| ------------ | -------------------------------------------- | --------------------------------------- |
+| **Goal**     | Enforce business rules, maintain consistency | Optimize for fast, flexible reads       |
+| **Database** | Normalized, relational (or Event Store)      | Denormalized, materialized views, NoSQL |
+| **Model**    | Domain model, aggregates                     | Read model, DTOs, flattened structures  |
+| **Scaling**  | Scale by business capability                 | Scale based on read load, add replicas  |
 
 ```typescript
 // Command side — enforces rules
 async function placeOrder(command: PlaceOrderCommand): Promise<void> {
-  const order = Order.create(command);          // Domain logic, validation
+  const order = Order.create(command); // Domain logic, validation
   await eventStore.save(order.getUncommittedEvents());
   await eventBus.publish(order.getUncommittedEvents());
 }
@@ -355,14 +358,14 @@ Events are long-lived contracts. An event published today might be consumed by s
 
 ### Schema Design Principles
 
-| Principle | Explanation |
-| --- | --- |
-| **Use a schema registry** | Centralize schema definitions (Confluent Schema Registry, AWS Glue, Apollo GraphQL) |
-| **Prefer Avro / Protobuf / JSON Schema** | Binary formats (Avro, Protobuf) save space; JSON Schema is human-readable |
-| **Never delete fields** | Mark as deprecated instead — old consumers may depend on them |
-| **Never change field types** | `string` → `number` breaks everything. Add a new field instead |
-| **Additive changes only** | New fields are safe; renaming, removing, or re-typing fields is breaking |
-| **Include schema version** | Every event must carry its schema version: `"schemaVersion": "1.2.0"` |
+| Principle                                | Explanation                                                                         |
+| ---------------------------------------- | ----------------------------------------------------------------------------------- |
+| **Use a schema registry**                | Centralize schema definitions (Confluent Schema Registry, AWS Glue, Apollo GraphQL) |
+| **Prefer Avro / Protobuf / JSON Schema** | Binary formats (Avro, Protobuf) save space; JSON Schema is human-readable           |
+| **Never delete fields**                  | Mark as deprecated instead — old consumers may depend on them                       |
+| **Never change field types**             | `string` → `number` breaks everything. Add a new field instead                      |
+| **Additive changes only**                | New fields are safe; renaming, removing, or re-typing fields is breaking            |
+| **Include schema version**               | Every event must carry its schema version: `"schemaVersion": "1.2.0"`               |
 
 ### Avro Schema Example (with Confluent Schema Registry)
 
@@ -374,10 +377,10 @@ Events are long-lived contracts. An event published today might be consumed by s
   "namespace": "com.example.orders",
   "version": "1",
   "fields": [
-    { "name": "orderId",    "type": "string" },
+    { "name": "orderId", "type": "string" },
     { "name": "customerId", "type": "string" },
-    { "name": "total",      "type": "double" },
-    { "name": "items",      "type": { "type": "array", "items": "string" } }
+    { "name": "total", "type": "double" },
+    { "name": "items", "type": { "type": "array", "items": "string" } }
   ]
 }
 ```
@@ -393,16 +396,17 @@ const producer = kafka.producer();
 
 await producer.connect();
 
-const avroMessage = await registry.encode(1001, {  // schema ID
+const avroMessage = await registry.encode(1001, {
+  // schema ID
   orderId: 'ord_7821',
   customerId: 'cust_4491',
-  total: 124.50,
-  items: ['prd_001', 'prd_002']
+  total: 124.5,
+  items: ['prd_001', 'prd_002'],
 });
 
 await producer.send({
   topic: 'order.placed',
-  messages: [{ key: 'ord_7821', value: avroMessage }]
+  messages: [{ key: 'ord_7821', value: avroMessage }],
 });
 ```
 
@@ -417,15 +421,15 @@ await producer.send({
 
 **Compatibility matrix:**
 
-| Change | Backward | Forward | Full |
-| --- | :---: | :---: | :---: |
-| Add optional field | ✅ | ✅ | ✅ |
-| Add required field | ✅ | ❌ | ❌ |
-| Remove optional field | ✅ | ❌ | ❌ |
-| Remove required field | ❌ | ❌ | ❌ |
-| Change field type | ❌ | ❌ | ❌ |
-| Rename field | ❌ | ❌ | ❌ |
-| Add default value | ✅ | ✅ | ✅ |
+| Change                | Backward | Forward | Full |
+| --------------------- | :------: | :-----: | :--: |
+| Add optional field    |    ✅    |   ✅    |  ✅  |
+| Add required field    |    ✅    |   ❌    |  ❌  |
+| Remove optional field |    ✅    |   ❌    |  ❌  |
+| Remove required field |    ❌    |   ❌    |  ❌  |
+| Change field type     |    ❌    |   ❌    |  ❌  |
+| Rename field          |    ❌    |   ❌    |  ❌  |
+| Add default value     |    ✅    |   ✅    |  ✅  |
 
 ### Handling Breaking Changes
 
@@ -456,11 +460,11 @@ async function publishOrderPlaced(order: Order): Promise<void> {
 
 How many times can a consumer expect to receive a given event? The answer depends on the broker, configuration, and consumer implementation.
 
-| Semantic | Meaning | Guarantee |
-| --- | --- | --- |
-| **At-most-once** | Event delivered 0 or 1 time | No duplicates, but events may be lost |
+| Semantic          | Meaning                         | Guarantee                                                       |
+| ----------------- | ------------------------------- | --------------------------------------------------------------- |
+| **At-most-once**  | Event delivered 0 or 1 time     | No duplicates, but events may be lost                           |
 | **At-least-once** | Event delivered 1 or more times | No data loss, but duplicates possible (default in most systems) |
-| **Exactly-once** | Event delivered exactly 1 time | No loss, no duplicates — the holy grail, but expensive |
+| **Exactly-once**  | Event delivered exactly 1 time  | No loss, no duplicates — the holy grail, but expensive          |
 
 ### At-Least-Once in Practice
 
@@ -486,6 +490,7 @@ sequenceDiagram
 ### Kafka Exactly-Once Semantics (EOS)
 
 Kafka supports exactly-once through a combination of:
+
 - **Idempotent producers**: Producer assigns a sequence number; broker deduplicates
 - **Transactions**: Atomic writes across multiple topic-partitions
 - **Read-Committed isolation**: Consumers only see committed (non-aborted) messages
@@ -493,9 +498,9 @@ Kafka supports exactly-once through a combination of:
 ```typescript
 // Kafka exactly-once producer
 const producer = kafka.producer({
-  idempotent: true,              // Enable idempotent producer
-  transactionalId: 'order-txn',  // Unique per producer instance
-  maxInFlightRequests: 5,        // Must be ≤ 5 for idempotent producer
+  idempotent: true, // Enable idempotent producer
+  transactionalId: 'order-txn', // Unique per producer instance
+  maxInFlightRequests: 5, // Must be ≤ 5 for idempotent producer
 });
 
 await producer.connect();
@@ -536,7 +541,11 @@ An **idempotent consumer** can process the same event multiple times without cha
 async function isDuplicate(eventId: string): Promise<boolean> {
   // SET NX returns OK only if the key didn't exist
   const result = await redis.set(
-    `processed:${eventId}`, '1', 'NX', 'EX', 86400 // 24h TTL
+    `processed:${eventId}`,
+    '1',
+    'NX',
+    'EX',
+    86400, // 24h TTL
   );
   return result !== 'OK'; // 'OK' means first time; null means duplicate
 }
@@ -582,8 +591,8 @@ async function applyPayment(event: PaymentAppliedEvent): Promise<void> {
 // Replaying events is safe if your projections use upsert
 async function projectOrderPlaced(event: OrderPlaced): Promise<void> {
   await db.orderProjections.upsert(
-    { orderId: event.data.orderId },  // unique key
-    { $set: { customerId: event.data.customerId, total: event.data.total, status: 'placed' } }
+    { orderId: event.data.orderId }, // unique key
+    { $set: { customerId: event.data.customerId, total: event.data.total, status: 'placed' } },
   );
 }
 ```
@@ -639,19 +648,20 @@ graph LR
 
 ### Choosing a Partition Key
 
-| Scenario | Partition Key | Rationale |
-| --- | --- | --- |
-| Order events for one order | `orderId` | All events for `ord_7821` stay ordered |
-| User activity feed | `userId` | All events for one user are in order |
-| Inventory updates per warehouse | `warehouseId` | Stock changes per location stay ordered |
-| Global ordering needed | Single partition | **Don't do this** — kills parallelism. Consider different design |
-| No ordering needed | Random / round-robin | Maximises parallelism across partitions |
+| Scenario                        | Partition Key        | Rationale                                                        |
+| ------------------------------- | -------------------- | ---------------------------------------------------------------- |
+| Order events for one order      | `orderId`            | All events for `ord_7821` stay ordered                           |
+| User activity feed              | `userId`             | All events for one user are in order                             |
+| Inventory updates per warehouse | `warehouseId`        | Stock changes per location stay ordered                          |
+| Global ordering needed          | Single partition     | **Don't do this** — kills parallelism. Consider different design |
+| No ordering needed              | Random / round-robin | Maximises parallelism across partitions                          |
 
 ### Handling Out-of-Order Events
 
 Sometimes events arrive out of order (multiple producers, network delays). Strategies:
 
 **1. Sequence numbers in the event:**
+
 ```typescript
 // Consumer maintains last processed sequence per aggregate
 async function handleEvent(event: OrderEvent): Promise<void> {
@@ -665,6 +675,7 @@ async function handleEvent(event: OrderEvent): Promise<void> {
 ```
 
 **2. Buffering and reordering:**
+
 ```typescript
 // Buffer events for a short window, then process in order
 class ReorderBuffer {
@@ -682,7 +693,7 @@ class ReorderBuffer {
 
   private flush(key: string): void {
     const events = this.buffer.get(key) || [];
-    events.forEach(e => consumer.process(e));
+    events.forEach((e) => consumer.process(e));
     this.buffer.delete(key);
   }
 }
@@ -714,6 +725,7 @@ graph TD
 ```
 
 **Key rules:**
+
 - Each partition is assigned to **exactly one** consumer per consumer group
 - One consumer can handle **multiple** partitions
 - Adding consumers beyond the partition count does nothing (they idle)
@@ -725,22 +737,22 @@ graph TD
 
 Choosing the right broker depends on your throughput, latency, ordering, and operational requirements.
 
-| Criteria | Apache Kafka | RabbitMQ | NATS | AWS EventBridge | Redis Streams |
-| --- | --- | --- | --- | --- | --- |
-| **Type** | Distributed log | Message queue (AMQP) | Message-oriented middleware | Serverless event bus | In-memory data structure |
-| **Throughput** | 🏆 Extremely high (millions msg/s) | High (tens of thousands msg/s) | Very high (millions msg/s) | Moderate (varies) | High (hundreds of thousands msg/s) |
-| **Latency** | Low (ms) | Very low (sub-ms) | Ultra-low (μs) | Moderate (10-100ms) | Very low (sub-ms) |
-| **Persistence** | Disk (log segments, configurable retention) | Disk or in-memory | In-memory (JetStream for persistence) | Serverless (fully managed) | Disk (append-only) or in-memory |
-| **Ordering** | Per partition ✅ | Per queue ✅ | Per subject (JetStream) ✅ | Per event bus ❌ | Per stream ✅ |
-| **Replay** | ✅ Built in (seek to offset) | ❌ Not supported | ✅ JetStream | ❌ Archived events only | ✅ By ID or time |
-| **Push/Pull** | Pull-based (consumer polls) | Push-based (broker pushes) | Push and Pull | Push-based (targets rules) | Pull-based |
-| **Exactly-once** | ✅ Transactions | ❌ (at-least-once) | ❌ (at-least-once) | ❌ (at-least-once) | ❌ (at-least-once) |
-| **Protocol** | Custom binary | AMQP 0-9-1 | NATS protocol (text) | HTTP / custom | Redis protocol |
-| **Routing** | Topic → Partition | Exchange → Queue (flexible bindings) | Subject-based (wildcards) | Event pattern matching | Consumer groups |
-| **Dead Letter** | Manual (separate topic) | ✅ Built-in (DLX) | ✅ JetStream | ✅ Built-in | Manual (separate stream) |
-| **Scale Model** | Add brokers (horizontal) | Add nodes (clustering) | Add nodes (clustering) | Serverless (auto) | Add nodes (clustering) |
-| **Operational Complexity** | 🔴 High (ZooKeeper/KRaft, tuning) | 🟡 Medium | 🟢 Low | 🟢 Lowest (serverless) | 🟡 Medium |
-| **Best For** | Event sourcing, high-throughput pipelines, streaming | Task queues, RPC, complex routing, low-latency | IoT, edge, service mesh, low-latency messaging | AWS-native serverless, SaaS integrations | Lightweight Kafka alternative, caching + streaming |
+| Criteria                   | Apache Kafka                                         | RabbitMQ                                       | NATS                                           | AWS EventBridge                          | Redis Streams                                      |
+| -------------------------- | ---------------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------- | -------------------------------------------------- |
+| **Type**                   | Distributed log                                      | Message queue (AMQP)                           | Message-oriented middleware                    | Serverless event bus                     | In-memory data structure                           |
+| **Throughput**             | 🏆 Extremely high (millions msg/s)                   | High (tens of thousands msg/s)                 | Very high (millions msg/s)                     | Moderate (varies)                        | High (hundreds of thousands msg/s)                 |
+| **Latency**                | Low (ms)                                             | Very low (sub-ms)                              | Ultra-low (μs)                                 | Moderate (10-100ms)                      | Very low (sub-ms)                                  |
+| **Persistence**            | Disk (log segments, configurable retention)          | Disk or in-memory                              | In-memory (JetStream for persistence)          | Serverless (fully managed)               | Disk (append-only) or in-memory                    |
+| **Ordering**               | Per partition ✅                                     | Per queue ✅                                   | Per subject (JetStream) ✅                     | Per event bus ❌                         | Per stream ✅                                      |
+| **Replay**                 | ✅ Built in (seek to offset)                         | ❌ Not supported                               | ✅ JetStream                                   | ❌ Archived events only                  | ✅ By ID or time                                   |
+| **Push/Pull**              | Pull-based (consumer polls)                          | Push-based (broker pushes)                     | Push and Pull                                  | Push-based (targets rules)               | Pull-based                                         |
+| **Exactly-once**           | ✅ Transactions                                      | ❌ (at-least-once)                             | ❌ (at-least-once)                             | ❌ (at-least-once)                       | ❌ (at-least-once)                                 |
+| **Protocol**               | Custom binary                                        | AMQP 0-9-1                                     | NATS protocol (text)                           | HTTP / custom                            | Redis protocol                                     |
+| **Routing**                | Topic → Partition                                    | Exchange → Queue (flexible bindings)           | Subject-based (wildcards)                      | Event pattern matching                   | Consumer groups                                    |
+| **Dead Letter**            | Manual (separate topic)                              | ✅ Built-in (DLX)                              | ✅ JetStream                                   | ✅ Built-in                              | Manual (separate stream)                           |
+| **Scale Model**            | Add brokers (horizontal)                             | Add nodes (clustering)                         | Add nodes (clustering)                         | Serverless (auto)                        | Add nodes (clustering)                             |
+| **Operational Complexity** | 🔴 High (ZooKeeper/KRaft, tuning)                    | 🟡 Medium                                      | 🟢 Low                                         | 🟢 Lowest (serverless)                   | 🟡 Medium                                          |
+| **Best For**               | Event sourcing, high-throughput pipelines, streaming | Task queues, RPC, complex routing, low-latency | IoT, edge, service mesh, low-latency messaging | AWS-native serverless, SaaS integrations | Lightweight Kafka alternative, caching + streaming |
 
 ### Detailed Profiles
 
@@ -780,7 +792,7 @@ services:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin
     ports:
-      - '5672:5672'   # AMQP
+      - '5672:5672' # AMQP
       - '15672:15672' # Management UI
 ```
 
@@ -861,15 +873,15 @@ graph TD
         style SS2 fill:#16213e,stroke:#e94560,color:#fff
 ```
 
-| Aspect | Choreography | Orchestration |
-| --- | --- | --- |
-| **Control** | Decentralized — each service knows its next step | Centralized — orchestrator manages the workflow |
-| **Coupling** | Low at runtime, but services must agree on event contracts | Orchestrator couples to each service's API |
-| **Visibility** | Hard to understand the full flow (events everywhere) | Central place to see workflow status |
+| Aspect               | Choreography                                                     | Orchestration                                            |
+| -------------------- | ---------------------------------------------------------------- | -------------------------------------------------------- |
+| **Control**          | Decentralized — each service knows its next step                 | Centralized — orchestrator manages the workflow          |
+| **Coupling**         | Low at runtime, but services must agree on event contracts       | Orchestrator couples to each service's API               |
+| **Visibility**       | Hard to understand the full flow (events everywhere)             | Central place to see workflow status                     |
 | **Failure handling** | Each service handles its own compensations; complex coordination | Orchestrator manages retries and compensations centrally |
-| **Complexity** | Simple for 2-3 steps; exponential growth with more steps | Linear growth — orchestrator complexity grows with steps |
-| **Testing** | Harder — need to test event chains | Easier — orchestrator can be tested in isolation |
-| **Best for** | Simple, linear flows with few services | Complex workflows, branching logic, human-in-the-loop |
+| **Complexity**       | Simple for 2-3 steps; exponential growth with more steps         | Linear growth — orchestrator complexity grows with steps |
+| **Testing**          | Harder — need to test event chains                               | Easier — orchestrator can be tested in isolation         |
+| **Best for**         | Simple, linear flows with few services                           | Complex workflows, branching logic, human-in-the-loop    |
 
 ### Choreography Example (Kafka)
 
@@ -889,13 +901,20 @@ async function handleOrderPlaced(event: OrderPlaced): Promise<void> {
     const payment = await paymentGateway.charge(event.data.total);
     await producer.send({
       topic: 'payment.processed',
-      messages: [{ key: event.data.orderId, value: JSON.stringify({ ...event, paymentId: payment.id }) }],
+      messages: [
+        { key: event.data.orderId, value: JSON.stringify({ ...event, paymentId: payment.id }) },
+      ],
     });
   } catch (error) {
     // Compensating action — nothing to undo yet, just publish failure
     await producer.send({
       topic: 'payment.failed',
-      messages: [{ key: event.data.orderId, value: JSON.stringify({ orderId: event.data.orderId, reason: error.message }) }],
+      messages: [
+        {
+          key: event.data.orderId,
+          value: JSON.stringify({ orderId: event.data.orderId, reason: error.message }),
+        },
+      ],
     });
   }
 }
@@ -954,7 +973,6 @@ async function processSaga(saga: SagaInstance): Promise<void> {
 
     saga.state = 'shipped';
     await saveSaga(saga);
-
   } catch (error) {
     logger.error({ sagaId: saga.sagaId, error }, 'Saga failed — running compensations');
     saga.state = 'failed';
@@ -965,7 +983,10 @@ async function processSaga(saga: SagaInstance): Promise<void> {
       try {
         await compensation();
       } catch (compError) {
-        logger.error({ sagaId: saga.sagaId, compError }, 'Compensation failed — manual intervention required');
+        logger.error(
+          { sagaId: saga.sagaId, compError },
+          'Compensation failed — manual intervention required',
+        );
         // Write to dead-letter / alert ops team
       }
     }
@@ -975,13 +996,13 @@ async function processSaga(saga: SagaInstance): Promise<void> {
 
 ### Saga Failure Modes
 
-| Failure | Mitigation |
-| --- | --- |
-| **Compensation also fails** | Retry with backoff; eventually escalate to DLT and alert a human |
-| **Orchestrator crashes** | Persist saga state in a database; restart from last checkpoint |
-| **Duplicate saga execution** | Use unique saga ID; make all steps idempotent |
-| **Event lost between steps** | Use persistent broker; implement saga timeout and resend |
-| **Stuck saga** | Implement saga timeout — if saga isn't completed in N minutes, run compensations |
+| Failure                      | Mitigation                                                                       |
+| ---------------------------- | -------------------------------------------------------------------------------- |
+| **Compensation also fails**  | Retry with backoff; eventually escalate to DLT and alert a human                 |
+| **Orchestrator crashes**     | Persist saga state in a database; restart from last checkpoint                   |
+| **Duplicate saga execution** | Use unique saga ID; make all steps idempotent                                    |
+| **Event lost between steps** | Use persistent broker; implement saga timeout and resend                         |
+| **Stuck saga**               | Implement saga timeout — if saga isn't completed in N minutes, run compensations |
 
 ---
 
@@ -1060,14 +1081,18 @@ async function placeOrder(cmd: PlaceOrderCommand): Promise<void> {
     // Business operation
     const order = await client.query(
       'INSERT INTO orders (customer_id, total, status) VALUES ($1, $2, $3) RETURNING id',
-      [cmd.customerId, cmd.total, 'placed']
+      [cmd.customerId, cmd.total, 'placed'],
     );
     const orderId = order.rows[0].id;
 
     // Outbox event — same transaction!
     await client.query(
       'INSERT INTO outbox (event_type, aggregate_id, payload) VALUES ($1, $2, $3)',
-      ['order.placed', orderId, JSON.stringify({ orderId, customerId: cmd.customerId, total: cmd.total })]
+      [
+        'order.placed',
+        orderId,
+        JSON.stringify({ orderId, customerId: cmd.customerId, total: cmd.total }),
+      ],
     );
 
     await client.query('COMMIT');
@@ -1103,17 +1128,19 @@ async function pollOutbox(): Promise<void> {
          WHERE published = FALSE
          ORDER BY id
          LIMIT 100
-         FOR UPDATE SKIP LOCKED`
+         FOR UPDATE SKIP LOCKED`,
       );
 
       for (const row of rows) {
         await producer.send({
           topic: row.event_type,
-          messages: [{
-            key: row.aggregate_id,
-            value: row.payload,
-            headers: { 'message-id': `outbox-${row.id}` },
-          }],
+          messages: [
+            {
+              key: row.aggregate_id,
+              value: row.payload,
+              headers: { 'message-id': `outbox-${row.id}` },
+            },
+          ],
         });
 
         // Delete published event (or mark as published and clean up later)
@@ -1133,11 +1160,11 @@ async function pollOutbox(): Promise<void> {
 
 ### Outbox Variants
 
-| Variant | Description | Best For |
-| --- | --- | --- |
-| **Polling publisher** | Application polls outbox table on interval | Simple, works with any DB |
+| Variant                       | Description                                               | Best For                                  |
+| ----------------------------- | --------------------------------------------------------- | ----------------------------------------- |
+| **Polling publisher**         | Application polls outbox table on interval                | Simple, works with any DB                 |
 | **CDC (Change Data Capture)** | Use Debezium to tail the DB WAL; publish changes to Kafka | Zero code, low latency, needs CDC tooling |
-| **Transactional log tailing** | Kafka Connect JDBC connector reads outbox table | Kafka-native, no custom relay code |
+| **Transactional log tailing** | Kafka Connect JDBC connector reads outbox table           | Kafka-native, no custom relay code        |
 
 ### Outbox Gotchas
 
@@ -1201,31 +1228,35 @@ async function startConsumer(): Promise<void> {
           logger.error({ event, retryCount, error }, 'Moving to dead letter topic');
           await dlqProducer.send({
             topic: 'order.placed.dlt',
-            messages: [{
-              key: message.key!,
-              value: message.value!,
-              headers: {
-                ...message.headers,
-                'original-topic': topic,
-                'error-message': error.message,
-                'dead-lettered-at': new Date().toISOString(),
+            messages: [
+              {
+                key: message.key!,
+                value: message.value!,
+                headers: {
+                  ...message.headers,
+                  'original-topic': topic,
+                  'error-message': error.message,
+                  'dead-lettered-at': new Date().toISOString(),
+                },
               },
-            }],
+            ],
           });
         } else {
           // Retry — publish back with incremented retry count and delay
           logger.warn({ eventId: event.id, retryCount, error }, 'Retrying event');
           await dlqProducer.send({
             topic: `order.placed.retry.${retryCount + 1}`,
-            messages: [{
-              key: message.key!,
-              value: message.value!,
-              headers: {
-                ...message.headers,
-                'retry-count': String(retryCount + 1),
-                'original-topic': topic,
+            messages: [
+              {
+                key: message.key!,
+                value: message.value!,
+                headers: {
+                  ...message.headers,
+                  'retry-count': String(retryCount + 1),
+                  'original-topic': topic,
+                },
               },
-            }],
+            ],
           });
         }
       }
@@ -1248,11 +1279,13 @@ async function setupRetryConsumers(): Promise<void> {
         const originalTopic = message.headers?.['original-topic']?.toString() || 'order.placed';
         await dlqProducer.send({
           topic: originalTopic,
-          messages: [{
-            key: message.key!,
-            value: message.value!,
-            headers: message.headers,
-          }],
+          messages: [
+            {
+              key: message.key!,
+              value: message.value!,
+              headers: message.headers,
+            },
+          ],
         });
       },
     });
@@ -1262,14 +1295,14 @@ async function setupRetryConsumers(): Promise<void> {
 
 ### DLT Best Practices
 
-| Practice | Description |
-| --- | --- |
-| **Alert on DLT** | Every event in DLT should trigger an alert — something is broken |
-| **Preserve headers** | Store original topic, partition, offset, error message, timestamp |
-| **Replay capability** | Build a tool to re-drive DLT events back to the original topic after fixing the bug |
-| **Monitor DLT depth** | A growing DLT is a symptom of a systemic issue |
-| **TTL for DLT** | Auto-delete events after N days to avoid unbounded storage |
-| **Separate DLT per topic** | `order.placed.dlt`, `payment.processed.dlt` — easier to diagnose |
+| Practice                   | Description                                                                         |
+| -------------------------- | ----------------------------------------------------------------------------------- |
+| **Alert on DLT**           | Every event in DLT should trigger an alert — something is broken                    |
+| **Preserve headers**       | Store original topic, partition, offset, error message, timestamp                   |
+| **Replay capability**      | Build a tool to re-drive DLT events back to the original topic after fixing the bug |
+| **Monitor DLT depth**      | A growing DLT is a symptom of a systemic issue                                      |
+| **TTL for DLT**            | Auto-delete events after N days to avoid unbounded storage                          |
+| **Separate DLT per topic** | `order.placed.dlt`, `payment.processed.dlt` — easier to diagnose                    |
 
 ---
 
@@ -1427,15 +1460,16 @@ router.post('/orders', async (req: Request, res: Response) => {
     await client.query('BEGIN');
 
     // Business write
-    await client.query(
-      'INSERT INTO orders (id, customer_id, total) VALUES ($1, $2, $3)',
-      [orderId, customerId, total]
-    );
+    await client.query('INSERT INTO orders (id, customer_id, total) VALUES ($1, $2, $3)', [
+      orderId,
+      customerId,
+      total,
+    ]);
 
     // Outbox write — atomic with the above
     await client.query(
       'INSERT INTO outbox (event_type, aggregate_id, payload) VALUES ($1, $2, $3)',
-      [event.type, orderId, JSON.stringify(event)]
+      [event.type, orderId, JSON.stringify(event)],
     );
 
     await client.query('COMMIT');
@@ -1479,12 +1513,13 @@ export async function startOutboxRelay(): Promise<void> {
            LIMIT 100
            FOR UPDATE SKIP LOCKED
          )
-         RETURNING *`
+         RETURNING *`,
       );
 
       if (rows.length > 0) {
         const messages = rows.map((row: any) => {
-          const payload = typeof row.payload === 'string' ? row.payload : JSON.stringify(row.payload);
+          const payload =
+            typeof row.payload === 'string' ? row.payload : JSON.stringify(row.payload);
           return {
             key: row.aggregate_id,
             value: payload,
@@ -1555,19 +1590,20 @@ export async function startPaymentConsumer(): Promise<void> {
         // ── Publish success event ──
         await dlq.send({
           topic: 'payment.processed',
-          messages: [{
-            key: event.data.orderId,
-            value: JSON.stringify({
-              id: `evt_${Date.now()}`,
-              type: 'payment.processed',
-              source: 'payment-service',
-              schemaVersion: '1.0.0',
-              timestamp: new Date().toISOString(),
-              data: { orderId: event.data.orderId, paymentId: paymentResult.id },
-            }),
-          }],
+          messages: [
+            {
+              key: event.data.orderId,
+              value: JSON.stringify({
+                id: `evt_${Date.now()}`,
+                type: 'payment.processed',
+                source: 'payment-service',
+                schemaVersion: '1.0.0',
+                timestamp: new Date().toISOString(),
+                data: { orderId: event.data.orderId, paymentId: paymentResult.id },
+              }),
+            },
+          ],
         });
-
       } catch (error: any) {
         console.error(`❌ Error processing ${messageId}:`, error.message);
 
@@ -1575,31 +1611,35 @@ export async function startPaymentConsumer(): Promise<void> {
           // ── Dead letter ──
           await dlq.send({
             topic: 'order.placed.dlt',
-            messages: [{
-              key: message.key!,
-              value: message.value!,
-              headers: {
-                ...message.headers,
-                'retry-count': String(retryCount),
-                'original-topic': 'order.placed',
-                'error': error.message,
-                'dead-lettered-at': new Date().toISOString(),
+            messages: [
+              {
+                key: message.key!,
+                value: message.value!,
+                headers: {
+                  ...message.headers,
+                  'retry-count': String(retryCount),
+                  'original-topic': 'order.placed',
+                  error: error.message,
+                  'dead-lettered-at': new Date().toISOString(),
+                },
               },
-            }],
+            ],
           });
           console.log(`💀 Sent to DLT: ${messageId}`);
         } else {
           // ── Retry ──
           await dlq.send({
             topic: 'order.placed',
-            messages: [{
-              key: message.key!,
-              value: message.value!,
-              headers: {
-                ...message.headers,
-                'retry-count': String(retryCount + 1),
+            messages: [
+              {
+                key: message.key!,
+                value: message.value!,
+                headers: {
+                  ...message.headers,
+                  'retry-count': String(retryCount + 1),
+                },
               },
-            }],
+            ],
           });
           console.log(`🔁 Retry ${retryCount + 1}/${MAX_RETRIES}: ${messageId}`);
         }
@@ -1635,10 +1675,7 @@ export async function startPaymentFailedConsumer(): Promise<void> {
       const orderId = event.data.orderId;
 
       // Compensating action: mark order as failed
-      await pool.query(
-        'UPDATE orders SET status = $1 WHERE id = $2',
-        ['payment_failed', orderId]
-      );
+      await pool.query('UPDATE orders SET status = $1 WHERE id = $2', ['payment_failed', orderId]);
 
       console.log(`🔙 Compensation: Order ${orderId} marked as payment_failed`);
     },
@@ -1654,12 +1691,12 @@ Testing event-driven systems requires a different approach than testing REST API
 
 ### Testing Strategies
 
-| Level | What to test | Tools |
-| --- | --- | --- |
-| **Unit test** | Consumer/producer logic in isolation (mock broker) | Jest, Vitest, Sinon |
-| **Integration test** | Real broker (Testcontainers Kafka), real DB | Testcontainers, Docker Compose |
-| **End-to-end** | Full saga workflow across multiple services | Docker Compose, wait-for-expect |
-| **Chaos test** | Network partitions, broker restarts, consumer crashes | Toxiproxy, Chaos Mesh |
+| Level                | What to test                                          | Tools                           |
+| -------------------- | ----------------------------------------------------- | ------------------------------- |
+| **Unit test**        | Consumer/producer logic in isolation (mock broker)    | Jest, Vitest, Sinon             |
+| **Integration test** | Real broker (Testcontainers Kafka), real DB           | Testcontainers, Docker Compose  |
+| **End-to-end**       | Full saga workflow across multiple services           | Docker Compose, wait-for-expect |
+| **Chaos test**       | Network partitions, broker restarts, consumer crashes | Toxiproxy, Chaos Mesh           |
 
 ### Integration Test Example (Testcontainers + Kafka)
 
@@ -1712,11 +1749,11 @@ describe('Order Processing Integration', () => {
     await pool.query(
       `INSERT INTO outbox (event_type, aggregate_id, payload)
        VALUES ($1, $2, $3)`,
-      ['order.placed', 'ord_test', JSON.stringify({ orderId: 'ord_test', total: 100 })]
+      ['order.placed', 'ord_test', JSON.stringify({ orderId: 'ord_test', total: 100 })],
     );
 
     // Wait for outbox relay to publish
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     // Assert
     expect(receivedEvents.length).toBeGreaterThanOrEqual(1);
@@ -1735,19 +1772,19 @@ Event-driven systems need monitoring across all layers — brokers, producers, c
 
 ### Key Metrics
 
-| Layer | Metric | Why it matters |
-| --- | --- | --- |
-| **Broker** | Bytes in/out per second | Throughput monitoring |
-| **Broker** | Under-replicated partitions | Data loss risk |
-| **Broker** | Active controller count | Should always be exactly 1 |
-| **Producer** | Record send rate | Is the producer healthy? |
-| **Producer** | Record error rate | Network issues, broker unavailable |
-| **Producer** | Request latency (p95, p99) | Broker performance |
-| **Consumer** | Records consumed rate | Is the consumer keeping up? |
-| **Consumer** | Consumer lag | **Most critical** — are consumers falling behind? |
-| **Consumer** | Processing error rate | Bugs, downstream failures |
-| **Consumer** | DLT depth | Unprocessable events accumulating |
-| **Event** | End-to-end latency | Time from production to consumption completion |
+| Layer        | Metric                      | Why it matters                                    |
+| ------------ | --------------------------- | ------------------------------------------------- |
+| **Broker**   | Bytes in/out per second     | Throughput monitoring                             |
+| **Broker**   | Under-replicated partitions | Data loss risk                                    |
+| **Broker**   | Active controller count     | Should always be exactly 1                        |
+| **Producer** | Record send rate            | Is the producer healthy?                          |
+| **Producer** | Record error rate           | Network issues, broker unavailable                |
+| **Producer** | Request latency (p95, p99)  | Broker performance                                |
+| **Consumer** | Records consumed rate       | Is the consumer keeping up?                       |
+| **Consumer** | Consumer lag                | **Most critical** — are consumers falling behind? |
+| **Consumer** | Processing error rate       | Bugs, downstream failures                         |
+| **Consumer** | DLT depth                   | Unprocessable events accumulating                 |
+| **Event**    | End-to-end latency          | Time from production to consumption completion    |
 
 ### Consumer Lag Alerting
 
@@ -1770,7 +1807,7 @@ async function getConsumerLag(groupId: string, topic: string): Promise<number> {
   let totalLag = 0;
   for (const partition of offsets) {
     const committed = groupOffsets.find(
-      (g: any) => g.topic === topic && g.partition === partition.partition
+      (g: any) => g.topic === topic && g.partition === partition.partition,
     );
     totalLag += parseInt(partition.offset) - parseInt(committed?.offset || '0');
   }
@@ -1790,18 +1827,18 @@ app.get('/health/lag', async (req, res) => {
 
 ## Anti-Patterns
 
-| Anti-Pattern | Why it's bad | What to do instead |
-| --- | --- | --- |
-| **Using events as commands** | "Please do X" — couples producer to consumer's behavior | Events = past facts. Use explicit command messages or RPC for requests |
-| **God events** | One event type for everything (`entity.updated` with all fields) | Small, specific events: `order.placed`, `order.shipped`, `order.cancelled` |
-| **No schema registry** | Producers and consumers go out of sync silently | Use Schema Registry (Confluent, Apicurio) or at least versioned JSON schemas |
-| **Ignoring idempotency** | Duplicate events cause double-charging, double-shipping | Every consumer must handle duplicates — use event ID or natural key dedup |
-| **Single partition (no key)** | All events go to one partition — kills parallelism and throughput | Choose a meaningful partition key that balances load |
-| **No dead letter handling** | One poison pill event blocks the entire consumer group | Always have a DLT and alerting |
-| **No event retention policy** | Disk fills up, broker crashes | Set `retention.bytes` and `retention.ms` based on your replay needs |
-| **Tight coupling via event schemas** | Every schema change requires coordinated deployments | Use backward/forward compatible schemas; never remove fields |
-| **Ignoring consumer lag** | Silent backpressure buildup — consumers fall hours behind | Monitor lag; autoscale consumers; set alerts |
-| **Outbox relay not idempotent** | Same event published twice if relay crashes mid-publish | `DELETE ... RETURNING *` with `SKIP LOCKED`; or CDC-based relay |
+| Anti-Pattern                         | Why it's bad                                                      | What to do instead                                                           |
+| ------------------------------------ | ----------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| **Using events as commands**         | "Please do X" — couples producer to consumer's behavior           | Events = past facts. Use explicit command messages or RPC for requests       |
+| **God events**                       | One event type for everything (`entity.updated` with all fields)  | Small, specific events: `order.placed`, `order.shipped`, `order.cancelled`   |
+| **No schema registry**               | Producers and consumers go out of sync silently                   | Use Schema Registry (Confluent, Apicurio) or at least versioned JSON schemas |
+| **Ignoring idempotency**             | Duplicate events cause double-charging, double-shipping           | Every consumer must handle duplicates — use event ID or natural key dedup    |
+| **Single partition (no key)**        | All events go to one partition — kills parallelism and throughput | Choose a meaningful partition key that balances load                         |
+| **No dead letter handling**          | One poison pill event blocks the entire consumer group            | Always have a DLT and alerting                                               |
+| **No event retention policy**        | Disk fills up, broker crashes                                     | Set `retention.bytes` and `retention.ms` based on your replay needs          |
+| **Tight coupling via event schemas** | Every schema change requires coordinated deployments              | Use backward/forward compatible schemas; never remove fields                 |
+| **Ignoring consumer lag**            | Silent backpressure buildup — consumers fall hours behind         | Monitor lag; autoscale consumers; set alerts                                 |
+| **Outbox relay not idempotent**      | Same event published twice if relay crashes mid-publish           | `DELETE ... RETURNING *` with `SKIP LOCKED`; or CDC-based relay              |
 
 ---
 

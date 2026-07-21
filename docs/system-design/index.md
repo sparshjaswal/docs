@@ -1,5 +1,5 @@
 ---
-title: System Design
+title: "System Design"
 sidebar_position: 1
 description: A structured guide to System Design fundamentals — how to reason about scalability, data, and distributed systems, and how to ace a system design interview.
 keywords:

@@ -1,8 +1,8 @@
 ---
 id: dsa-cryptography-hill-cipher-readme
-title: Hill Cipher
+title: "Hill Cipher"
 slug: /DSA/cryptography/hill-cipher/README
-sidebar_label: Hill Cipher
+sidebar_label: "Hill Cipher"
 ---
 
 # Hill Cipher

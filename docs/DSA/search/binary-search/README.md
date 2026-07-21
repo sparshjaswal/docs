@@ -1,8 +1,8 @@
 ---
 id: dsa-search-binary-search-readme
-title: Binary Search
+title: "Binary Search"
 slug: /DSA/search/binary-search/README
-sidebar_label: Binary Search
+sidebar_label: "Binary Search"
 ---
 
 # Binary Search

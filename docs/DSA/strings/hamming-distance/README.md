@@ -1,8 +1,8 @@
 ---
 id: dsa-strings-hamming-distance-readme
-title: Hamming Distance
+title: "Hamming Distance"
 slug: /DSA/strings/hamming-distance/README
-sidebar_label: Hamming Distance
+sidebar_label: "Hamming Distance"
 ---
 
 # Hamming Distance

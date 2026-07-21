@@ -1,8 +1,8 @@
 ---
 id: dsa-greedy-readme
-title: 💡 Greedy
+title: "💡 Greedy"
 slug: /DSA/greedy/README
-sidebar_label: 💡 Greedy
+sidebar_label: "💡 Greedy"
 ---
 
 # 💡 Greedy

@@ -1,5 +1,5 @@
 ---
-title: Backend Engineering
+title: "Backend Engineering"
 description: Comprehensive guide to backend engineering concepts — Node.js, API design, authentication, caching, message queues, and more.
 keywords:
   - backend engineering
@@ -68,6 +68,7 @@ NestJS is a framework for building efficient, scalable Node.js server-side appli
 REST (Representational State Transfer) is an architectural style for designing networked applications. It relies on stateless, client-server communication — typically over HTTP.
 
 **Key principles:**
+
 - Resources identified by URLs (nouns, not verbs)
 - Standard HTTP methods: GET, POST, PUT, PATCH, DELETE
 - Stateless — each request contains all information needed
@@ -79,6 +80,7 @@ REST (Representational State Transfer) is an architectural style for designing n
 GraphQL is a query language for APIs and a runtime for fulfilling those queries. Unlike REST, clients request exactly the data they need — nothing more, nothing less.
 
 **Key concepts:**
+
 - **Schema**: Defines types and their relationships
 - **Queries**: Read data (equivalent to GET)
 - **Mutations**: Write/update data (equivalent to POST/PUT/PATCH/DELETE)
@@ -124,6 +126,7 @@ Server-side session management stores user state on the server, identified by a 
 Input validation ensures user-provided data meets application requirements before processing. Never trust client input — always validate server-side.
 
 **Common libraries:**
+
 - **Joi** (schema-based, declarative)
 - **Zod** (TypeScript-first, static type inference)
 - **class-validator** (decorator-based, pairs with NestJS)
@@ -135,6 +138,7 @@ Input validation ensures user-provided data meets application requirements befor
 Proper error handling prevents crashes, provides meaningful feedback to clients, and simplifies debugging.
 
 **Best practices:**
+
 - Use structured error responses: `{ error: { code, message, details } }`
 - Distinguish operational errors (expected) from programmer errors (bugs)
 - Centralize error handling with middleware (Express: error-handling middleware with 4 params)
@@ -148,6 +152,7 @@ Proper error handling prevents crashes, provides meaningful feedback to clients,
 Rate limiting controls how many requests a client can make in a given time window, protecting against abuse and ensuring fair resource usage.
 
 **Algorithms:**
+
 - **Token bucket**: Tokens refill at a fixed rate; each request consumes a token
 - **Leaky bucket**: Requests queue; processed at a fixed rate; overflow discarded
 - **Fixed window**: Count requests in fixed time windows (e.g., 100 req/min)
@@ -161,6 +166,7 @@ Rate limiting controls how many requests a client can make in a given time windo
 Logging records events that occur during application execution — essential for debugging, monitoring, and auditing.
 
 **Best practices:**
+
 - Use structured logging (JSON) for machine parsing
 - Log levels: error, warn, info, debug, trace
 - Include correlation IDs to trace requests across services
@@ -174,6 +180,7 @@ Logging records events that occur during application execution — essential for
 Monitoring collects, analyzes, and alerts on metrics to track application health and performance.
 
 **Key areas:**
+
 - **Application metrics**: Request rate, error rate, latency (p50, p95, p99)
 - **System metrics**: CPU, memory, disk, network
 - **Business metrics**: Signups, purchases, active users
@@ -192,6 +199,7 @@ Caching stores copies of frequently accessed data in a faster storage layer, red
 Redis is an in-memory data structure store used as a database, cache, and message broker.
 
 **Common patterns:**
+
 - **Cache-Aside**: App checks cache first; on miss, loads from DB and populates cache
 - **Write-Through**: App writes to cache; cache synchronously writes to DB
 - **Write-Behind**: App writes to cache; cache asynchronously writes to DB
@@ -204,6 +212,7 @@ Redis is an in-memory data structure store used as a database, cache, and messag
 Message queues enable asynchronous communication between services by buffering messages. They decouple producers and consumers, improving reliability and scalability.
 
 **Use cases:**
+
 - Background job processing (send emails, generate reports)
 - Smoothing traffic spikes
 - Retry failed operations with backoff
@@ -218,6 +227,7 @@ Message queues enable asynchronous communication between services by buffering m
 Event-driven architecture uses events to trigger communication between decoupled services. Producers emit events; consumers react to them.
 
 **Key concepts:**
+
 - **Event**: A record of something that happened (immutable fact)
 - **Event bus/broker**: Routes events from producers to consumers
 - **Event sourcing**: State is derived from a sequence of events
@@ -240,6 +250,7 @@ WebSocket is a protocol providing full-duplex communication over a single, long-
 gRPC is a high-performance, open-source RPC framework using Protocol Buffers for serialization and HTTP/2 for transport.
 
 **Advantages over REST:**
+
 - Binary serialization (smaller, faster than JSON)
 - Strongly typed contracts (`.proto` files)
 - Built-in code generation for multiple languages
@@ -253,6 +264,7 @@ gRPC is a high-performance, open-source RPC framework using Protocol Buffers for
 An API gateway acts as a single entry point for all client requests, routing them to appropriate backend services. It sits between clients and microservices.
 
 **Responsibilities:**
+
 - Request routing
 - Authentication and authorization
 - Rate limiting
@@ -269,6 +281,7 @@ An API gateway acts as a single entry point for all client requests, routing the
 The BFF pattern creates a dedicated backend layer for each client type (web, mobile, IoT), tailoring APIs to each client's specific needs rather than forcing a one-size-fits-all API.
 
 **Benefits:**
+
 - Optimize data shape and payload size per client
 - Reduce over-fetching and under-fetching
 - Simplify client-side logic
@@ -281,6 +294,7 @@ The BFF pattern creates a dedicated backend layer for each client type (web, mob
 Service discovery automatically detects services and their instances in a distributed system, enabling services to find and communicate with each other without hardcoded addresses.
 
 **Patterns:**
+
 - **Client-side discovery**: Client queries a service registry, then load-balances across instances
 - **Server-side discovery**: Client sends request to a load balancer, which queries the registry and routes the request
 

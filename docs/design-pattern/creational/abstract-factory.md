@@ -1,8 +1,8 @@
 ---
 id: design-pattern-creational-abstract-factory
-title: Abstract Factory Pattern 🏭🔧
+title: "Abstract Factory Pattern 🏭🔧"
 slug: /design-pattern/creational/abstract-factory
-sidebar_label: Abstract Factory Pattern 🏭🔧
+sidebar_label: "Abstract Factory Pattern 🏭🔧"
 ---
 
 # Abstract Factory Pattern 🏭🔧

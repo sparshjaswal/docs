@@ -1,8 +1,8 @@
 ---
 id: dsa-math-liu-hui-readme
-title: Liu Hui's π Algorithm
+title: "Liu Hui's π Algorithm"
 slug: /DSA/math/liu-hui/README
-sidebar_label: Liu Hui's π Algorithm
+sidebar_label: "Liu Hui's π Algorithm"
 ---
 
 # Liu Hui's π Algorithm

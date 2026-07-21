@@ -1,8 +1,8 @@
 ---
 id: dsa-sets-longest-common-subsequence-readme
-title: Longest common subsequence problem
+title: "Longest common subsequence problem"
 slug: /DSA/sets/longest-common-subsequence/README
-sidebar_label: Longest common subsequence ...
+sidebar_label: "Longest common subsequence ..."
 ---
 
 # Longest common subsequence problem

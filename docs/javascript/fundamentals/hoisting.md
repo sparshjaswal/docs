@@ -1,8 +1,8 @@
 ---
 id: javascript-fundamentals-hoisting
-title: JavaScript Hoisting
+title: "JavaScript Hoisting"
 slug: /javascript/fundamentals/hoisting
-sidebar_label: JavaScript Hoisting
+sidebar_label: "JavaScript Hoisting"
 ---
 
 # JavaScript Hoisting

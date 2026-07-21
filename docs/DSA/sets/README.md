@@ -1,8 +1,8 @@
 ---
 id: dsa-sets-readme
-title: 🧮 Sets & Combinatorics
+title: "🧮 Sets & Combinatorics"
 slug: /DSA/sets/README
-sidebar_label: 🧮 Sets & Combinatorics
+sidebar_label: "🧮 Sets & Combinatorics"
 ---
 
 # 🧮 Sets & Combinatorics

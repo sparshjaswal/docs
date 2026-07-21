@@ -1,5 +1,5 @@
 ---
-title: Caching
+title: "Caching"
 description: Caching strategies, Redis deep-dive, CDN caching, HTTP cache headers — patterns and best practices for high-performance backend systems.
 keywords:
   - caching
@@ -21,13 +21,13 @@ Caching stores copies of frequently accessed data in a faster storage layer, red
 
 ## Why Cache?
 
-| Benefit | Impact |
-| --- | --- |
-| **Reduced latency** | In-memory read is ~100× faster than a database query |
-| **Lower database load** | Fewer queries → more headroom for growth |
-| **Cost savings** | Cache scales cheaper than replicating databases |
+| Benefit                   | Impact                                                         |
+| ------------------------- | -------------------------------------------------------------- |
+| **Reduced latency**       | In-memory read is ~100× faster than a database query           |
+| **Lower database load**   | Fewer queries → more headroom for growth                       |
+| **Cost savings**          | Cache scales cheaper than replicating databases                |
 | **Improved availability** | Stale cache can serve during DB outages (graceful degradation) |
-| **Higher throughput** | Cache handles far more concurrent reads than a relational DB |
+| **Higher throughput**     | Cache handles far more concurrent reads than a relational DB   |
 
 **Where bottlenecks live (typical latencies):**
 
@@ -104,10 +104,7 @@ async function getUser(userId: string): Promise<User> {
 ```typescript
 async function updateUser(userId: string, data: Partial<User>): Promise<User> {
   // 1. Write through to DB
-  const result = await db.query(
-    'UPDATE users SET ... WHERE id = $1 RETURNING *',
-    [userId]
-  );
+  const result = await db.query('UPDATE users SET ... WHERE id = $1 RETURNING *', [userId]);
 
   // 2. Invalidate the cache (let the next read repopulate it)
   await redis.del(`user:${userId}`);
@@ -116,12 +113,12 @@ async function updateUser(userId: string, data: Partial<User>): Promise<User> {
 }
 ```
 
-| Pros | Cons |
-| --- | --- |
-| Simple to implement | Cache misses add latency on first request |
+| Pros                                       | Cons                                         |
+| ------------------------------------------ | -------------------------------------------- |
+| Simple to implement                        | Cache misses add latency on first request    |
 | App has full control over what gets cached | Stale data risk if invalidation is forgotten |
-| Cache failures don't block DB writes | Cold start: empty cache after deployment |
-| Works with any cache technology | |
+| Cache failures don't block DB writes       | Cold start: empty cache after deployment     |
+| Works with any cache technology            |                                              |
 
 ### Read-Through {#read-through}
 
@@ -144,11 +141,11 @@ sequenceDiagram
     end
 ```
 
-| Pros | Cons |
-| --- | --- |
-| App code is simpler — never talks to DB for cached data | Cache must understand how to query the database |
-| Cache miss handled transparently | Requires a cache that supports read-through (Redis doesn't natively) |
-| Consistent data access pattern | Tight coupling between cache layer and data model |
+| Pros                                                    | Cons                                                                 |
+| ------------------------------------------------------- | -------------------------------------------------------------------- |
+| App code is simpler — never talks to DB for cached data | Cache must understand how to query the database                      |
+| Cache miss handled transparently                        | Requires a cache that supports read-through (Redis doesn't natively) |
+| Consistent data access pattern                          | Tight coupling between cache layer and data model                    |
 
 **Redis doesn't natively support read-through**, but you can implement it with a custom provider or use solutions like **AWS ElastiCache** with a read-through pattern, **Hazelcast**, or **Apache Ignite**.
 
@@ -168,10 +165,10 @@ sequenceDiagram
     Cache-->>App: OK
 ```
 
-| Pros | Cons |
-| --- | --- |
-| Cache is always consistent with DB | Higher write latency (two synchronous writes) |
-| No stale data on reads | Every write touches both cache and DB |
+| Pros                                                | Cons                                                           |
+| --------------------------------------------------- | -------------------------------------------------------------- |
+| Cache is always consistent with DB                  | Higher write latency (two synchronous writes)                  |
+| No stale data on reads                              | Every write touches both cache and DB                          |
 | Works well for read-heavy workloads with few writes | Unnecessary cache population for data that is never read again |
 
 **Implementation sketch:**
@@ -179,10 +176,10 @@ sequenceDiagram
 ```typescript
 async function createUser(data: CreateUserDto): Promise<User> {
   // 1. Write to database first (source of truth)
-  const result = await db.query(
-    'INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *',
-    [data.name, data.email]
-  );
+  const result = await db.query('INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *', [
+    data.name,
+    data.email,
+  ]);
   const user = result.rows[0];
 
   // 2. Write to cache synchronously
@@ -211,11 +208,11 @@ sequenceDiagram
     DB-->>Worker: OK
 ```
 
-| Pros | Cons |
-| --- | --- |
-| Lowest write latency (cache returns immediately) | Risk of data loss if cache crashes before flush |
-| Batched writes → fewer DB roundtrips | Dirty reads possible if other nodes query DB directly |
-| Absorbs write spikes | Complex to implement correctly (idempotency, ordering) |
+| Pros                                             | Cons                                                   |
+| ------------------------------------------------ | ------------------------------------------------------ |
+| Lowest write latency (cache returns immediately) | Risk of data loss if cache crashes before flush        |
+| Batched writes → fewer DB roundtrips             | Dirty reads possible if other nodes query DB directly  |
+| Absorbs write spikes                             | Complex to implement correctly (idempotency, ordering) |
 
 **When to use:** High write throughput with tolerance for brief inconsistency — analytics events, counters, metrics ingestion, user activity logs.
 
@@ -229,17 +226,17 @@ Redis (Remote Dictionary Server) is an **in-memory data structure store** — fa
 
 Redis is "data-structure server" — each key holds a typed data structure with native operations.
 
-| Type | Description | Key Operations | Use Cases |
-| --- | --- | --- | --- |
-| **String** | Binary-safe, up to 512 MB | `SET`, `GET`, `INCR`, `SETEX`, `MSET` | Cache values, counters, serialized JSON, distributed locks |
-| **Hash** | Map of field-value pairs | `HSET`, `HGET`, `HGETALL`, `HINCRBY` | User profiles, session data, object storage |
-| **List** | Linked list (ordered by insertion) | `LPUSH`, `RPOP`, `LRANGE`, `LLEN` | Job queues, activity feeds, message buffers |
-| **Set** | Unordered unique strings | `SADD`, `SISMEMBER`, `SINTER`, `SCARD` | Tags, unique visitors, friend lists |
-| **Sorted Set** | Set with scores, ordered by score | `ZADD`, `ZRANGE`, `ZRANK`, `ZREVRANGEBYSCORE` | Leaderboards, rate limiters, priority queues |
-| **Stream** | Append-only log (Kafka-lite) | `XADD`, `XREAD`, `XREADGROUP`, `XRANGE` | Event sourcing, message brokers, audit logs |
-| **Bitmap** | Bit-level operations on strings | `SETBIT`, `GETBIT`, `BITCOUNT`, `BITOP` | Feature flags, online/offline status, daily active users |
-| **HyperLogLog** | Probabilistic cardinality estimation | `PFADD`, `PFCOUNT`, `PFMERGE` | Unique visitors (with <1% error), counting distinct events |
-| **Geospatial** | Latitude/longitude with radius queries | `GEOADD`, `GEORADIUS`, `GEODIST` | Nearby drivers, store locators, geofencing |
+| Type            | Description                            | Key Operations                                | Use Cases                                                  |
+| --------------- | -------------------------------------- | --------------------------------------------- | ---------------------------------------------------------- |
+| **String**      | Binary-safe, up to 512 MB              | `SET`, `GET`, `INCR`, `SETEX`, `MSET`         | Cache values, counters, serialized JSON, distributed locks |
+| **Hash**        | Map of field-value pairs               | `HSET`, `HGET`, `HGETALL`, `HINCRBY`          | User profiles, session data, object storage                |
+| **List**        | Linked list (ordered by insertion)     | `LPUSH`, `RPOP`, `LRANGE`, `LLEN`             | Job queues, activity feeds, message buffers                |
+| **Set**         | Unordered unique strings               | `SADD`, `SISMEMBER`, `SINTER`, `SCARD`        | Tags, unique visitors, friend lists                        |
+| **Sorted Set**  | Set with scores, ordered by score      | `ZADD`, `ZRANGE`, `ZRANK`, `ZREVRANGEBYSCORE` | Leaderboards, rate limiters, priority queues               |
+| **Stream**      | Append-only log (Kafka-lite)           | `XADD`, `XREAD`, `XREADGROUP`, `XRANGE`       | Event sourcing, message brokers, audit logs                |
+| **Bitmap**      | Bit-level operations on strings        | `SETBIT`, `GETBIT`, `BITCOUNT`, `BITOP`       | Feature flags, online/offline status, daily active users   |
+| **HyperLogLog** | Probabilistic cardinality estimation   | `PFADD`, `PFCOUNT`, `PFMERGE`                 | Unique visitors (with <1% error), counting distinct events |
+| **Geospatial**  | Latitude/longitude with radius queries | `GEOADD`, `GEORADIUS`, `GEODIST`              | Nearby drivers, store locators, geofencing                 |
 
 **Data type selection guide:**
 
@@ -283,16 +280,16 @@ const dauCount = await redis.bitcount('dau:2025-01-15');
 
 What happens when Redis hits `maxmemory`? You choose the eviction policy.
 
-| Policy | Behavior | Best For |
-| --- | --- | --- |
-| `noeviction` | Returns error on writes | **Never use for caching** — will crash your app |
-| `allkeys-lru` | Evict least recently used keys, any key | **General-purpose caching (recommended)** |
-| `allkeys-lfu` | Evict least frequently used keys, any key | Access patterns where frequency matters more than recency |
-| `allkeys-random` | Evict random keys | When access pattern is uniform (rare) |
-| `volatile-lru` | Evict LRU among keys **with a TTL** | Mixed workload: some keys must never be evicted |
-| `volatile-lfu` | Evict LFU among keys **with a TTL** | Mixed workload with frequency bias |
-| `volatile-random` | Evict random among keys **with a TTL** | Mixed workload, uniform access |
-| `volatile-ttl` | Evict keys with the **shortest remaining TTL** | Prefer to evict expiring-soon keys |
+| Policy            | Behavior                                       | Best For                                                  |
+| ----------------- | ---------------------------------------------- | --------------------------------------------------------- |
+| `noeviction`      | Returns error on writes                        | **Never use for caching** — will crash your app           |
+| `allkeys-lru`     | Evict least recently used keys, any key        | **General-purpose caching (recommended)**                 |
+| `allkeys-lfu`     | Evict least frequently used keys, any key      | Access patterns where frequency matters more than recency |
+| `allkeys-random`  | Evict random keys                              | When access pattern is uniform (rare)                     |
+| `volatile-lru`    | Evict LRU among keys **with a TTL**            | Mixed workload: some keys must never be evicted           |
+| `volatile-lfu`    | Evict LFU among keys **with a TTL**            | Mixed workload with frequency bias                        |
+| `volatile-random` | Evict random among keys **with a TTL**         | Mixed workload, uniform access                            |
+| `volatile-ttl`    | Evict keys with the **shortest remaining TTL** | Prefer to evict expiring-soon keys                        |
 
 **Recommendation:** For a pure cache, use `allkeys-lru`. For a mixed cache + persistent store, use `volatile-lru` and ensure only cache keys have TTLs.
 
@@ -333,22 +330,22 @@ graph TD
     end
 ```
 
-| Criteria | RDB | AOF | Hybrid |
-| --- | --- | --- | --- |
-| **Durability** | Low — loses data since last snapshot | High — `fsync` every second (or every write) | High |
-| **Restart speed** | Fast (load single file) | Slow (replay all commands) | Fast (RDB base + small AOF tail) |
-| **File size** | Small (compressed binary) | Large (every write logged) | Medium |
-| **Performance impact** | Low (async `fork()`) | Configurable (`fsync` frequency) | Low |
-| **Recovery guarantee** | Last snapshot | Up to last fsync | Near-last snapshot + tail |
-| **Best for** | Cache with backup, disaster recovery | Durable queue, message store | Production — use if you can't lose data |
+| Criteria               | RDB                                  | AOF                                          | Hybrid                                  |
+| ---------------------- | ------------------------------------ | -------------------------------------------- | --------------------------------------- |
+| **Durability**         | Low — loses data since last snapshot | High — `fsync` every second (or every write) | High                                    |
+| **Restart speed**      | Fast (load single file)              | Slow (replay all commands)                   | Fast (RDB base + small AOF tail)        |
+| **File size**          | Small (compressed binary)            | Large (every write logged)                   | Medium                                  |
+| **Performance impact** | Low (async `fork()`)                 | Configurable (`fsync` frequency)             | Low                                     |
+| **Recovery guarantee** | Last snapshot                        | Up to last fsync                             | Near-last snapshot + tail               |
+| **Best for**           | Cache with backup, disaster recovery | Durable queue, message store                 | Production — use if you can't lose data |
 
 **AOF fsync policies:**
 
-| Policy | Behavior | Durability vs Performance |
-| --- | --- | --- |
-| `appendfsync always` | fsync after every write | Safest, slowest (every write waits for disk) |
-| `appendfsync everysec` | fsync once per second | **Recommended** — lose ≤1s of data |
-| `appendfsync no` | Let OS decide when to fsync | Fastest, least durable |
+| Policy                 | Behavior                    | Durability vs Performance                    |
+| ---------------------- | --------------------------- | -------------------------------------------- |
+| `appendfsync always`   | fsync after every write     | Safest, slowest (every write waits for disk) |
+| `appendfsync everysec` | fsync once per second       | **Recommended** — lose ≤1s of data           |
+| `appendfsync no`       | Let OS decide when to fsync | Fastest, least durable                       |
 
 ### Clustering
 
@@ -374,16 +371,16 @@ graph TD
     end
 ```
 
-| Feature | Standalone | Sentinel | Cluster |
-| --- | --- | --- | --- |
-| **Data distribution** | Single node | Single master (replicas for reads) | Sharded across 16384 hash slots |
-| **High availability** | None | Automatic failover to replica | Automatic failover (each shard has replicas) |
-| **Horizontal scaling** | None (vertical only) | None (writes go to one master) | Yes — add/remove nodes, reshard slots |
-| **Multi-key operations** | All | All | Only keys in the same hash slot |
-| **Transactions** | Full support | Full support | Only within a single hash slot |
-| **Maximum practical size** | ~25 GB per node | ~25 GB per node | ~25 GB × N nodes |
-| **Client requirements** | Simple | Simple (needs sentinel awareness) | Cluster-aware client required |
-| **Operations complexity** | Low | Medium | High |
+| Feature                    | Standalone           | Sentinel                           | Cluster                                      |
+| -------------------------- | -------------------- | ---------------------------------- | -------------------------------------------- |
+| **Data distribution**      | Single node          | Single master (replicas for reads) | Sharded across 16384 hash slots              |
+| **High availability**      | None                 | Automatic failover to replica      | Automatic failover (each shard has replicas) |
+| **Horizontal scaling**     | None (vertical only) | None (writes go to one master)     | Yes — add/remove nodes, reshard slots        |
+| **Multi-key operations**   | All                  | All                                | Only keys in the same hash slot              |
+| **Transactions**           | Full support         | Full support                       | Only within a single hash slot               |
+| **Maximum practical size** | ~25 GB per node      | ~25 GB per node                    | ~25 GB × N nodes                             |
+| **Client requirements**    | Simple               | Simple (needs sentinel awareness)  | Cluster-aware client required                |
+| **Operations complexity**  | Low                  | Medium                             | High                                         |
 
 **Cluster hash slot mechanism:**
 
@@ -407,14 +404,14 @@ The other hard problem. Invalidation strategies determine how stale data gets re
 
 ### Strategies
 
-| Strategy | Description | When to Use |
-| --- | --- | --- |
-| **TTL (Time-to-Live)** | Cache entry expires after a fixed duration | Most common — accept brief staleness window |
-| **Write invalidation** | Delete cache key whenever data is updated in DB | Strong consistency needed |
-| **Write update** | Update cache with new value on every DB write | Read-heavy, write-rare data |
-| **Event-driven invalidation** | DB emits change events (CDC), cache subscribes and invalidates | Microservices, multiple cache nodes |
-| **Versioned keys** | Append version number: `user:42:v3` | Rollback-safe, blue-green deployments |
-| **Soft invalidation** | Mark entry as "stale" (serve from cache + refresh async) | High-traffic keys that can't tolerate misses |
+| Strategy                      | Description                                                    | When to Use                                  |
+| ----------------------------- | -------------------------------------------------------------- | -------------------------------------------- |
+| **TTL (Time-to-Live)**        | Cache entry expires after a fixed duration                     | Most common — accept brief staleness window  |
+| **Write invalidation**        | Delete cache key whenever data is updated in DB                | Strong consistency needed                    |
+| **Write update**              | Update cache with new value on every DB write                  | Read-heavy, write-rare data                  |
+| **Event-driven invalidation** | DB emits change events (CDC), cache subscribes and invalidates | Microservices, multiple cache nodes          |
+| **Versioned keys**            | Append version number: `user:42:v3`                            | Rollback-safe, blue-green deployments        |
+| **Soft invalidation**         | Mark entry as "stale" (serve from cache + refresh async)       | High-traffic keys that can't tolerate misses |
 
 ### TTL Strategy Guide
 
@@ -436,8 +433,8 @@ Serve the stale cached value while asynchronously refreshing it — prevents cac
 async function getWithSWR<T>(
   key: string,
   ttl: number,
-  swrWindow: number,   // extra window where stale data is served
-  fetcher: () => Promise<T>
+  swrWindow: number, // extra window where stale data is served
+  fetcher: () => Promise<T>,
 ): Promise<{ data: T; fresh: boolean }> {
   const cached = await redis.get(key);
 
@@ -463,7 +460,10 @@ async function getWithSWR<T>(
 }
 
 async function refreshInBackground<T>(
-  key: string, ttl: number, swrWindow: number, fetcher: () => Promise<T>
+  key: string,
+  ttl: number,
+  swrWindow: number,
+  fetcher: () => Promise<T>,
 ): Promise<void> {
   const lockKey = `${key}:refresh-lock`;
   const acquired = await redis.set(lockKey, '1', 'EX', 10, 'NX');
@@ -491,9 +491,7 @@ A **cache stampede** (or thundering herd) happens when a heavily-requested cache
 Only **one** request is allowed to recompute the value. Others wait or get a stale copy.
 
 ```typescript
-async function getWithLock<T>(
-  key: string, ttl: number, fetcher: () => Promise<T>
-): Promise<T> {
+async function getWithLock<T>(key: string, ttl: number, fetcher: () => Promise<T>): Promise<T> {
   const cached = await redis.get(key);
   if (cached) return JSON.parse(cached);
 
@@ -512,7 +510,7 @@ async function getWithLock<T>(
   }
 
   // Didn't acquire lock — wait and retry
-  await new Promise(resolve => setTimeout(resolve, 100 + Math.random() * 200));
+  await new Promise((resolve) => setTimeout(resolve, 100 + Math.random() * 200));
   return getWithLock(key, ttl, fetcher); // recursive retry
 }
 ```
@@ -524,9 +522,9 @@ Refresh the cache **before** it expires, with a probability that increases as ex
 ```typescript
 async function getWithEarlyRefresh<T>(
   key: string,
-  ttl: number,          // total TTL in seconds
-  delta: number,        // recomputation window in seconds (e.g., 60s before expiry)
-  fetcher: () => Promise<T>
+  ttl: number, // total TTL in seconds
+  delta: number, // recomputation window in seconds (e.g., 60s before expiry)
+  fetcher: () => Promise<T>,
 ): Promise<T> {
   const metaKey = `${key}:meta`;
 
@@ -554,8 +552,14 @@ async function getWithEarlyRefresh<T>(
   `;
 
   const [value, status] = await redis.eval(
-    script, 3, key, metaKey, `${key}:trigger-lock`,
-    delta, ttl, Math.floor(Date.now() / 1000)
+    script,
+    3,
+    key,
+    metaKey,
+    `${key}:trigger-lock`,
+    delta,
+    ttl,
+    Math.floor(Date.now() / 1000),
   );
 
   if (status === 'miss') {
@@ -583,7 +587,9 @@ const localCache = new LRUCache<string, any>({
 });
 
 async function getMultiLevel<T>(
-  key: string, redisTTL: number, fetcher: () => Promise<T>
+  key: string,
+  redisTTL: number,
+  fetcher: () => Promise<T>,
 ): Promise<T> {
   // L1: Local memory (nanoseconds)
   const local = localCache.get(key);
@@ -625,13 +631,13 @@ graph TD
 
 ### What to Cache on a CDN
 
-| Content | TTL | Notes |
-| --- | --- | --- |
-| Static assets (JS, CSS, images, fonts) | 1 year (versioned URLs) | Use content-hash in filename: `app.a3f2b1c.js` |
-| API responses (public) | 1–60 minutes | GET-only, public data (product listings, search suggestions) |
-| HTML pages (public) | 5–60 minutes | Public landing pages, blogs, documentation |
-| Media files | 7–30 days | Videos, PDFs, audio files |
-| GraphQL (persisted queries via GET) | Configurable | Only persisted queries with `extensions.persistedQuery` |
+| Content                                | TTL                     | Notes                                                        |
+| -------------------------------------- | ----------------------- | ------------------------------------------------------------ |
+| Static assets (JS, CSS, images, fonts) | 1 year (versioned URLs) | Use content-hash in filename: `app.a3f2b1c.js`               |
+| API responses (public)                 | 1–60 minutes            | GET-only, public data (product listings, search suggestions) |
+| HTML pages (public)                    | 5–60 minutes            | Public landing pages, blogs, documentation                   |
+| Media files                            | 7–30 days               | Videos, PDFs, audio files                                    |
+| GraphQL (persisted queries via GET)    | Configurable            | Only persisted queries with `extensions.persistedQuery`      |
 
 ### Cache-Control Headers for CDN
 
@@ -648,14 +654,14 @@ Cache-Control: private, no-cache
 
 **CDN-specific directives:**
 
-| Directive | Meaning |
-| --- | --- |
-| `s-maxage` | Overrides `max-age` for shared caches (CDN) only |
-| `stale-while-revalidate` | Serve stale while re-fetching in background |
-| `stale-if-error` | Serve stale if origin returns 5xx |
-| `proxy-revalidate` | CDN must revalidate with origin after max-age, even if client allows stale |
-| `Surrogate-Control` | CDN-specific (Fastly, some others) — same semantics as Cache-Control but for CDN layer |
-| `Surrogate-Key` | Tag-based purging — `Surrogate-Key: product-42 category-shoes` |
+| Directive                | Meaning                                                                                |
+| ------------------------ | -------------------------------------------------------------------------------------- |
+| `s-maxage`               | Overrides `max-age` for shared caches (CDN) only                                       |
+| `stale-while-revalidate` | Serve stale while re-fetching in background                                            |
+| `stale-if-error`         | Serve stale if origin returns 5xx                                                      |
+| `proxy-revalidate`       | CDN must revalidate with origin after max-age, even if client allows stale             |
+| `Surrogate-Control`      | CDN-specific (Fastly, some others) — same semantics as Cache-Control but for CDN layer |
+| `Surrogate-Key`          | Tag-based purging — `Surrogate-Key: product-42 category-shoes`                         |
 
 ### Cache Key Design
 
@@ -677,13 +683,13 @@ set req.http.X-Cache-Key = req.url ":" req.http.Accept-Language;
 
 ### Purging Strategies
 
-| Strategy | Description | Use Case |
-| --- | --- | --- |
-| **Purge by URL** | `PURGE /api/products/123` | Single resource update |
-| **Purge by tag** | `PURGE /` with `Surrogate-Key: product-123` | Invalidate all cached responses related to resource |
-| **Soft purge** | Mark as stale (serve stale, refresh async) | High-traffic — never leave the edge cold |
-| **Ban by pattern** | `BAN url ~ ^/api/products/` | Bulk invalidation (Varnish) |
-| **Versioned URLs** | Change URL instead of purging | Static assets — no purging needed |
+| Strategy           | Description                                 | Use Case                                            |
+| ------------------ | ------------------------------------------- | --------------------------------------------------- |
+| **Purge by URL**   | `PURGE /api/products/123`                   | Single resource update                              |
+| **Purge by tag**   | `PURGE /` with `Surrogate-Key: product-123` | Invalidate all cached responses related to resource |
+| **Soft purge**     | Mark as stale (serve stale, refresh async)  | High-traffic — never leave the edge cold            |
+| **Ban by pattern** | `BAN url ~ ^/api/products/`                 | Bulk invalidation (Varnish)                         |
+| **Versioned URLs** | Change URL instead of purging               | Static assets — no purging needed                   |
 
 ---
 
@@ -693,14 +699,14 @@ HTTP caching is the first caching layer every backend engineer should understand
 
 ### Response Headers
 
-| Header | Example | Purpose |
-| --- | --- | --- |
-| `Cache-Control` | `public, max-age=3600, immutable` | **The master switch** — dictates cache behavior |
-| `ETag` | `"abc123"` | Resource version identifier for conditional requests |
-| `Last-Modified` | `Tue, 15 Jan 2025 10:00:00 GMT` | Timestamp for `If-Modified-Since` |
-| `Expires` | `Tue, 15 Jan 2025 12:00:00 GMT` | Deprecated — use `Cache-Control: max-age` instead |
-| `Vary` | `Accept-Encoding, Accept-Language` | Tells caches to store multiple variants |
-| `Age` | `120` | Seconds since response was generated by origin |
+| Header          | Example                            | Purpose                                              |
+| --------------- | ---------------------------------- | ---------------------------------------------------- |
+| `Cache-Control` | `public, max-age=3600, immutable`  | **The master switch** — dictates cache behavior      |
+| `ETag`          | `"abc123"`                         | Resource version identifier for conditional requests |
+| `Last-Modified` | `Tue, 15 Jan 2025 10:00:00 GMT`    | Timestamp for `If-Modified-Since`                    |
+| `Expires`       | `Tue, 15 Jan 2025 12:00:00 GMT`    | Deprecated — use `Cache-Control: max-age` instead    |
+| `Vary`          | `Accept-Encoding, Accept-Language` | Tells caches to store multiple variants              |
+| `Age`           | `120`                              | Seconds since response was generated by origin       |
 
 ### Cache-Control Directives
 
@@ -708,20 +714,20 @@ HTTP caching is the first caching layer every backend engineer should understand
 Cache-Control: public, max-age=3600, s-maxage=600, stale-while-revalidate=300, stale-if-error=86400, must-revalidate
 ```
 
-| Directive | Scope | Meaning |
-| --- | --- | --- |
-| `public` | All caches | Can be cached by browsers, CDNs, proxies |
-| `private` | Browser only | Only the end-user's browser may cache |
-| `no-cache` | All | **Can cache**, but MUST revalidate with origin before each use |
-| `no-store` | All | **Cannot cache at all** — never write to disk |
-| `max-age=N` | All caches | Cache for N seconds from time of request |
-| `s-maxage=N` | Shared caches | Overrides `max-age` for CDNs/proxies only |
-| `must-revalidate` | All | After expiry, must check with origin before using stale |
-| `proxy-revalidate` | Shared caches | Like `must-revalidate` but for shared caches only |
-| `immutable` | All | Resource will never change — don't revalidate even on reload |
-| `no-transform` | All | Proxies must not modify (e.g., compress images) |
-| `stale-while-revalidate=N` | All | Serve stale for N seconds while re-fetching in background |
-| `stale-if-error=N` | All | Serve stale for N seconds if origin returns 5xx |
+| Directive                  | Scope         | Meaning                                                        |
+| -------------------------- | ------------- | -------------------------------------------------------------- |
+| `public`                   | All caches    | Can be cached by browsers, CDNs, proxies                       |
+| `private`                  | Browser only  | Only the end-user's browser may cache                          |
+| `no-cache`                 | All           | **Can cache**, but MUST revalidate with origin before each use |
+| `no-store`                 | All           | **Cannot cache at all** — never write to disk                  |
+| `max-age=N`                | All caches    | Cache for N seconds from time of request                       |
+| `s-maxage=N`               | Shared caches | Overrides `max-age` for CDNs/proxies only                      |
+| `must-revalidate`          | All           | After expiry, must check with origin before using stale        |
+| `proxy-revalidate`         | Shared caches | Like `must-revalidate` but for shared caches only              |
+| `immutable`                | All           | Resource will never change — don't revalidate even on reload   |
+| `no-transform`             | All           | Proxies must not modify (e.g., compress images)                |
+| `stale-while-revalidate=N` | All           | Serve stale for N seconds while re-fetching in background      |
+| `stale-if-error=N`         | All           | Serve stale for N seconds if origin returns 5xx                |
 
 ### Conditional Requests
 
@@ -749,8 +755,8 @@ import { Request, Response, NextFunction } from 'express';
 
 interface CachePolicy {
   public?: boolean;
-  maxAge: number;          // seconds
-  sMaxAge?: number;        // CDN override
+  maxAge: number; // seconds
+  sMaxAge?: number; // CDN override
   staleWhileRevalidate?: number;
   staleIfError?: number;
   immutable?: boolean;
@@ -765,7 +771,8 @@ function cacheControl(policy: CachePolicy) {
     directives.push(`max-age=${policy.maxAge}`);
 
     if (policy.sMaxAge) directives.push(`s-maxage=${policy.sMaxAge}`);
-    if (policy.staleWhileRevalidate) directives.push(`stale-while-revalidate=${policy.staleWhileRevalidate}`);
+    if (policy.staleWhileRevalidate)
+      directives.push(`stale-while-revalidate=${policy.staleWhileRevalidate}`);
     if (policy.staleIfError) directives.push(`stale-if-error=${policy.staleIfError}`);
     if (policy.immutable) directives.push('immutable');
 
@@ -780,26 +787,28 @@ function cacheControl(policy: CachePolicy) {
 }
 
 // Usage in routes:
-app.get('/api/products/:id',
+app.get(
+  '/api/products/:id',
   cacheControl({ public: true, maxAge: 300, sMaxAge: 600, staleWhileRevalidate: 3600 }),
-  productController.getById
+  productController.getById,
 );
 
-app.get('/api/users/me',
-  cacheControl({ maxAge: 0 }),  // private, no-cache
-  userController.getProfile
+app.get(
+  '/api/users/me',
+  cacheControl({ maxAge: 0 }), // private, no-cache
+  userController.getProfile,
 );
 ```
 
 ### ETag Strategies
 
-| Strategy | How It's Generated | Best For |
-| --- | --- | --- |
-| **Content hash** | `MD5(response body)` | Small payloads that don't change often |
-| **Version number** | `"v" + resource.version` | Resources with explicit versions |
-| **Last-Modified + content hash** | Combines timestamp with partial content | General-purpose |
-| **Weak ETags** | `W/"abc123"` (byte-range equivalent) | Compressed/gzip responses |
-| **Database row hash** | Hash of relevant columns | API responses backed by a single row |
+| Strategy                         | How It's Generated                      | Best For                               |
+| -------------------------------- | --------------------------------------- | -------------------------------------- |
+| **Content hash**                 | `MD5(response body)`                    | Small payloads that don't change often |
+| **Version number**               | `"v" + resource.version`                | Resources with explicit versions       |
+| **Last-Modified + content hash** | Combines timestamp with partial content | General-purpose                        |
+| **Weak ETags**                   | `W/"abc123"` (byte-range equivalent)    | Compressed/gzip responses              |
+| **Database row hash**            | Hash of relevant columns                | API responses backed by a single row   |
 
 ---
 
@@ -838,16 +847,16 @@ L4: Database query        → 10–200 ms
 
 You can't improve what you don't measure. Track these metrics across every cache layer:
 
-| Metric | What It Tells You | Alert Threshold |
-| --- | --- | --- |
-| **Hit Rate** | `hits / (hits + misses)` — overall effectiveness | < 80% — investigate |
-| **Hit Rate (by key prefix)** | Which data is cacheable vs not | Identify un-cached hot keys |
-| **Eviction Rate** | Keys evicted per second (due to memory pressure) | > 0 — increase memory or change policy |
-| **Expired Keys Rate** | Keys expired due to TTL per second | Tune TTLs if too high/low |
-| **Latency (p50/p99)** | Redis response time | p99 > 10ms — check network/load |
-| **Cache Fill Time** | Time to recompute a single cache entry | > 500ms — precompute or optimize query |
-| **Stampede Events** | How often multiple processes race for same key | > 0 — implement locking/early expiry |
-| **Memory Usage** | `used_memory / maxmemory` | > 80% — scale up or evict |
+| Metric                       | What It Tells You                                | Alert Threshold                        |
+| ---------------------------- | ------------------------------------------------ | -------------------------------------- |
+| **Hit Rate**                 | `hits / (hits + misses)` — overall effectiveness | < 80% — investigate                    |
+| **Hit Rate (by key prefix)** | Which data is cacheable vs not                   | Identify un-cached hot keys            |
+| **Eviction Rate**            | Keys evicted per second (due to memory pressure) | > 0 — increase memory or change policy |
+| **Expired Keys Rate**        | Keys expired due to TTL per second               | Tune TTLs if too high/low              |
+| **Latency (p50/p99)**        | Redis response time                              | p99 > 10ms — check network/load        |
+| **Cache Fill Time**          | Time to recompute a single cache entry           | > 500ms — precompute or optimize query |
+| **Stampede Events**          | How often multiple processes race for same key   | > 0 — implement locking/early expiry   |
+| **Memory Usage**             | `used_memory / maxmemory`                        | > 80% — scale up or evict              |
 
 ```typescript
 // Track cache hit rate in your application
@@ -856,8 +865,12 @@ const cacheMetrics = {
   misses: 0,
 };
 
-function trackHit() { cacheMetrics.hits++; }
-function trackMiss() { cacheMetrics.misses++; }
+function trackHit() {
+  cacheMetrics.hits++;
+}
+function trackMiss() {
+  cacheMetrics.misses++;
+}
 
 // Expose via Prometheus /metrics endpoint
 app.get('/metrics', async (req, res) => {
@@ -876,17 +889,17 @@ ${redisInfo}
 
 ## Anti-Patterns & Common Mistakes
 
-| Mistake | Why It's Bad | Fix |
-| --- | --- | --- |
-| **Caching everything blindly** | Wastes memory on rarely-accessed data | Cache only what's hot (80/20 rule — cache the 20% that gets 80% of traffic) |
-| **No TTL** | Stale data forever, unbounded memory growth | Always set a TTL, even if it's generous (24h) |
-| **Cache as primary store** | If cache is wiped, data is gone | Database is source of truth; cache is disposable |
-| **Large keys/values** | Slow serialization, network saturation | Keep values under 1 MB; compress or store in object storage |
-| **Using KEYS in production** | `KEYS *` blocks Redis (O(N) scan) | Use `SCAN` (cursor-based, non-blocking) |
-| **Cache stampede (no lock)** | DB crushed under concurrent recomputations | Use mutex locking or early refresh (see above) |
-| **Cache penetration** | Malicious queries for nonexistent keys hit DB every time | Cache null/empty results with short TTL (bloom filter also helps) |
-| **Hot key problem** | One key gets 90% of traffic, saturates a single Redis node | Replicate the key locally, or use client-side caching |
-| **Time-based TTL for mutable data** | Stale data served within the TTL window | Invalidate on write, use event-driven refresh |
+| Mistake                             | Why It's Bad                                               | Fix                                                                         |
+| ----------------------------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------- |
+| **Caching everything blindly**      | Wastes memory on rarely-accessed data                      | Cache only what's hot (80/20 rule — cache the 20% that gets 80% of traffic) |
+| **No TTL**                          | Stale data forever, unbounded memory growth                | Always set a TTL, even if it's generous (24h)                               |
+| **Cache as primary store**          | If cache is wiped, data is gone                            | Database is source of truth; cache is disposable                            |
+| **Large keys/values**               | Slow serialization, network saturation                     | Keep values under 1 MB; compress or store in object storage                 |
+| **Using KEYS in production**        | `KEYS *` blocks Redis (O(N) scan)                          | Use `SCAN` (cursor-based, non-blocking)                                     |
+| **Cache stampede (no lock)**        | DB crushed under concurrent recomputations                 | Use mutex locking or early refresh (see above)                              |
+| **Cache penetration**               | Malicious queries for nonexistent keys hit DB every time   | Cache null/empty results with short TTL (bloom filter also helps)           |
+| **Hot key problem**                 | One key gets 90% of traffic, saturates a single Redis node | Replicate the key locally, or use client-side caching                       |
+| **Time-based TTL for mutable data** | Stale data served within the TTL window                    | Invalidate on write, use event-driven refresh                               |
 
 ---
 
@@ -916,15 +929,15 @@ flowchart TD
 
 ## Recommended Stack
 
-| Layer | Technology | Why |
-| --- | --- | --- |
-| **In-process cache** | `lru-cache` (Node.js), Caffeine (Java) | Sub-microsecond, zero network |
-| **Distributed cache** | Redis (ElastiCache, Memorystore, self-hosted) | Rich data types, sub-millisecond latency |
-| **CDN** | Cloudflare, Fastly, CloudFront | Edge caching, DDoS protection |
-| **ORM cache** | TypeORM cache, Hibernate 2nd-level cache | Transparent query caching |
-| **Session store** | Redis (`connect-redis`) | Shared across app instances, TTL built-in |
-| **Queue/stream** | Redis Streams, BullMQ | Async write-behind, event-driven invalidation |
-| **Monitoring** | Prometheus + Grafana | Cache hit rates, latency, memory dashboards |
+| Layer                 | Technology                                    | Why                                           |
+| --------------------- | --------------------------------------------- | --------------------------------------------- |
+| **In-process cache**  | `lru-cache` (Node.js), Caffeine (Java)        | Sub-microsecond, zero network                 |
+| **Distributed cache** | Redis (ElastiCache, Memorystore, self-hosted) | Rich data types, sub-millisecond latency      |
+| **CDN**               | Cloudflare, Fastly, CloudFront                | Edge caching, DDoS protection                 |
+| **ORM cache**         | TypeORM cache, Hibernate 2nd-level cache      | Transparent query caching                     |
+| **Session store**     | Redis (`connect-redis`)                       | Shared across app instances, TTL built-in     |
+| **Queue/stream**      | Redis Streams, BullMQ                         | Async write-behind, event-driven invalidation |
+| **Monitoring**        | Prometheus + Grafana                          | Cache hit rates, latency, memory dashboards   |
 
 ---
 

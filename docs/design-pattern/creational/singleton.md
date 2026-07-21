@@ -1,8 +1,8 @@
 ---
 id: design-pattern-creational-singleton
-title: Singleton Pattern 🏯
+title: "Singleton Pattern 🏯"
 slug: /design-pattern/creational/singleton
-sidebar_label: Singleton Pattern 🏯
+sidebar_label: "Singleton Pattern 🏯"
 ---
 
 # Singleton Pattern 🏯

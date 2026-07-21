@@ -1,8 +1,8 @@
 ---
 id: dsa-strings-regular-expression-matching-readme
-title: Regular Expression Matching
+title: "Regular Expression Matching"
 slug: /DSA/strings/regular-expression-matching/README
-sidebar_label: Regular Expression Matching
+sidebar_label: "Regular Expression Matching"
 ---
 
 # Regular Expression Matching

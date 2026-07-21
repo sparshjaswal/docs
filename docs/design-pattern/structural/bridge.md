@@ -1,8 +1,8 @@
 ---
 id: design-pattern-structural-bridge
-title: Bridge Pattern 🌉
+title: "Bridge Pattern 🌉"
 slug: /design-pattern/structural/bridge
-sidebar_label: Bridge Pattern 🌉
+sidebar_label: "Bridge Pattern 🌉"
 ---
 
 # Bridge Pattern 🌉

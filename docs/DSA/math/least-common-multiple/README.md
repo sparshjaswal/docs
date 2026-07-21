@@ -1,8 +1,8 @@
 ---
 id: dsa-math-least-common-multiple-readme
-title: Least common multiple
+title: "Least common multiple"
 slug: /DSA/math/least-common-multiple/README
-sidebar_label: Least common multiple
+sidebar_label: "Least common multiple"
 ---
 
 # Least common multiple

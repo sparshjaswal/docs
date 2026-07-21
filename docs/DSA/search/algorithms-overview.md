@@ -1,8 +1,8 @@
 ---
 id: dsa-search-algorithms-overview
-title: Searching
+title: "Searching"
 slug: /DSA/search/algorithms-overview
-sidebar_label: Searching
+sidebar_label: "Searching"
 ---
 
 # Searching

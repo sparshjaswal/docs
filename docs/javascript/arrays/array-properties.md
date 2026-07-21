@@ -1,8 +1,8 @@
 ---
 id: javascript-arrays-array-properties
-title: Array Properties
+title: "Array Properties"
 slug: /javascript/arrays/array-properties
-sidebar_label: Array Properties
+sidebar_label: "Array Properties"
 ---
 
 # Array Properties

@@ -1,8 +1,8 @@
 ---
 id: dsa-sets-maximum-subarray-readme
-title: Maximum subarray problem
+title: "Maximum subarray problem"
 slug: /DSA/sets/maximum-subarray/README
-sidebar_label: Maximum subarray problem
+sidebar_label: "Maximum subarray problem"
 ---
 
 # Maximum subarray problem

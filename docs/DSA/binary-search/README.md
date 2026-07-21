@@ -1,8 +1,8 @@
 ---
 id: dsa-binary-search-readme
-title: 🔍 Binary Search
+title: "🔍 Binary Search"
 slug: /DSA/binary-search/README
-sidebar_label: 🔍 Binary Search
+sidebar_label: "🔍 Binary Search"
 ---
 
 # 🔍 Binary Search
@@ -332,54 +332,54 @@ function feasible(capacity) {
 
 ## Practice Problems
 
-| Problem                                                                                                                         | Difficulty | Solution                                                                             |
-| ------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------ |
-| [LC 704 — Binary Search](https://leetcode.com/problems/binary-search/)                                                          | Easy       |                                                                                      |
-| [LC 35 — Search Insert Position](https://leetcode.com/problems/search-insert-position/)                                         | Easy       |                                                                                      |
-| [LC 69 — Sqrt(x)](https://leetcode.com/problems/sqrtx/)                                                                         | Easy       |                                                                                      |
-| [LC 278 — First Bad Version](https://leetcode.com/problems/first-bad-version/)                                                  | Easy       |                                                                                      |
-| [LC 374 — Guess Number Higher or Lower](https://leetcode.com/problems/guess-number-higher-or-lower/)                            | Easy       |                                                                                      |
-| [LC 441 — Arranging Coins](https://leetcode.com/problems/arranging-coins/)                                                      | Easy       |                                                                                      |
-| [LC 744 — Find Smallest Letter Greater Than Target](https://leetcode.com/problems/find-smallest-letter-greater-than-target/)    | Easy       |                                                                                      |
-| [LC 852 — Peak Index in a Mountain Array](https://leetcode.com/problems/peak-index-in-a-mountain-array/)                        | Easy       |                                                                                      |
-| [LC 1351 — Count Negative Numbers in a Sorted Matrix](https://leetcode.com/problems/count-negative-numbers-in-a-sorted-matrix/) | Easy       |                                                                                      |
-| [LC 1539 — Kth Missing Positive Number](https://leetcode.com/problems/kth-missing-positive-number/)                             | Easy       |                                                                                      |
-| [CC — Binary Search Basic (BINSRCH)](https://www.codechef.com/problems/BINSRCH)                                                 | Easy       |                                                                                      |
-| [CC — Find Element (FINDELEM)](https://www.codechef.com/problems/FINDELEM)                                                      | Easy       |                                                                                      |
+| Problem                                                                                                                         | Difficulty | Solution                                                               |
+| ------------------------------------------------------------------------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------- |
+| [LC 704 — Binary Search](https://leetcode.com/problems/binary-search/)                                                          | Easy       |                                                                        |
+| [LC 35 — Search Insert Position](https://leetcode.com/problems/search-insert-position/)                                         | Easy       |                                                                        |
+| [LC 69 — Sqrt(x)](https://leetcode.com/problems/sqrtx/)                                                                         | Easy       |                                                                        |
+| [LC 278 — First Bad Version](https://leetcode.com/problems/first-bad-version/)                                                  | Easy       |                                                                        |
+| [LC 374 — Guess Number Higher or Lower](https://leetcode.com/problems/guess-number-higher-or-lower/)                            | Easy       |                                                                        |
+| [LC 441 — Arranging Coins](https://leetcode.com/problems/arranging-coins/)                                                      | Easy       |                                                                        |
+| [LC 744 — Find Smallest Letter Greater Than Target](https://leetcode.com/problems/find-smallest-letter-greater-than-target/)    | Easy       |                                                                        |
+| [LC 852 — Peak Index in a Mountain Array](https://leetcode.com/problems/peak-index-in-a-mountain-array/)                        | Easy       |                                                                        |
+| [LC 1351 — Count Negative Numbers in a Sorted Matrix](https://leetcode.com/problems/count-negative-numbers-in-a-sorted-matrix/) | Easy       |                                                                        |
+| [LC 1539 — Kth Missing Positive Number](https://leetcode.com/problems/kth-missing-positive-number/)                             | Easy       |                                                                        |
+| [CC — Binary Search Basic (BINSRCH)](https://www.codechef.com/problems/BINSRCH)                                                 | Easy       |                                                                        |
+| [CC — Find Element (FINDELEM)](https://www.codechef.com/problems/FINDELEM)                                                      | Easy       |                                                                        |
 | [LC 1283 — Find Smallest Divisor](https://leetcode.com/problems/find-the-smallest-divisor-given-a-threshold/)                   | Medium     | [View Solution](./LC-1283-find-the-smallest-divisor-given-a-threshold) |
 | [LC 1101 — Capacity to Ship Packages](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/)                   | Medium     | [View Solution](./LC-1101-capacity-to-ship-packages-within-d-days)     |
-| [LC 875 — Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/)                                              | Medium     |                                                                                      |
-| [LC 33 — Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)                         | Medium     |                                                                                      |
-| [LC 153 — Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/)            | Medium     |                                                                                      |
-| [LC 162 — Find Peak Element](https://leetcode.com/problems/find-peak-element/)                                                  | Medium     |                                                                                      |
-| [LC 34 — Find First and Last Position](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)  | Medium     |                                                                                      |
-| [LC 74 — Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/)                                                 | Medium     |                                                                                      |
-| [LC 81 — Search in Rotated Sorted Array II](https://leetcode.com/problems/search-in-rotated-sorted-array-ii/)                   | Medium     |                                                                                      |
-| [LC 154 — Find Minimum in Rotated Sorted Array II](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/)      | Medium     |                                                                                      |
-| [LC 240 — Search a 2D Matrix II](https://leetcode.com/problems/search-a-2d-matrix-ii/)                                          | Medium     |                                                                                      |
-| [LC 275 — H-Index II](https://leetcode.com/problems/h-index-ii/)                                                                | Medium     |                                                                                      |
-| [LC 287 — Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/)                                  | Medium     |                                                                                      |
-| [LC 378 — Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/)      | Medium     |                                                                                      |
-| [LC 540 — Single Element in a Sorted Array](https://leetcode.com/problems/single-element-in-a-sorted-array/)                    | Medium     |                                                                                      |
-| [LC 658 — Find K Closest Elements](https://leetcode.com/problems/find-k-closest-elements/)                                      | Medium     |                                                                                      |
-| [LC 702 — Search in a Sorted Array of Unknown Size](https://leetcode.com/problems/search-in-a-sorted-array-of-unknown-size/)    | Medium     |                                                                                      |
-| [LC 1004 — Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/)                                   | Medium     |                                                                                      |
-| [LC 1011 — Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/)     | Medium     |                                                                                      |
-| [LC 1482 — Minimum Number of Days to Make m Bouquets](https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/) | Medium     |                                                                                      |
-| [CC — Binary Search on Answer (BINSANS)](https://www.codechef.com/problems/BINSANS)                                             | Medium     |                                                                                      |
-| [CC — Rotated Array Search (ROTARR)](https://www.codechef.com/problems/ROTARR)                                                  | Medium     |                                                                                      |
-| [LC 410 — Split Array Largest Sum](https://leetcode.com/problems/split-array-largest-sum/)                                      | Hard       |                                                                                      |
-| [LC 4 — Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/)                                | Hard       |                                                                                      |
-| [LC 37 — Sudoku Solver](https://leetcode.com/problems/sudoku-solver/)                                                           | Hard       |                                                                                      |
-| [LC 174 — Dungeon Game](https://leetcode.com/problems/dungeon-game/)                                                            | Hard       |                                                                                      |
-| [LC 302 — Smallest Rectangle Enclosing Black Pixels](https://leetcode.com/problems/smallest-rectangle-enclosing-black-pixels/)  | Hard       |                                                                                      |
-| [LC 354 — Russian Doll Envelopes](https://leetcode.com/problems/russian-doll-envelopes/)                                        | Hard       |                                                                                      |
-| [LC 719 — Find K-th Smallest Pair Distance](https://leetcode.com/problems/find-k-th-smallest-pair-distance/)                    | Hard       |                                                                                      |
-| [LC 786 — K-th Smallest Prime Fraction](https://leetcode.com/problems/k-th-smallest-prime-fraction/)                            | Hard       |                                                                                      |
-| [LC 1095 — Find in Mountain Array](https://leetcode.com/problems/find-in-mountain-array/)                                       | Hard       |                                                                                      |
-| [LC 1231 — Divide Chocolate](https://leetcode.com/problems/divide-chocolate/)                                                   | Hard       |                                                                                      |
-| [CC — Binary Search in Rotated Array (BINROT)](https://www.codechef.com/problems/BINROT)                                        | Hard       |                                                                                      |
-| [CC — Advanced Binary Search (ADVBINS)](https://www.codechef.com/problems/ADVBINS)                                              | Hard       |                                                                                      |
+| [LC 875 — Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/)                                              | Medium     |                                                                        |
+| [LC 33 — Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)                         | Medium     |                                                                        |
+| [LC 153 — Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/)            | Medium     |                                                                        |
+| [LC 162 — Find Peak Element](https://leetcode.com/problems/find-peak-element/)                                                  | Medium     |                                                                        |
+| [LC 34 — Find First and Last Position](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)  | Medium     |                                                                        |
+| [LC 74 — Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/)                                                 | Medium     |                                                                        |
+| [LC 81 — Search in Rotated Sorted Array II](https://leetcode.com/problems/search-in-rotated-sorted-array-ii/)                   | Medium     |                                                                        |
+| [LC 154 — Find Minimum in Rotated Sorted Array II](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/)      | Medium     |                                                                        |
+| [LC 240 — Search a 2D Matrix II](https://leetcode.com/problems/search-a-2d-matrix-ii/)                                          | Medium     |                                                                        |
+| [LC 275 — H-Index II](https://leetcode.com/problems/h-index-ii/)                                                                | Medium     |                                                                        |
+| [LC 287 — Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/)                                  | Medium     |                                                                        |
+| [LC 378 — Kth Smallest Element in a Sorted Matrix](https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/)      | Medium     |                                                                        |
+| [LC 540 — Single Element in a Sorted Array](https://leetcode.com/problems/single-element-in-a-sorted-array/)                    | Medium     |                                                                        |
+| [LC 658 — Find K Closest Elements](https://leetcode.com/problems/find-k-closest-elements/)                                      | Medium     |                                                                        |
+| [LC 702 — Search in a Sorted Array of Unknown Size](https://leetcode.com/problems/search-in-a-sorted-array-of-unknown-size/)    | Medium     |                                                                        |
+| [LC 1004 — Max Consecutive Ones III](https://leetcode.com/problems/max-consecutive-ones-iii/)                                   | Medium     |                                                                        |
+| [LC 1011 — Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/)     | Medium     |                                                                        |
+| [LC 1482 — Minimum Number of Days to Make m Bouquets](https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/) | Medium     |                                                                        |
+| [CC — Binary Search on Answer (BINSANS)](https://www.codechef.com/problems/BINSANS)                                             | Medium     |                                                                        |
+| [CC — Rotated Array Search (ROTARR)](https://www.codechef.com/problems/ROTARR)                                                  | Medium     |                                                                        |
+| [LC 410 — Split Array Largest Sum](https://leetcode.com/problems/split-array-largest-sum/)                                      | Hard       |                                                                        |
+| [LC 4 — Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/)                                | Hard       |                                                                        |
+| [LC 37 — Sudoku Solver](https://leetcode.com/problems/sudoku-solver/)                                                           | Hard       |                                                                        |
+| [LC 174 — Dungeon Game](https://leetcode.com/problems/dungeon-game/)                                                            | Hard       |                                                                        |
+| [LC 302 — Smallest Rectangle Enclosing Black Pixels](https://leetcode.com/problems/smallest-rectangle-enclosing-black-pixels/)  | Hard       |                                                                        |
+| [LC 354 — Russian Doll Envelopes](https://leetcode.com/problems/russian-doll-envelopes/)                                        | Hard       |                                                                        |
+| [LC 719 — Find K-th Smallest Pair Distance](https://leetcode.com/problems/find-k-th-smallest-pair-distance/)                    | Hard       |                                                                        |
+| [LC 786 — K-th Smallest Prime Fraction](https://leetcode.com/problems/k-th-smallest-prime-fraction/)                            | Hard       |                                                                        |
+| [LC 1095 — Find in Mountain Array](https://leetcode.com/problems/find-in-mountain-array/)                                       | Hard       |                                                                        |
+| [LC 1231 — Divide Chocolate](https://leetcode.com/problems/divide-chocolate/)                                                   | Hard       |                                                                        |
+| [CC — Binary Search in Rotated Array (BINROT)](https://www.codechef.com/problems/BINROT)                                        | Hard       |                                                                        |
+| [CC — Advanced Binary Search (ADVBINS)](https://www.codechef.com/problems/ADVBINS)                                              | Hard       |                                                                        |
 
 ---
 

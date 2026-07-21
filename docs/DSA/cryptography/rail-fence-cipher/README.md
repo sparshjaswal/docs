@@ -1,8 +1,8 @@
 ---
 id: dsa-cryptography-rail-fence-cipher-readme
-title: Rail Fence Cipher
+title: "Rail Fence Cipher"
 slug: /DSA/cryptography/rail-fence-cipher/README
-sidebar_label: Rail Fence Cipher
+sidebar_label: "Rail Fence Cipher"
 ---
 
 # Rail Fence Cipher

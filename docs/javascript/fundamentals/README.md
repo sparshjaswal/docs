@@ -1,8 +1,8 @@
 ---
 id: javascript-fundamentals-readme
-title: 🏗️ JavaScript Fundamentals
+title: "🏗️ JavaScript Fundamentals"
 slug: /javascript/fundamentals/README
-sidebar_label: 🏗️ JavaScript Fundamentals
+sidebar_label: "🏗️ JavaScript Fundamentals"
 ---
 
 # 🏗️ JavaScript Fundamentals

@@ -1,8 +1,8 @@
 ---
 id: dsa-math-fibonacci
-title: Fibonacci Number
+title: "Fibonacci Number"
 slug: /DSA/math/fibonacci
-sidebar_label: Fibonacci Number
+sidebar_label: "Fibonacci Number"
 ---
 
 # Fibonacci Number

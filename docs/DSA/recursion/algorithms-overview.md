@@ -1,8 +1,8 @@
 ---
 id: dsa-recursion-algorithms-overview
-title: Recursion
+title: "Recursion"
 slug: /DSA/recursion/algorithms-overview
-sidebar_label: Recursion
+sidebar_label: "Recursion"
 ---
 
 # Recursion

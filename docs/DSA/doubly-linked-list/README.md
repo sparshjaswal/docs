@@ -1,8 +1,8 @@
 ---
 id: dsa-doubly-linked-list-readme
-title: Doubly Linked List
+title: "Doubly Linked List"
 slug: /DSA/doubly-linked-list/README
-sidebar_label: Doubly Linked List
+sidebar_label: "Doubly Linked List"
 ---
 
 # Doubly Linked List

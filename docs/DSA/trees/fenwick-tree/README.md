@@ -1,8 +1,8 @@
 ---
 id: dsa-trees-fenwick-tree-readme
-title: Fenwick Tree / Binary Indexed Tree
+title: "Fenwick Tree / Binary Indexed Tree"
 slug: /DSA/trees/fenwick-tree/README
-sidebar_label: Fenwick Tree / Binary Index...
+sidebar_label: "Fenwick Tree / Binary Index..."
 ---
 
 # Fenwick Tree / Binary Indexed Tree

@@ -1,8 +1,8 @@
 ---
 id: dsa-math-euclidean-algorithm-readme
-title: Euclidean algorithm
+title: "Euclidean algorithm"
 slug: /DSA/math/euclidean-algorithm/README
-sidebar_label: Euclidean algorithm
+sidebar_label: "Euclidean algorithm"
 ---
 
 # Euclidean algorithm

@@ -1,8 +1,8 @@
 ---
 id: javascript-use-strict
-title: use strict
+title: "use strict"
 slug: /javascript/use-strict
-sidebar_label: use strict
+sidebar_label: "use strict"
 ---
 
 # use strict

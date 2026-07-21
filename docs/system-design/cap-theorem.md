@@ -1,5 +1,5 @@
 ---
-title: CAP Theorem
+title: "CAP Theorem"
 sidebar_position: 6
 ---
 

@@ -1,8 +1,8 @@
 ---
 id: dsa-linked-list-readme
-title: 🔗 Linked List
+title: "🔗 Linked List"
 slug: /DSA/linked-list/README
-sidebar_label: 🔗 Linked List
+sidebar_label: "🔗 Linked List"
 ---
 
 # 🔗 Linked List

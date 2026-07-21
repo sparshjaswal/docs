@@ -1,8 +1,8 @@
 ---
 id: dsa-prefix-sum-readme
-title: ➕ Prefix Sum
+title: "➕ Prefix Sum"
 slug: /DSA/prefix-sum/README
-sidebar_label: ➕ Prefix Sum
+sidebar_label: "➕ Prefix Sum"
 ---
 
 # ➕ Prefix Sum

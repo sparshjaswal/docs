@@ -1,8 +1,8 @@
 ---
 id: javascript-quick-reference-cheatsheet
-title: Quick Reference Cheatsheet
+title: "Quick Reference Cheatsheet"
 slug: /javascript/quick-reference-cheatsheet
-sidebar_label: Quick Reference Cheatsheet
+sidebar_label: "Quick Reference Cheatsheet"
 ---
 
 # Quick Reference Cheatsheet

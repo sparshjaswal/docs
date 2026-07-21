@@ -1,8 +1,8 @@
 ---
 id: javascript-modular-javascript
-title: 📦 JavaScript Modules - Complete Guide (ES6+)
+title: "📦 JavaScript Modules - Complete Guide (ES6+)"
 slug: /javascript/modular-javascript
-sidebar_label: 📦 JavaScript Modules - Comp...
+sidebar_label: "📦 JavaScript Modules - Comp..."
 ---
 
 # 📦 JavaScript Modules - Complete Guide (ES6+)

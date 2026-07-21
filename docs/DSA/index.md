@@ -1,5 +1,5 @@
 ---
-title: DSA Concepts
+title: "DSA Concepts"
 description: Learn data structures and algorithms from simple to advanced with a structured, topic-wise roadmap.
 keywords:
   - dsa

@@ -1,8 +1,8 @@
 ---
 id: design-pattern-behavioral-template-method
-title: Template Method Pattern 📋
+title: "Template Method Pattern 📋"
 slug: /design-pattern/behavioral/template-method
-sidebar_label: Template Method Pattern 📋
+sidebar_label: "Template Method Pattern 📋"
 ---
 
 # Template Method Pattern 📋

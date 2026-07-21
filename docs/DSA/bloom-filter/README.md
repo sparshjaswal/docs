@@ -1,8 +1,8 @@
 ---
 id: dsa-bloom-filter-readme
-title: Bloom Filter
+title: "Bloom Filter"
 slug: /DSA/bloom-filter/README
-sidebar_label: Bloom Filter
+sidebar_label: "Bloom Filter"
 ---
 
 # Bloom Filter

@@ -1,8 +1,8 @@
 ---
 id: design-pattern-behavioral-mediator
-title: Mediator Pattern 🎭
+title: "Mediator Pattern 🎭"
 slug: /design-pattern/behavioral/mediator
-sidebar_label: Mediator Pattern 🎭
+sidebar_label: "Mediator Pattern 🎭"
 ---
 
 # Mediator Pattern 🎭

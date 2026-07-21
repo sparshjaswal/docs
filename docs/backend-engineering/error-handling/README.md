@@ -1,5 +1,5 @@
 ---
-title: Error Handling
+title: "Error Handling"
 description: Comprehensive error handling strategies for Node.js and Express — structured errors, custom error classes, centralized middleware, async patterns, and correlation IDs for tracing.
 ---
 
@@ -15,13 +15,13 @@ Error handling is the discipline of anticipating, detecting, and gracefully reco
 
 The most important distinction in error handling is between **operational errors** and **programmer errors**. Treating them the same way leads to fragile systems.
 
-| Dimension | Operational Errors | Programmer Errors |
-| --- | --- | --- |
-| **Definition** | Expected failures in the runtime environment | Bugs and logic mistakes in the code |
-| **Cause** | Network timeouts, invalid user input, DB connection failures, disk full, 3rd-party API downtime | `TypeError`, undefined variable, null reference, off-by-one, promise not awaited |
-| **Can we handle?** | ✅ Yes — these should be caught and handled gracefully | ❌ No safe recovery — the application state may be corrupted |
-| **Response** | Return a structured error to the client (4xx/5xx) | Let the process crash. Restart it with a process manager (PM2, Kubernetes) |
-| **Examples** | `ECONNREFUSED`, `ETIMEDOUT`, validation failures, rate limits, duplicate key violations | `Cannot read property 'x' of undefined`, `uncaughtException`, infinite recursion |
+| Dimension          | Operational Errors                                                                              | Programmer Errors                                                                |
+| ------------------ | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| **Definition**     | Expected failures in the runtime environment                                                    | Bugs and logic mistakes in the code                                              |
+| **Cause**          | Network timeouts, invalid user input, DB connection failures, disk full, 3rd-party API downtime | `TypeError`, undefined variable, null reference, off-by-one, promise not awaited |
+| **Can we handle?** | ✅ Yes — these should be caught and handled gracefully                                          | ❌ No safe recovery — the application state may be corrupted                     |
+| **Response**       | Return a structured error to the client (4xx/5xx)                                               | Let the process crash. Restart it with a process manager (PM2, Kubernetes)       |
+| **Examples**       | `ECONNREFUSED`, `ETIMEDOUT`, validation failures, rate limits, duplicate key violations         | `Cannot read property 'x' of undefined`, `uncaughtException`, infinite recursion |
 
 ### The Golden Rule
 
@@ -84,14 +84,14 @@ Clients (and your own frontend) should never have to parse error messages with r
 
 ### Field-by-field Breakdown
 
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `success` | `boolean` | ✅ | Always `false` for errors. Makes client branching trivial: `if (!res.success) { ... }` |
-| `error.code` | `string` | ✅ | Machine-readable, UPPER_SNAKE_CASE identifier (e.g., `INVALID_INPUT`, `RATE_LIMITED`, `DB_UNAVAILABLE`) |
-| `error.message` | `string` | ✅ | Human-readable summary. Safe for display to end users in production. |
-| `error.details` | `array` | ❌ | Field-level errors, validation failures, or additional context. Must be an array for consistency. |
-| `error.requestId` | `string` | ✅ | Correlation ID — ties the error to a specific request in your logs. |
-| `error.timestamp` | `string` | ✅ | ISO 8601 timestamp of when the error was generated. |
+| Field             | Type      | Required | Description                                                                                             |
+| ----------------- | --------- | -------- | ------------------------------------------------------------------------------------------------------- |
+| `success`         | `boolean` | ✅       | Always `false` for errors. Makes client branching trivial: `if (!res.success) { ... }`                  |
+| `error.code`      | `string`  | ✅       | Machine-readable, UPPER_SNAKE_CASE identifier (e.g., `INVALID_INPUT`, `RATE_LIMITED`, `DB_UNAVAILABLE`) |
+| `error.message`   | `string`  | ✅       | Human-readable summary. Safe for display to end users in production.                                    |
+| `error.details`   | `array`   | ❌       | Field-level errors, validation failures, or additional context. Must be an array for consistency.       |
+| `error.requestId` | `string`  | ✅       | Correlation ID — ties the error to a specific request in your logs.                                     |
+| `error.timestamp` | `string`  | ✅       | ISO 8601 timestamp of when the error was generated.                                                     |
 
 ### Anti-patterns to Avoid
 
@@ -372,7 +372,7 @@ app.get('/users/:id', async (req, res) => {
 
 // ❌ This also hangs
 app.get('/users/:id', (req, res) => {
-  someAsyncFunction().then(user => res.json(user));
+  someAsyncFunction().then((user) => res.json(user));
   // If someAsyncFunction rejects, the promise chain is broken
 });
 ```
@@ -396,10 +396,13 @@ function asyncHandler(fn) {
 const asyncHandler = require('./middleware/asyncHandler');
 const { getUserById } = require('./controllers/userController');
 
-app.get('/users/:id', asyncHandler(async (req, res) => {
-  const user = await getUserById(req.params.id);
-  res.json({ success: true, data: user });
-}));
+app.get(
+  '/users/:id',
+  asyncHandler(async (req, res) => {
+    const user = await getUserById(req.params.id);
+    res.json({ success: true, data: user });
+  }),
+);
 ```
 
 ### Solution 2: Use a Library
@@ -496,11 +499,7 @@ export default app;
 // middleware/asyncHandler.ts
 import { Request, Response, NextFunction } from 'express';
 
-type AsyncHandler = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => Promise<any>;
+type AsyncHandler = (req: Request, res: Response, next: NextFunction) => Promise<any>;
 
 export function asyncHandler(fn: AsyncHandler) {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -698,24 +697,24 @@ flowchart TD
 
 ### Quick Reference Table
 
-| Scenario | Status Code | Notes |
-| --- | --- | --- |
-| Missing required field | `400 Bad Request` | Simple input errors |
-| Invalid JSON syntax | `400 Bad Request` | Malformed request body |
-| Wrong `Content-Type` | `415 Unsupported Media Type` | Expected `application/json`, got `text/plain` |
-| Missing `Authorization` header | `401 Unauthorized` | Technically means "unauthenticated" |
-| Wrong credentials / expired token | `401 Unauthorized` | |
-| User lacks role/permission | `403 Forbidden` | Re-authenticating won't help |
-| Resource not found | `404 Not Found` | Prefer 404 over 403 for existence checks (prevents enumeration) |
-| Method not allowed | `405 Method Not Allowed` | `POST` on a `GET`-only endpoint |
-| `If-Match` / `If-None-Match` failure | `412 Precondition Failed` | Optimistic concurrency |
-| Duplicate unique field | `409 Conflict` | e.g., duplicate email during registration |
-| Business rule violation | `409 Conflict` | e.g., cancelling an already-shipped order |
-| Semantic validation failure | `422 Unprocessable Entity` | Well-formed request, but doesn't pass business rules |
-| Rate limit exceeded | `429 Too Many Requests` | Include `Retry-After` header |
-| Database connection failure | `503 Service Unavailable` | Include `Retry-After` if known |
-| Upstream API timeout | `504 Gateway Timeout` | Your server acting as a gateway |
-| Unexpected null pointer | `500 Internal Server Error` | Never expose stack in production |
+| Scenario                             | Status Code                  | Notes                                                           |
+| ------------------------------------ | ---------------------------- | --------------------------------------------------------------- |
+| Missing required field               | `400 Bad Request`            | Simple input errors                                             |
+| Invalid JSON syntax                  | `400 Bad Request`            | Malformed request body                                          |
+| Wrong `Content-Type`                 | `415 Unsupported Media Type` | Expected `application/json`, got `text/plain`                   |
+| Missing `Authorization` header       | `401 Unauthorized`           | Technically means "unauthenticated"                             |
+| Wrong credentials / expired token    | `401 Unauthorized`           |                                                                 |
+| User lacks role/permission           | `403 Forbidden`              | Re-authenticating won't help                                    |
+| Resource not found                   | `404 Not Found`              | Prefer 404 over 403 for existence checks (prevents enumeration) |
+| Method not allowed                   | `405 Method Not Allowed`     | `POST` on a `GET`-only endpoint                                 |
+| `If-Match` / `If-None-Match` failure | `412 Precondition Failed`    | Optimistic concurrency                                          |
+| Duplicate unique field               | `409 Conflict`               | e.g., duplicate email during registration                       |
+| Business rule violation              | `409 Conflict`               | e.g., cancelling an already-shipped order                       |
+| Semantic validation failure          | `422 Unprocessable Entity`   | Well-formed request, but doesn't pass business rules            |
+| Rate limit exceeded                  | `429 Too Many Requests`      | Include `Retry-After` header                                    |
+| Database connection failure          | `503 Service Unavailable`    | Include `Retry-After` if known                                  |
+| Upstream API timeout                 | `504 Gateway Timeout`        | Your server acting as a gateway                                 |
+| Unexpected null pointer              | `500 Internal Server Error`  | Never expose stack in production                                |
 
 ### 401 vs 403 — The Subtlety
 
@@ -726,12 +725,12 @@ If the client sent no credentials → `401`. If the client sent valid credential
 
 ### When to Use 200 vs 201 vs 202 vs 204
 
-| Status | Meaning | When |
-| --- | --- | --- |
-| `200 OK` | Success with body | `GET`, `PUT`, `PATCH` success |
-| `201 Created` | Resource created | `POST` success — include `Location` header |
-| `202 Accepted` | Accepted for async processing | Long-running operation — body may include a status URL |
-| `204 No Content` | Success, no body | `DELETE` success, or `PUT`/`PATCH` when you have nothing to say |
+| Status           | Meaning                       | When                                                            |
+| ---------------- | ----------------------------- | --------------------------------------------------------------- |
+| `200 OK`         | Success with body             | `GET`, `PUT`, `PATCH` success                                   |
+| `201 Created`    | Resource created              | `POST` success — include `Location` header                      |
+| `202 Accepted`   | Accepted for async processing | Long-running operation — body may include a status URL          |
+| `204 No Content` | Success, no body              | `DELETE` success, or `PUT`/`PATCH` when you have nothing to say |
 
 ---
 
@@ -962,15 +961,15 @@ function redactHeaders(headers) {
 
 ### What to Log (and What Not To)
 
-| ✅ Always Log | ❌ Never Log |
-| --- | --- |
-| Error code and message | Passwords, tokens, API keys |
-| Request ID (correlation ID) | Full request bodies with PII |
-| HTTP method and URL | Credit card numbers |
-| Stack trace (in development) | Session tokens |
-| Database query that failed | `Authorization` header values |
-| Upstream service name and endpoint | Cookies with session data |
-| Timestamp and environment | Unredacted user emails/phones |
+| ✅ Always Log                      | ❌ Never Log                  |
+| ---------------------------------- | ----------------------------- |
+| Error code and message             | Passwords, tokens, API keys   |
+| Request ID (correlation ID)        | Full request bodies with PII  |
+| HTTP method and URL                | Credit card numbers           |
+| Stack trace (in development)       | Session tokens                |
+| Database query that failed         | `Authorization` header values |
+| Upstream service name and endpoint | Cookies with session data     |
+| Timestamp and environment          | Unredacted user emails/phones |
 
 ---
 

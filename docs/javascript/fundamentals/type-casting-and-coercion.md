@@ -1,8 +1,8 @@
 ---
 id: javascript-fundamentals-type-casting-and-coercion
-title: Type Casting and Coercion
+title: "Type Casting and Coercion"
 slug: /javascript/fundamentals/type-casting-and-coercion
-sidebar_label: Type Casting and Coercion
+sidebar_label: "Type Casting and Coercion"
 ---
 
 # Type Casting and Coercion

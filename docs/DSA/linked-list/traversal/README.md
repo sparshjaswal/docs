@@ -1,8 +1,8 @@
 ---
 id: dsa-linked-list-traversal-readme
-title: Linked List Traversal
+title: "Linked List Traversal"
 slug: /DSA/linked-list/traversal/README
-sidebar_label: Linked List Traversal
+sidebar_label: "Linked List Traversal"
 ---
 
 # Linked List Traversal

@@ -1,5 +1,5 @@
 ---
-title: Sharding
+title: "Sharding"
 sidebar_position: 7
 ---
 

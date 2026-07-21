@@ -1,8 +1,8 @@
 ---
 id: javascript-functions-function-callback
-title: 🔄 Callback Functions in JavaScript
+title: "🔄 Callback Functions in JavaScript"
 slug: /javascript/functions/function-callback
-sidebar_label: 🔄 Callback Functions in Jav...
+sidebar_label: "🔄 Callback Functions in Jav..."
 ---
 
 # 🔄 Callback Functions in JavaScript

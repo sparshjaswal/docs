@@ -1,8 +1,8 @@
 ---
 id: dsa-sets-longest-increasing-subsequence-readme
-title: Longest Increasing Subsequence
+title: "Longest Increasing Subsequence"
 slug: /DSA/sets/longest-increasing-subsequence/README
-sidebar_label: Longest Increasing Subsequence
+sidebar_label: "Longest Increasing Subsequence"
 ---
 
 # Longest Increasing Subsequence

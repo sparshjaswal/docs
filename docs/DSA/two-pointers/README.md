@@ -1,8 +1,8 @@
 ---
 id: dsa-two-pointers-readme
-title: 👈👉 Two Pointers
+title: "👈👉 Two Pointers"
 slug: /DSA/two-pointers/README
-sidebar_label: 👈👉 Two Pointers
+sidebar_label: "👈👉 Two Pointers"
 ---
 
 # 👈👉 Two Pointers

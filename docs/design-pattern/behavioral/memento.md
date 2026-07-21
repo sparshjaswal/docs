@@ -1,8 +1,8 @@
 ---
 id: design-pattern-behavioral-memento
-title: Memento Pattern 💾
+title: "Memento Pattern 💾"
 slug: /design-pattern/behavioral/memento
-sidebar_label: Memento Pattern 💾
+sidebar_label: "Memento Pattern 💾"
 ---
 
 # Memento Pattern 💾

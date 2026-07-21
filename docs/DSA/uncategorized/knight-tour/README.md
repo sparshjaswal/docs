@@ -1,8 +1,8 @@
 ---
 id: dsa-uncategorized-knight-tour-readme
-title: Knight's Tour
+title: "Knight's Tour"
 slug: /DSA/uncategorized/knight-tour/README
-sidebar_label: Knight's Tour
+sidebar_label: "Knight's Tour"
 ---
 
 # Knight's Tour

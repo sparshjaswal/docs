@@ -1,8 +1,8 @@
 ---
 id: dsa-sorting-bucket-sort-readme
-title: Bucket Sort
+title: "Bucket Sort"
 slug: /DSA/sorting/bucket-sort/README
-sidebar_label: Bucket Sort
+sidebar_label: "Bucket Sort"
 ---
 
 # Bucket Sort

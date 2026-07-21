@@ -1,5 +1,5 @@
 ---
-title: Functional Programming Guide
+title: "Functional Programming Guide"
 description: Learn pure functions, composition, functors, monads, and referential transparency with hands-on exercises.
 keywords:
   - functional programming

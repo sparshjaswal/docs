@@ -1,8 +1,8 @@
 ---
 id: dsa-recursion-readme
-title: 🔁 Recursion
+title: "🔁 Recursion"
 slug: /DSA/recursion/README
-sidebar_label: 🔁 Recursion
+sidebar_label: "🔁 Recursion"
 ---
 
 # 🔁 Recursion

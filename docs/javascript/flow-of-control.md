@@ -1,8 +1,8 @@
 ---
 id: javascript-flow-of-control
-title: Flow Control in JavaScript
+title: "Flow Control in JavaScript"
 slug: /javascript/flow-of-control
-sidebar_label: Flow Control in JavaScript
+sidebar_label: "Flow Control in JavaScript"
 ---
 
 # Flow Control in JavaScript

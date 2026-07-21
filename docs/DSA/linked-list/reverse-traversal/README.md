@@ -1,8 +1,8 @@
 ---
 id: dsa-linked-list-reverse-traversal-readme
-title: Reversed Linked List Traversal
+title: "Reversed Linked List Traversal"
 slug: /DSA/linked-list/reverse-traversal/README
-sidebar_label: Reversed Linked List Traversal
+sidebar_label: "Reversed Linked List Traversal"
 ---
 
 # Reversed Linked List Traversal

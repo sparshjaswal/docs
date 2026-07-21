@@ -1,8 +1,8 @@
 ---
 id: design-pattern-behavioral-command
-title: Command Pattern 🎮
+title: "Command Pattern 🎮"
 slug: /design-pattern/behavioral/command
-sidebar_label: Command Pattern 🎮
+sidebar_label: "Command Pattern 🎮"
 ---
 
 # Command Pattern 🎮

@@ -1,8 +1,8 @@
 ---
 id: design-pattern-behavioral-state
-title: State Pattern 🎛️
+title: "State Pattern 🎛️"
 slug: /design-pattern/behavioral/state
-sidebar_label: State Pattern 🎛️
+sidebar_label: "State Pattern 🎛️"
 ---
 
 # State Pattern 🎛️
@@ -74,18 +74,18 @@ Create a separate class for each state. The context holds a reference to the cur
 
 A formal way to document valid transitions:
 
-| Current State  | Action    | Next State     | Condition          |
-| -------------- | --------- | -------------- | ------------------ |
-| Draft          | submit    | Under Review   | Content not empty  |
-| Draft          | archive   | Archived       | —                  |
-| Under Review   | approve   | Approved       | Reviewer has role  |
-| Under Review   | reject    | Rejected       | —                  |
-| Approved       | publish   | Published      | Publisher has role |
-| Approved       | reject    | Rejected       | —                  |
-| Rejected       | edit      | Draft          | —                  |
-| Published      | archive   | Archived       | —                  |
-| Published      | edit      | Draft (v2)     | Creates new version|
-| Archived       | —         | —              | Terminal state     |
+| Current State | Action  | Next State   | Condition           |
+| ------------- | ------- | ------------ | ------------------- |
+| Draft         | submit  | Under Review | Content not empty   |
+| Draft         | archive | Archived     | —                   |
+| Under Review  | approve | Approved     | Reviewer has role   |
+| Under Review  | reject  | Rejected     | —                   |
+| Approved      | publish | Published    | Publisher has role  |
+| Approved      | reject  | Rejected     | —                   |
+| Rejected      | edit    | Draft        | —                   |
+| Published     | archive | Archived     | —                   |
+| Published     | edit    | Draft (v2)   | Creates new version |
+| Archived      | —       | —            | Terminal state      |
 
 ## 💻 Code Example
 
@@ -99,7 +99,9 @@ interface State {
 }
 
 class PlayingState implements State {
-  play()  { console.log('▶️ Already playing'); }
+  play() {
+    console.log('▶️ Already playing');
+  }
   pause(p: MediaPlayer) {
     console.log('⏸️ Pausing');
     p.setState(new PausedState());
@@ -115,7 +117,9 @@ class PausedState implements State {
     console.log('▶️ Resuming');
     p.setState(new PlayingState());
   }
-  pause() { console.log('⏸️ Already paused'); }
+  pause() {
+    console.log('⏸️ Already paused');
+  }
   stop(p: MediaPlayer) {
     console.log('⏹️ Stopping');
     p.setState(new StoppedState());
@@ -127,8 +131,12 @@ class StoppedState implements State {
     console.log('▶️ Starting playback');
     p.setState(new PlayingState());
   }
-  pause() { console.log('⏸️ Cannot pause — already stopped'); }
-  stop()  { console.log('⏹️ Already stopped'); }
+  pause() {
+    console.log('⏸️ Cannot pause — already stopped');
+  }
+  stop() {
+    console.log('⏹️ Already stopped');
+  }
 }
 
 class MediaPlayer {
@@ -139,17 +147,23 @@ class MediaPlayer {
     this.state = state;
   }
 
-  play()  { this.state.play(this); }
-  pause() { this.state.pause(this); }
-  stop()  { this.state.stop(this); }
+  play() {
+    this.state.play(this);
+  }
+  pause() {
+    this.state.pause(this);
+  }
+  stop() {
+    this.state.stop(this);
+  }
 }
 
 // Usage
 const player = new MediaPlayer();
-player.play();   // StoppedState → PlayingState
-player.pause();  // PlayingState → PausedState
-player.play();   // PausedState → PlayingState
-player.stop();   // PlayingState → StoppedState
+player.play(); // StoppedState → PlayingState
+player.pause(); // PlayingState → PausedState
+player.play(); // PausedState → PlayingState
+player.stop(); // PlayingState → StoppedState
 ```
 
 ## 🌟 Real-World Examples
@@ -180,8 +194,12 @@ class DraftState implements DocumentState {
     doc.transition(new UnderReviewState());
   }
 
-  approve() { this.invalid('approve'); }
-  publish() { this.invalid('publish'); }
+  approve() {
+    this.invalid('approve');
+  }
+  publish() {
+    this.invalid('publish');
+  }
 
   private invalid(action: string) {
     console.log(`❌ Cannot ${action} a draft`);
@@ -189,24 +207,36 @@ class DraftState implements DocumentState {
 }
 
 class UnderReviewState implements DocumentState {
-  edit() { console.log('❌ Cannot edit under review'); }
-  submit() { console.log('❌ Already under review'); }
+  edit() {
+    console.log('❌ Cannot edit under review');
+  }
+  submit() {
+    console.log('❌ Already under review');
+  }
 
   approve(doc: Document, reviewer: string) {
     console.log(`✅ Approved by ${reviewer}`);
     doc.transition(new ApprovedState());
   }
 
-  publish() { this.invalid('publish'); }
+  publish() {
+    this.invalid('publish');
+  }
   private invalid(action: string) {
     console.log(`❌ Cannot ${action} while under review`);
   }
 }
 
 class ApprovedState implements DocumentState {
-  edit()      { console.log('❌ Cannot edit approved document'); }
-  submit()    { console.log('❌ Already approved'); }
-  approve()   { console.log('❌ Already approved'); }
+  edit() {
+    console.log('❌ Cannot edit approved document');
+  }
+  submit() {
+    console.log('❌ Already approved');
+  }
+  approve() {
+    console.log('❌ Already approved');
+  }
 
   publish(doc: Document) {
     console.log(`🌐 Published!`);
@@ -220,9 +250,15 @@ class PublishedState implements DocumentState {
     doc.version++;
     doc.transition(new DraftState());
   }
-  submit()  { console.log('❌ Already published'); }
-  approve() { console.log('❌ Already published'); }
-  publish() { console.log('❌ Already published'); }
+  submit() {
+    console.log('❌ Already published');
+  }
+  approve() {
+    console.log('❌ Already published');
+  }
+  publish() {
+    console.log('❌ Already published');
+  }
 }
 
 // ---- Context ----
@@ -234,23 +270,33 @@ class Document {
   constructor(public title: string) {}
 
   transition(newState: DocumentState): void {
-    console.log(`📋 "${this.title}": ${this.state.constructor.name} → ${newState.constructor.name}`);
+    console.log(
+      `📋 "${this.title}": ${this.state.constructor.name} → ${newState.constructor.name}`,
+    );
     this.state = newState;
   }
 
-  edit()                           { this.state.edit(this); }
-  submit()                         { this.state.submit(this); }
-  approve(reviewer: string = '')   { this.state.approve(this, reviewer); }
-  publish()                        { this.state.publish(this); }
+  edit() {
+    this.state.edit(this);
+  }
+  submit() {
+    this.state.submit(this);
+  }
+  approve(reviewer: string = '') {
+    this.state.approve(this, reviewer);
+  }
+  publish() {
+    this.state.publish(this);
+  }
 }
 
 // Usage
 const doc = new Document('API Design v2');
 doc.edit();
-doc.submit();                       // Draft → UnderReview
-doc.approve('Alice');               // UnderReview → Approved
-doc.publish();                      // Approved → Published
-doc.edit();                         // Published → Draft (v2)
+doc.submit(); // Draft → UnderReview
+doc.approve('Alice'); // UnderReview → Approved
+doc.publish(); // Approved → Published
+doc.edit(); // Published → Draft (v2)
 ```
 
 ### 2. React: useReducer as a State Machine
@@ -273,10 +319,10 @@ type FetchAction =
   | { type: 'RESET' };
 
 const transitionTable: Record<FetchState['status'], FetchAction['type'][]> = {
-  idle:    ['FETCH'],
+  idle: ['FETCH'],
   loading: ['RESOLVE', 'REJECT'],
   success: ['RESET'],
-  error:   ['RESET', 'FETCH'],
+  error: ['RESET', 'FETCH'],
 };
 
 function fetchReducer(state: FetchState, action: FetchAction): FetchState {
@@ -287,10 +333,14 @@ function fetchReducer(state: FetchState, action: FetchAction): FetchState {
   }
 
   switch (action.type) {
-    case 'FETCH':   return { status: 'loading' };
-    case 'RESOLVE': return { status: 'success', data: action.data };
-    case 'REJECT':  return { status: 'error', error: action.error };
-    case 'RESET':   return { status: 'idle' };
+    case 'FETCH':
+      return { status: 'loading' };
+    case 'RESOLVE':
+      return { status: 'success', data: action.data };
+    case 'REJECT':
+      return { status: 'error', error: action.error };
+    case 'RESET':
+      return { status: 'idle' };
   }
 }
 
@@ -318,10 +368,10 @@ function useDataFetch() {
 type TcpState = 'CLOSED' | 'LISTEN' | 'SYN_SENT' | 'SYN_RCVD' | 'ESTABLISHED';
 
 const tcpTransitions: Record<TcpState, Partial<Record<string, TcpState>>> = {
-  CLOSED:      { passiveOpen: 'LISTEN', activeOpen: 'SYN_SENT' },
-  LISTEN:      { send: 'SYN_SENT', close: 'CLOSED' },
-  SYN_SENT:    { receive: 'SYN_RCVD', close: 'CLOSED' },
-  SYN_RCVD:    { acknowledge: 'ESTABLISHED', close: 'CLOSED' },
+  CLOSED: { passiveOpen: 'LISTEN', activeOpen: 'SYN_SENT' },
+  LISTEN: { send: 'SYN_SENT', close: 'CLOSED' },
+  SYN_SENT: { receive: 'SYN_RCVD', close: 'CLOSED' },
+  SYN_RCVD: { acknowledge: 'ESTABLISHED', close: 'CLOSED' },
   ESTABLISHED: { close: 'CLOSED' },
 };
 
@@ -338,7 +388,9 @@ class TcpConnection {
     this.state = next;
   }
 
-  getState(): TcpState { return this.state; }
+  getState(): TcpState {
+    return this.state;
+  }
 }
 ```
 
@@ -352,8 +404,8 @@ State classes should only handle transitions. Business logic belongs in the cont
 // ❌ BAD: state class runs business logic directly
 class PlayingState implements State {
   stop(player: MediaPlayer) {
-    analytics.track('stop');       // side effect in state class
-    player.saveToDisk();           // business logic in state class
+    analytics.track('stop'); // side effect in state class
+    player.saveToDisk(); // business logic in state class
     player.setState(new StoppedState());
   }
 }
@@ -379,8 +431,12 @@ class MediaPlayer {
   private track = '';
 
   // Expose via focused methods, not raw fields
-  getVolume(): number { return this.volume; }
-  setVolume(v: number) { this.volume = v; }
+  getVolume(): number {
+    return this.volume;
+  }
+  setVolume(v: number) {
+    this.volume = v;
+  }
 }
 ```
 
@@ -395,7 +451,9 @@ const pausedState = new PausedState();
 const stoppedState = new StoppedState();
 
 class MediaPlayer {
-  setState(state: State) { this.state = state; } // accepts singleton
+  setState(state: State) {
+    this.state = state;
+  } // accepts singleton
 }
 ```
 
@@ -405,8 +463,16 @@ If two states differ by only one behavior, consider a parameterized approach rat
 
 ```typescript
 // ✅ BEFORE over-engineering, ask: are two classes really needed?
-class LockedDoor { open() { console.log('❌ Locked'); } }
-class UnlockedDoor { open() { console.log('✅ Opened'); } }
+class LockedDoor {
+  open() {
+    console.log('❌ Locked');
+  }
+}
+class UnlockedDoor {
+  open() {
+    console.log('✅ Opened');
+  }
+}
 
 // Often a simple boolean or flag is more appropriate for trivial differences.
 ```
@@ -415,13 +481,13 @@ class UnlockedDoor { open() { console.log('✅ Opened'); } }
 
 Both patterns use composition/delegation and can look identical structurally. The difference is intent:
 
-| Aspect                 | State Pattern                                      | Strategy Pattern                           |
-| ---------------------- | -------------------------------------------------- | ------------------------------------------ |
-| **Who drives change**  | State objects themselves trigger transitions       | Client/external code swaps strategies      |
-| **Awareness**          | Context may not know which state is active         | Client explicitly chooses the strategy     |
-| **Coupling**           | States know about each other (to transition)       | Strategies are independent of each other   |
-| **Purpose**            | Manage internal state-dependent behavior           | Swap interchangeable algorithms            |
-| **Analogy**            | Media player modes (play/pause/stop cycling)       | Compression format chosen by user          |
+| Aspect                | State Pattern                                | Strategy Pattern                         |
+| --------------------- | -------------------------------------------- | ---------------------------------------- |
+| **Who drives change** | State objects themselves trigger transitions | Client/external code swaps strategies    |
+| **Awareness**         | Context may not know which state is active   | Client explicitly chooses the strategy   |
+| **Coupling**          | States know about each other (to transition) | Strategies are independent of each other |
+| **Purpose**           | Manage internal state-dependent behavior     | Swap interchangeable algorithms          |
+| **Analogy**           | Media player modes (play/pause/stop cycling) | Compression format chosen by user        |
 
 ## ✅ Pros
 
@@ -461,10 +527,10 @@ type State = 'idle' | 'loading' | 'success' | 'error';
 
 function transition(state: State, action: string): State {
   const transitions: Record<State, Record<string, State>> = {
-    idle:    { FETCH: 'loading' },
+    idle: { FETCH: 'loading' },
     loading: { RESOLVE: 'success', REJECT: 'error' },
     success: { RESET: 'idle' },
-    error:   { FETCH: 'loading', RESET: 'idle' },
+    error: { FETCH: 'loading', RESET: 'idle' },
   };
   return transitions[state][action] ?? state;
 }
@@ -483,12 +549,12 @@ const playerMachine = createMachine({
   states: {
     stopped: { on: { PLAY: 'playing' } },
     playing: { on: { PAUSE: 'paused', STOP: 'stopped' } },
-    paused:  { on: { PLAY: 'playing', STOP: 'stopped' } },
+    paused: { on: { PLAY: 'playing', STOP: 'stopped' } },
   },
 });
 
 const service = interpret(playerMachine).start();
-service.send('PLAY');  // stopped → playing
+service.send('PLAY'); // stopped → playing
 service.send('PAUSE'); // playing → paused
 ```
 

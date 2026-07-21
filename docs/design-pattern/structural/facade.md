@@ -1,8 +1,8 @@
 ---
 id: design-pattern-structural-facade
-title: Facade Pattern 🏛️
+title: "Facade Pattern 🏛️"
 slug: /design-pattern/structural/facade
-sidebar_label: Facade Pattern 🏛️
+sidebar_label: "Facade Pattern 🏛️"
 ---
 
 # Facade Pattern 🏛️

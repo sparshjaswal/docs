@@ -1,8 +1,8 @@
 ---
 id: dsa-math-complex-number-readme
-title: Complex Number
+title: "Complex Number"
 slug: /DSA/math/complex-number/README
-sidebar_label: Complex Number
+sidebar_label: "Complex Number"
 ---
 
 # Complex Number

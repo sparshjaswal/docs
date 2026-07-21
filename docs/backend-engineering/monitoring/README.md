@@ -1,5 +1,5 @@
 ---
-title: Monitoring & Observability
+title: "Monitoring & Observability"
 description: Comprehensive guide to monitoring backend systems — metrics, logging, tracing, Prometheus, Grafana, OpenTelemetry, alerting, health checks, SLIs, SLOs, and dashboard design.
 ---
 
@@ -25,11 +25,11 @@ graph LR
     D --> G["How does a request flow through services?"]
 ```
 
-| Pillar | Question | Data Shape | Retention | Cost |
-| --- | --- | --- | --- | --- |
-| **Metrics** | "Is the system healthy?" | Numeric time-series (counters, gauges, histograms) | Long (months–years) | Low |
-| **Logs** | "What exactly happened?" | Immutable, timestamped text/JSON events | Medium (days–weeks) | Medium |
-| **Traces** | "How did a request travel?" | Directed acyclic graph of spans with timing | Short (hours–days, sampled) | Medium–High |
+| Pillar      | Question                    | Data Shape                                         | Retention                   | Cost        |
+| ----------- | --------------------------- | -------------------------------------------------- | --------------------------- | ----------- |
+| **Metrics** | "Is the system healthy?"    | Numeric time-series (counters, gauges, histograms) | Long (months–years)         | Low         |
+| **Logs**    | "What exactly happened?"    | Immutable, timestamped text/JSON events            | Medium (days–weeks)         | Medium      |
+| **Traces**  | "How did a request travel?" | Directed acyclic graph of spans with timing        | Short (hours–days, sampled) | Medium–High |
 
 ### Metrics (Quantitative)
 
@@ -60,12 +60,12 @@ app.use((req, res, next) => {
 
 **Metric types (Prometheus):**
 
-| Type | Purpose | Example |
-| --- | --- | --- |
-| **Counter** | Monotonically increasing value (can only go up or reset to 0) | Total requests, errors, bytes sent |
-| **Gauge** | Value that can go up and down | Current memory usage, active connections, queue depth |
-| **Histogram** | Distribution of values across configurable buckets | Request latency, response size |
-| **Summary** | Distribution with client-side quantile calculation | Latency percentiles (p50, p95, p99) |
+| Type          | Purpose                                                       | Example                                               |
+| ------------- | ------------------------------------------------------------- | ----------------------------------------------------- |
+| **Counter**   | Monotonically increasing value (can only go up or reset to 0) | Total requests, errors, bytes sent                    |
+| **Gauge**     | Value that can go up and down                                 | Current memory usage, active connections, queue depth |
+| **Histogram** | Distribution of values across configurable buckets            | Request latency, response size                        |
+| **Summary**   | Distribution with client-side quantile calculation            | Latency percentiles (p50, p95, p99)                   |
 
 ### Logs (Qualitative, Event-Based)
 
@@ -77,18 +77,23 @@ import pino from 'pino';
 const logger = pino({
   level: process.env.LOG_LEVEL ?? 'info',
   formatters: {
-    level(label) { return { level: label }; },
+    level(label) {
+      return { level: label };
+    },
   },
 });
 
 // Structured log with correlation IDs
-logger.info({
-  event: 'order_created',
-  orderId: 'ord_abc123',
-  userId: 'usr_xyz',
-  traceId: req.traceId,
-  durationMs: 42,
-}, 'Order created successfully');
+logger.info(
+  {
+    event: 'order_created',
+    orderId: 'ord_abc123',
+    userId: 'usr_xyz',
+    traceId: req.traceId,
+    durationMs: 42,
+  },
+  'Order created successfully',
+);
 ```
 
 > **Best practice**: Always include a `traceId` in every log line so you can correlate logs with traces across services.
@@ -118,15 +123,15 @@ sequenceDiagram
 
 **Span attributes:**
 
-| Attribute | Description | Example |
-| --- | --- | --- |
-| `traceId` | Unique ID for the entire request chain | `a1b2c3d4e5f6` |
-| `spanId` | Unique ID for this specific span | `9f8e7d6c` |
-| `parentSpanId` | The span that called this one | `a1b2c3d4` |
-| `operationName` | What the span is doing | `GET /users/:id`, `SELECT users` |
-| `durationMs` | How long the span took | `42ms` |
-| `status` | Outcome | `OK`, `ERROR` |
-| `attributes` | Key-value metadata | `http.status_code=200`, `db.statement=SELECT...` |
+| Attribute       | Description                            | Example                                          |
+| --------------- | -------------------------------------- | ------------------------------------------------ |
+| `traceId`       | Unique ID for the entire request chain | `a1b2c3d4e5f6`                                   |
+| `spanId`        | Unique ID for this specific span       | `9f8e7d6c`                                       |
+| `parentSpanId`  | The span that called this one          | `a1b2c3d4`                                       |
+| `operationName` | What the span is doing                 | `GET /users/:id`, `SELECT users`                 |
+| `durationMs`    | How long the span took                 | `42ms`                                           |
+| `status`        | Outcome                                | `OK`, `ERROR`                                    |
+| `attributes`    | Key-value metadata                     | `http.status_code=200`, `db.statement=SELECT...` |
 
 ---
 
@@ -134,11 +139,11 @@ sequenceDiagram
 
 RED focuses on what the **service** experiences from the perspective of its **consumers**. It is the go-to method for monitoring microservices, APIs, and any request-driven workload.
 
-| Metric | Definition | Why It Matters |
-| --- | --- | --- |
-| **R**ate | Number of requests per second | Traffic spikes, capacity planning, DDoS detection |
-| **E**rrors | Number of failed requests per second | Degraded experience, bugs, downstream failures |
-| **D**uration | Latency distribution (p50, p95, p99) | Performance regressions, user experience |
+| Metric       | Definition                           | Why It Matters                                    |
+| ------------ | ------------------------------------ | ------------------------------------------------- |
+| **R**ate     | Number of requests per second        | Traffic spikes, capacity planning, DDoS detection |
+| **E**rrors   | Number of failed requests per second | Degraded experience, bugs, downstream failures    |
+| **D**uration | Latency distribution (p50, p95, p99) | Performance regressions, user experience          |
 
 **RED for every service = a consistent monitoring baseline.** Every service in your architecture should expose these three metrics. No exceptions.
 
@@ -190,11 +195,11 @@ app.use((req, res, next) => {
 
 USE focuses on **system resources** — CPU, memory, disks, network interfaces, etc. It answers: "Is this resource behaving as expected?"
 
-| Metric | Definition | Example |
-| --- | --- | --- |
-| **U**tilization | Percentage of resource capacity in use | CPU at 85%, memory at 92%, disk at 70% |
-| **S**aturation | Amount of work queued beyond what the resource can handle | Run queue length, swap usage, network packet drops |
-| **E**rrors | Count of error events on the resource | Disk I/O errors, NIC CRC errors, page faults |
+| Metric          | Definition                                                | Example                                            |
+| --------------- | --------------------------------------------------------- | -------------------------------------------------- |
+| **U**tilization | Percentage of resource capacity in use                    | CPU at 85%, memory at 92%, disk at 70%             |
+| **S**aturation  | Amount of work queued beyond what the resource can handle | Run queue length, swap usage, network packet drops |
+| **E**rrors      | Count of error events on the resource                     | Disk I/O errors, NIC CRC errors, page faults       |
 
 ```yaml
 # Prometheus recording rules for USE method — Node Exporter
@@ -224,11 +229,11 @@ groups:
 
 ### RED vs USE — When to Apply Each
 
-| Method | Scope | Answers | Apply To |
-| --- | --- | --- | --- |
-| **RED** | Service-level | "How are my users experiencing this service?" | Every microservice, API endpoint, HTTP handler |
-| **USE** | Resource-level | "Is this resource saturated or failing?" | CPU, memory, disks, network, load balancers, DB instances |
-| **Both together** | Holistic | "The service is slow — is it the code or the infrastructure?" | Production systems |
+| Method            | Scope          | Answers                                                       | Apply To                                                  |
+| ----------------- | -------------- | ------------------------------------------------------------- | --------------------------------------------------------- |
+| **RED**           | Service-level  | "How are my users experiencing this service?"                 | Every microservice, API endpoint, HTTP handler            |
+| **USE**           | Resource-level | "Is this resource saturated or failing?"                      | CPU, memory, disks, network, load balancers, DB instances |
+| **Both together** | Holistic       | "The service is slow — is it the code or the infrastructure?" | Production systems                                        |
 
 ---
 
@@ -238,13 +243,13 @@ Averages lie. Percentiles tell the truth. If your average latency is 200ms but p
 
 ### Definitions
 
-| Percentile | Meaning | Real-World Analogy |
-| --- | --- | --- |
-| **p50** (median) | 50% of requests are faster than this value | "The typical user's experience" |
-| **p90** | 90% of requests are faster than this value | "Most users, excluding the unlucky ones" |
-| **p95** | 95% of requests are faster than this value | "The practical worst case for most users" |
-| **p99** | 99% of requests are faster than this value | "The tail — long-running requests, GC pauses" |
-| **p999** | 99.9% of requests are faster than this value | "Extreme outliers — usually infrastructure issues" |
+| Percentile       | Meaning                                      | Real-World Analogy                                 |
+| ---------------- | -------------------------------------------- | -------------------------------------------------- |
+| **p50** (median) | 50% of requests are faster than this value   | "The typical user's experience"                    |
+| **p90**          | 90% of requests are faster than this value   | "Most users, excluding the unlucky ones"           |
+| **p95**          | 95% of requests are faster than this value   | "The practical worst case for most users"          |
+| **p99**          | 99% of requests are faster than this value   | "The tail — long-running requests, GC pauses"      |
+| **p999**         | 99.9% of requests are faster than this value | "Extreme outliers — usually infrastructure issues" |
 
 ### Why p99 Matters More Than Average
 
@@ -426,10 +431,10 @@ import tracer from 'dd-trace';
 tracer.init({
   service: 'user-service',
   env: process.env.NODE_ENV,
-  logInjection: true,           // Injects trace IDs into logs
-  runtimeMetrics: true,          // Collects runtime metrics (event loop, GC, heap)
-  profiling: true,               // Continuous profiling
-  analytics: true,               // Trace search & analytics
+  logInjection: true, // Injects trace IDs into logs
+  runtimeMetrics: true, // Collects runtime metrics (event loop, GC, heap)
+  profiling: true, // Continuous profiling
+  analytics: true, // Trace search & analytics
 });
 
 // Express is automatically instrumented — no code changes needed!
@@ -506,17 +511,17 @@ process.on('SIGTERM', async () => {
 
 ### Tool Comparison
 
-| Feature | Prometheus + Grafana | Datadog | OpenTelemetry |
-| --- | --- | --- | --- |
-| **Cost** | Free (self-hosted) | $$ (SaaS, per-host) | Free (standard, backends vary) |
-| **Metrics** | ✅ Excellent | ✅ Excellent | ✅ (via exporters) |
-| **Logs** | ❌ (pair with Loki) | ✅ Built-in | ✅ (via exporters) |
-| **Traces** | ❌ (pair with Jaeger/Tempo) | ✅ Built-in | ✅ Core feature |
-| **APM** | ❌ | ✅ | ⚠️ (depends on backend) |
-| **Alerting** | ✅ Alertmanager | ✅ Built-in | ⚠️ (backend-dependent) |
-| **Setup complexity** | Medium | Low | Medium–High |
-| **Vendor lock-in** | None | High | None (by design) |
-| **Best for** | Cost-sensitive, on-prem, full control | Teams wanting "it just works" | Multi-cloud, avoiding lock-in |
+| Feature              | Prometheus + Grafana                  | Datadog                       | OpenTelemetry                  |
+| -------------------- | ------------------------------------- | ----------------------------- | ------------------------------ |
+| **Cost**             | Free (self-hosted)                    | $$ (SaaS, per-host)           | Free (standard, backends vary) |
+| **Metrics**          | ✅ Excellent                          | ✅ Excellent                  | ✅ (via exporters)             |
+| **Logs**             | ❌ (pair with Loki)                   | ✅ Built-in                   | ✅ (via exporters)             |
+| **Traces**           | ❌ (pair with Jaeger/Tempo)           | ✅ Built-in                   | ✅ Core feature                |
+| **APM**              | ❌                                    | ✅                            | ⚠️ (depends on backend)        |
+| **Alerting**         | ✅ Alertmanager                       | ✅ Built-in                   | ⚠️ (backend-dependent)         |
+| **Setup complexity** | Medium                                | Low                           | Medium–High                    |
+| **Vendor lock-in**   | None                                  | High                          | None (by design)               |
+| **Best for**         | Cost-sensitive, on-prem, full control | Teams wanting "it just works" | Multi-cloud, avoiding lock-in  |
 
 ---
 
@@ -524,11 +529,11 @@ process.on('SIGTERM', async () => {
 
 Health checks tell orchestration systems (Kubernetes, Nomad, load balancers) whether your service is alive and ready to serve traffic. They are **not the same thing** — confusing them causes cascading failures.
 
-| Check | Purpose | Failure Consequence | When It Returns 200 |
-| --- | --- | --- | --- |
-| **Liveness** | "Am I alive, or should I be restarted?" | Container is killed and restarted | Process is responsive (lightweight check) |
-| **Readiness** | "Can I handle traffic right now?" | Removed from load balancer / service mesh | All downstream dependencies are reachable |
-| **Startup** | "Am I done initializing?" | Delays liveness probe until ready | All initialization is complete |
+| Check         | Purpose                                 | Failure Consequence                       | When It Returns 200                       |
+| ------------- | --------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| **Liveness**  | "Am I alive, or should I be restarted?" | Container is killed and restarted         | Process is responsive (lightweight check) |
+| **Readiness** | "Can I handle traffic right now?"       | Removed from load balancer / service mesh | All downstream dependencies are reachable |
+| **Startup**   | "Am I done initializing?"               | Delays liveness probe until ready         | All initialization is complete            |
 
 ### Examples
 
@@ -652,17 +657,17 @@ spec:
               port: 3000
             initialDelaySeconds: 0
             periodSeconds: 5
-            failureThreshold: 30   # Up to 150s for startup
+            failureThreshold: 30 # Up to 150s for startup
 ```
 
 ### Health Check Anti-Patterns
 
-| Anti-Pattern | Why It's Bad | Fix |
-| --- | --- | --- |
-| Checking DB in liveness | A dead DB kills all pods → cascading restart storm | Check DB only in readiness |
-| No startup probe | Slow-starting app killed before initialization completes | Add `startupProbe` with generous `failureThreshold` |
-| Slow health check endpoints | Health check timeouts cause flapping (up/down/up/down) | Keep liveness < 500ms, readiness < 3s |
-| Health checks with side effects | Every probe writes to DB, enqueues jobs, increments counters | Pure reads only — no mutations |
+| Anti-Pattern                    | Why It's Bad                                                 | Fix                                                 |
+| ------------------------------- | ------------------------------------------------------------ | --------------------------------------------------- |
+| Checking DB in liveness         | A dead DB kills all pods → cascading restart storm           | Check DB only in readiness                          |
+| No startup probe                | Slow-starting app killed before initialization completes     | Add `startupProbe` with generous `failureThreshold` |
+| Slow health check endpoints     | Health check timeouts cause flapping (up/down/up/down)       | Keep liveness < 500ms, readiness < 3s               |
+| Health checks with side effects | Every probe writes to DB, enqueues jobs, increments counters | Pure reads only — no mutations                      |
 
 ---
 
@@ -688,22 +693,22 @@ graph TB
     SLO -->|Stricter than| SLA
 ```
 
-| Term | Definition | Example | Who Sets It |
-| --- | --- | --- | --- |
-| **SLI** | A quantitative measure of some aspect of the service | "p99 latency = 245ms over the last 30 days" | Engineering (measured) |
-| **SLO** | A target value or range for an SLI | "p99 latency must be ≤ 300ms over 30 days" | Engineering + Product |
-| **SLA** | A contract with customers about service reliability, with consequences | "99.5% uptime, or 10% service credit" | Legal + Business |
+| Term    | Definition                                                             | Example                                     | Who Sets It            |
+| ------- | ---------------------------------------------------------------------- | ------------------------------------------- | ---------------------- |
+| **SLI** | A quantitative measure of some aspect of the service                   | "p99 latency = 245ms over the last 30 days" | Engineering (measured) |
+| **SLO** | A target value or range for an SLI                                     | "p99 latency must be ≤ 300ms over 30 days"  | Engineering + Product  |
+| **SLA** | A contract with customers about service reliability, with consequences | "99.5% uptime, or 10% service credit"       | Legal + Business       |
 
 ### Choosing Good SLIs
 
 The "Four Golden Signals" (from Google SRE book) are the most important SLIs:
 
-| Signal | SLI Example | Why |
-| --- | --- | --- |
-| **Latency** | p99 request latency < 300ms | Directly measures user experience |
-| **Traffic** | Requests per second | Capacity planning, anomaly detection |
-| **Errors** | Error rate < 0.1% (5xx / total requests) | Service quality |
-| **Saturation** | CPU < 70%, queue depth < 100 | Predicts impending degradation |
+| Signal         | SLI Example                              | Why                                  |
+| -------------- | ---------------------------------------- | ------------------------------------ |
+| **Latency**    | p99 request latency < 300ms              | Directly measures user experience    |
+| **Traffic**    | Requests per second                      | Capacity planning, anomaly detection |
+| **Errors**     | Error rate < 0.1% (5xx / total requests) | Service quality                      |
+| **Saturation** | CPU < 70%, queue depth < 100             | Predicts impending degradation       |
 
 ### Error Budgets
 
@@ -717,6 +722,7 @@ Error Budget: 0.1% of 30 days = 43m 50s of acceptable downtime per month
 ```
 
 **What error budgets enable:**
+
 - **Burn rate alerts**: Alert when you're consuming budget faster than expected (e.g., 5% of budget burned in 1 hour)
 - **Release gating**: If budget is nearly exhausted, freeze deployments until reliability recovers
 - **Risk-based decisions**: Team can consciously spend budget on risky deployments
@@ -741,11 +747,11 @@ Alerts are your system's way of asking a human to pay attention. Every alert tha
 
 ### The Alerting Maturity Model
 
-| Level | Description | Example |
-| --- | --- | --- |
-| **Page** (Critical) | Immediate human action required | "p99 latency > 5s, error rate > 5%" |
+| Level                | Description                         | Example                                |
+| -------------------- | ----------------------------------- | -------------------------------------- |
+| **Page** (Critical)  | Immediate human action required     | "p99 latency > 5s, error rate > 5%"    |
 | **Ticket** (Warning) | Action needed within business hours | "Disk 80% full, will fill in 48 hours" |
-| **Dashboard** (Info) | No action needed, visibility only | "Traffic 10% above normal, no errors" |
+| **Dashboard** (Info) | No action needed, visibility only   | "Traffic 10% above normal, no errors"  |
 
 ### Principles
 
@@ -774,9 +780,9 @@ groups:
           severity: page
           team: backend
         annotations:
-          summary: "High error rate on {{ $labels.service }}"
-          description: "{{ $labels.service }} error rate is {{ $value | humanizePercentage }} over the last 5 minutes."
-          runbook: "https://wiki.example.com/runbooks/high-error-rate"
+          summary: 'High error rate on {{ $labels.service }}'
+          description: '{{ $labels.service }} error rate is {{ $value | humanizePercentage }} over the last 5 minutes.'
+          runbook: 'https://wiki.example.com/runbooks/high-error-rate'
 
       # ─── High Latency (Page) ───
       - alert: HighLatency
@@ -789,9 +795,9 @@ groups:
           severity: page
           team: backend
         annotations:
-          summary: "p99 latency > 2s on {{ $labels.route }}"
-          description: "p99 latency for {{ $labels.route }} is {{ $value }}s over the last 10 minutes."
-          runbook: "https://wiki.example.com/runbooks/high-latency"
+          summary: 'p99 latency > 2s on {{ $labels.route }}'
+          description: 'p99 latency for {{ $labels.route }} is {{ $value }}s over the last 10 minutes.'
+          runbook: 'https://wiki.example.com/runbooks/high-latency'
 
       # ─── Error Budget Burn (Page) ───
       - alert: ErrorBudgetBurnFast
@@ -805,8 +811,8 @@ groups:
         labels:
           severity: page
         annotations:
-          summary: "Error budget burning fast — 2% consumed in 1 hour"
-          description: "At this rate, the 30-day error budget will be exhausted in ~2 days."
+          summary: 'Error budget burning fast — 2% consumed in 1 hour'
+          description: 'At this rate, the 30-day error budget will be exhausted in ~2 days.'
 
       # ─── Disk Space (Ticket) ───
       - alert: DiskWillFillIn48Hours
@@ -816,8 +822,8 @@ groups:
         labels:
           severity: ticket
         annotations:
-          summary: "Disk on {{ $labels.instance }} predicted to fill within 48 hours"
-          description: "Current free space: {{ $value | humanize }}B. Extend or clean up."
+          summary: 'Disk on {{ $labels.instance }} predicted to fill within 48 hours'
+          description: 'Current free space: {{ $value | humanize }}B. Extend or clean up.'
 
       # ─── No Metrics (Page — service is down!) ───
       - alert: ServiceDown
@@ -826,8 +832,8 @@ groups:
         labels:
           severity: page
         annotations:
-          summary: "{{ $labels.instance }} is down"
-          description: "The metrics endpoint has been unreachable for 2 minutes."
+          summary: '{{ $labels.instance }} is down'
+          description: 'The metrics endpoint has been unreachable for 2 minutes.'
 ```
 
 ### Alertmanager Configuration
@@ -961,26 +967,26 @@ Every service should have a dashboard built around the four golden signals, orga
 
 ### Dashboard Design Principles
 
-| Principle | Good | Bad |
-| --- | --- | --- |
-| **Left-to-right, top-to-bottom** | Most critical info top-left | Random layout, scrolling required |
-| **Consistent color semantics** | Green=good, Red=bad, Yellow=warning | Colors change meaning per panel |
-| **Show trends, not absolute numbers** | Sparklines, time-series graphs | Large single-stat numbers with no context |
-| **Use percentiles, not averages** | p50, p95, p99 lines on latency graph | Single "avg latency" line |
-| **Annotations for deployments** | Vertical lines at deploy times | No correlation between deploys and metrics |
-| **Template variables** | `$service`, `$environment`, `$instance` | Hardcoded per-service dashboards |
-| **Thresholds on graphs** | SLO line drawn on latency graph | No reference for what "good" looks like |
+| Principle                             | Good                                    | Bad                                        |
+| ------------------------------------- | --------------------------------------- | ------------------------------------------ |
+| **Left-to-right, top-to-bottom**      | Most critical info top-left             | Random layout, scrolling required          |
+| **Consistent color semantics**        | Green=good, Red=bad, Yellow=warning     | Colors change meaning per panel            |
+| **Show trends, not absolute numbers** | Sparklines, time-series graphs          | Large single-stat numbers with no context  |
+| **Use percentiles, not averages**     | p50, p95, p99 lines on latency graph    | Single "avg latency" line                  |
+| **Annotations for deployments**       | Vertical lines at deploy times          | No correlation between deploys and metrics |
+| **Template variables**                | `$service`, `$environment`, `$instance` | Hardcoded per-service dashboards           |
+| **Thresholds on graphs**              | SLO line drawn on latency graph         | No reference for what "good" looks like    |
 
 ### Metrics to Expose by Component
 
-| Component | Key Metrics |
-| --- | --- |
-| **HTTP Server** | Request rate, error rate, latency percentiles, active connections |
-| **Database (PostgreSQL)** | Query duration, connection pool utilization, deadlocks, transaction rate |
-| **Cache (Redis)** | Hit/miss ratio, command latency, connected clients, memory usage |
-| **Message Queue (BullMQ)** | Queue depth, processing rate, failed jobs, oldest pending job age |
-| **External APIs** | Call rate, error rate, latency, circuit breaker state |
-| **Node.js Runtime** | Event loop lag, heap usage, GC pause time, active handles |
+| Component                  | Key Metrics                                                              |
+| -------------------------- | ------------------------------------------------------------------------ |
+| **HTTP Server**            | Request rate, error rate, latency percentiles, active connections        |
+| **Database (PostgreSQL)**  | Query duration, connection pool utilization, deadlocks, transaction rate |
+| **Cache (Redis)**          | Hit/miss ratio, command latency, connected clients, memory usage         |
+| **Message Queue (BullMQ)** | Queue depth, processing rate, failed jobs, oldest pending job age        |
+| **External APIs**          | Call rate, error rate, latency, circuit breaker state                    |
+| **Node.js Runtime**        | Event loop lag, heap usage, GC pause time, active handles                |
 
 ```typescript
 // Exposing event loop lag (critical Node.js metric)
@@ -1028,7 +1034,7 @@ async function callDownstream(url: string, body: unknown): Promise<Response> {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      ...headers,  // traceparent, tracestate
+      ...headers, // traceparent, tracestate
     },
     body: JSON.stringify(body),
   });
@@ -1039,12 +1045,12 @@ async function callDownstream(url: string, body: unknown): Promise<Response> {
 
 Tracing every request is expensive. Sampling reduces data volume while preserving statistical significance.
 
-| Strategy | How It Works | Best For |
-| --- | --- | --- |
-| **Head-based (fixed rate)** | Randomly decide at request start (e.g., 10%) | Low-traffic services, consistent sampling rate |
-| **Tail-based** | Keep all spans, decide after request completes which to keep | Catching all errors and slow requests |
-| **Adaptive** | Dynamically adjust rate based on traffic volume | High-traffic services needing predictable data volume |
-| **Error-biased** | Always trace errors, probabilistically trace successes | Maximizing debugging value per stored trace |
+| Strategy                    | How It Works                                                 | Best For                                              |
+| --------------------------- | ------------------------------------------------------------ | ----------------------------------------------------- |
+| **Head-based (fixed rate)** | Randomly decide at request start (e.g., 10%)                 | Low-traffic services, consistent sampling rate        |
+| **Tail-based**              | Keep all spans, decide after request completes which to keep | Catching all errors and slow requests                 |
+| **Adaptive**                | Dynamically adjust rate based on traffic volume              | High-traffic services needing predictable data volume |
+| **Error-biased**            | Always trace errors, probabilistically trace successes       | Maximizing debugging value per stored trace           |
 
 ---
 
@@ -1062,7 +1068,13 @@ cron.schedule('*/5 * * * *', async () => {
   const checks = [
     { name: 'Homepage loads', url: 'https://api.example.com/healthz', expectStatus: 200 },
     { name: 'Search works', url: 'https://api.example.com/search?q=test', expectStatus: 200 },
-    { name: 'Auth endpoint', url: 'https://api.example.com/auth/login', expectStatus: 200, method: 'POST', body: { test: true } },
+    {
+      name: 'Auth endpoint',
+      url: 'https://api.example.com/auth/login',
+      expectStatus: 200,
+      method: 'POST',
+      body: { test: true },
+    },
   ];
 
   for (const check of checks) {

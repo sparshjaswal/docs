@@ -1,8 +1,8 @@
 ---
 id: dsa-sets-fisher-yates-readme
-title: Fisher–Yates shuffle
+title: "Fisher–Yates shuffle"
 slug: /DSA/sets/fisher-yates/README
-sidebar_label: Fisher–Yates shuffle
+sidebar_label: "Fisher–Yates shuffle"
 ---
 
 # Fisher–Yates shuffle

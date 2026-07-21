@@ -1,8 +1,8 @@
 ---
 id: dsa-dp-algorithms-overview
-title: Dynamic Programming
+title: "Dynamic Programming"
 slug: /DSA/dp/algorithms-overview
-sidebar_label: Dynamic Programming
+sidebar_label: "Dynamic Programming"
 ---
 
 # Dynamic Programming

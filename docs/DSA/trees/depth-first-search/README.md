@@ -1,8 +1,8 @@
 ---
 id: dsa-trees-depth-first-search-readme
-title: Depth-First Search (DFS)
+title: "Depth-First Search (DFS)"
 slug: /DSA/trees/depth-first-search/README
-sidebar_label: Depth-First Search (DFS)
+sidebar_label: "Depth-First Search (DFS)"
 ---
 
 # Depth-First Search (DFS)

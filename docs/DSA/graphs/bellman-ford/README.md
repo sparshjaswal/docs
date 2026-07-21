@@ -1,8 +1,8 @@
 ---
 id: dsa-graphs-bellman-ford-readme
-title: Bellman–Ford Algorithm
+title: "Bellman–Ford Algorithm"
 slug: /DSA/graphs/bellman-ford/README
-sidebar_label: Bellman–Ford Algorithm
+sidebar_label: "Bellman–Ford Algorithm"
 ---
 
 # Bellman–Ford Algorithm

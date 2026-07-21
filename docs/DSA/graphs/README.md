@@ -1,8 +1,8 @@
 ---
 id: dsa-graphs-readme
-title: 🗺️ Graphs
+title: "🗺️ Graphs"
 slug: /DSA/graphs/README
-sidebar_label: 🗺️ Graphs
+sidebar_label: "🗺️ Graphs"
 ---
 
 # 🗺️ Graphs
@@ -195,7 +195,7 @@ A graph data structure consists of a finite (and possibly mutable) set of vertic
 
 ### References
 
-- [Wikipedia](https://en.wikipedia.org/wiki/Graph_(abstract_data_type))
+- [Wikipedia](<https://en.wikipedia.org/wiki/Graph_(abstract_data_type)>)
 - [Introduction to Graphs on YouTube](https://www.youtube.com/watch?v=gXgEDyodOJU&index=9&list=PLLXdhg_r2hKA7DPDsunoDZ-Z769jWn4R8)
 - [Graphs representation on YouTube](https://www.youtube.com/watch?v=k1wraWzqtvQ&index=10&list=PLLXdhg_r2hKA7DPDsunoDZ-Z769jWn4R8)
 

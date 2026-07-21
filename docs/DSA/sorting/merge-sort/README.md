@@ -1,8 +1,8 @@
 ---
 id: dsa-sorting-merge-sort-readme
-title: Merge Sort
+title: "Merge Sort"
 slug: /DSA/sorting/merge-sort/README
-sidebar_label: Merge Sort
+sidebar_label: "Merge Sort"
 ---
 
 # Merge Sort

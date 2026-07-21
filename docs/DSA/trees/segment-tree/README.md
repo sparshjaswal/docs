@@ -1,8 +1,8 @@
 ---
 id: dsa-trees-segment-tree-readme
-title: Segment Tree
+title: "Segment Tree"
 slug: /DSA/trees/segment-tree/README
-sidebar_label: Segment Tree
+sidebar_label: "Segment Tree"
 ---
 
 # Segment Tree

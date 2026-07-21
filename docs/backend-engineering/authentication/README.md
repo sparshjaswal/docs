@@ -1,5 +1,5 @@
 ---
-title: Authentication & Authorization
+title: "Authentication & Authorization"
 description: JWT, OAuth 2.0, OpenID Connect, sessions, and cookies — securing your APIs end-to-end.
 ---
 
@@ -22,22 +22,25 @@ Header      Payload      Signature
 ```
 
 **Header** — algorithm & token type:
+
 ```json
 { "alg": "HS256", "typ": "JWT" }
 ```
 
 **Payload** — claims about the user:
+
 ```json
 {
-  "sub": "1234567890",       // subject (user ID)
+  "sub": "1234567890", // subject (user ID)
   "name": "Alice",
   "role": "admin",
-  "iat": 1710000000,         // issued at
-  "exp": 1710003600          // expiration
+  "iat": 1710000000, // issued at
+  "exp": 1710003600 // expiration
 }
 ```
 
 **Signature** — prevents tampering:
+
 ```
 HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(payload), secret)
 ```
@@ -91,14 +94,14 @@ An open standard for **access delegation** — allows users to grant third-party
 
 ### Grant Types
 
-| Flow | Use Case | Security |
-| --- | --- | --- |
-| **Authorization Code + PKCE** | SPAs, mobile apps, native apps | ✅ Most secure for public clients |
-| **Client Credentials** | Machine-to-machine, service accounts | ✅ No user involved |
-| **Authorization Code** | Server-rendered apps (confidential clients) | ✅ Requires client secret |
-| **Device Code** | TVs, IoT devices with limited input | ✅ Secure for input-constrained devices |
-| **Implicit** | Legacy SPAs | ❌ Deprecated — use PKCE instead |
-| **Password** | Migrating legacy systems | ❌ Deprecated — anti-pattern |
+| Flow                          | Use Case                                    | Security                                |
+| ----------------------------- | ------------------------------------------- | --------------------------------------- |
+| **Authorization Code + PKCE** | SPAs, mobile apps, native apps              | ✅ Most secure for public clients       |
+| **Client Credentials**        | Machine-to-machine, service accounts        | ✅ No user involved                     |
+| **Authorization Code**        | Server-rendered apps (confidential clients) | ✅ Requires client secret               |
+| **Device Code**               | TVs, IoT devices with limited input         | ✅ Secure for input-constrained devices |
+| **Implicit**                  | Legacy SPAs                                 | ❌ Deprecated — use PKCE instead        |
+| **Password**                  | Migrating legacy systems                    | ❌ Deprecated — anti-pattern            |
 
 ### Authorization Code + PKCE Flow
 
@@ -118,6 +121,7 @@ An open standard for **access delegation** — allows users to grant third-party
 An identity layer built **on top of OAuth 2.0**. It adds **authentication** (who you are) to OAuth's **authorization** (what you can access).
 
 **Key additions over OAuth 2.0:**
+
 - **ID Token** — a JWT containing user identity claims (`sub`, `name`, `email`, `preferred_username`)
 - **UserInfo endpoint** — `GET /userinfo` returns current user's claims
 - **Standardized scopes**: `openid` (required), `profile`, `email`, `address`, `phone`
@@ -141,33 +145,33 @@ Server-side session management stores user state on the server, identified by a 
 
 ### Security Flags
 
-| Flag | Purpose |
-| --- | --- |
-| `HttpOnly` | Prevents JavaScript access (`document.cookie`) — mitigates XSS |
-| `Secure` | Cookie only sent over HTTPS |
-| `SameSite=Strict` | No cross-site requests — strongest CSRF protection |
-| `SameSite=Lax` | Allows top-level navigation GET requests — good balance for most apps |
-| `SameSite=None` | Cross-site requests allowed (must also have `Secure`) — use for iframe/auth flows |
-| `Domain` | Restrict to specific domain (omit for exact-host-only) |
-| `Path` | Restrict to specific path (default `/`) |
+| Flag              | Purpose                                                                           |
+| ----------------- | --------------------------------------------------------------------------------- |
+| `HttpOnly`        | Prevents JavaScript access (`document.cookie`) — mitigates XSS                    |
+| `Secure`          | Cookie only sent over HTTPS                                                       |
+| `SameSite=Strict` | No cross-site requests — strongest CSRF protection                                |
+| `SameSite=Lax`    | Allows top-level navigation GET requests — good balance for most apps             |
+| `SameSite=None`   | Cross-site requests allowed (must also have `Secure`) — use for iframe/auth flows |
+| `Domain`          | Restrict to specific domain (omit for exact-host-only)                            |
+| `Path`            | Restrict to specific path (default `/`)                                           |
 
 ### Session Storage
 
-| Backend | Pros | Cons |
-| --- | --- | --- |
-| **Redis** | Fast, TTL built-in, clustering | Data in memory (volatile unless persisted) |
-| **Memory (dev only)** | Zero setup | Lost on restart, doesn't scale horizontally |
-| **Database (Postgres/MySQL)** | Durable, existing infra | Slower, sessions aren't relational data |
+| Backend                       | Pros                           | Cons                                        |
+| ----------------------------- | ------------------------------ | ------------------------------------------- |
+| **Redis**                     | Fast, TTL built-in, clustering | Data in memory (volatile unless persisted)  |
+| **Memory (dev only)**         | Zero setup                     | Lost on restart, doesn't scale horizontally |
+| **Database (Postgres/MySQL)** | Durable, existing infra        | Slower, sessions aren't relational data     |
 
 ### Session vs JWT Trade-offs
 
-| Criteria | Session | JWT |
-| --- | --- | --- |
-| **State** | Stateful (server stores) | Stateless (token contains all data) |
-| **Revocation** | Instant — delete session | Requires blocklist or short expiry |
-| **Horizontal scaling** | Requires shared session store (Redis) | Any server can verify with public key |
-| **Payload size** | Cookie is just an ID | Token carries claims (larger header) |
-| **Mobile/native support** | Cookie handling varies | Works everywhere (Bearer header) |
-| **Logout of all devices** | Delete all sessions for user | Rotate signing key or use blocklist |
+| Criteria                  | Session                               | JWT                                   |
+| ------------------------- | ------------------------------------- | ------------------------------------- |
+| **State**                 | Stateful (server stores)              | Stateless (token contains all data)   |
+| **Revocation**            | Instant — delete session              | Requires blocklist or short expiry    |
+| **Horizontal scaling**    | Requires shared session store (Redis) | Any server can verify with public key |
+| **Payload size**          | Cookie is just an ID                  | Token carries claims (larger header)  |
+| **Mobile/native support** | Cookie handling varies                | Works everywhere (Bearer header)      |
+| **Logout of all devices** | Delete all sessions for user          | Rotate signing key or use blocklist   |
 
 [← Back to Backend Engineering](../README.md) · © sparshjaswal

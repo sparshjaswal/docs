@@ -1,5 +1,5 @@
 ---
-title: Logging
+title: "Logging"
 description: Structured logging strategies, logger comparison (Winston, Pino, Bunyan), correlation IDs, PII redaction, and centralized logging with ELK, Loki, and CloudWatch.
 keywords:
   - logging
@@ -26,13 +26,13 @@ Logging is the practice of recording events, errors, and diagnostic information 
 
 Before diving into implementation, it's important to understand what logging actually gives you:
 
-| Purpose | Description |
-| --- | --- |
-| **Debugging** | Trace execution flow and pinpoint where failures occur |
-| **Monitoring** | Detect anomalies, performance regressions, and error spikes |
-| **Auditing** | Record who did what and when (compliance, security) |
-| **Alerting** | Trigger alerts when critical errors or patterns appear |
-| **Forensics** | Reconstruct what happened during a security incident |
+| Purpose                   | Description                                                 |
+| ------------------------- | ----------------------------------------------------------- |
+| **Debugging**             | Trace execution flow and pinpoint where failures occur      |
+| **Monitoring**            | Detect anomalies, performance regressions, and error spikes |
+| **Auditing**              | Record who did what and when (compliance, security)         |
+| **Alerting**              | Trigger alerts when critical errors or patterns appear      |
+| **Forensics**             | Reconstruct what happened during a security incident        |
 | **Business intelligence** | Analyze user behavior, feature adoption, and usage patterns |
 
 ---
@@ -44,11 +44,13 @@ Structured logging means writing logs as machine-parseable data (typically JSON)
 ### Why Structured?
 
 **Unstructured (bad):**
+
 ```
 User alice@example.com failed to login from IP 192.168.1.100 at 2024-01-15T10:30:00Z
 ```
 
 **Structured (good):**
+
 ```json
 {
   "timestamp": "2024-01-15T10:30:00.000Z",
@@ -70,19 +72,19 @@ With structured logs you can query with precision: _"Show me all failed logins f
 
 Every log entry should include:
 
-| Field | Required? | Description |
-| --- | --- | --- |
-| `timestamp` | ✅ | ISO 8601 with timezone (millisecond precision) |
-| `level` | ✅ | severity level: `trace`, `debug`, `info`, `warn`, `error`, `fatal` |
-| `message` | ✅ | Human-readable summary (the "what happened") |
-| `service` | ✅ | Name of the service/application |
-| `traceId` | ✅ | Correlation ID — links requests across services |
-| `spanId` | Recommended | Individual operation within a trace (OpenTelemetry) |
-| `requestId` | Recommended | Unique per HTTP request |
-| `userId` | When applicable | Identifier of the authenticated user |
-| `duration` | When applicable | Operation duration in milliseconds |
-| `error.stack` | On error | Stack trace (dev/staging only, never production) |
-| `context` | Optional | Additional structured data specific to the operation |
+| Field         | Required?       | Description                                                        |
+| ------------- | --------------- | ------------------------------------------------------------------ |
+| `timestamp`   | ✅              | ISO 8601 with timezone (millisecond precision)                     |
+| `level`       | ✅              | severity level: `trace`, `debug`, `info`, `warn`, `error`, `fatal` |
+| `message`     | ✅              | Human-readable summary (the "what happened")                       |
+| `service`     | ✅              | Name of the service/application                                    |
+| `traceId`     | ✅              | Correlation ID — links requests across services                    |
+| `spanId`      | Recommended     | Individual operation within a trace (OpenTelemetry)                |
+| `requestId`   | Recommended     | Unique per HTTP request                                            |
+| `userId`      | When applicable | Identifier of the authenticated user                               |
+| `duration`    | When applicable | Operation duration in milliseconds                                 |
+| `error.stack` | On error        | Stack trace (dev/staging only, never production)                   |
+| `context`     | Optional        | Additional structured data specific to the operation               |
 
 ### Implementing Structured Logging in Node.js
 
@@ -113,9 +115,10 @@ export const logger = pino({
     censor: '[REDACTED]',
   },
   // Pretty-print in development, JSON in production
-  transport: process.env.NODE_ENV !== 'production'
-    ? { target: 'pino-pretty', options: { colorize: true } }
-    : undefined,
+  transport:
+    process.env.NODE_ENV !== 'production'
+      ? { target: 'pino-pretty', options: { colorize: true } }
+      : undefined,
 });
 ```
 
@@ -127,14 +130,14 @@ Log levels provide a graduated scale of severity. Using the right level makes it
 
 ### Standard Level Hierarchy
 
-| Level | Severity | Meaning | When to Use |
-| --- | --- | --- | --- |
-| `fatal` / `critical` | 60 | System is unusable | Database is down, out of memory — immediate human intervention required |
-| `error` | 50 | Error events that might still allow continued operation | Failed API call, transaction rollback, unhandled exception in a request |
-| `warn` | 40 | Potentially harmful situations | Deprecated API usage, retry attempts, approaching rate limit, slow query |
-| `info` | 30 | Normal but significant events | Application startup, user signup, order placed, config loaded |
-| `debug` | 20 | Detailed information for debugging | SQL queries, request/response payloads, cache hits/misses |
-| `trace` | 10 | Very fine-grained tracing | Every function entry/exit, variable values — extremely verbose |
+| Level                | Severity | Meaning                                                 | When to Use                                                              |
+| -------------------- | -------- | ------------------------------------------------------- | ------------------------------------------------------------------------ |
+| `fatal` / `critical` | 60       | System is unusable                                      | Database is down, out of memory — immediate human intervention required  |
+| `error`              | 50       | Error events that might still allow continued operation | Failed API call, transaction rollback, unhandled exception in a request  |
+| `warn`               | 40       | Potentially harmful situations                          | Deprecated API usage, retry attempts, approaching rate limit, slow query |
+| `info`               | 30       | Normal but significant events                           | Application startup, user signup, order placed, config loaded            |
+| `debug`              | 20       | Detailed information for debugging                      | SQL queries, request/response payloads, cache hits/misses                |
+| `trace`              | 10       | Very fine-grained tracing                               | Every function entry/exit, variable values — extremely verbose           |
 
 ### Level Guidelines
 
@@ -173,19 +176,19 @@ Choosing a logger is a foundational decision. Here's how the three major Node.js
 
 ### Overview
 
-| Criteria | [Winston](https://github.com/winstonjs/winston) | [Pino](https://github.com/pinojs/pino) | [Bunyan](https://github.com/trentm/node-bunyan) |
-| --- | --- | --- | --- |
-| **First release** | 2011 | 2016 | 2012 |
-| **Performance** | Moderate (~6K ops/s) | Extremely fast (~30K+ ops/s) | Moderate (~5K ops/s) |
-| **Ecosystem** | Largest — dozens of transports | Growing — core transports built-in | Mature but less active |
-| **Dependencies** | 30+ (heavy) | ~5 (lightweight) | ~10 (moderate) |
-| **TypeScript support** | Via `@types/winston` | First-class (written in TS) | Via `@types/bunyan` |
-| **Child loggers** | Yes (`logger.child()`) | Yes (`logger.child()`) — very fast | Yes (`logger.child()`) — foundational concept |
-| **Serializers** | Via `winston.format` | Yes (custom serializers per field) | Yes (custom serializers) |
-| **Streams / Transports** | Console, File, HTTP, many community | Console, File, custom streams (fast) | Stream-based (stdout, file, raw) |
-| **Async logging** | Yes (async transports) | No (synchronous by design — for speed) | No (synchronous) |
-| **Redaction** | Manual via format transforms | Built-in `redact` option | Manual via serializers |
-| **Browser support** | Yes (browser build) | Yes (limited) | No |
+| Criteria                 | [Winston](https://github.com/winstonjs/winston) | [Pino](https://github.com/pinojs/pino) | [Bunyan](https://github.com/trentm/node-bunyan) |
+| ------------------------ | ----------------------------------------------- | -------------------------------------- | ----------------------------------------------- |
+| **First release**        | 2011                                            | 2016                                   | 2012                                            |
+| **Performance**          | Moderate (~6K ops/s)                            | Extremely fast (~30K+ ops/s)           | Moderate (~5K ops/s)                            |
+| **Ecosystem**            | Largest — dozens of transports                  | Growing — core transports built-in     | Mature but less active                          |
+| **Dependencies**         | 30+ (heavy)                                     | ~5 (lightweight)                       | ~10 (moderate)                                  |
+| **TypeScript support**   | Via `@types/winston`                            | First-class (written in TS)            | Via `@types/bunyan`                             |
+| **Child loggers**        | Yes (`logger.child()`)                          | Yes (`logger.child()`) — very fast     | Yes (`logger.child()`) — foundational concept   |
+| **Serializers**          | Via `winston.format`                            | Yes (custom serializers per field)     | Yes (custom serializers)                        |
+| **Streams / Transports** | Console, File, HTTP, many community             | Console, File, custom streams (fast)   | Stream-based (stdout, file, raw)                |
+| **Async logging**        | Yes (async transports)                          | No (synchronous by design — for speed) | No (synchronous)                                |
+| **Redaction**            | Manual via format transforms                    | Built-in `redact` option               | Manual via serializers                          |
+| **Browser support**      | Yes (browser build)                             | Yes (limited)                          | No                                              |
 
 ### Performance Comparison
 
@@ -239,10 +242,7 @@ const bunyanLogger = bunyan.createLogger({
     req: bunyan.stdSerializers.req,
     res: bunyan.stdSerializers.res,
   },
-  streams: [
-    { stream: process.stdout },
-    { path: 'error.log', level: 'error' },
-  ],
+  streams: [{ stream: process.stdout }, { path: 'error.log', level: 'error' }],
 });
 
 bunyanLogger.info({ userId: 'abc123' }, 'User logged in');
@@ -250,14 +250,14 @@ bunyanLogger.info({ userId: 'abc123' }, 'User logged in');
 
 ### Which Logger Should You Choose?
 
-| Scenario | Recommendation |
-| --- | --- |
-| High-throughput services (10K+ req/s) | **Pino** — its speed advantage is real at scale |
-| Enterprise / legacy ecosystem | **Winston** — largest plugin ecosystem, async transports |
-| Microservices with correlation IDs | **Pino** — child loggers are faster and more ergonomic |
-| Teams that value simplicity | **Pino** — fewer config options, sensible defaults |
-| You need browser + server logging | **Winston** — browser build available |
-| You're building a NestJS app | **Winston** (via `nest-winston`) or **Pino** (via `nestjs-pino`) |
+| Scenario                              | Recommendation                                                   |
+| ------------------------------------- | ---------------------------------------------------------------- |
+| High-throughput services (10K+ req/s) | **Pino** — its speed advantage is real at scale                  |
+| Enterprise / legacy ecosystem         | **Winston** — largest plugin ecosystem, async transports         |
+| Microservices with correlation IDs    | **Pino** — child loggers are faster and more ergonomic           |
+| Teams that value simplicity           | **Pino** — fewer config options, sensible defaults               |
+| You need browser + server logging     | **Winston** — browser build available                            |
+| You're building a NestJS app          | **Winston** (via `nest-winston`) or **Pino** (via `nestjs-pino`) |
 
 > **My recommendation:** Start with **Pino** for new Node.js projects. It's the fastest, has the smallest footprint, and its API is clean and modern. Choose Winston if you have specific transport needs (e.g., logging to a legacy syslog server with an existing Winston transport).
 
@@ -304,8 +304,8 @@ export const requestContext = new AsyncLocalStorage<{ correlationId: string }>()
 export function correlationIdMiddleware(req: Request, res: Response, next: NextFunction) {
   // Accept incoming correlation ID or generate a new one
   const correlationId =
-    req.headers['x-correlation-id'] as string ||
-    req.headers['x-request-id'] as string ||
+    (req.headers['x-correlation-id'] as string) ||
+    (req.headers['x-request-id'] as string) ||
     randomUUID();
 
   // Attach to request object for convenience
@@ -373,11 +373,11 @@ export async function callDownstream(url: string, options: RequestInit = {}) {
 
 If you're using OpenTelemetry (or plan to), align your correlation ID with the W3C Trace Context standard:
 
-| Field | W3C Header | Description |
-| --- | --- | --- |
-| **traceId** | `traceparent` | Identifies the entire end-to-end trace (32 hex chars) |
-| **spanId** | `traceparent` | Identifies a single operation within the trace (16 hex chars) |
-| **traceFlags** | `traceparent` | Sampling decision (01 = sampled) |
+| Field          | W3C Header    | Description                                                   |
+| -------------- | ------------- | ------------------------------------------------------------- |
+| **traceId**    | `traceparent` | Identifies the entire end-to-end trace (32 hex chars)         |
+| **spanId**     | `traceparent` | Identifies a single operation within the trace (16 hex chars) |
+| **traceFlags** | `traceparent` | Sampling decision (01 = sampled)                              |
 
 ```typescript
 // Aligning custom correlation ID with OpenTelemetry trace context
@@ -455,10 +455,13 @@ export function requestLoggerMiddleware(req: Request, res: Response, next: NextF
 
   const start = Date.now();
   res.on('finish', () => {
-    childLogger.info({
-      statusCode: res.statusCode,
-      duration: Date.now() - start,
-    }, `${req.method} ${req.path} ${res.statusCode}`);
+    childLogger.info(
+      {
+        statusCode: res.statusCode,
+        duration: Date.now() - start,
+      },
+      `${req.method} ${req.path} ${res.statusCode}`,
+    );
   });
 
   next();
@@ -502,15 +505,15 @@ Personally Identifiable Information (PII) must never appear in plaintext in your
 
 ### What Constitutes PII?
 
-| Category | Examples | Risk Level |
-| --- | --- | --- |
-| **Direct identifiers** | Full name, email, phone, SSN, passport number | 🔴 Critical — never log |
-| **Financial data** | Credit card numbers, bank account numbers, CVV | 🔴 Critical — never log |
-| **Credentials** | Passwords, API keys, JWT tokens, session IDs | 🔴 Critical — never log |
-| **Biometric data** | Fingerprints, face recognition data | 🔴 Critical — never log |
-| **Location data** | GPS coordinates, street address | 🟡 High — log only if essential; mask or coarse-grain |
-| **IP addresses** | Client IP | 🟡 High — GDPR considers IP as personal data; hash or truncate if logging |
-| **Device identifiers** | IMEI, advertising IDs | 🟡 High — avoid logging raw values |
+| Category               | Examples                                       | Risk Level                                                                |
+| ---------------------- | ---------------------------------------------- | ------------------------------------------------------------------------- |
+| **Direct identifiers** | Full name, email, phone, SSN, passport number  | 🔴 Critical — never log                                                   |
+| **Financial data**     | Credit card numbers, bank account numbers, CVV | 🔴 Critical — never log                                                   |
+| **Credentials**        | Passwords, API keys, JWT tokens, session IDs   | 🔴 Critical — never log                                                   |
+| **Biometric data**     | Fingerprints, face recognition data            | 🔴 Critical — never log                                                   |
+| **Location data**      | GPS coordinates, street address                | 🟡 High — log only if essential; mask or coarse-grain                     |
+| **IP addresses**       | Client IP                                      | 🟡 High — GDPR considers IP as personal data; hash or truncate if logging |
+| **Device identifiers** | IMEI, advertising IDs                          | 🟡 High — avoid logging raw values                                        |
 
 ### Redaction Strategies
 
@@ -531,11 +534,11 @@ const logger = pino({
       // Nested fields in request/response bodies
       'body.password',
       'body.creditCard',
-      'body.*.password',   // wildcard support
+      'body.*.password', // wildcard support
       'headers.authorization',
       'headers.cookie',
       // Arrays
-      'users[*].email',     // redact email in every array element
+      'users[*].email', // redact email in every array element
     ],
     censor: '[REDACTED]',
     // Optional: completely remove instead of replacing
@@ -594,18 +597,12 @@ const scrubPii = winston.format((info) => {
     '[EMAIL_REDACTED]',
   );
   // Scrub credit card numbers (basic pattern)
-  info.message = info.message.replace(
-    /\b(?:\d[ -]*?){13,16}\b/g,
-    '[CC_REDACTED]',
-  );
+  info.message = info.message.replace(/\b(?:\d[ -]*?){13,16}\b/g, '[CC_REDACTED]');
   return info;
 });
 
 const logger = winston.createLogger({
-  format: winston.format.combine(
-    scrubPii(),
-    winston.format.json(),
-  ),
+  format: winston.format.combine(scrubPii(), winston.format.json()),
   transports: [new winston.transports.Console()],
 });
 ```
@@ -620,11 +617,7 @@ Sometimes you need to identify a user in logs without storing their actual ident
 import crypto from 'crypto';
 
 function hashIdentifier(value: string, salt: string = process.env.LOG_SALT || 'default'): string {
-  return crypto
-    .createHmac('sha256', salt)
-    .update(value)
-    .digest('hex')
-    .substring(0, 16); // First 16 chars is enough for log correlation
+  return crypto.createHmac('sha256', salt).update(value).digest('hex').substring(0, 16); // First 16 chars is enough for log correlation
 }
 
 // Usage
@@ -694,12 +687,12 @@ flowchart LR
 
 The most widely deployed centralized logging stack. Mature, feature-rich, and battle-tested — but resource-heavy.
 
-| Component | Role |
-| --- | --- |
-| **Elasticsearch** | Distributed search and analytics engine — stores and indexes logs |
-| **Logstash** | Data processing pipeline — ingests, transforms, and ships logs |
-| **Kibana** | Visualization layer — dashboards, queries, alerting |
-| **Filebeat** | Lightweight shipper — tails log files and sends to Logstash/Elasticsearch |
+| Component         | Role                                                                      |
+| ----------------- | ------------------------------------------------------------------------- |
+| **Elasticsearch** | Distributed search and analytics engine — stores and indexes logs         |
+| **Logstash**      | Data processing pipeline — ingests, transforms, and ships logs            |
+| **Kibana**        | Visualization layer — dashboards, queries, alerting                       |
+| **Filebeat**      | Lightweight shipper — tails log files and sends to Logstash/Elasticsearch |
 
 **Architecture:**
 
@@ -767,12 +760,14 @@ output {
 ```
 
 **Pros:**
+
 - Extremely powerful full-text search and aggregation
 - Rich ecosystem of plugins and tools
 - Kibana dashboards are highly customizable
 - Handles petabytes of data
 
 **Cons:**
+
 - **Heavy:** Elasticsearch is a resource hog (heap memory, disk i/o)
 - **Expensive at scale:** licensing (Elastic license changes), infrastructure costs
 - **Complex to operate:** tuning JVM, managing indices, shard allocation
@@ -781,11 +776,11 @@ output {
 
 Loki is a horizontally-scalable, highly-available log aggregation system inspired by Prometheus. It indexes only **metadata** (labels) — not the full text of log lines — making it dramatically cheaper to operate than Elasticsearch.
 
-| Component | Role |
-| --- | --- |
-| **Loki** | Log storage and query engine |
-| **Promtail** | Agent that tails log files, adds labels, and pushes to Loki |
-| **Grafana** | Unified UI for logs (Loki), metrics (Prometheus), and traces (Tempo) |
+| Component    | Role                                                                 |
+| ------------ | -------------------------------------------------------------------- |
+| **Loki**     | Log storage and query engine                                         |
+| **Promtail** | Agent that tails log files, adds labels, and pushes to Loki          |
+| **Grafana**  | Unified UI for logs (Loki), metrics (Prometheus), and traces (Tempo) |
 
 **Architecture:**
 
@@ -811,7 +806,7 @@ const logger = pino({
     target: 'pino-loki',
     options: {
       batching: true,
-      interval: 5,          // batch interval in seconds
+      interval: 5, // batch interval in seconds
       host: 'http://loki:3100',
       labels: {
         service: 'order-service',
@@ -857,12 +852,14 @@ scrape_configs:
 ```
 
 **Pros:**
+
 - **Cost-effective:** indexes only metadata, stores compressed log chunks
 - **Unified observability:** same Grafana instance for logs, metrics, traces
 - **Simple to operate:** single binary, no JVM tuning, object storage backend
 - **LogQL:** query language similar to PromQL (familiar to DevOps)
 
 **Cons:**
+
 - Limited full-text search (no indexing of log body — sequential scan of chunks)
 - Smaller ecosystem than ELK
 - Newer, less battle-tested in very large deployments
@@ -871,12 +868,12 @@ scrape_configs:
 
 CloudWatch is AWS's native monitoring and observability service. If you're on AWS, it's the path of least resistance — no infrastructure to manage.
 
-| Component | Role |
-| --- | --- |
-| **CloudWatch Logs** | Log storage, querying, and retention |
-| **CloudWatch Agent** | Collects logs and metrics from EC2/on-prem |
-| **CloudWatch Insights** | Query language for searching and analyzing logs |
-| **CloudWatch Alarms** | Alert on log patterns (e.g., "ERROR" count > threshold) |
+| Component               | Role                                                    |
+| ----------------------- | ------------------------------------------------------- |
+| **CloudWatch Logs**     | Log storage, querying, and retention                    |
+| **CloudWatch Agent**    | Collects logs and metrics from EC2/on-prem              |
+| **CloudWatch Insights** | Query language for searching and analyzing logs         |
+| **CloudWatch Alarms**   | Alert on log patterns (e.g., "ERROR" count > threshold) |
 
 **Pino + CloudWatch integration:**
 
@@ -932,12 +929,14 @@ fields @timestamp, method, path, duration, statusCode
 ```
 
 **Pros:**
+
 - **Zero infrastructure management** — fully managed service
 - **Deep AWS integration** — automatically collects Lambda, ECS, RDS, and other service logs
 - **IAM-based access control** — fine-grained permissions
 - **Retention policies** — set per log group (1 day to never expire)
 
 **Cons:**
+
 - **Cost:** ingestion ($0.50/GB) + storage ($0.03/GB/month) + queries ($0.005/GB scanned) — can add up fast
 - **Vendor lock-in:** tight coupling to AWS ecosystem
 - **Query experience:** CloudWatch Insights is functional but less powerful than Kibana or Grafana
@@ -945,17 +944,17 @@ fields @timestamp, method, path, duration, statusCode
 
 ### Comparison Matrix
 
-| Criteria | ELK Stack | Grafana Loki | AWS CloudWatch |
-| --- | --- | --- | --- |
-| **Full-text search** | ✅ Excellent | ⚠️ Limited (no indexing) | ⚠️ Moderate (Insights queries) |
-| **Cost** | 🔴 High (infra + licensing) | 🟢 Low (cheap object storage) | 🟡 Variable (pay per GB) |
-| **Operational complexity** | 🔴 High (JVM tuning, clusters) | 🟢 Low (single binary) | 🟢 None (fully managed) |
-| **Visualization** | ✅ Kibana — powerful | ✅ Grafana — unified | ⚠️ Basic dashboards |
-| **Alerting** | ✅ ElastAlert / Kibana | ✅ Grafana Alerts | ✅ CloudWatch Alarms |
-| **Retention** | Configurable | Configurable (S3/GCS backend) | Configurable per log group |
-| **Multi-cloud** | ✅ Runs anywhere | ✅ Runs anywhere | ❌ AWS only |
-| **Open source** | ✅ (with license caveats) | ✅ (AGPLv3) | ❌ Proprietary |
-| **Best for** | Large enterprises, full-text search needs | Kubernetes, Prometheus users, cost-conscious teams | AWS-native shops, serverless apps |
+| Criteria                   | ELK Stack                                 | Grafana Loki                                       | AWS CloudWatch                    |
+| -------------------------- | ----------------------------------------- | -------------------------------------------------- | --------------------------------- |
+| **Full-text search**       | ✅ Excellent                              | ⚠️ Limited (no indexing)                           | ⚠️ Moderate (Insights queries)    |
+| **Cost**                   | 🔴 High (infra + licensing)               | 🟢 Low (cheap object storage)                      | 🟡 Variable (pay per GB)          |
+| **Operational complexity** | 🔴 High (JVM tuning, clusters)            | 🟢 Low (single binary)                             | 🟢 None (fully managed)           |
+| **Visualization**          | ✅ Kibana — powerful                      | ✅ Grafana — unified                               | ⚠️ Basic dashboards               |
+| **Alerting**               | ✅ ElastAlert / Kibana                    | ✅ Grafana Alerts                                  | ✅ CloudWatch Alarms              |
+| **Retention**              | Configurable                              | Configurable (S3/GCS backend)                      | Configurable per log group        |
+| **Multi-cloud**            | ✅ Runs anywhere                          | ✅ Runs anywhere                                   | ❌ AWS only                       |
+| **Open source**            | ✅ (with license caveats)                 | ✅ (AGPLv3)                                        | ❌ Proprietary                    |
+| **Best for**               | Large enterprises, full-text search needs | Kubernetes, Prometheus users, cost-conscious teams | AWS-native shops, serverless apps |
 
 ---
 
@@ -1005,13 +1004,16 @@ A log entry should answer: **who, what, when, where, and why**. If you can't rep
 logger.error('Database query failed');
 
 // ✅ Reproducible context
-logger.error({
-  query: 'SELECT * FROM orders WHERE id = $1',
-  params: [orderId],
-  dbHost: 'orders-db.internal',
-  duration: 5240,
-  err,
-}, 'Database query failed — connection timeout after 5s');
+logger.error(
+  {
+    query: 'SELECT * FROM orders WHERE id = $1',
+    params: [orderId],
+    dbHost: 'orders-db.internal',
+    duration: 5240,
+    err,
+  },
+  'Database query failed — connection timeout after 5s',
+);
 ```
 
 ### 5. Never Log Sensitive Data
@@ -1026,22 +1028,28 @@ Always log when a request enters your service and when it exits. This creates na
 // Express middleware — request boundary
 app.use((req, res, next) => {
   req.startTime = Date.now();
-  logger.info({
-    method: req.method,
-    path: req.path,
-    query: req.query,
-    ip: req.ip,
-  }, '→ Request received');
+  logger.info(
+    {
+      method: req.method,
+      path: req.path,
+      query: req.query,
+      ip: req.ip,
+    },
+    '→ Request received',
+  );
   next();
 });
 
 app.use((req, res) => {
-  logger.info({
-    method: req.method,
-    path: req.path,
-    statusCode: res.statusCode,
-    duration: Date.now() - req.startTime,
-  }, '← Response sent');
+  logger.info(
+    {
+      method: req.method,
+      path: req.path,
+      statusCode: res.statusCode,
+      duration: Date.now() - req.startTime,
+    },
+    '← Response sent',
+  );
 });
 ```
 
@@ -1053,7 +1061,8 @@ At very high throughput (10K+ req/s), logging every single request can become a 
 // Log all errors, but only 1% of debug entries
 const debugLogger = {
   debug: (obj: object, msg: string) => {
-    if (Math.random() < 0.01) {  // 1% sampling
+    if (Math.random() < 0.01) {
+      // 1% sampling
       logger.debug(obj, msg);
     }
   },
@@ -1215,15 +1224,17 @@ export function loggingMiddleware(req: Request, res: Response, next: NextFunctio
     // Log outgoing response on finish
     res.on('finish', () => {
       const duration = Date.now() - start;
-      const logFn = res.statusCode >= 500 ? logger.error
-        : res.statusCode >= 400 ? logger.warn
-        : logger.info;
+      const logFn =
+        res.statusCode >= 500 ? logger.error : res.statusCode >= 400 ? logger.warn : logger.info;
 
-      logFn({
-        res,
-        duration,
-        correlationId,
-      }, `← ${req.method} ${req.path} ${res.statusCode} (${duration}ms)`);
+      logFn(
+        {
+          res,
+          duration,
+          correlationId,
+        },
+        `← ${req.method} ${req.path} ${res.statusCode} (${duration}ms)`,
+      );
     });
 
     next();
@@ -1252,28 +1263,28 @@ process.on('SIGTERM', () => {
 
 ## Troubleshooting Common Logging Problems
 
-| Problem | Likely Cause | Solution |
-| --- | --- | --- |
-| **Logs appear out of order** | Buffering in transport; clock skew between services | Use NTP; ensure timestamps are generated at log call time, not transport flush time |
-| **Missing logs** | Log level too low; transport buffer overflow; disk full | Check LOG_LEVEL; monitor dropped log counter; alert on disk usage |
-| **Performance degradation** | Synchronous file writes; too many log calls | Use Pino (async flush); sample debug/trace logs; don't log in hot paths |
-| **PII in logs** | Redaction config missed a field; logged raw request body | Audit redaction paths; use serializers to whitelist fields instead of blacklisting |
-| **High log volume costs** | Logging too much at info level; verbose third-party libraries | Set appropriate levels per module; suppress noisy libraries (e.g., `aws-sdk`, `kafkajs`) |
-| **Correlation IDs missing** | Middleware not applied to all routes; background jobs not propagating context | Apply middleware globally; use `logger.child()` for job workers; propagate via headers in HTTP calls |
+| Problem                      | Likely Cause                                                                  | Solution                                                                                             |
+| ---------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Logs appear out of order** | Buffering in transport; clock skew between services                           | Use NTP; ensure timestamps are generated at log call time, not transport flush time                  |
+| **Missing logs**             | Log level too low; transport buffer overflow; disk full                       | Check LOG_LEVEL; monitor dropped log counter; alert on disk usage                                    |
+| **Performance degradation**  | Synchronous file writes; too many log calls                                   | Use Pino (async flush); sample debug/trace logs; don't log in hot paths                              |
+| **PII in logs**              | Redaction config missed a field; logged raw request body                      | Audit redaction paths; use serializers to whitelist fields instead of blacklisting                   |
+| **High log volume costs**    | Logging too much at info level; verbose third-party libraries                 | Set appropriate levels per module; suppress noisy libraries (e.g., `aws-sdk`, `kafkajs`)             |
+| **Correlation IDs missing**  | Middleware not applied to all routes; background jobs not propagating context | Apply middleware globally; use `logger.child()` for job workers; propagate via headers in HTTP calls |
 
 ---
 
 ## Logging Anti-Patterns
 
-| Anti-Pattern | Why It's Bad | Do This Instead |
-| --- | --- | --- |
-| `console.log()` everywhere | No levels, no structure, can't disable | Use a proper logger with levels |
-| Logging entire request/response bodies at info level | Performance hit, PII exposure, log spam | Log bodies at `debug` level only, with PII redaction |
-| `try { ... } catch (err) { console.log(err); }` | Swallows the error completely — no context, wrong level | `logger.error({ err, context }, 'Descriptive message')` — and re-throw if unhandled |
-| String interpolation for context: `` `User ${id} did X` `` | Not structured — can't query by `id` | `logger.info({ userId: id }, 'User performed action X')` |
-| Logging and then re-throwing the same error | Duplicate log entries, confusing trace | Log once at the boundary (controller level), or log and wrap with context |
-| Using `logger.error()` for expected validation failures | Dilutes the meaning of "error" — alerts become noise | `logger.warn()` for handled/expected issues; reserve `error` for unexpected failures |
-| Not setting a log retention policy | Logs grow indefinitely; storage costs explode; legal risk | Define retention: e.g., 30 days hot (indexed), 90 days cold (archive), 1 year compliance |
+| Anti-Pattern                                               | Why It's Bad                                              | Do This Instead                                                                          |
+| ---------------------------------------------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `console.log()` everywhere                                 | No levels, no structure, can't disable                    | Use a proper logger with levels                                                          |
+| Logging entire request/response bodies at info level       | Performance hit, PII exposure, log spam                   | Log bodies at `debug` level only, with PII redaction                                     |
+| `try { ... } catch (err) { console.log(err); }`            | Swallows the error completely — no context, wrong level   | `logger.error({ err, context }, 'Descriptive message')` — and re-throw if unhandled      |
+| String interpolation for context: `` `User ${id} did X` `` | Not structured — can't query by `id`                      | `logger.info({ userId: id }, 'User performed action X')`                                 |
+| Logging and then re-throwing the same error                | Duplicate log entries, confusing trace                    | Log once at the boundary (controller level), or log and wrap with context                |
+| Using `logger.error()` for expected validation failures    | Dilutes the meaning of "error" — alerts become noise      | `logger.warn()` for handled/expected issues; reserve `error` for unexpected failures     |
+| Not setting a log retention policy                         | Logs grow indefinitely; storage costs explode; legal risk | Define retention: e.g., 30 days hot (indexed), 90 days cold (archive), 1 year compliance |
 
 ---
 

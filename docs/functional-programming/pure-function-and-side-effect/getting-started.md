@@ -1,8 +1,8 @@
 ---
 id: functional-programming-pure-function-and-side-effect-getting-started
-title: 🎯 Pure Functions and Side Effects
+title: "🎯 Pure Functions and Side Effects"
 slug: /functional-programming/pure-function-and-side-effect/getting-started
-sidebar_label: 🎯 Pure Functions and Side E...
+sidebar_label: "🎯 Pure Functions and Side E..."
 ---
 
 # 🎯 Pure Functions and Side Effects

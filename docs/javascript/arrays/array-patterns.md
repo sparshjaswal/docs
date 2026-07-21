@@ -1,8 +1,8 @@
 ---
 id: javascript-arrays-array-patterns
-title: Array Patterns
+title: "Array Patterns"
 slug: /javascript/arrays/array-patterns
-sidebar_label: Array Patterns
+sidebar_label: "Array Patterns"
 ---
 
 # Array Patterns

@@ -1,8 +1,8 @@
 ---
 id: dsa-graphs-detect-cycle-readme
-title: Detect Cycle in Graphs
+title: "Detect Cycle in Graphs"
 slug: /DSA/graphs/detect-cycle/README
-sidebar_label: Detect Cycle in Graphs
+sidebar_label: "Detect Cycle in Graphs"
 ---
 
 # Detect Cycle in Graphs
@@ -54,7 +54,7 @@ vertex `H-D-G-H` (red)
 
 General information:
 
-- [Wikipedia](https://en.wikipedia.org/wiki/Cycle_(graph_theory))
+- [Wikipedia](<https://en.wikipedia.org/wiki/Cycle_(graph_theory)>)
 
 Cycles in undirected graphs:
 

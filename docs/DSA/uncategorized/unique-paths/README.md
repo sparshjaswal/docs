@@ -1,8 +1,8 @@
 ---
 id: dsa-uncategorized-unique-paths-readme
-title: Unique Paths Problem
+title: "Unique Paths Problem"
 slug: /DSA/uncategorized/unique-paths/README
-sidebar_label: Unique Paths Problem
+sidebar_label: "Unique Paths Problem"
 ---
 
 # Unique Paths Problem

@@ -1,8 +1,8 @@
 ---
 id: dsa-math-radian-readme
-title: Radian
+title: "Radian"
 slug: /DSA/math/radian/README
-sidebar_label: Radian
+sidebar_label: "Radian"
 ---
 
 # Radian

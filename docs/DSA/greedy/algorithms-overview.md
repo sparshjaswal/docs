@@ -1,8 +1,8 @@
 ---
 id: dsa-greedy-algorithms-overview
-title: Greedy Algorithms
+title: "Greedy Algorithms"
 slug: /DSA/greedy/algorithms-overview
-sidebar_label: Greedy Algorithms
+sidebar_label: "Greedy Algorithms"
 ---
 
 # Greedy Algorithms

@@ -1,8 +1,8 @@
 ---
 id: dsa-statistics-readme
-title: 📈 Statistics
+title: "📈 Statistics"
 slug: /DSA/statistics/README
-sidebar_label: 📈 Statistics
+sidebar_label: "📈 Statistics"
 ---
 
 # 📈 Statistics

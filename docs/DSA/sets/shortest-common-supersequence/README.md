@@ -1,8 +1,8 @@
 ---
 id: dsa-sets-shortest-common-supersequence-readme
-title: Shortest Common Supersequence
+title: "Shortest Common Supersequence"
 slug: /DSA/sets/shortest-common-supersequence/README
-sidebar_label: Shortest Common Supersequence
+sidebar_label: "Shortest Common Supersequence"
 ---
 
 # Shortest Common Supersequence

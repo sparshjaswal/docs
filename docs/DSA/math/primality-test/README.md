@@ -1,8 +1,8 @@
 ---
 id: dsa-math-primality-test-readme
-title: Primality Test
+title: "Primality Test"
 slug: /DSA/math/primality-test/README
-sidebar_label: Primality Test
+sidebar_label: "Primality Test"
 ---
 
 # Primality Test

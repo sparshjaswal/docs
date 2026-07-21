@@ -1,8 +1,8 @@
 ---
 id: dsa-sorting-quick-sort-readme
-title: Quicksort
+title: "Quicksort"
 slug: /DSA/sorting/quick-sort/README
-sidebar_label: Quicksort
+sidebar_label: "Quicksort"
 ---
 
 # Quicksort

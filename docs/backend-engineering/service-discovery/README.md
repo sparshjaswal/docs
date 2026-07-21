@@ -1,5 +1,5 @@
 ---
-title: Service Discovery
+title: "Service Discovery"
 description: Deep dive into service discovery patterns, registries, health checking, and tools — Consul, etcd, ZooKeeper, Eureka, Kubernetes DNS, service mesh, and TypeScript implementation.
 keywords:
   - service discovery
@@ -46,16 +46,16 @@ Without service discovery, you're left with manual configuration files, brittle 
 
 Before diving into patterns, let's establish the vocabulary used throughout the service discovery ecosystem:
 
-| Term | Definition |
-| --- | --- |
-| **Service Instance** | A single running copy of a service (a process, container, or pod). Has an IP, port, and metadata. |
-| **Service Registry** | A database of available service instances. Stores instance addresses, health status, and arbitrary metadata. |
-| **Registration** | The act of adding a service instance to the registry so others can discover it. |
-| **Deregistration** | Removing an instance from the registry — either gracefully (shutdown hook) or forcibly (failed health check). |
-| **Health Check** | A mechanism to determine whether an instance is capable of serving traffic. |
-| **Discovery** | Querying the registry to find healthy instances of a given service. |
-| **Service Name** | A logical identifier (e.g., `auth-service`, `payment-api`) that maps to one or more instances. |
-| **Load Balancer** | Distributes requests across discovered instances according to a strategy (round-robin, least connections, etc.). |
+| Term                 | Definition                                                                                                       |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **Service Instance** | A single running copy of a service (a process, container, or pod). Has an IP, port, and metadata.                |
+| **Service Registry** | A database of available service instances. Stores instance addresses, health status, and arbitrary metadata.     |
+| **Registration**     | The act of adding a service instance to the registry so others can discover it.                                  |
+| **Deregistration**   | Removing an instance from the registry — either gracefully (shutdown hook) or forcibly (failed health check).    |
+| **Health Check**     | A mechanism to determine whether an instance is capable of serving traffic.                                      |
+| **Discovery**        | Querying the registry to find healthy instances of a given service.                                              |
+| **Service Name**     | A logical identifier (e.g., `auth-service`, `payment-api`) that maps to one or more instances.                   |
+| **Load Balancer**    | Distributes requests across discovered instances according to a strategy (round-robin, least connections, etc.). |
 
 ---
 
@@ -85,12 +85,14 @@ flowchart LR
 5. The client periodically refreshes the instance list or subscribes to registry change events.
 
 **Advantages:**
+
 - No extra network hop — the client talks directly to the target instance.
 - No single point of failure in the data path (the registry is only in the control path).
 - Simple to understand and debug — the client controls which instance it calls.
 - Flexible load-balancing strategies per client.
 
 **Disadvantages:**
+
 - Every client must include discovery and load-balancing logic (library dependency in every service).
 - Language-specific — a registry client library must exist for every language your stack uses.
 - Client and registry are coupled — registry API changes affect every service.
@@ -121,12 +123,14 @@ flowchart LR
 5. The client is completely unaware of the backend topology — it only knows the load balancer address.
 
 **Advantages:**
+
 - Clients are simple — no discovery logic, no registry client library.
 - Language-agnostic — any HTTP client works. No code changes for new languages.
 - Centralized control — operators can change routing, load balancing, and security policies in one place.
 - Works naturally with cloud load balancers (AWS ALB/NLB, GCP Load Balancer).
 
 **Disadvantages:**
+
 - Extra network hop — every request passes through the load balancer, adding latency.
 - The load balancer is in the data path — if it fails, all communication stops (requires HA setup).
 - The load balancer can become a bottleneck under high throughput.
@@ -203,14 +207,14 @@ A registry entry for each service instance typically contains:
 
 ### Key Properties of a Good Registry
 
-| Property | Description |
-| --- | --- |
-| **High availability** | The registry itself must be highly available. If it goes down, new instances can't register and clients can't discover. |
-| **Consistency model** | How quickly do all clients see the same view? Strong consistency (CP, like ZooKeeper/etcd) vs eventual consistency (AP, like Eureka). |
-| **Health-aware** | The registry must track which instances are healthy and automatically remove failing ones. |
-| **Watch/subscribe** | Clients should be notified of changes instantly rather than polling the registry every N seconds. |
-| **Multi-tenancy** | Support for multiple services, environments, and teams with appropriate isolation. |
-| **DNS and/or HTTP API** | DNS is universal (any language, any tool); HTTP API provides richer metadata and programmatic access. |
+| Property                | Description                                                                                                                           |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| **High availability**   | The registry itself must be highly available. If it goes down, new instances can't register and clients can't discover.               |
+| **Consistency model**   | How quickly do all clients see the same view? Strong consistency (CP, like ZooKeeper/etcd) vs eventual consistency (AP, like Eureka). |
+| **Health-aware**        | The registry must track which instances are healthy and automatically remove failing ones.                                            |
+| **Watch/subscribe**     | Clients should be notified of changes instantly rather than polling the registry every N seconds.                                     |
+| **Multi-tenancy**       | Support for multiple services, environments, and teams with appropriate isolation.                                                    |
+| **DNS and/or HTTP API** | DNS is universal (any language, any tool); HTTP API provides richer metadata and programmatic access.                                 |
 
 ### Consistency in Registries: The CAP Trade-off
 
@@ -259,11 +263,13 @@ sequenceDiagram
 - On graceful shutdown (`SIGTERM`, `SIGINT`), call deregister to immediately remove the instance from the pool (faster than waiting for the health check to time out).
 
 **Advantages:**
+
 - No external registration agent to manage.
 - The instance knows its own state best — it can include version, region, capacity in registration metadata.
 - Zero configuration drift — the instance that registers is the one that runs.
 
 **Disadvantages:**
+
 - Every service must include registration logic (language-specific SDK or HTTP calls).
 - Registration code is boilerplate that must be maintained across all services.
 - If the application crashes without graceful shutdown, it stays in the registry until the health check fails.
@@ -283,7 +289,7 @@ const INSTANCE_ID = `${SERVICE_NAME}-${uuidv4()}`;
 const registrationPayload = {
   ID: INSTANCE_ID,
   Name: SERVICE_NAME,
-  Address: '10.0.1.42',                // IP that other services can reach
+  Address: '10.0.1.42', // IP that other services can reach
   Port: SERVICE_PORT,
   Tags: ['production', 'v1.2.0', 'primary'],
   Meta: {
@@ -385,18 +391,21 @@ sequenceDiagram
 - When the container/pod stops, the registrator removes it from the registry.
 
 **Advantages:**
+
 - Services are completely decoupled from the registry — no discovery code in the application.
 - Works with legacy applications and third-party software that you can't modify.
 - Centralized registration logic — update the registrator, not every service.
 - Clean separation of concerns — developers write business logic, operators manage infrastructure.
 
 **Disadvantages:**
+
 - Additional infrastructure to run and monitor.
 - The registrator must understand every container runtime and orchestrator you use.
 - Registration metadata must be communicated through labels, environment variables, or annotations — less flexible than in-code registration.
 - If the registrator crashes, new instances aren't registered until it recovers.
 
 **Popular registrator projects:**
+
 - **Consul Registrator** (by GliderLabs) — watches Docker events and registers containers with Consul.
 - **Consul ESM** (External Service Monitor) — health checks external/non-consul services.
 - **Kubernetes** — built-in: kubelet registers pods, kube-proxy maintains the cluster IP mapping.
@@ -409,10 +418,10 @@ kind: Pod
 metadata:
   name: order-service-abc123
   annotations:
-    consul.hashicorp.com/service-name: "order-service"
-    consul.hashicorp.com/service-port: "3001"
-    consul.hashicorp.com/service-tags: "production,v1.2.0"
-    consul.hashicorp.com/connect-inject: "true"
+    consul.hashicorp.com/service-name: 'order-service'
+    consul.hashicorp.com/service-port: '3001'
+    consul.hashicorp.com/service-tags: 'production,v1.2.0'
+    consul.hashicorp.com/connect-inject: 'true'
   labels:
     app: order-service
     version: v1.2.0
@@ -444,11 +453,13 @@ Service Instance ────[heartbeat every 10s]────> Service Registry
 ```
 
 **Pros:**
+
 - Works even if the health endpoint is unreachable from the registry.
 - The service can include rich state in the heartbeat (queue depth, connection pool usage, memory pressure).
 - No need for an open HTTP port.
 
 **Cons:**
+
 - The service must actively send heartbeats — more code in the application.
 - A service that is alive but returning errors still sends heartbeats (the service might not know it's broken from the client's perspective).
 - Network delays can cause false positives.
@@ -520,12 +531,18 @@ app.get('/health/ready', async (_req, res) => {
 app.get('/health', async (_req, res) => {
   const checks = {
     self: 'ok',
-    database: await checkDb().then(() => 'ok').catch(e => e.message),
-    redis: await checkRedis().then(() => 'ok').catch(e => e.message),
-    upstream: await checkUpstreamServices().then(r => r).catch(e => e.message),
+    database: await checkDb()
+      .then(() => 'ok')
+      .catch((e) => e.message),
+    redis: await checkRedis()
+      .then(() => 'ok')
+      .catch((e) => e.message),
+    upstream: await checkUpstreamServices()
+      .then((r) => r)
+      .catch((e) => e.message),
   };
 
-  const allOk = Object.values(checks).every(v => v === 'ok');
+  const allOk = Object.values(checks).every((v) => v === 'ok');
 
   res.status(allOk ? 200 : 503).json({
     status: allOk ? 'healthy' : 'degraded',
@@ -538,15 +555,15 @@ app.get('/health', async (_req, res) => {
 
 ### Comparing Health Check Strategies
 
-| Criteria | Heartbeat / TTL | Polling (Registry-initiated) |
-| --- | --- | --- |
-| **Who initiates?** | Service instance | Registry / agent |
-| **Network direction** | Outbound from service | Inbound to service |
-| **Works behind NAT?** | Yes (outbound HTTP) | Needs routable address or agent on same host |
-| **Detects app-level bugs** | No — service might not know it's returning errors | Yes — HTTP probe can validate response body |
-| **Custom state in check** | Yes — heartbeat payload can include metrics | Limited — inferred from response code + body |
-| **Simple to implement?** | Moderate — requires timer in app | Easy — just a route handler |
-| **Common with** | Consul TTL, etcd lease keep-alive | Consul HTTP/TCP checks, K8s liveness/readiness probes |
+| Criteria                   | Heartbeat / TTL                                   | Polling (Registry-initiated)                          |
+| -------------------------- | ------------------------------------------------- | ----------------------------------------------------- |
+| **Who initiates?**         | Service instance                                  | Registry / agent                                      |
+| **Network direction**      | Outbound from service                             | Inbound to service                                    |
+| **Works behind NAT?**      | Yes (outbound HTTP)                               | Needs routable address or agent on same host          |
+| **Detects app-level bugs** | No — service might not know it's returning errors | Yes — HTTP probe can validate response body           |
+| **Custom state in check**  | Yes — heartbeat payload can include metrics       | Limited — inferred from response code + body          |
+| **Simple to implement?**   | Moderate — requires timer in app                  | Easy — just a route handler                           |
+| **Common with**            | Consul TTL, etcd lease keep-alive                 | Consul HTTP/TCP checks, K8s liveness/readiness probes |
 
 > **Best practice:** Use **both**. A health endpoint validates that the service can handle requests (polling), and a heartbeat provides rapid failure detection when the process hangs or the network path is asymmetric. Many production setups use an HTTP health check for readiness and a short TTL heartbeat (10–15s) as a liveness backup.
 
@@ -556,20 +573,20 @@ app.get('/health', async (_req, res) => {
 
 Choosing a service discovery tool depends on your infrastructure, consistency requirements, operational maturity, and whether you're on Kubernetes (which has built-in discovery).
 
-| Feature | **Consul** | **etcd** | **ZooKeeper** | **Eureka** | **Kubernetes DNS** |
-| --- | --- | --- | --- | --- | --- |
-| **CAP focus** | CP (default) | CP | CP | AP | AP (eventually consistent) |
-| **Protocols** | HTTP, DNS, gRPC | gRPC (HTTP/2) | Custom binary | HTTP/REST | DNS, env vars |
-| **Health checking** | ✅ Rich (HTTP, TCP, gRPC, TTL, script) | ❌ Via lease TTL only | ❌ Via session ephemeral znodes | ✅ Heartbeat + self-preservation | ✅ Liveness/readiness probes |
-| **KV store** | ✅ Yes (full-featured) | ✅ Yes (core feature) | ✅ Yes (hierarchical znodes) | ❌ No | ❌ No (use etcd separately) |
-| **Multi-DC** | ✅ First-class (WAN federation) | ❌ Single cluster | ❌ Single cluster (multi-DC via observers) | ✅ Multi-region (peer-to-peer) | ❌ Single cluster (kube-federation complex) |
-| **Service mesh** | ✅ Consul Connect (built-in) | ❌ Needs external tooling | ❌ Needs external tooling | ❌ Needs external tooling | ❌ Needs Istio/Linkerd |
-| **Consensus** | Raft | Raft | Zab | None (peer replication) | None (kube-apiserver → etcd) |
-| **Web UI** | ✅ Built-in, excellent | ❌ No built-in (use etcd-keeper) | ❌ No built-in (use zk-web, ZooNavigator) | ✅ Dashboard | ✅ Via Kubernetes Dashboard |
-| **DNS interface** | ✅ Built-in, cached, health-aware | ❌ No DNS (use coredns with plugin) | ❌ No DNS | ❌ No DNS | ✅ CoreDNS (built-in) |
-| **ACL / Security** | ✅ ACLs, TLS, mTLS | ✅ RBAC, TLS | ✅ ACLs, SASL, TLS | ❌ Basic (relies on network security) | ✅ RBAC + NetworkPolicy |
-| **Operational complexity** | Medium | Low-Medium | High (JVM, manual management) | Medium (Java, Spring ecosystem) | Low (managed by K8s) |
-| **Best for** | Multi-DC, hybrid cloud, service mesh | Kubernetes backing store, small-scale coordination | Legacy Hadoop/Kafka ecosystems | JVM/Spring Cloud shops | Services running entirely on Kubernetes |
+| Feature                    | **Consul**                             | **etcd**                                           | **ZooKeeper**                              | **Eureka**                            | **Kubernetes DNS**                          |
+| -------------------------- | -------------------------------------- | -------------------------------------------------- | ------------------------------------------ | ------------------------------------- | ------------------------------------------- |
+| **CAP focus**              | CP (default)                           | CP                                                 | CP                                         | AP                                    | AP (eventually consistent)                  |
+| **Protocols**              | HTTP, DNS, gRPC                        | gRPC (HTTP/2)                                      | Custom binary                              | HTTP/REST                             | DNS, env vars                               |
+| **Health checking**        | ✅ Rich (HTTP, TCP, gRPC, TTL, script) | ❌ Via lease TTL only                              | ❌ Via session ephemeral znodes            | ✅ Heartbeat + self-preservation      | ✅ Liveness/readiness probes                |
+| **KV store**               | ✅ Yes (full-featured)                 | ✅ Yes (core feature)                              | ✅ Yes (hierarchical znodes)               | ❌ No                                 | ❌ No (use etcd separately)                 |
+| **Multi-DC**               | ✅ First-class (WAN federation)        | ❌ Single cluster                                  | ❌ Single cluster (multi-DC via observers) | ✅ Multi-region (peer-to-peer)        | ❌ Single cluster (kube-federation complex) |
+| **Service mesh**           | ✅ Consul Connect (built-in)           | ❌ Needs external tooling                          | ❌ Needs external tooling                  | ❌ Needs external tooling             | ❌ Needs Istio/Linkerd                      |
+| **Consensus**              | Raft                                   | Raft                                               | Zab                                        | None (peer replication)               | None (kube-apiserver → etcd)                |
+| **Web UI**                 | ✅ Built-in, excellent                 | ❌ No built-in (use etcd-keeper)                   | ❌ No built-in (use zk-web, ZooNavigator)  | ✅ Dashboard                          | ✅ Via Kubernetes Dashboard                 |
+| **DNS interface**          | ✅ Built-in, cached, health-aware      | ❌ No DNS (use coredns with plugin)                | ❌ No DNS                                  | ❌ No DNS                             | ✅ CoreDNS (built-in)                       |
+| **ACL / Security**         | ✅ ACLs, TLS, mTLS                     | ✅ RBAC, TLS                                       | ✅ ACLs, SASL, TLS                         | ❌ Basic (relies on network security) | ✅ RBAC + NetworkPolicy                     |
+| **Operational complexity** | Medium                                 | Low-Medium                                         | High (JVM, manual management)              | Medium (Java, Spring ecosystem)       | Low (managed by K8s)                        |
+| **Best for**               | Multi-DC, hybrid cloud, service mesh   | Kubernetes backing store, small-scale coordination | Legacy Hadoop/Kafka ecosystems             | JVM/Spring Cloud shops                | Services running entirely on Kubernetes     |
 
 ### When to Choose Which
 
@@ -675,15 +692,15 @@ curl http://localhost:8500/v1/catalog/service/auth-service
 
 Consul has the most sophisticated health-check system of any service-discovery tool. It supports:
 
-| Check Type | Description | Example |
-| --- | --- | --- |
-| **HTTP** | Performs an HTTP GET and expects a 2xx response | `http://10.0.1.42:3000/health` |
-| **TCP** | Attempts a TCP connection | `10.0.1.42:3000` |
-| **gRPC** | Performs a gRPC health check (standard health protocol) | `10.0.1.42:50051` |
-| **Script** | Runs an external script or command (exit 0 = healthy) | `check_memory.sh` |
-| **TTL** | Service must periodically call `check/pass` | Application heartbeat |
-| **Docker** | Runs `docker exec` to probe a container | `docker exec container-id /healthcheck.sh` |
-| **Alias** | Mirrors the status of another check on the same node | `alias: node-maintenance-check` |
+| Check Type | Description                                             | Example                                    |
+| ---------- | ------------------------------------------------------- | ------------------------------------------ |
+| **HTTP**   | Performs an HTTP GET and expects a 2xx response         | `http://10.0.1.42:3000/health`             |
+| **TCP**    | Attempts a TCP connection                               | `10.0.1.42:3000`                           |
+| **gRPC**   | Performs a gRPC health check (standard health protocol) | `10.0.1.42:50051`                          |
+| **Script** | Runs an external script or command (exit 0 = healthy)   | `check_memory.sh`                          |
+| **TTL**    | Service must periodically call `check/pass`             | Application heartbeat                      |
+| **Docker** | Runs `docker exec` to probe a container                 | `docker exec container-id /healthcheck.sh` |
+| **Alias**  | Mirrors the status of another check on the same node    | `alias: node-maintenance-check`            |
 
 **Health check configuration:**
 
@@ -752,9 +769,7 @@ async function watchConfig(key: string, onChange: (val: object) => void): Promis
   let index = 0;
 
   while (true) {
-    const res = await fetch(
-      `http://localhost:8500/v1/kv/${key}?index=${index}&wait=60s`
-    );
+    const res = await fetch(`http://localhost:8500/v1/kv/${key}?index=${index}&wait=60s`);
 
     if (res.status === 200) {
       const data = await res.json();
@@ -764,7 +779,7 @@ async function watchConfig(key: string, onChange: (val: object) => void): Promis
     }
     // If 404, key doesn't exist yet; wait and retry
     if (res.status === 404) {
-      await new Promise(r => setTimeout(r, 5000));
+      await new Promise((r) => setTimeout(r, 5000));
     }
   }
 }
@@ -826,18 +841,18 @@ Consul DNS responses include TTLs. By default, healthy services return a TTL of 
 
 The HTTP API is the programmatic interface to everything Consul does:
 
-| API Endpoint | Purpose |
-| --- | --- |
-| `/v1/agent/service/register` | Register a service with the local agent |
-| `/v1/agent/service/deregister/:id` | Remove a service registration |
-| `/v1/agent/checks` | List all checks on the local agent |
-| `/v1/agent/check/pass/:id` | Mark a TTL check as passing |
-| `/v1/catalog/service/:name` | List service instances (all health statuses) |
-| `/v1/health/service/:name` | List only healthy (passing) service instances |
-| `/v1/kv/:key` | Read/write/delete KV entries |
-| `/v1/session/create` | Create a session (for distributed locking) |
-| `/v1/status/leader` | Get the current Raft leader |
-| `/v1/status/peers` | Get all Raft peers |
+| API Endpoint                       | Purpose                                       |
+| ---------------------------------- | --------------------------------------------- |
+| `/v1/agent/service/register`       | Register a service with the local agent       |
+| `/v1/agent/service/deregister/:id` | Remove a service registration                 |
+| `/v1/agent/checks`                 | List all checks on the local agent            |
+| `/v1/agent/check/pass/:id`         | Mark a TTL check as passing                   |
+| `/v1/catalog/service/:name`        | List service instances (all health statuses)  |
+| `/v1/health/service/:name`         | List only healthy (passing) service instances |
+| `/v1/kv/:key`                      | Read/write/delete KV entries                  |
+| `/v1/session/create`               | Create a session (for distributed locking)    |
+| `/v1/status/leader`                | Get the current Raft leader                   |
+| `/v1/status/peers`                 | Get all Raft peers                            |
 
 **TypeScript — Full Service Discovery Client using Consul HTTP API:**
 
@@ -893,16 +908,14 @@ class ConsulServiceDiscovery {
       port: entry.Service.Port,
       tags: entry.Service.Tags || [],
       meta: entry.Service.Meta || {},
-      health: entry.Checks.every((c: any) => c.Status === 'passing')
-        ? 'passing'
-        : 'warning',
+      health: entry.Checks.every((c: any) => c.Status === 'passing') ? 'passing' : 'warning',
     }));
   }
 
   // ── Watch for changes in a service's instance list ──────────────
   async watch(
     serviceName: string,
-    callback: (instances: ServiceInstance[]) => void
+    callback: (instances: ServiceInstance[]) => void,
   ): Promise<() => void> {
     let running = true;
     const key = serviceName;
@@ -911,9 +924,7 @@ class ConsulServiceDiscovery {
       while (running) {
         try {
           const index = this.watchIndexes.get(key) || 0;
-          const url = new URL(
-            `${this.agentUrl}/v1/health/service/${serviceName}`
-          );
+          const url = new URL(`${this.agentUrl}/v1/health/service/${serviceName}`);
           url.searchParams.set('dc', this.datacenter);
           url.searchParams.set('passing', 'true');
           url.searchParams.set('index', String(index));
@@ -1032,11 +1043,13 @@ flowchart TB
 ```
 
 **What's replicated across DCs:**
+
 - Services and health status are NOT replicated by default (each DC is autonomous).
 - The WAN gossip pool shares the list of known DCs and their server addresses.
 - Queries can be forwarded to a remote DC: `GET /v1/health/service/auth-service?dc=eu-west-1`
 
 **What's NOT replicated:**
+
 - KV store data (this is per-DC).
 - Session data (sessions are local to a DC).
 - ACL tokens (can be replicated separately via ACL replication).
@@ -1101,7 +1114,7 @@ await lease.put(KEY).value(
     port: 3000,
     version: '1.2.0',
     region: 'us-east-1',
-  })
+  }),
 );
 
 // Auto-renew the lease every 3 seconds
@@ -1120,10 +1133,7 @@ Clients watch a key prefix and receive real-time notifications when instances co
 
 ```typescript
 // Watch for changes to the auth-service registry
-const watcher = await etcd
-  .watch()
-  .prefix('/services/auth-service/')
-  .create();
+const watcher = await etcd.watch().prefix('/services/auth-service/').create();
 
 watcher.on('put', (kv) => {
   console.log(`Instance registered/updated: ${kv.key}`);
@@ -1139,14 +1149,14 @@ watcher.on('delete', (kv) => {
 
 ### etcd vs Consul for Service Discovery
 
-| Scenario | Recommendation |
-| --- | --- |
-| Kubernetes-only environment | etcd (already running; build minimal discovery on top) |
-| Multi-DC, hybrid cloud | Consul (built-in federation, DNS, health checks) |
-| Small team, minimal ops | Consul (single binary, less glue code needed) |
+| Scenario                                 | Recommendation                                          |
+| ---------------------------------------- | ------------------------------------------------------- |
+| Kubernetes-only environment              | etcd (already running; build minimal discovery on top)  |
+| Multi-DC, hybrid cloud                   | Consul (built-in federation, DNS, health checks)        |
+| Small team, minimal ops                  | Consul (single binary, less glue code needed)           |
 | Already have health-check infrastructure | etcd (use what you have; etcd is a great pure registry) |
-| Need a generic distributed KV store | etcd (its primary purpose) |
-| Need service mesh / mTLS | Consul Connect (etcd doesn't provide this) |
+| Need a generic distributed KV store      | etcd (its primary purpose)                              |
+| Need service mesh / mTLS                 | Consul Connect (etcd doesn't provide this)              |
 
 ---
 
@@ -1195,16 +1205,16 @@ In code, the application doesn't change — it calls `http://localhost:8080` (th
 
 Istio is a platform-independent service mesh, most commonly deployed on Kubernetes. It uses Envoy as the sidecar proxy and provides a richer (but more complex) feature set than Consul Connect.
 
-| Feature | Consul Connect | Istio |
-| --- | --- | --- |
-| **Sidecar proxy** | Built-in proxy or Envoy | Envoy (required) |
-| **Traffic routing** | Basic (via intentions + config entries) | Advanced (virtual services, destination rules, gateways) |
-| **Circuit breaking** | Via Envoy config | Rich (connection pool, outlier detection) |
-| **Observability** | Metrics via proxy | Deep (Jaeger tracing, Prometheus metrics, Kiali dashboard, access logs) |
-| **Ingress gateway** | Limited (via external tools) | Built-in (Istio Ingress Gateway with Envoy) |
-| **Platform** | Any (VMs, containers, Kubernetes) | Primarily Kubernetes |
-| **Complexity** | Low-Medium | High (many CRDs, steep learning curve) |
-| **Best for** | Multi-platform, simpler requirements | Kubernetes-native, complex traffic management |
+| Feature              | Consul Connect                          | Istio                                                                   |
+| -------------------- | --------------------------------------- | ----------------------------------------------------------------------- |
+| **Sidecar proxy**    | Built-in proxy or Envoy                 | Envoy (required)                                                        |
+| **Traffic routing**  | Basic (via intentions + config entries) | Advanced (virtual services, destination rules, gateways)                |
+| **Circuit breaking** | Via Envoy config                        | Rich (connection pool, outlier detection)                               |
+| **Observability**    | Metrics via proxy                       | Deep (Jaeger tracing, Prometheus metrics, Kiali dashboard, access logs) |
+| **Ingress gateway**  | Limited (via external tools)            | Built-in (Istio Ingress Gateway with Envoy)                             |
+| **Platform**         | Any (VMs, containers, Kubernetes)       | Primarily Kubernetes                                                    |
+| **Complexity**       | Low-Medium                              | High (many CRDs, steep learning curve)                                  |
+| **Best for**         | Multi-platform, simpler requirements    | Kubernetes-native, complex traffic management                           |
 
 ---
 
@@ -1238,12 +1248,12 @@ flowchart TB
 
 ### Kubernetes Service Types
 
-| Type | Behavior |
-| --- | --- |
-| **ClusterIP** | Internal-only virtual IP. Default type. Only reachable within the cluster. |
-| **NodePort** | Opens a static port (30000–32767) on every node. `<NodeIP>:<NodePort>` reaches the service. |
-| **LoadBalancer** | Provisions an external cloud load balancer (AWS NLB, GCP LB) that forwards to the NodePort. |
-| **ExternalName** | Creates a CNAME record to an external DNS name. No proxying. |
+| Type                           | Behavior                                                                                                               |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| **ClusterIP**                  | Internal-only virtual IP. Default type. Only reachable within the cluster.                                             |
+| **NodePort**                   | Opens a static port (30000–32767) on every node. `<NodeIP>:<NodePort>` reaches the service.                            |
+| **LoadBalancer**               | Provisions an external cloud load balancer (AWS NLB, GCP LB) that forwards to the NodePort.                            |
+| **ExternalName**               | Creates a CNAME record to an external DNS name. No proxying.                                                           |
 | **Headless** (ClusterIP: None) | No ClusterIP allocated. DNS returns the pod IPs directly (A/AAAA records). Used for StatefulSets and custom discovery. |
 
 ### DNS-Based Discovery on Kubernetes
@@ -1321,7 +1331,7 @@ class ClientSideLoadBalancer {
         // Instances declare weight in metadata; higher weight = more traffic
         const totalWeight = this.instances.reduce(
           (sum, inst) => sum + parseInt(inst.meta.weight || '10'),
-          0
+          0,
         );
         let target = Math.random() * totalWeight;
         for (const inst of this.instances) {
@@ -1366,13 +1376,13 @@ consul-template \
 
 ### Integration Patterns Summary
 
-| Pattern | Discovery Tool | Load Balancer | Best For |
-| --- | --- | --- | --- |
-| **Client-side** | Consul / Eureka / etcd | Application code or SDK | Small-to-medium systems; same-language stacks |
-| **Proxy + Template** | Consul | NGINX / HAProxy (with consul-template) | Traditional ops; existing reverse proxy investment |
-| **Service mesh sidecar** | Consul Connect / Istio | Envoy sidecar | Modern microservices; need mTLS + observability |
-| **K8s native** | CoreDNS + Services | kube-proxy (iptables/IPVS) | Kubernetes-only workloads |
-| **Cloud LB** | AWS Cloud Map / GCP Service Directory | ALB/NLB, Google Cloud LB | Fully managed; cloud-native stacks |
+| Pattern                  | Discovery Tool                        | Load Balancer                          | Best For                                           |
+| ------------------------ | ------------------------------------- | -------------------------------------- | -------------------------------------------------- |
+| **Client-side**          | Consul / Eureka / etcd                | Application code or SDK                | Small-to-medium systems; same-language stacks      |
+| **Proxy + Template**     | Consul                                | NGINX / HAProxy (with consul-template) | Traditional ops; existing reverse proxy investment |
+| **Service mesh sidecar** | Consul Connect / Istio                | Envoy sidecar                          | Modern microservices; need mTLS + observability    |
+| **K8s native**           | CoreDNS + Services                    | kube-proxy (iptables/IPVS)             | Kubernetes-only workloads                          |
+| **Cloud LB**             | AWS Cloud Map / GCP Service Directory | ALB/NLB, Google Cloud LB               | Fully managed; cloud-native stacks                 |
 
 ---
 

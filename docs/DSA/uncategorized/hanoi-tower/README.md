@@ -1,8 +1,8 @@
 ---
 id: dsa-uncategorized-hanoi-tower-readme
-title: Tower of Hanoi
+title: "Tower of Hanoi"
 slug: /DSA/uncategorized/hanoi-tower/README
-sidebar_label: Tower of Hanoi
+sidebar_label: "Tower of Hanoi"
 ---
 
 # Tower of Hanoi

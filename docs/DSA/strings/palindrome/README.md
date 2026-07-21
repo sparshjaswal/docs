@@ -1,8 +1,8 @@
 ---
 id: dsa-strings-palindrome-readme
-title: Palindrome Check
+title: "Palindrome Check"
 slug: /DSA/strings/palindrome/README
-sidebar_label: Palindrome Check
+sidebar_label: "Palindrome Check"
 ---
 
 # Palindrome Check

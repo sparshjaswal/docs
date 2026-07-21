@@ -1,5 +1,5 @@
 ---
-title: Rate Limiting
+title: "Rate Limiting"
 description: Comprehensive guide to rate limiting algorithms, distributed rate limiting with Redis, HTTP headers, client backoff strategies, and bypass tiers for building resilient backend systems.
 keywords:
   - rate limiting
@@ -24,14 +24,14 @@ Without rate limiting, a single misbehaving client — or a DDoS attack — can 
 
 ## Why Rate Limiting Matters
 
-| Goal | How Rate Limiting Helps |
-| --- | --- |
-| **Prevent abuse** | Block brute-force login attempts, credential stuffing, scraping |
-| **Ensure fairness** | No single tenant monopolizes shared resources |
-| **Control costs** | Limit calls to expensive third-party APIs or database queries |
-| **Protect downstream** | Shield databases and microservices from traffic spikes |
-| **Graceful degradation** | Reject excess traffic early instead of crashing under load |
-| **SLA enforcement** | Guarantee throughput tiers for different API plans |
+| Goal                     | How Rate Limiting Helps                                         |
+| ------------------------ | --------------------------------------------------------------- |
+| **Prevent abuse**        | Block brute-force login attempts, credential stuffing, scraping |
+| **Ensure fairness**      | No single tenant monopolizes shared resources                   |
+| **Control costs**        | Limit calls to expensive third-party APIs or database queries   |
+| **Protect downstream**   | Shield databases and microservices from traffic spikes          |
+| **Graceful degradation** | Reject excess traffic early instead of crashing under load      |
+| **SLA enforcement**      | Guarantee throughput tiers for different API plans              |
 
 ```mermaid
 graph LR
@@ -46,15 +46,15 @@ graph LR
 
 ## Core Concepts & Terminology
 
-| Term | Definition |
-| --- | --- |
-| **Limit** | Maximum number of requests allowed in a window (e.g., 100 requests) |
-| **Window** | The time interval for the limit (e.g., 60 seconds) |
-| **Burst** | A short spike of traffic that exceeds the sustained rate but is still allowed |
-| **Sustained rate** | The long-term average request rate the system can handle |
-| **Throttling** | Slowing down (but not rejecting) requests — e.g., adding artificial delay |
-| **Backpressure** | Signaling the client to slow down, usually via `429` + `Retry-After` |
-| **Quota** | A total allowance over a longer period (e.g., 10,000 requests/day) |
+| Term               | Definition                                                                    |
+| ------------------ | ----------------------------------------------------------------------------- |
+| **Limit**          | Maximum number of requests allowed in a window (e.g., 100 requests)           |
+| **Window**         | The time interval for the limit (e.g., 60 seconds)                            |
+| **Burst**          | A short spike of traffic that exceeds the sustained rate but is still allowed |
+| **Sustained rate** | The long-term average request rate the system can handle                      |
+| **Throttling**     | Slowing down (but not rejecting) requests — e.g., adding artificial delay     |
+| **Backpressure**   | Signaling the client to slow down, usually via `429` + `Retry-After`          |
+| **Quota**          | A total allowance over a longer period (e.g., 10,000 requests/day)            |
 
 ---
 
@@ -67,6 +67,7 @@ Each algorithm makes different trade-offs between accuracy, memory usage, and bu
 The simplest algorithm. Requests are counted within fixed, non-overlapping time windows (e.g., 00:00–00:59, 01:00–01:59).
 
 **How it works:**
+
 - A counter starts at 0 at the beginning of each window
 - Every request increments the counter
 - If the counter exceeds the limit, subsequent requests are rejected until the next window
@@ -110,11 +111,11 @@ if (!fixedWindowRateLimiter(req.ip, 100, 60_000)) {
 
 **Pros & Cons:**
 
-| Pros | Cons |
-| --- | --- |
-| Very simple to implement | **Edge burst** — a client can consume the entire limit at the very end of one window and immediately again at the start of the next, effectively 2× the limit in a burst |
-| Low memory footprint (one counter per key per window) | Inaccurate — boundary conditions allow abuse |
-| O(1) time complexity | Not suitable for strict enforcement |
+| Pros                                                  | Cons                                                                                                                                                                     |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Very simple to implement                              | **Edge burst** — a client can consume the entire limit at the very end of one window and immediately again at the start of the next, effectively 2× the limit in a burst |
+| Low memory footprint (one counter per key per window) | Inaccurate — boundary conditions allow abuse                                                                                                                             |
+| O(1) time complexity                                  | Not suitable for strict enforcement                                                                                                                                      |
 
 ```mermaid
 gantt
@@ -136,6 +137,7 @@ gantt
 Instead of fixed boundaries, the sliding window log tracks the timestamp of every request. For each new request, the algorithm counts how many requests occurred in the last `windowMs`, removing expired timestamps.
 
 **How it works:**
+
 - Maintain a sorted list (log) of request timestamps per client
 - On each request, remove all timestamps older than `now - windowMs`
 - If the remaining count < limit, allow the request and append `now` to the log
@@ -164,11 +166,11 @@ function slidingWindowLogRateLimiter(key, limit, windowMs) {
 }
 ```
 
-| Pros | Cons |
-| --- | --- |
-| Perfectly accurate — no edge bursts | High memory usage — stores a timestamp for every request |
-| Smooth rate enforcement | O(N) to remove expired entries (optimizable with sorted sets in Redis) |
-| Allows burst within the sliding window | Not practical at very high throughput without Redis sorted sets |
+| Pros                                   | Cons                                                                   |
+| -------------------------------------- | ---------------------------------------------------------------------- |
+| Perfectly accurate — no edge bursts    | High memory usage — stores a timestamp for every request               |
+| Smooth rate enforcement                | O(N) to remove expired entries (optimizable with sorted sets in Redis) |
+| Allows burst within the sliding window | Not practical at very high throughput without Redis sorted sets        |
 
 ---
 
@@ -177,6 +179,7 @@ function slidingWindowLogRateLimiter(key, limit, windowMs) {
 A practical compromise between the simplicity of fixed window and the accuracy of sliding window log. It maintains counters for the **current** and **previous** windows, calculating a weighted average based on how far into the current window we are.
 
 **How it works:**
+
 - Keep a counter for the current fixed window and the previous one
 - The effective request count = `previous_window_count * overlap_ratio + current_window_count`
 - `overlap_ratio` = fraction of the sliding window that overlaps with the previous fixed window
@@ -226,10 +229,10 @@ function slidingWindowCounterRateLimiter(key, limit, windowMs) {
 }
 ```
 
-| Pros | Cons |
-| --- | --- |
-| Low memory — only two counters per key | Approximation, not perfectly accurate |
-| Smooth — avoids edge-burst problem | Slightly more complex logic |
+| Pros                                     | Cons                                            |
+| ---------------------------------------- | ----------------------------------------------- |
+| Low memory — only two counters per key   | Approximation, not perfectly accurate           |
+| Smooth — avoids edge-burst problem       | Slightly more complex logic                     |
 | Good enough for most practical use cases | Requires careful handling of window transitions |
 
 ---
@@ -239,6 +242,7 @@ function slidingWindowCounterRateLimiter(key, limit, windowMs) {
 The token bucket is the most flexible algorithm. Tokens are added to a bucket at a constant rate (the **refill rate**). Each request consumes one or more tokens. If the bucket is empty, the request is rejected. The bucket has a **maximum capacity** — allowing bursts up to the bucket size.
 
 **How it works:**
+
 - Bucket starts full (capacity = burst limit)
 - Tokens refill at a steady rate: `refillRate` tokens per second
 - Each request costs 1 (or more) tokens
@@ -284,12 +288,12 @@ function tokenBucketRateLimiter(key, capacity, refillRatePerSec) {
 }
 ```
 
-| Pros | Cons |
-| --- | --- |
-| Allows short bursts (up to bucket capacity) | Slightly more state to track (tokens + lastRefill) |
-| Smooth sustained rate after burst | Requires a refill calculation on each request |
-| Works well for shaping traffic (not just rejecting) | |
-| Intuitive — "bucket of tokens" is easy to reason about | |
+| Pros                                                   | Cons                                               |
+| ------------------------------------------------------ | -------------------------------------------------- |
+| Allows short bursts (up to bucket capacity)            | Slightly more state to track (tokens + lastRefill) |
+| Smooth sustained rate after burst                      | Requires a refill calculation on each request      |
+| Works well for shaping traffic (not just rejecting)    |                                                    |
+| Intuitive — "bucket of tokens" is easy to reason about |                                                    |
 
 ---
 
@@ -298,6 +302,7 @@ function tokenBucketRateLimiter(key, capacity, refillRatePerSec) {
 The leaky bucket processes requests at a constant rate, queuing excess requests. If the queue is full, requests are discarded. Unlike the token bucket (which allows bursts), the leaky bucket **smooths** traffic to a uniform rate.
 
 **How it works:**
+
 - Requests arrive at variable rates and enter a FIFO queue
 - The queue "leaks" (processes) at a constant rate
 - If the queue is full, new requests are rejected
@@ -337,16 +342,16 @@ function leakyBucketRateLimiter(key, capacity, leakRatePerSec) {
 
   return {
     allowed: false,
-    retryAfter: Math.ceil(bucket.queue / leakRatePerSec)
+    retryAfter: Math.ceil(bucket.queue / leakRatePerSec),
   };
 }
 ```
 
-| Pros | Cons |
-| --- | --- |
-| Guaranteed constant output rate — protects downstream | No burst tolerance — even a small burst is queued/delayed |
-| Simple FIFO model | If `capacity` is too small, legitimate bursts are rejected |
-| Good for traffic shaping at the network level | Less common for API rate limiting (token bucket is preferred) |
+| Pros                                                  | Cons                                                          |
+| ----------------------------------------------------- | ------------------------------------------------------------- |
+| Guaranteed constant output rate — protects downstream | No burst tolerance — even a small burst is queued/delayed     |
+| Simple FIFO model                                     | If `capacity` is too small, legitimate bursts are rejected    |
+| Good for traffic shaping at the network level         | Less common for API rate limiting (token bucket is preferred) |
 
 ---
 
@@ -366,13 +371,13 @@ graph TD
     I -->|No| E
 ```
 
-| Algorithm | Accuracy | Memory | Burst Handling | Complexity | Best For |
-| --- | --- | --- | --- | --- | --- |
-| **Fixed Window** | Low | Low | Poor (edge bursts) | Simple | Simple throttling, non-critical |
-| **Sliding Window Log** | Perfect | High | Good | Medium | Strict enforcement, paid API tiers |
-| **Sliding Window Counter** | Good (~1% error) | Low | Good | Medium | General-purpose API rate limiting |
-| **Token Bucket** | Good | Low | Excellent (configurable burst) | Medium | **Recommended for most APIs** |
-| **Leaky Bucket** | N/A (shapes) | Low | None (smooths traffic) | Simple | Network-level traffic shaping |
+| Algorithm                  | Accuracy         | Memory | Burst Handling                 | Complexity | Best For                           |
+| -------------------------- | ---------------- | ------ | ------------------------------ | ---------- | ---------------------------------- |
+| **Fixed Window**           | Low              | Low    | Poor (edge bursts)             | Simple     | Simple throttling, non-critical    |
+| **Sliding Window Log**     | Perfect          | High   | Good                           | Medium     | Strict enforcement, paid API tiers |
+| **Sliding Window Counter** | Good (~1% error) | Low    | Good                           | Medium     | General-purpose API rate limiting  |
+| **Token Bucket**           | Good             | Low    | Excellent (configurable burst) | Medium     | **Recommended for most APIs**      |
+| **Leaky Bucket**           | N/A (shapes)     | Low    | None (smooths traffic)         | Simple     | Network-level traffic shaping      |
 
 > **Recommendation:** Start with **Token Bucket** for API rate limiting. It provides the best balance of burst tolerance, memory efficiency, and intuitive behavior. For paid tiers that need strict enforcement, upgrade to **Sliding Window Log** backed by Redis sorted sets.
 
@@ -399,9 +404,9 @@ const app = express();
 // Global rate limiter: 100 requests per 15 minutes per IP
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100,                  // limit each IP to 100 requests per windowMs
-  standardHeaders: true,     // Return rate limit info in the `RateLimit-*` headers
-  legacyHeaders: false,      // Disable the `X-RateLimit-*` headers
+  max: 100, // limit each IP to 100 requests per windowMs
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
   message: {
     error: {
       code: 'RATE_LIMITED',
@@ -438,7 +443,7 @@ app.post('/api/login', authLimiter, (req, res) => {
 // Moderate limiter for general API
 const apiLimiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute
-  max: 60,             // 60 requests per minute
+  max: 60, // 60 requests per minute
 });
 
 app.use('/api/', apiLimiter);
@@ -486,6 +491,7 @@ npm install rate-limiter-flexible
 ```
 
 **Why choose it over express-rate-limit:**
+
 - Supports **Token Bucket** (with burst) and **Sliding Window** out of the box
 - Atomic operations — safe for distributed/multi-process deployments even without Redis
 - Built-in **block** duration (penalty box for abusers)
@@ -499,9 +505,9 @@ const { RateLimiterMemory } = require('rate-limiter-flexible');
 
 // Token bucket: 100 points, refill 2 points/sec (sustained 2 req/s, burst 100)
 const opts = {
-  points: 100,        // max requests
-  duration: 1,        // per second (points + duration define refill rate)
-  blockDuration: 0,   // don't block, just reject
+  points: 100, // max requests
+  duration: 1, // per second (points + duration define refill rate)
+  blockDuration: 0, // don't block, just reject
 };
 
 const rateLimiter = new RateLimiterMemory(opts);
@@ -513,7 +519,10 @@ app.use(async (req, res, next) => {
     res.setHeader('Retry-After', rateLimiterRes.msBeforeNext / 1000);
     res.setHeader('X-RateLimit-Limit', opts.points);
     res.setHeader('X-RateLimit-Remaining', rateLimiterRes.remainingPoints);
-    res.setHeader('X-RateLimit-Reset', new Date(Date.now() + rateLimiterRes.msBeforeNext).toISOString());
+    res.setHeader(
+      'X-RateLimit-Reset',
+      new Date(Date.now() + rateLimiterRes.msBeforeNext).toISOString(),
+    );
     next();
   } catch (rejRes) {
     // Rejected
@@ -541,9 +550,9 @@ const slidingWindowLimiter = new RateLimiterRedis({
   storeClient: redisClient,
   points: 100,
   duration: 60,
-  execEvenly: false,      // false = allow bursts within the window
-  keyPrefix: 'rl:sw:',    // Redis key prefix
-  blockDuration: 120,     // Block for 2 min if limit exceeded consecutively
+  execEvenly: false, // false = allow bursts within the window
+  keyPrefix: 'rl:sw:', // Redis key prefix
+  blockDuration: 120, // Block for 2 min if limit exceeded consecutively
 });
 ```
 
@@ -552,9 +561,9 @@ const slidingWindowLimiter = new RateLimiterRedis({
 ```javascript
 const strictLimiter = new RateLimiterRedis({
   storeClient: redisClient,
-  points: 5,              // 5 requests
-  duration: 1,            // per second
-  blockDuration: 60 * 5,  // Block for 5 minutes if repeatedly exceeded
+  points: 5, // 5 requests
+  duration: 1, // per second
+  blockDuration: 60 * 5, // Block for 5 minutes if repeatedly exceeded
   inmemoryBlockOnConsumed: 10, // Track top 10 blocked keys in memory
 });
 ```
@@ -570,7 +579,7 @@ const limiter = new RateLimiterMemory({
 });
 
 const queue = new RateLimiterQueue(limiter, {
-  maxQueueSize: 100,        // Reject if > 100 waiting
+  maxQueueSize: 100, // Reject if > 100 waiting
 });
 
 async function handleRequest(req, res) {
@@ -663,10 +672,10 @@ return {1, 0}
 async function fixedWindowRateLimit(key, limit, windowSec) {
   const [allowed, ttl] = await redis.eval(
     FIXED_WINDOW_SCRIPT,
-    1,            // number of keys
-    key,          // KEYS[1]
-    limit,        // ARGV[1]
-    windowSec     // ARGV[2]
+    1, // number of keys
+    key, // KEYS[1]
+    limit, // ARGV[1]
+    windowSec, // ARGV[2]
   );
   return { allowed: allowed === 1, retryAfter: ttl };
 }
@@ -725,11 +734,11 @@ async function slidingWindowRateLimit(key, limit, windowMs) {
   const [allowed, retryAfter] = await redis.eval(
     SLIDING_WINDOW_SCRIPT,
     1,
-    key,       // KEYS[1]
-    now,       // ARGV[1]
-    windowMs,  // ARGV[2]
-    limit,     // ARGV[3]
-    memberId   // ARGV[4]
+    key, // KEYS[1]
+    now, // ARGV[1]
+    windowMs, // ARGV[2]
+    limit, // ARGV[3]
+    memberId, // ARGV[4]
   );
   return { allowed: allowed === 1, retryAfter };
 }
@@ -794,18 +803,21 @@ return {allowed, retryAfter, tokens}
 const Redis = require('ioredis');
 
 // For high-availability, use Redis Sentinel or Cluster
-const redis = new Redis.Cluster([
-  { host: 'redis-node-1', port: 6379 },
-  { host: 'redis-node-2', port: 6379 },
-  { host: 'redis-node-3', port: 6379 },
-], {
-  redisOptions: {
-    password: process.env.REDIS_PASSWORD,
-    enableOfflineQueue: false,  // Fail fast if Redis is unreachable
-    maxRetriesPerRequest: 1,    // Quick failure for rate limiter operations
-    connectTimeout: 500,        // 500ms connection timeout
+const redis = new Redis.Cluster(
+  [
+    { host: 'redis-node-1', port: 6379 },
+    { host: 'redis-node-2', port: 6379 },
+    { host: 'redis-node-3', port: 6379 },
+  ],
+  {
+    redisOptions: {
+      password: process.env.REDIS_PASSWORD,
+      enableOfflineQueue: false, // Fail fast if Redis is unreachable
+      maxRetriesPerRequest: 1, // Quick failure for rate limiter operations
+      connectTimeout: 500, // 500ms connection timeout
+    },
   },
-});
+);
 
 // Fallback: if Redis is down, allow requests (fail-open) or reject (fail-closed)
 async function rateLimitWithFallback(key, limit, windowMs) {
@@ -829,20 +841,20 @@ Standardized headers let clients understand their current quota and adjust behav
 
 ### Standard Headers (RFC draft)
 
-| Header | Description | Example |
-| --- | --- | --- |
-| `RateLimit-Limit` | The quota for this time window | `100` |
-| `RateLimit-Remaining` | Remaining requests in the current window | `47` |
-| `RateLimit-Reset` | Seconds until the window resets | `38` |
-| `RateLimit-Policy` | The quota policy (optional) | `100;w=60` |
+| Header                | Description                              | Example    |
+| --------------------- | ---------------------------------------- | ---------- |
+| `RateLimit-Limit`     | The quota for this time window           | `100`      |
+| `RateLimit-Remaining` | Remaining requests in the current window | `47`       |
+| `RateLimit-Reset`     | Seconds until the window resets          | `38`       |
+| `RateLimit-Policy`    | The quota policy (optional)              | `100;w=60` |
 
 ### Legacy Headers (common but non-standard)
 
-| Header | Description |
-| --- | --- |
-| `X-RateLimit-Limit` | Maximum requests per window |
-| `X-RateLimit-Remaining` | Remaining requests |
-| `X-RateLimit-Reset` | Unix timestamp when the window resets |
+| Header                  | Description                           |
+| ----------------------- | ------------------------------------- |
+| `X-RateLimit-Limit`     | Maximum requests per window           |
+| `X-RateLimit-Remaining` | Remaining requests                    |
+| `X-RateLimit-Reset`     | Unix timestamp when the window resets |
 
 ### Retry-After Header
 
@@ -857,6 +869,7 @@ RateLimit-Reset: 42
 ```
 
 The `Retry-After` value can be:
+
 - **Seconds** (integer): `Retry-After: 42`
 - **HTTP-date** (timestamp): `Retry-After: Wed, 21 Oct 2025 07:28:00 GMT`
 
@@ -907,10 +920,10 @@ async function fetchWithFixedDelay(url, options, retries = 3, delayMs = 1000) {
 }
 ```
 
-| Pros | Cons |
-| --- | --- |
-| Simple | Causes synchronized retry waves |
-| Predictable | Doesn't adapt to server load |
+| Pros        | Cons                            |
+| ----------- | ------------------------------- |
+| Simple      | Causes synchronized retry waves |
+| Predictable | Doesn't adapt to server load    |
 
 ---
 
@@ -943,7 +956,9 @@ async function fetchWithExponentialBackoff(url, options, maxRetries = 5) {
       waitMs = exponentialBackoff(attempt);
     }
 
-    console.log(`Rate limited. Retrying in ${Math.round(waitMs / 1000)}s (attempt ${attempt + 1}/${maxRetries})`);
+    console.log(
+      `Rate limited. Retrying in ${Math.round(waitMs / 1000)}s (attempt ${attempt + 1}/${maxRetries})`,
+    );
     await sleep(waitMs);
   }
 }
@@ -1022,10 +1037,12 @@ class CircuitBreaker {
 const breaker = new CircuitBreaker(5, 30000);
 
 async function fetchWithBreaker(url, options) {
-  return breaker.call(() => fetch(url, options).then(res => {
-    if (res.status === 429) throw new Error('Rate limited');
-    return res;
-  }));
+  return breaker.call(() =>
+    fetch(url, options).then((res) => {
+      if (res.status === 429) throw new Error('Rate limited');
+      return res;
+    }),
+  );
 }
 ```
 
@@ -1065,11 +1082,11 @@ Not all traffic should be rate-limited equally. A production system typically ha
 
 ```javascript
 const TIERS = {
-  free:      { points: 100,  duration: 3600 },  // 100 req/hour
-  basic:     { points: 1000, duration: 3600 },  // 1000 req/hour
-  pro:       { points: 5000, duration: 3600 },  // 5000 req/hour
-  enterprise:{ points: 50000, duration: 3600 }, // 50000 req/hour
-  internal:  { points: 0,    duration: 0    }, // Unlimited (skip)
+  free: { points: 100, duration: 3600 }, // 100 req/hour
+  basic: { points: 1000, duration: 3600 }, // 1000 req/hour
+  pro: { points: 5000, duration: 3600 }, // 5000 req/hour
+  enterprise: { points: 50000, duration: 3600 }, // 50000 req/hour
+  internal: { points: 0, duration: 0 }, // Unlimited (skip)
 };
 ```
 
@@ -1077,13 +1094,13 @@ const TIERS = {
 
 Apply different limits along different dimensions simultaneously:
 
-| Dimension | Key | Example Limit | Rationale |
-| --- | --- | --- | --- |
-| **IP address** | `ip:192.168.1.1` | 100 req/min | Prevent single-IP abuse |
-| **User ID** | `user:12345` | 1000 req/min | Per-user quota |
-| **API Key** | `apikey:sk_abc123` | 5000 req/hour | Customer tier enforcement |
-| **Endpoint** | `endpoint:/api/login` | 5 req/min | Protect sensitive endpoints |
-| **Global** | `global` | 10000 req/sec | Overall system protection |
+| Dimension      | Key                   | Example Limit | Rationale                   |
+| -------------- | --------------------- | ------------- | --------------------------- |
+| **IP address** | `ip:192.168.1.1`      | 100 req/min   | Prevent single-IP abuse     |
+| **User ID**    | `user:12345`          | 1000 req/min  | Per-user quota              |
+| **API Key**    | `apikey:sk_abc123`    | 5000 req/hour | Customer tier enforcement   |
+| **Endpoint**   | `endpoint:/api/login` | 5 req/min     | Protect sensitive endpoints |
+| **Global**     | `global`              | 10000 req/sec | Overall system protection   |
 
 ```javascript
 async function multiLevelRateLimit(req, res, next) {
@@ -1108,7 +1125,7 @@ async function multiLevelRateLimit(req, res, next) {
   } catch (rejRes) {
     // The first limiter to reject will throw
     res.status(429).json({
-      error: { code: 'RATE_LIMITED', message: 'Too many requests' }
+      error: { code: 'RATE_LIMITED', message: 'Too many requests' },
     });
   }
 }
@@ -1120,13 +1137,13 @@ async function multiLevelRateLimit(req, res, next) {
 
 ```javascript
 const WHITELIST_IPS = ['10.0.0.0/8', '172.16.0.0/12']; // Internal networks
-const BLACKLIST_IPS = new Set();                          // Known abusers
+const BLACKLIST_IPS = new Set(); // Known abusers
 
 const ADMIN_API_KEYS = new Set(['sk_admin_internal']);
 
 function shouldSkipRateLimit(req) {
   // Whitelisted IPs
-  if (WHITELIST_IPS.some(cidr => ipInCidr(req.ip, cidr))) return true;
+  if (WHITELIST_IPS.some((cidr) => ipInCidr(req.ip, cidr))) return true;
 
   // Blacklisted IPs — reject immediately
   if (BLACKLIST_IPS.has(req.ip)) return 'blacklist';
@@ -1153,7 +1170,8 @@ app.use((req, res, next) => {
   }
 
   // Apply rate limiting
-  rateLimiter.consume(req.ip)
+  rateLimiter
+    .consume(req.ip)
     .then(() => next())
     .catch(() => res.status(429).json({ error: { code: 'RATE_LIMITED' } }));
 });
@@ -1207,12 +1225,12 @@ graph TD
     D -.->|Level 3: Business logic / per-user| D1[Application middleware]
 ```
 
-| Level | Where | What It Protects | Examples |
-| --- | --- | --- | --- |
-| **Edge / CDN** | Cloudflare, Fastly, AWS CloudFront | DDoS, volumetric attacks | WAF rules, IP reputation |
-| **API Gateway** | Kong, NGINX, Envoy, Traefik | Upstream services, per-route quotas | Kong rate-limit plugin, Envoy local/global rate limiting |
-| **Application** | Express middleware, Spring filter | Business logic, per-user, per-endpoint | express-rate-limit, rate-limiter-flexible |
-| **Service Mesh** | Istio, Linkerd | Service-to-service calls | Envoy rate limit service |
+| Level            | Where                              | What It Protects                       | Examples                                                 |
+| ---------------- | ---------------------------------- | -------------------------------------- | -------------------------------------------------------- |
+| **Edge / CDN**   | Cloudflare, Fastly, AWS CloudFront | DDoS, volumetric attacks               | WAF rules, IP reputation                                 |
+| **API Gateway**  | Kong, NGINX, Envoy, Traefik        | Upstream services, per-route quotas    | Kong rate-limit plugin, Envoy local/global rate limiting |
+| **Application**  | Express middleware, Spring filter  | Business logic, per-user, per-endpoint | express-rate-limit, rate-limiter-flexible                |
+| **Service Mesh** | Istio, Linkerd                     | Service-to-service calls               | Envoy rate limit service                                 |
 
 ---
 
@@ -1233,7 +1251,10 @@ async function resilientRateLimit(req, res, next) {
       if (process.env.RATE_LIMIT_FAIL_MODE === 'CLOSED') {
         // Fail-closed: reject all requests (safe but blocks legitimate traffic)
         return res.status(503).json({
-          error: { code: 'SERVICE_DEGRADED', message: 'Rate limiting unavailable. Please try later.' }
+          error: {
+            code: 'SERVICE_DEGRADED',
+            message: 'Rate limiting unavailable. Please try later.',
+          },
         });
       } else {
         // Fail-open (default): allow requests (risk of overload but maintains availability)
@@ -1247,11 +1268,11 @@ async function resilientRateLimit(req, res, next) {
 }
 ```
 
-| Strategy | Behavior When Redis Is Down | Trade-off |
-| --- | --- | --- |
-| **Fail-open** | Allow all requests | Risk of overload; maintains availability |
-| **Fail-closed** | Reject all requests | Safe but blocks all traffic (including legitimate) |
-| **Fail-cached** | Use last known counter from local cache | Best effort; slightly stale |
+| Strategy        | Behavior When Redis Is Down             | Trade-off                                          |
+| --------------- | --------------------------------------- | -------------------------------------------------- |
+| **Fail-open**   | Allow all requests                      | Risk of overload; maintains availability           |
+| **Fail-closed** | Reject all requests                     | Safe but blocks all traffic (including legitimate) |
+| **Fail-cached** | Use last known counter from local cache | Best effort; slightly stale                        |
 
 ---
 
@@ -1276,7 +1297,8 @@ const rateLimitRemaining = new prometheus.Gauge({
 
 // In middleware:
 app.use((req, res, next) => {
-  rateLimiter.consume(req.ip)
+  rateLimiter
+    .consume(req.ip)
     .then((result) => {
       rateLimitRemaining.set({ client_id: req.ip }, result.remainingPoints);
       res.setHeader('RateLimit-Remaining', result.remainingPoints);
@@ -1291,12 +1313,12 @@ app.use((req, res, next) => {
 
 **Key metrics to track:**
 
-| Metric | What It Tells You |
-| --- | --- |
-| `rate_limit_rejected_total` | Are we under attack? Is a client abusing the API? |
-| `rate_limit_remaining` (histogram) | Are limits too tight or too loose? |
-| `rate_limiter_redis_latency_ms` | Is Redis performing well? |
-| `rate_limiter_fallback_triggered_total` | How often do we fail open? |
+| Metric                                  | What It Tells You                                 |
+| --------------------------------------- | ------------------------------------------------- |
+| `rate_limit_rejected_total`             | Are we under attack? Is a client abusing the API? |
+| `rate_limit_remaining` (histogram)      | Are limits too tight or too loose?                |
+| `rate_limiter_redis_latency_ms`         | Is Redis performing well?                         |
+| `rate_limiter_fallback_triggered_total` | How often do we fail open?                        |
 
 ---
 
@@ -1310,11 +1332,11 @@ Begin with generous limits. Monitor real usage patterns, then tighten gradually.
 
 ```javascript
 const LIMITS = {
-  '/api/health':    { points: 0,    duration: 1 },   // Unlimited
-  '/api/search':    { points: 30,   duration: 60 },   // 30/min
-  '/api/login':     { points: 5,    duration: 900 },  // 5/15min
-  '/api/upload':    { points: 10,   duration: 3600 }, // 10/hour
-  'default':        { points: 100,  duration: 60 },   // 100/min
+  '/api/health': { points: 0, duration: 1 }, // Unlimited
+  '/api/search': { points: 30, duration: 60 }, // 30/min
+  '/api/login': { points: 5, duration: 900 }, // 5/15min
+  '/api/upload': { points: 10, duration: 3600 }, // 10/hour
+  default: { points: 100, duration: 60 }, // 100/min
 };
 ```
 
@@ -1362,16 +1384,16 @@ If you use the current timestamp in the Redis key name (e.g., `rl:192.168.1.1:20
 
 ## Common Pitfalls
 
-| Pitfall | Why It's Bad | Solution |
-| --- | --- | --- |
-| **Global rate limit** | One abusive client blocks everyone | Always limit per key (IP, user ID, API key) |
-| **In-memory store in cluster** | Each instance has its own counter | Use Redis or another distributed store |
-| **Missing `Retry-After` header** | Clients don't know when to retry | Always include `Retry-After` with `429` |
-| **No jitter in client retries** | Synchronized retry waves (thundering herd) | Add random jitter to backoff delays |
-| **Using `Date.now()` in key** | Infinite unique keys, memory leak | Use Redis `EXPIRE`; don't put timestamps in key names |
-| **Rate limiting authenticated users by IP** | Shared IPs (office, NAT) get unfairly limited | Rate limit by user ID for authenticated requests; fall back to IP for anonymous |
-| **Blocking instead of rejecting** | Holding connections consumes server resources | Reject fast (return 429) rather than queuing on the server side |
-| **Not monitoring rate limiting** | No visibility into abuse or misconfigured limits | Export metrics; set up dashboards and alerts |
+| Pitfall                                     | Why It's Bad                                     | Solution                                                                        |
+| ------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------- |
+| **Global rate limit**                       | One abusive client blocks everyone               | Always limit per key (IP, user ID, API key)                                     |
+| **In-memory store in cluster**              | Each instance has its own counter                | Use Redis or another distributed store                                          |
+| **Missing `Retry-After` header**            | Clients don't know when to retry                 | Always include `Retry-After` with `429`                                         |
+| **No jitter in client retries**             | Synchronized retry waves (thundering herd)       | Add random jitter to backoff delays                                             |
+| **Using `Date.now()` in key**               | Infinite unique keys, memory leak                | Use Redis `EXPIRE`; don't put timestamps in key names                           |
+| **Rate limiting authenticated users by IP** | Shared IPs (office, NAT) get unfairly limited    | Rate limit by user ID for authenticated requests; fall back to IP for anonymous |
+| **Blocking instead of rejecting**           | Holding connections consumes server resources    | Reject fast (return 429) rather than queuing on the server side                 |
+| **Not monitoring rate limiting**            | No visibility into abuse or misconfigured limits | Export metrics; set up dashboards and alerts                                    |
 
 ---
 
@@ -1386,11 +1408,12 @@ const Redis = require('ioredis');
 const prometheus = require('prom-client');
 
 // ─── Redis Setup ────────────────────────────────────
-const redisClient = new Redis.Cluster([
-  { host: process.env.REDIS_HOST || 'localhost', port: 6379 },
-], {
-  redisOptions: { enableOfflineQueue: false, maxRetriesPerRequest: 1 },
-});
+const redisClient = new Redis.Cluster(
+  [{ host: process.env.REDIS_HOST || 'localhost', port: 6379 }],
+  {
+    redisOptions: { enableOfflineQueue: false, maxRetriesPerRequest: 1 },
+  },
+);
 
 // ─── Metrics ────────────────────────────────────────
 const rateLimitRejected = new prometheus.Counter({
@@ -1401,10 +1424,10 @@ const rateLimitRejected = new prometheus.Counter({
 
 // ─── Tier Configuration ─────────────────────────────
 const TIER_OPTS = {
-  free:      { points: 100,  duration: 3600, blockDuration: 0 },
-  basic:     { points: 1000, duration: 3600, blockDuration: 0 },
-  pro:       { points: 5000, duration: 3600, blockDuration: 0 },
-  enterprise:{ points: 50000,duration: 3600, blockDuration: 0 },
+  free: { points: 100, duration: 3600, blockDuration: 0 },
+  basic: { points: 1000, duration: 3600, blockDuration: 0 },
+  pro: { points: 5000, duration: 3600, blockDuration: 0 },
+  enterprise: { points: 50000, duration: 3600, blockDuration: 0 },
 };
 
 // ─── Create Limiters Per Tier ───────────────────────

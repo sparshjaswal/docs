@@ -1,5 +1,5 @@
 ---
-title: SOLID Design Principles
+title: "SOLID Design Principles"
 description: Understand and apply SOLID principles to build maintainable, scalable, and testable object-oriented systems.
 keywords:
   - solid principles

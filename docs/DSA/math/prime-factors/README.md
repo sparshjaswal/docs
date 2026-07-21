@@ -1,8 +1,8 @@
 ---
 id: dsa-math-prime-factors-readme
-title: Prime Factors
+title: "Prime Factors"
 slug: /DSA/math/prime-factors/README
-sidebar_label: Prime Factors
+sidebar_label: "Prime Factors"
 ---
 
 # Prime Factors

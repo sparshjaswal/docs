@@ -1,8 +1,8 @@
 ---
 id: design-pattern-structural-flyweight
-title: Flyweight Pattern 🪶
+title: "Flyweight Pattern 🪶"
 slug: /design-pattern/structural/flyweight
-sidebar_label: Flyweight Pattern 🪶
+sidebar_label: "Flyweight Pattern 🪶"
 ---
 
 # Flyweight Pattern 🪶

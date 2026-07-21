@@ -1,8 +1,8 @@
 ---
 id: dsa-stack-valid-parentheses-readme
-title: Valid Parentheses Problem
+title: "Valid Parentheses Problem"
 slug: /DSA/stack/valid-parentheses/README
-sidebar_label: Valid Parentheses Problem
+sidebar_label: "Valid Parentheses Problem"
 ---
 
 # Valid Parentheses Problem

@@ -1,8 +1,8 @@
 ---
 id: design-pattern-structural-adapter
-title: Adapter Pattern 🔌
+title: "Adapter Pattern 🔌"
 slug: /design-pattern/structural/adapter
-sidebar_label: Adapter Pattern 🔌
+sidebar_label: "Adapter Pattern 🔌"
 ---
 
 # Adapter Pattern 🔌

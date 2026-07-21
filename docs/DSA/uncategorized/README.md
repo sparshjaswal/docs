@@ -1,8 +1,8 @@
 ---
 id: dsa-uncategorized-readme
-title: 🧩 Uncategorized Problems
+title: "🧩 Uncategorized Problems"
 slug: /DSA/uncategorized/README
-sidebar_label: 🧩 Uncategorized Problems
+sidebar_label: "🧩 Uncategorized Problems"
 ---
 
 # 🧩 Uncategorized Problems

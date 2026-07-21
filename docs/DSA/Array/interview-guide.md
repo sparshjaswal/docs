@@ -1,10 +1,9 @@
 ---
 id: dsa-array-interview-guide
-title: Arrays
+title: "Arrays"
 slug: /DSA/Array/interview-guide
-sidebar_label: Arrays
+sidebar_label: "Arrays"
 ---
-
 
 # Arrays
 
@@ -13,10 +12,10 @@ sidebar_label: Arrays
 - **Contiguous Memory:** Arrays store elements in contiguous memory locations, allowing for constant-time access (O(1)) using an index.
 - **Fixed or Dynamic Size:** Arrays can have a fixed size (in languages like C++) or be dynamic (like in JavaScript or Python).
 - **Common Patterns:**
-    - **Two Pointers:** Using two pointers to iterate from both ends of the array or at different speeds.
-    - **Sliding Window:** A subarray of a certain size that moves through the array.
-    - **Prefix Sum:** Pre-calculating sums of prefixes of the array to quickly find the sum of any subarray.
-    - **Hashing:** Using a hash map to store frequencies or check for existence of elements.
+  - **Two Pointers:** Using two pointers to iterate from both ends of the array or at different speeds.
+  - **Sliding Window:** A subarray of a certain size that moves through the array.
+  - **Prefix Sum:** Pre-calculating sums of prefixes of the array to quickly find the sum of any subarray.
+  - **Hashing:** Using a hash map to store frequencies or check for existence of elements.
 
 ## Interview Strategy
 
@@ -35,14 +34,14 @@ sidebar_label: Arrays
 
 ```javascript
 function twoSumBruteForce(arr, target) {
-    for (let i = 0; i < arr.length; i++) {
-        for (let j = i + 1; j < arr.length; j++) {
-            if (arr[i] + arr[j] === target) {
-                return [i, j];
-            }
-        }
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === target) {
+        return [i, j];
+      }
     }
-    return [];
+  }
+  return [];
 }
 ```
 
@@ -50,25 +49,25 @@ function twoSumBruteForce(arr, target) {
 
 ```javascript
 function twoSumHashing(arr, target) {
-    const numMap = new Map();
-    for (let i = 0; i < arr.length; i++) {
-        const complement = target - arr[i];
-        if (numMap.has(complement)) {
-            return [numMap.get(complement), i];
-        }
-        numMap.set(arr[i], i);
+  const numMap = new Map();
+  for (let i = 0; i < arr.length; i++) {
+    const complement = target - arr[i];
+    if (numMap.has(complement)) {
+      return [numMap.get(complement), i];
     }
-    return [];
+    numMap.set(arr[i], i);
+  }
+  return [];
 }
 ```
 
 ## Complexity Analysis
 
-| Algorithm            | Time Complexity | Space Complexity |
-| -------------------- | --------------- | ---------------- |
-| Brute Force          | O(n^2)          | O(1)             |
-| Hashing              | O(n)            | O(n)             |
-| Two Pointers (sorted)| O(n log n)      | O(1)             |
+| Algorithm             | Time Complexity | Space Complexity |
+| --------------------- | --------------- | ---------------- |
+| Brute Force           | O(n^2)          | O(1)             |
+| Hashing               | O(n)            | O(n)             |
+| Two Pointers (sorted) | O(n log n)      | O(1)             |
 
 ## Dry Runs
 

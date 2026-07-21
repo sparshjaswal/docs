@@ -1,8 +1,8 @@
 ---
 id: javascript-spread-operator
-title: Spread [es6]
+title: "Spread [es6]"
 slug: /javascript/spread-operator
-sidebar_label: Spread [es6]
+sidebar_label: "Spread [es6]"
 ---
 
 # Spread [es6]

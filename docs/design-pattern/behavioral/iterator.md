@@ -1,8 +1,8 @@
 ---
 id: design-pattern-behavioral-iterator
-title: Iterator Pattern 🔄
+title: "Iterator Pattern 🔄"
 slug: /design-pattern/behavioral/iterator
-sidebar_label: Iterator Pattern 🔄
+sidebar_label: "Iterator Pattern 🔄"
 ---
 
 # Iterator Pattern 🔄

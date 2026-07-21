@@ -1,8 +1,8 @@
 ---
 id: javascript-functions-function-lambda
-title: LAMBDA
+title: "LAMBDA"
 slug: /javascript/functions/function-lambda
-sidebar_label: LAMBDA
+sidebar_label: "LAMBDA"
 ---
 
 # LAMBDA

@@ -1,10 +1,9 @@
 ---
 id: dsa-linked-list-interview-guide
-title: Linked Lists
+title: "Linked Lists"
 slug: /DSA/linked-list/interview-guide
-sidebar_label: Linked Lists
+sidebar_label: "Linked Lists"
 ---
-
 
 # Linked Lists
 
@@ -14,9 +13,9 @@ sidebar_label: Linked Lists
 - **Dynamic Size:** Linked lists can grow and shrink dynamically.
 - **No Contiguous Memory:** Unlike arrays, linked list nodes are not stored in contiguous memory locations.
 - **Common Patterns:**
-    - **Two Pointers (Fast and Slow):** Used to detect cycles, find the middle element, or solve other problems in a single pass.
-    - **Dummy Head Node:** A sentinel node at the beginning of the list to simplify insertion and deletion operations at the head.
-    - **Reversing a Linked List:** A common subproblem in many linked list questions.
+  - **Two Pointers (Fast and Slow):** Used to detect cycles, find the middle element, or solve other problems in a single pass.
+  - **Dummy Head Node:** A sentinel node at the beginning of the list to simplify insertion and deletion operations at the head.
+  - **Reversing a Linked List:** A common subproblem in many linked list questions.
 
 ## Interview Strategy
 
@@ -34,15 +33,15 @@ sidebar_label: Linked Lists
 
 ```javascript
 function reverseListIterative(head) {
-    let prev = null;
-    let current = head;
-    while (current !== null) {
-        const nextTemp = current.next;
-        current.next = prev;
-        prev = current;
-        current = nextTemp;
-    }
-    return prev;
+  let prev = null;
+  let current = head;
+  while (current !== null) {
+    const nextTemp = current.next;
+    current.next = prev;
+    prev = current;
+    current = nextTemp;
+  }
+  return prev;
 }
 ```
 
@@ -50,27 +49,27 @@ function reverseListIterative(head) {
 
 ```javascript
 function reverseListRecursive(head) {
-    if (head === null || head.next === null) {
-        return head;
-    }
-    const p = reverseListRecursive(head.next);
-    head.next.next = head;
-    head.next = null;
-    return p;
+  if (head === null || head.next === null) {
+    return head;
+  }
+  const p = reverseListRecursive(head.next);
+  head.next.next = head;
+  head.next = null;
+  return p;
 }
 ```
 
 ## Complexity Analysis
 
-| Operation          | Time Complexity | Space Complexity (Iterative) | Space Complexity (Recursive) |
-| ------------------ | --------------- | ---------------------------- | ---------------------------- |
-| Access (by index)  | O(n)            | -                            | -                            |
-| Search             | O(n)            | -                            | -                            |
-| Insertion (at head)| O(1)            | -                            | -                            |
-| Insertion (at tail)| O(n) or O(1) with tail pointer | -               | -                          |
-| Deletion (at head) | O(1)            | -                            | -                            |
-| Deletion (at tail) | O(n)            | -                            | -                            |
-| Reversal           | O(n)            | O(1)                         | O(n) due to recursion stack  |
+| Operation           | Time Complexity                | Space Complexity (Iterative) | Space Complexity (Recursive) |
+| ------------------- | ------------------------------ | ---------------------------- | ---------------------------- |
+| Access (by index)   | O(n)                           | -                            | -                            |
+| Search              | O(n)                           | -                            | -                            |
+| Insertion (at head) | O(1)                           | -                            | -                            |
+| Insertion (at tail) | O(n) or O(1) with tail pointer | -                            | -                            |
+| Deletion (at head)  | O(1)                           | -                            | -                            |
+| Deletion (at tail)  | O(n)                           | -                            | -                            |
+| Reversal            | O(n)                           | O(1)                         | O(n) due to recursion stack  |
 
 ## Dry Runs
 
