@@ -1,3 +1,10 @@
+---
+id: dsa-sorting-shell-sort-readme
+title: Shellsort
+slug: /DSA/sorting/shell-sort/README
+sidebar_label: Shellsort
+---
+
 # Shellsort
 
 Shellsort, also known as Shell sort or Shell's method,

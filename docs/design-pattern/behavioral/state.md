@@ -1,3 +1,10 @@
+---
+id: design-pattern-behavioral-state
+title: State Pattern 🎛️
+slug: /design-pattern/behavioral/state
+sidebar_label: State Pattern 🎛️
+---
+
 # State Pattern 🎛️
 
 > **Definition**: The State pattern allows an object to alter its behavior when its internal state changes. The object will appear to change its class.

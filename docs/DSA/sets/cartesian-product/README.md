@@ -1,3 +1,10 @@
+---
+id: dsa-sets-cartesian-product-readme
+title: Cartesian Product
+slug: /DSA/sets/cartesian-product/README
+sidebar_label: Cartesian Product
+---
+
 # Cartesian Product
 
 In set theory a Cartesian product is a mathematical operation that returns a set

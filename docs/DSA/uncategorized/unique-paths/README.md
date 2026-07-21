@@ -1,3 +1,10 @@
+---
+id: dsa-uncategorized-unique-paths-readme
+title: Unique Paths Problem
+slug: /DSA/uncategorized/unique-paths/README
+sidebar_label: Unique Paths Problem
+---
+
 # Unique Paths Problem
 
 A robot is located at the top-left corner of a `m x n` grid

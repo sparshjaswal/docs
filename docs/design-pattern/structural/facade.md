@@ -1,3 +1,10 @@
+---
+id: design-pattern-structural-facade
+title: Facade Pattern 🏛️
+slug: /design-pattern/structural/facade
+sidebar_label: Facade Pattern 🏛️
+---
+
 # Facade Pattern 🏛️
 
 > **Definition**: The Facade pattern provides a simplified interface to a complex subsystem. It defines a higher-level interface that makes the subsystem easier to use.

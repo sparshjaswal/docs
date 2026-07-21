@@ -1,3 +1,10 @@
+---
+id: dsa-math-factorial-readme
+title: Factorial
+slug: /DSA/math/factorial/README
+sidebar_label: Factorial
+---
+
 # Factorial
 
 In mathematics, the factorial of a non-negative integer `n`,

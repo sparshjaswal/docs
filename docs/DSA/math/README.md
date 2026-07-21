@@ -1,3 +1,10 @@
+---
+id: dsa-math-readme
+title: ➗ Math
+slug: /DSA/math/README
+sidebar_label: ➗ Math
+---
+
 # ➗ Math
 
 > **One-line summary**: Number theory, combinatorics, and arithmetic tricks — the foundation of competitive programming warm-ups.

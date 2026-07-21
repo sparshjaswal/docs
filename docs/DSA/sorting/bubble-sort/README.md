@@ -1,3 +1,10 @@
+---
+id: dsa-sorting-bubble-sort-readme
+title: Bubble Sort
+slug: /DSA/sorting/bubble-sort/README
+sidebar_label: Bubble Sort
+---
+
 # Bubble Sort
 
 Bubble sort, sometimes referred to as sinking sort, is a

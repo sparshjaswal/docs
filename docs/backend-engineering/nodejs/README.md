@@ -1,3 +1,10 @@
+---
+id: backend-engineering-nodejs-readme
+title: Node.js 🟢
+slug: /backend-engineering/nodejs/README
+sidebar_label: Node.js 🟢
+---
+
 # Node.js 🟢
 
 Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine, designed for building scalable network applications. Its event-driven, non-blocking I/O model makes it lightweight and efficient for data-intensive real-time applications.

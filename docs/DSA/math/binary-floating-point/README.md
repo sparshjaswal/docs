@@ -1,3 +1,10 @@
+---
+id: dsa-math-binary-floating-point-readme
+title: Binary representation of floating-point numbers
+slug: /DSA/math/binary-floating-point/README
+sidebar_label: Binary representation of fl...
+---
+
 # Binary representation of floating-point numbers
 
 Have you ever wondered how computers store the floating-point numbers like `3.1416` (𝝿) or `9.109 × 10⁻³¹` (the mass of the electron in kg) in the memory which is limited by a finite number of ones and zeroes (aka bits)?

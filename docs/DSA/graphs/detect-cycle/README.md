@@ -1,3 +1,10 @@
+---
+id: dsa-graphs-detect-cycle-readme
+title: Detect Cycle in Graphs
+slug: /DSA/graphs/detect-cycle/README
+sidebar_label: Detect Cycle in Graphs
+---
+
 # Detect Cycle in Graphs
 
 In graph theory, a **cycle** is a path of edges and vertices

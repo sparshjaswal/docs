@@ -1,3 +1,10 @@
+---
+id: design-pattern-behavioral-observer
+title: Observer Pattern 🔔
+slug: /design-pattern/behavioral/observer
+sidebar_label: Observer Pattern 🔔
+---
+
 # Observer Pattern 🔔
 
 > **Definition**: The Observer pattern defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.

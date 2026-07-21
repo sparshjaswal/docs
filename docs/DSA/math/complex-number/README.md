@@ -1,3 +1,10 @@
+---
+id: dsa-math-complex-number-readme
+title: Complex Number
+slug: /DSA/math/complex-number/README
+sidebar_label: Complex Number
+---
+
 # Complex Number
 
 A **complex number** is a number that can be expressed in the

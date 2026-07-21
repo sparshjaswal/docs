@@ -1,3 +1,10 @@
+---
+id: dsa-trees-fenwick-tree-readme
+title: Fenwick Tree / Binary Indexed Tree
+slug: /DSA/trees/fenwick-tree/README
+sidebar_label: Fenwick Tree / Binary Index...
+---
+
 # Fenwick Tree / Binary Indexed Tree
 
 A **Fenwick tree** or **binary indexed tree** is a data

@@ -1,3 +1,10 @@
+---
+id: design-pattern-structural-bridge
+title: Bridge Pattern 🌉
+slug: /design-pattern/structural/bridge
+sidebar_label: Bridge Pattern 🌉
+---
+
 # Bridge Pattern 🌉
 
 > **Definition**: The Bridge pattern separates an abstraction from its implementation, allowing both to vary independently. It uses composition instead of inheritance to connect different hierarchies.

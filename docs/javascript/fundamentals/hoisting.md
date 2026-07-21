@@ -1,3 +1,10 @@
+---
+id: javascript-fundamentals-hoisting
+title: JavaScript Hoisting
+slug: /javascript/fundamentals/hoisting
+sidebar_label: JavaScript Hoisting
+---
+
 # JavaScript Hoisting
 
 ## What is Hoisting?

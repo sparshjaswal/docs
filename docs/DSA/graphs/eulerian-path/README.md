@@ -1,3 +1,10 @@
+---
+id: dsa-graphs-eulerian-path-readme
+title: Eulerian Path
+slug: /DSA/graphs/eulerian-path/README
+sidebar_label: Eulerian Path
+---
+
 # Eulerian Path
 
 In graph theory, an **Eulerian trail** (or **Eulerian path**) is a

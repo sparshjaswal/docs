@@ -1,3 +1,10 @@
+---
+id: dsa-strings-levenshtein-distance-readme
+title: Levenshtein Distance
+slug: /DSA/strings/levenshtein-distance/README
+sidebar_label: Levenshtein Distance
+---
+
 # Levenshtein Distance
 
 The Levenshtein distance is a string metric for measuring the

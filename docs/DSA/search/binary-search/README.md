@@ -1,3 +1,10 @@
+---
+id: dsa-search-binary-search-readme
+title: Binary Search
+slug: /DSA/search/binary-search/README
+sidebar_label: Binary Search
+---
+
 # Binary Search
 
 In computer science, binary search, also known as half-interval

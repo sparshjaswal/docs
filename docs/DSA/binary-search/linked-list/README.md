@@ -1,3 +1,10 @@
+---
+id: dsa-binary-search-linked-list-readme
+title: Linked List
+slug: /DSA/binary-search/linked-list/README
+sidebar_label: Linked List
+---
+
 # Linked List
 
 In computer science, a **linked list** is a linear collection

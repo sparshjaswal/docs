@@ -1,3 +1,10 @@
+---
+id: design-pattern-behavioral-memento
+title: Memento Pattern 💾
+slug: /design-pattern/behavioral/memento
+sidebar_label: Memento Pattern 💾
+---
+
 # Memento Pattern 💾
 
 > **Definition**: The Memento pattern captures and stores the internal state of an object without violating encapsulation, so that the object can be restored to this state later.

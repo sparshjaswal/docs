@@ -1,3 +1,10 @@
+---
+id: design-pattern-structural-proxy
+title: Proxy Pattern 🛡️
+slug: /design-pattern/structural/proxy
+sidebar_label: Proxy Pattern 🛡️
+---
+
 # Proxy Pattern 🛡️
 
 > **Definition**: The Proxy pattern provides a placeholder or surrogate for another object to control access to it. It acts as an intermediary between a client and the real object.

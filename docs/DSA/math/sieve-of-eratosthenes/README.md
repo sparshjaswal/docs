@@ -1,3 +1,10 @@
+---
+id: dsa-math-sieve-of-eratosthenes-readme
+title: Sieve of Eratosthenes
+slug: /DSA/math/sieve-of-eratosthenes/README
+sidebar_label: Sieve of Eratosthenes
+---
+
 # Sieve of Eratosthenes
 
 The Sieve of Eratosthenes is an algorithm for finding all prime numbers up to some limit `n`.

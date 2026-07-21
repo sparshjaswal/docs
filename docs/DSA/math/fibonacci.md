@@ -1,3 +1,10 @@
+---
+id: dsa-math-fibonacci
+title: Fibonacci Number
+slug: /DSA/math/fibonacci
+sidebar_label: Fibonacci Number
+---
+
 # Fibonacci Number
 
 In mathematics, the Fibonacci numbers are the numbers in the following

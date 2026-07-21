@@ -1,3 +1,10 @@
+---
+id: javascript-asynchronous-promises
+title: 🤝 JavaScript Promises - Complete Guide
+slug: /javascript/asynchronous/promises
+sidebar_label: 🤝 JavaScript Promises - Com...
+---
+
 # 🤝 JavaScript Promises - Complete Guide
 
 > **Master asynchronous programming with Promises for cleaner, more maintainable code**

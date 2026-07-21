@@ -1,3 +1,10 @@
+---
+id: dsa-strings-hamming-distance-readme
+title: Hamming Distance
+slug: /DSA/strings/hamming-distance/README
+sidebar_label: Hamming Distance
+---
+
 # Hamming Distance
 
 the Hamming distance between two strings of equal length is the

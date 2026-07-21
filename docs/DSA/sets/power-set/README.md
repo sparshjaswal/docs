@@ -1,3 +1,10 @@
+---
+id: dsa-sets-power-set-readme
+title: Power Set
+slug: /DSA/sets/power-set/README
+sidebar_label: Power Set
+---
+
 # Power Set
 
 Power set of a set `S` is the set of all of the subsets of `S`, including the

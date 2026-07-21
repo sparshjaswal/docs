@@ -1,3 +1,10 @@
+---
+id: dsa-sorting-heap-sort-readme
+title: Heap Sort
+slug: /DSA/sorting/heap-sort/README
+sidebar_label: Heap Sort
+---
+
 # Heap Sort
 
 Heapsort is a comparison-based sorting algorithm.

@@ -1,3 +1,10 @@
+---
+id: dsa-linked-list-reverse-traversal-readme
+title: Reversed Linked List Traversal
+slug: /DSA/linked-list/reverse-traversal/README
+sidebar_label: Reversed Linked List Traversal
+---
+
 # Reversed Linked List Traversal
 
 The task is to traverse the given linked list in reversed order.

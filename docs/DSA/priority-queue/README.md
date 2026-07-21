@@ -1,3 +1,10 @@
+---
+id: dsa-priority-queue-readme
+title: Priority Queue
+slug: /DSA/priority-queue/README
+sidebar_label: Priority Queue
+---
+
 # Priority Queue
 
 In computer science, a **priority queue** is an abstract data type

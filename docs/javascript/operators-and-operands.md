@@ -1,3 +1,10 @@
+---
+id: javascript-operators-and-operands
+title: OPERATORS & OPERANDS
+slug: /javascript/operators-and-operands
+sidebar_label: OPERATORS & OPERANDS
+---
+
 # OPERATORS & OPERANDS
 
 Operators are the type of tokens which perform an operation on the operands.

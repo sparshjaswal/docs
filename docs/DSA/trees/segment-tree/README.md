@@ -1,3 +1,10 @@
+---
+id: dsa-trees-segment-tree-readme
+title: Segment Tree
+slug: /DSA/trees/segment-tree/README
+sidebar_label: Segment Tree
+---
+
 # Segment Tree
 
 In computer science, a **segment tree** also known as a statistic tree

@@ -1,3 +1,10 @@
+---
+id: dsa-backtracking-algorithms-overview
+title: Backtracking
+slug: /DSA/backtracking/algorithms-overview
+sidebar_label: Backtracking
+---
+
 # Backtracking
 
 > **One-line summary**: Systematic exhaustive search that builds candidates incrementally and abandons ("backtracks") a partial candidate as soon as it cannot lead to a valid solution.

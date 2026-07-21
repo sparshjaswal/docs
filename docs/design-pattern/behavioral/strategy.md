@@ -1,3 +1,10 @@
+---
+id: design-pattern-behavioral-strategy
+title: Strategy Pattern 🎯
+slug: /design-pattern/behavioral/strategy
+sidebar_label: Strategy Pattern 🎯
+---
+
 # Strategy Pattern 🎯
 
 > **Definition**: The Strategy pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable. Strategy lets the algorithm vary independently from clients that use it.

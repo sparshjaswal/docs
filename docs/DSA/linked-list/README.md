@@ -1,3 +1,10 @@
+---
+id: dsa-linked-list-readme
+title: 🔗 Linked List
+slug: /DSA/linked-list/README
+sidebar_label: 🔗 Linked List
+---
+
 # 🔗 Linked List
 
 > **One-line summary**: A dynamic chain of nodes — O(1) insert/delete at known position, O(n) access by index. Master reversal, cycle detection, and merge patterns.

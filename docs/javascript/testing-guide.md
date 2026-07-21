@@ -1,3 +1,10 @@
+---
+id: javascript-testing-guide
+title: 🧪 JavaScript Testing Mastery Guide
+slug: /javascript/testing-guide
+sidebar_label: 🧪 JavaScript Testing Master...
+---
+
 # 🧪 JavaScript Testing Mastery Guide
 
 > **Comprehensive testing strategies for robust JavaScript applications**

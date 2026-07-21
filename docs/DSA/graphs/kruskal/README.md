@@ -1,3 +1,10 @@
+---
+id: dsa-graphs-kruskal-readme
+title: Kruskal's Algorithm
+slug: /DSA/graphs/kruskal/README
+sidebar_label: Kruskal's Algorithm
+---
+
 # Kruskal's Algorithm
 
 Kruskal's algorithm is a minimum-spanning-tree algorithm which

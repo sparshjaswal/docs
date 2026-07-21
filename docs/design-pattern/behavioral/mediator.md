@@ -1,3 +1,10 @@
+---
+id: design-pattern-behavioral-mediator
+title: Mediator Pattern 🎭
+slug: /design-pattern/behavioral/mediator
+sidebar_label: Mediator Pattern 🎭
+---
+
 # Mediator Pattern 🎭
 
 > **Definition**: The Mediator pattern defines how a set of objects interact with each other. It promotes loose coupling by keeping objects from referring to each other explicitly, and lets you vary their interaction independently.

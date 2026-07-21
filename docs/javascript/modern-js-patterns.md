@@ -1,3 +1,10 @@
+---
+id: javascript-modern-js-patterns
+title: 🔥 Modern JavaScript Patterns & Advanced Techniques
+slug: /javascript/modern-js-patterns
+sidebar_label: 🔥 Modern JavaScript Pattern...
+---
+
 # 🔥 Modern JavaScript Patterns & Advanced Techniques
 
 > **Advanced patterns for professional JavaScript development in 2025**

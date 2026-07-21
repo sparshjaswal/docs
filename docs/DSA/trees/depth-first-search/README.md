@@ -1,3 +1,10 @@
+---
+id: dsa-trees-depth-first-search-readme
+title: Depth-First Search (DFS)
+slug: /DSA/trees/depth-first-search/README
+sidebar_label: Depth-First Search (DFS)
+---
+
 # Depth-First Search (DFS)
 
 Depth-first search (DFS) is an algorithm for traversing or

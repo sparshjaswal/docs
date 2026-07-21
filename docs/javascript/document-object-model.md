@@ -1,3 +1,10 @@
+---
+id: javascript-document-object-model
+title: 🌐 Document Object Model (DOM) - Complete Guide
+slug: /javascript/document-object-model
+sidebar_label: 🌐 Document Object Model (DO...
+---
+
 # 🌐 Document Object Model (DOM) - Complete Guide
 
 > **Master DOM manipulation for dynamic web applications**

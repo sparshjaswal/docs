@@ -1,3 +1,10 @@
+---
+id: dsa-math-least-common-multiple-readme
+title: Least common multiple
+slug: /DSA/math/least-common-multiple/README
+sidebar_label: Least common multiple
+---
+
 # Least common multiple
 
 In arithmetic and number theory, the least common multiple,

@@ -1,3 +1,10 @@
+---
+id: dsa-graphs-bellman-ford-readme
+title: Bellman–Ford Algorithm
+slug: /DSA/graphs/bellman-ford/README
+sidebar_label: Bellman–Ford Algorithm
+---
+
 # Bellman–Ford Algorithm
 
 The Bellman–Ford algorithm is an algorithm that computes shortest

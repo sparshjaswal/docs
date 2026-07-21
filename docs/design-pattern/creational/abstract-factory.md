@@ -1,3 +1,10 @@
+---
+id: design-pattern-creational-abstract-factory
+title: Abstract Factory Pattern 🏭🔧
+slug: /design-pattern/creational/abstract-factory
+sidebar_label: Abstract Factory Pattern 🏭🔧
+---
+
 # Abstract Factory Pattern 🏭🔧
 
 > **Definition**: The Abstract Factory pattern provides an interface for creating families of related or dependent objects without specifying their concrete classes.

@@ -1,3 +1,10 @@
+---
+id: dsa-dp-algorithms-overview
+title: Dynamic Programming
+slug: /DSA/dp/algorithms-overview
+sidebar_label: Dynamic Programming
+---
+
 # Dynamic Programming
 
 > **One-line summary**: Break a problem into overlapping subproblems, solve each once — turning exponential time into polynomial.

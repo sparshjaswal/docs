@@ -1,3 +1,10 @@
+---
+id: design-pattern-behavioral-iterator
+title: Iterator Pattern 🔄
+slug: /design-pattern/behavioral/iterator
+sidebar_label: Iterator Pattern 🔄
+---
+
 # Iterator Pattern 🔄
 
 > **Definition**: The Iterator pattern provides a way to access elements of a collection sequentially without exposing its underlying representation.

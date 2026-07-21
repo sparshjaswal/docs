@@ -1,3 +1,10 @@
+---
+id: dsa-uncategorized-n-queens-readme
+title: N-Queens Problem
+slug: /DSA/uncategorized/n-queens/README
+sidebar_label: N-Queens Problem
+---
+
 # N-Queens Problem
 
 The **eight queens puzzle** is the problem of placing eight chess queens

@@ -1,3 +1,10 @@
+---
+id: javascript-symbol
+title: Symbol
+slug: /javascript/symbol
+sidebar_label: Symbol
+---
+
 # Symbol
 
 ```js

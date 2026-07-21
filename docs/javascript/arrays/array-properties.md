@@ -1,3 +1,10 @@
+---
+id: javascript-arrays-array-properties
+title: Array Properties
+slug: /javascript/arrays/array-properties
+sidebar_label: Array Properties
+---
+
 # Array Properties
 
 This reference covers important Array properties with practical caveats, performance notes, compatibility guidance, and TypeScript tips.

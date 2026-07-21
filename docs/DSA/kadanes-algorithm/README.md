@@ -1,3 +1,10 @@
+---
+id: dsa-kadanes-algorithm-readme
+title: 📈 Kadane's Algorithm
+slug: /DSA/kadanes-algorithm/README
+sidebar_label: 📈 Kadane's Algorithm
+---
+
 # 📈 Kadane's Algorithm
 
 > **One-line summary**: Find the maximum-sum contiguous subarray in O(n) by tracking the best sum ending at each position.

@@ -1,3 +1,10 @@
+---
+id: dsa-sorting-counting-sort-readme
+title: Counting Sort
+slug: /DSA/sorting/counting-sort/README
+sidebar_label: Counting Sort
+---
+
 # Counting Sort
 
 In computer science, **counting sort** is an algorithm for sorting

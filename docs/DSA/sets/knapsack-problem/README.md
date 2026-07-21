@@ -1,3 +1,10 @@
+---
+id: dsa-sets-knapsack-problem-readme
+title: Knapsack Problem
+slug: /DSA/sets/knapsack-problem/README
+sidebar_label: Knapsack Problem
+---
+
 # Knapsack Problem
 
 The knapsack problem or rucksack problem is a problem in

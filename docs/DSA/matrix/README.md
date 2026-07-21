@@ -1,3 +1,10 @@
+---
+id: dsa-matrix-readme
+title: 🔢 Matrix
+slug: /DSA/matrix/README
+sidebar_label: 🔢 Matrix
+---
+
 # 🔢 Matrix
 
 > **One-line summary**: 2D arrays — master spiral traversal, layer-by-layer rotation, and diagonal/anti-diagonal iteration.

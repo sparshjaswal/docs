@@ -1,3 +1,10 @@
+---
+id: javascript-functions-function-lambda
+title: LAMBDA
+slug: /javascript/functions/function-lambda
+sidebar_label: LAMBDA
+---
+
 # LAMBDA
 
 LAMBDA expressions reduce the structure of functions to the most important pieces.

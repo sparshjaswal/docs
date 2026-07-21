@@ -1,3 +1,10 @@
+---
+id: dsa-graphs-prim-readme
+title: Prim's Algorithm
+slug: /DSA/graphs/prim/README
+sidebar_label: Prim's Algorithm
+---
+
 # Prim's Algorithm
 
 In computer science, **Prim's algorithm** is a greedy algorithm that

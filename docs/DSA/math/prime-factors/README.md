@@ -1,3 +1,10 @@
+---
+id: dsa-math-prime-factors-readme
+title: Prime Factors
+slug: /DSA/math/prime-factors/README
+sidebar_label: Prime Factors
+---
+
 # Prime Factors
 
 **Prime number** is a whole number greater than `1` that **cannot** be made by multiplying other whole numbers. The first few prime numbers are: `2`, `3`, `5`, `7`, `11`, `13`, `17`, `19` and so on.

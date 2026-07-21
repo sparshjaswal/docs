@@ -1,3 +1,10 @@
+---
+id: dsa-trie-readme
+title: Trie
+slug: /DSA/trie/README
+sidebar_label: Trie
+---
+
 # Trie
 
 In computer science, a **trie**, also called digital tree and sometimes

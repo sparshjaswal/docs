@@ -1,3 +1,10 @@
+---
+id: dsa-sliding-window-readme
+title: 🪟 Sliding Window
+slug: /DSA/sliding-window/README
+sidebar_label: 🪟 Sliding Window
+---
+
 # 🪟 Sliding Window
 
 > **One-line summary**: Move a window over the input to solve subarray/substring problems in O(n) instead of O(n²).

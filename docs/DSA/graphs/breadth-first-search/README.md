@@ -1,3 +1,10 @@
+---
+id: dsa-graphs-breadth-first-search-readme
+title: Breadth-First Search (BFS)
+slug: /DSA/graphs/breadth-first-search/README
+sidebar_label: Breadth-First Search (BFS)
+---
+
 # Breadth-First Search (BFS)
 
 Breadth-first search (BFS) is an algorithm for traversing,

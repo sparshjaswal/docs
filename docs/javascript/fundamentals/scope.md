@@ -1,3 +1,10 @@
+---
+id: javascript-fundamentals-scope
+title: JavaScript Scope
+slug: /javascript/fundamentals/scope
+sidebar_label: JavaScript Scope
+---
+
 # JavaScript Scope
 
 ## What is Scope?

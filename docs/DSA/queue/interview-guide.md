@@ -1,3 +1,10 @@
+---
+id: dsa-queue-interview-guide
+title: Queues
+slug: /DSA/queue/interview-guide
+sidebar_label: Queues
+---
+
 
 # Queues
 

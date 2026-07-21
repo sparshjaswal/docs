@@ -1,3 +1,10 @@
+---
+id: dsa-recursion-algorithms-overview
+title: Recursion
+slug: /DSA/recursion/algorithms-overview
+sidebar_label: Recursion
+---
+
 # Recursion
 
 > **One-line summary**: Solve a problem by breaking it into smaller instances of itself — the foundation of DFS, divide-and-conquer, backtracking, and tree algorithms.

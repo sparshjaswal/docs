@@ -1,3 +1,10 @@
+---
+id: dsa-ml-knn-readme
+title: k-Nearest Neighbors Algorithm
+slug: /DSA/ml/knn/README
+sidebar_label: k-Nearest Neighbors Algorithm
+---
+
 # k-Nearest Neighbors Algorithm
 
 The **k-nearest neighbors algorithm (k-NN)** is a supervised Machine Learning algorithm. It's a classification algorithm, determining the class of a sample vector using a sample data.

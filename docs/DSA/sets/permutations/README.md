@@ -1,3 +1,10 @@
+---
+id: dsa-sets-permutations-readme
+title: Permutations
+slug: /DSA/sets/permutations/README
+sidebar_label: Permutations
+---
+
 # Permutations
 
 When the order doesn't matter, it is a **Combination**.

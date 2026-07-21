@@ -1,3 +1,10 @@
+---
+id: dsa-sorting-quick-sort-readme
+title: Quicksort
+slug: /DSA/sorting/quick-sort/README
+sidebar_label: Quicksort
+---
+
 # Quicksort
 
 Quicksort is a divide and conquer algorithm.

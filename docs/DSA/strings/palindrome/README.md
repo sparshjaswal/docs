@@ -1,3 +1,10 @@
+---
+id: dsa-strings-palindrome-readme
+title: Palindrome Check
+slug: /DSA/strings/palindrome/README
+sidebar_label: Palindrome Check
+---
+
 # Palindrome Check
 
 A [Palindrome](https://en.wikipedia.org/wiki/Palindrome) is a string that reads the same forwards and backwards.

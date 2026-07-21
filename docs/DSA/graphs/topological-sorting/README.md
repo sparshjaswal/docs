@@ -1,3 +1,10 @@
+---
+id: dsa-graphs-topological-sorting-readme
+title: Topological Sorting
+slug: /DSA/graphs/topological-sorting/README
+sidebar_label: Topological Sorting
+---
+
 # Topological Sorting
 
 In the field of computer science, a topological sort or

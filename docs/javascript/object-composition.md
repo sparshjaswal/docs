@@ -1,3 +1,10 @@
+---
+id: javascript-object-composition
+title: Object Composition in JavaScript
+slug: /javascript/object-composition
+sidebar_label: Object Composition in JavaS...
+---
+
 # Object Composition in JavaScript
 
 Object composition is a powerful way to build complex objects by combining smaller, focused objects or behaviors. It's often preferred over inheritance for its flexibility and reduced coupling.

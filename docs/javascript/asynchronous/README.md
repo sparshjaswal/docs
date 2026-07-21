@@ -1,3 +1,10 @@
+---
+id: javascript-asynchronous-readme
+title: ⏰ Asynchronous JavaScript
+slug: /javascript/asynchronous/README
+sidebar_label: ⏰ Asynchronous JavaScript
+---
+
 # ⏰ Asynchronous JavaScript
 
 > _Master asynchronous programming - from callbacks to async/await_

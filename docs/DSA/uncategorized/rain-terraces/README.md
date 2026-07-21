@@ -1,3 +1,10 @@
+---
+id: dsa-uncategorized-rain-terraces-readme
+title: Rain Terraces (Trapping Rain Water) Problem
+slug: /DSA/uncategorized/rain-terraces/README
+sidebar_label: Rain Terraces (Trapping Rai...
+---
+
 # Rain Terraces (Trapping Rain Water) Problem
 
 Given an array of non-negative integers representing terraces in an elevation map

@@ -1,3 +1,10 @@
+---
+id: javascript-fundamentals-types-of-identifiers
+title: 🔤 JavaScript Data Types & Identifiers
+slug: /javascript/fundamentals/types-of-identifiers
+sidebar_label: 🔤 JavaScript Data Types & I...
+---
+
 # 🔤 JavaScript Data Types & Identifiers
 
 > _Understanding data types and identifier rules in JavaScript_

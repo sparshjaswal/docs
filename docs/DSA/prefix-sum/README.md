@@ -1,3 +1,10 @@
+---
+id: dsa-prefix-sum-readme
+title: ➕ Prefix Sum
+slug: /DSA/prefix-sum/README
+sidebar_label: ➕ Prefix Sum
+---
+
 # ➕ Prefix Sum
 
 > **One-line summary**: Pre-compute cumulative sums so any range query `sum(L..R)` is answered in O(1) after O(n) preprocessing.

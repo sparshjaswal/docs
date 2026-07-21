@@ -1,3 +1,10 @@
+---
+id: dsa-monotonic-stack-readme
+title: 📉 Monotonic Stack
+slug: /DSA/monotonic-stack/README
+sidebar_label: 📉 Monotonic Stack
+---
+
 # 📉 Monotonic Stack
 
 > **One-line summary**: A stack that maintains a strictly increasing or decreasing order — enabling O(n) solutions for "next greater/smaller element" and span problems.

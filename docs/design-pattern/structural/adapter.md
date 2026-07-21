@@ -1,3 +1,10 @@
+---
+id: design-pattern-structural-adapter
+title: Adapter Pattern 🔌
+slug: /design-pattern/structural/adapter
+sidebar_label: Adapter Pattern 🔌
+---
+
 # Adapter Pattern 🔌
 
 > **Definition**: The Adapter pattern allows incompatible interfaces to work together. It acts as a bridge between two incompatible interfaces by wrapping an existing class with a new interface.

@@ -1,3 +1,10 @@
+---
+id: dsa-printing-pattern-readme
+title: 📉 Printing Patterns
+slug: /DSA/printing-pattern/README
+sidebar_label: 📉 Printing Patterns
+---
+
 # 📉 Printing Patterns
 
 > **One-line summary**: Master nested loops and logical thinking through visual pattern printing — the foundation for understanding 2D array manipulation and algorithmic problem-solving.

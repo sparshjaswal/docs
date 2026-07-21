@@ -1,3 +1,10 @@
+---
+id: dsa-ml-k-means-readme
+title: k-Means Algorithm
+slug: /DSA/ml/k-means/README
+sidebar_label: k-Means Algorithm
+---
+
 # k-Means Algorithm
 
 The **k-Means algorithm** is an unsupervised Machine Learning algorithm. It's a clustering algorithm, which groups the sample data on the basis of similarity between dimensions of vectors.

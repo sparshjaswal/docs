@@ -1,3 +1,10 @@
+---
+id: dsa-two-pointers-readme
+title: 👈👉 Two Pointers
+slug: /DSA/two-pointers/README
+sidebar_label: 👈👉 Two Pointers
+---
+
 # 👈👉 Two Pointers
 
 > **One-line summary**: Use two indices that move toward each other (or in the same direction) to eliminate the O(n²) nested loop — achieving O(n) on sorted data.

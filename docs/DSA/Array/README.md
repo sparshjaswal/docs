@@ -1,3 +1,10 @@
+---
+id: dsa-array-readme
+title: Array
+slug: /DSA/Array/README
+sidebar_label: Array
+---
+
 # Array
 
 An array is a contiguous block of memory that stores a fixed-size sequence of elements of the same type. Each element can be accessed directly by its zero-based index, enabling constant-time random access. Arrays are fundamental building blocks for many data structures and algorithms.

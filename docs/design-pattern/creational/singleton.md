@@ -1,3 +1,10 @@
+---
+id: design-pattern-creational-singleton
+title: Singleton Pattern 🏯
+slug: /design-pattern/creational/singleton
+sidebar_label: Singleton Pattern 🏯
+---
+
 # Singleton Pattern 🏯
 
 > **Definition**: The Singleton pattern ensures that a class has only one instance and provides a global point of access to that instance.

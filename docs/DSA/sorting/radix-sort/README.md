@@ -1,3 +1,10 @@
+---
+id: dsa-sorting-radix-sort-readme
+title: Radix Sort
+slug: /DSA/sorting/radix-sort/README
+sidebar_label: Radix Sort
+---
+
 # Radix Sort
 
 In computer science, **radix sort** is a non-comparative integer sorting

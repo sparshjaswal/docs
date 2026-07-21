@@ -1,3 +1,10 @@
+---
+id: javascript-import-and-export
+title: 📦 Import & Export in JavaScript (ES6)
+slug: /javascript/import-and-export
+sidebar_label: 📦 Import & Export in JavaSc...
+---
+
 # 📦 Import & Export in JavaScript (ES6)
 
 > _Master module systems and code organization with ES6 import/export statements_
