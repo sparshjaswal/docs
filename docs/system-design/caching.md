@@ -163,6 +163,31 @@ flowchart LR
 - ❌ **Avoid / be careful** with rapidly changing data, strong-consistency requirements, or low-reuse data (low hit ratio wastes memory).
 - Every cache adds a **consistency vs freshness** trade-off — pick strategy, TTL, and invalidation to match your correctness needs (see [Consistency Models](./consistency-models.md) and [CAP Theorem](./cap-theorem.md)).
 
+## Interview Questions
+
+- How would you design a caching layer for a social feed to balance freshness and latency?
+- Explain cache invalidation strategies and when you'd pick event-based invalidation over TTL-only.
+- How do you mitigate and detect the thundering herd problem at scale?
+
+## Production Checklist
+
+- Measure hit ratio, miss penalty, and memory usage per cache instance
+- Add TTL jitter and request coalescing to prevent stampedes
+- Backup critical cached state if persistence is enabled (AOF/RDB in Redis)
+- Monitor eviction rates, CPU, and network latency to the cache cluster
+
+## Testing & Monitoring
+
+- Simulate cache restart + expiry events to observe system behavior
+- Load test with realistic access patterns and hot keys
+- Create synthetic traffic to verify cache warming and invalidation flows
+
+## 🔗 Related Topics
+
+- ✅ **Use caching** for read-heavy, tolerant-to-staleness data with high reuse (hot keys).
+- ❌ **Avoid / be careful** with rapidly changing data, strong-consistency requirements, or low-reuse data (low hit ratio wastes memory).
+- Every cache adds a **consistency vs freshness** trade-off — pick strategy, TTL, and invalidation to match your correctness needs (see [Consistency Models](./consistency-models.md) and [CAP Theorem](./cap-theorem.md)).
+
 ---
 
 ## 🔗 Related Topics

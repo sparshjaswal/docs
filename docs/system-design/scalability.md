@@ -172,6 +172,26 @@ flowchart TD
 
 ---
 
+## Interview Questions
+
+- How would you design a system to handle 10x current traffic? Outline trade-offs and steps (vertical -> caching -> replicas -> sharding).
+- How do you reason about consistency and availability when scaling read/write workloads?
+- Describe how you would identify and mitigate a hotspot (single key receiving disproportionate traffic).
+
+## Production Checklist
+
+- Metrics: p50/p95/p99 latency, QPS, error rates, resource utilization per service
+- Capacity planning: peak QPS, read/write ratios, storage growth, retention
+- Autoscaling rules and safety limits (scale-up/down cooldowns)
+- Runbooks for failover, sharding rebalances, and disaster recovery
+- Backups and recovery verification for critical data
+
+## Testing & Monitoring
+
+- Load tests reflecting realistic traffic shapes (spikes, sustained growth)
+- Chaos experiments for instance failures and network partitions
+- Alerts for saturation: CPU, memory, connection pool usage
+
 ## 🔗 Related Topics
 
 - [Caching](./caching.md) — the cheapest way to scale reads

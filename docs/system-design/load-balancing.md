@@ -182,6 +182,33 @@ flowchart TD
 - **Prefer stateless + shared store over sticky sessions** for clean horizontal scaling.
 - **Match the algorithm to the workload** — least-connections for uneven request costs, consistent hashing for caches, round robin for uniform loads.
 
+## Interview Questions
+
+- How does L7 routing differ from L4? When would you pick one over the other?
+- Explain how consistent hashing reduces remapping when nodes are added or removed.
+- Describe a deployment strategy enabling zero-downtime upgrades with a load balancer.
+
+## Production Checklist
+
+- Health checks: active and passive probes for all backend pools
+- TLS termination and certificate management at the appropriate layer
+- Failover policies and circuit breakers to avoid cascading failures
+- Observability: per-backend latency, error rates, connection counts
+- Autoscaling triggers and graceful drain for instances being removed
+
+## Testing & Monitoring
+
+- Run chaos tests that kill backends and verify traffic drains and reconverges
+- Validate session-affinity behavior under node failures and failover
+- Load test both normal and pathological routing scenarios (uneven request sizes)
+
+## 🔗 Related Topics
+
+- **The LB can become a bottleneck or SPOF.** Run it in a redundant pair (active-passive or active-active) and consider managed cloud LBs.
+- **L4 for speed, L7 for smarts.** Use L7 when you need path/host routing, TLS termination, or [rate limiting](./rate-limiting.md); use L4 when raw throughput matters most.
+- **Prefer stateless + shared store over sticky sessions** for clean horizontal scaling.
+- **Match the algorithm to the workload** — least-connections for uneven request costs, consistent hashing for caches, round robin for uniform loads.
+
 ---
 
 ## 🔗 Related Topics
