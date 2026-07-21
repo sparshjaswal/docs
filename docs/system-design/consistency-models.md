@@ -146,6 +146,25 @@ This lets a single application use **strong consistency for money** and **eventu
 
 ---
 
+## Interview Questions
+
+- Compare linearizability vs eventual consistency and give examples where each is appropriate.
+- How would you design a shopping cart so users don't lose their items while keeping high availability?
+- Explain how quorum parameters (W, R, N) affect consistency and latency.
+
+## Production Checklist
+
+- Define which operations require strong consistency vs eventual consistency and document per-endpoint guarantees
+- Instrument client-centric session guarantees where needed (read-your-writes, monotonic reads)
+- Ensure clocks are reasonably synchronized (NTP) if using timestamp-based conflict resolution
+- Provide clear API documentation stating consistency expectations
+
+## Testing & Monitoring
+
+- Run tests that assert client guarantees under leader failover and replication lag
+- Simulate conflicts and verify chosen conflict-resolution strategies (LWW vs vector clocks vs CRDTs)
+- Monitor per-operation latency, error rates, and observed staleness windows
+
 ## 🔗 Related Topics
 
 - [CAP Theorem](./cap-theorem.md) — the C-vs-A trade-off these models refine

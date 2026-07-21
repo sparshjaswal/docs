@@ -162,6 +162,25 @@ When producers outpace consumers, the queue grows unbounded and latency spikes. 
 
 ---
 
+## Interview Questions
+
+- When would you choose Kafka over RabbitMQ and why?
+- Describe how you'd ensure exactly-once processing semantics for a billing pipeline.
+- How do you design consumers to be idempotent and handle poison messages gracefully?
+
+## Production Checklist
+
+- Monitor queue depth, consumer lag, and processing latency
+- Implement DLQs and establish operational procedures to inspect & replay
+- Enforce idempotency keys or dedup stores for business-critical consumers
+- Secure broker endpoints and enable TLS + auth (SASL/OAuth where supported)
+
+## Testing & Monitoring
+
+- Load test producers and consumers to validate throughput and backpressure behavior
+- Simulate consumer failures and verify DLQ routing and replay procedures
+- Verify ordering semantics under partitioning and consumer group rebalances
+
 ## 🔗 Related Topics
 
 - [Scalability](./scalability.md) — add consumers to scale throughput horizontally

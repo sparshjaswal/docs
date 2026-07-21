@@ -169,6 +169,25 @@ It maximizes discoverability and decoupling but adds payload weight and is rarel
 
 ---
 
+## Interview Questions
+
+- How do you design an API to be evolvable without breaking existing clients?
+- Explain when you'd use cursor pagination vs offset pagination and why.
+- Describe strategies to make POST/transactional endpoints idempotent.
+
+## Production Checklist
+
+- Document versioning and deprecation policies; provide migration guides
+- Enforce API contracts with OpenAPI / protobuf and run schema validation in CI
+- Monitor API latency, error rates, and rate-limit rejections
+- Provide consistent error payloads and instrument client/consumer SDKs where possible
+
+## Testing & Monitoring
+
+- Run contract tests (consumer-driven) and API contract validation in CI
+- Load test common endpoints and simulate spike traffic, ensuring caches and CDNs behave correctly
+- Validate idempotency keys and replay behavior under retries
+
 ## 🔗 Related Topics
 
 - [Rate Limiting](./rate-limiting.md) — protect endpoints and enforce quotas

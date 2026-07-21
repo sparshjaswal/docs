@@ -162,6 +162,27 @@ Once data is split, operations spanning multiple shards get hard:
 
 ---
 
+## Interview Questions
+
+- How would you pick a shard key for a user-facing service with both read and write hotspots?
+- Explain a safe rebalancing strategy when adding new nodes to a sharded cluster.
+- How would you design to avoid cross-shard joins for the most common queries?
+
+## Production Checklist
+
+- Monitor per-shard QPS, storage, and latency to detect hotspots early
+- Maintain a partition map and version it for safe rollouts
+- Automate rebalancing with low-impact migration windows and throttling
+- Ensure backups and consistent snapshots per shard
+- Test failure scenarios: node loss, network partitions, and partial rebalances
+
+## Testing & Monitoring
+
+- Load test with skewed key distributions to reveal hotspots
+- Verify that rebalancing moves data without violating consistency guarantees
+- Monitor shard-level metrics and set alerts on skew, queue buildup, and retry rates
+- Run chaos tests that remove/add nodes and validate client behavior
+
 ## 🔗 Related Topics
 
 - [Replication](./replication.md) — copies data for read-scaling & availability (pairs with sharding)

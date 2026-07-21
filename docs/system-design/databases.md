@@ -188,6 +188,25 @@ flowchart LR
 
 ---
 
+## Interview Questions
+
+- Given a mixed workload (writes for orders, reads for analytics), how would you design the datastore layer?
+- When would you denormalize data and what trade-offs would you accept?
+- How do you pick indexing strategies for a new table with evolving query patterns?
+
+## Production Checklist
+
+- Baseline query performance and index usage; remove unused indexes to speed writes
+- Monitor slow queries, lock contention, and connection pool saturation
+- Establish backup/restore and run regular recovery drills
+- Enforce schema migrations with versioning and rollout strategies (blue/green migrations)
+
+## Testing & Monitoring
+
+- Run realistic load tests that include OLTP and analytical workloads where applicable
+- Test failover of primary instances and validate replica promotions
+- Validate connection pool tuning under concurrency and chaos tests that drop DB nodes
+
 ## 🔗 Related Topics
 
 - [Sharding](./sharding.md) — partition data across nodes to scale writes

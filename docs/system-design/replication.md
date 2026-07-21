@@ -147,6 +147,25 @@ flowchart TD
 
 ---
 
+## Interview Questions
+
+- Describe leader–follower failover and the data-loss trade-offs with async replication.
+- When would you pick multi-leader replication over leader–follower? What conflict resolution would you use?
+- How do you guarantee read-your-own-writes in the presence of replication lag?
+
+## Production Checklist
+
+- Monitoring: replication lag, apply rate, and follower health
+- Define failover procedures and automate leader election with consensus where possible (Raft/Paxos)
+- Plan backup & restore per replica and validate recovery drills
+- Ensure replication streams are authenticated and encrypted between nodes
+
+## Testing & Monitoring
+
+- Simulate leader loss and validate failover, promotion, and client reconfiguration
+- Measure lag under peak write traffic and tune replication strategy (sync vs async)
+- Test read-after-write scenarios and provide guidance (read from leader when necessary)
+
 ## 🔗 Related Topics
 
 - [Sharding](./sharding.md) — partition data to scale writes (pairs with replication)
