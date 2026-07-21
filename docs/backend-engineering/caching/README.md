@@ -47,7 +47,7 @@ Disk seek       → 10,000,000 ns (10 ms)
 
 Every caching decision starts with one question: _who updates the cache — the application or the cache itself?_
 
-### Cache-Aside (Lazy Loading) {#cache-aside}
+### Cache-Aside (Lazy Loading)
 
 The application is responsible for both reading from and writing to the cache. The cache sits "to the side" — the application consults it, but the cache never talks to the database.
 
@@ -120,7 +120,7 @@ async function updateUser(userId: string, data: Partial<User>): Promise<User> {
 | Cache failures don't block DB writes       | Cold start: empty cache after deployment     |
 | Works with any cache technology            |                                              |
 
-### Read-Through {#read-through}
+### Read-Through
 
 The cache sits **between** the application and the database. When the application requests data, it only talks to the cache — the cache is responsible for loading data from the database on a miss.
 
@@ -149,7 +149,7 @@ sequenceDiagram
 
 **Redis doesn't natively support read-through**, but you can implement it with a custom provider or use solutions like **AWS ElastiCache** with a read-through pattern, **Hazelcast**, or **Apache Ignite**.
 
-### Write-Through {#write-through}
+### Write-Through
 
 The application writes **to the cache first**, and the cache synchronously writes to the database before returning.
 
@@ -189,7 +189,7 @@ async function createUser(data: CreateUserDto): Promise<User> {
 }
 ```
 
-### Write-Behind (Write-Back) {#write-behind}
+### Write-Behind (Write-Back)
 
 The application writes **to the cache first** (fast), and the cache **asynchronously** flushes to the database later (batched, with configurable delay).
 
@@ -486,7 +486,7 @@ A **cache stampede** (or thundering herd) happens when a heavily-requested cache
 
 ### Solutions
 
-#### 1. Locking (Mutex) {#probabilistic-early-expiry}
+#### 1. Locking (Mutex)
 
 Only **one** request is allowed to recompute the value. Others wait or get a stale copy.
 
