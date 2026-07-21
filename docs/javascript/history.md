@@ -7,6 +7,7 @@
 In the mid-1990s, the web was a static place. Websites were simple documents with text and images, with no interactivity. **Netscape Communications** had created the first commercial web browser called **Netscape Navigator**, which quickly became incredibly popular and dominated the early web.
 
 The Netscape team had ambitious plans to make the web more dynamic and interactive. They wanted to introduce features like:
+
 - 💰 **E-commerce capabilities**
 - 🎨 **Better visual design and user interfaces**
 - 👨‍💻 **Easy programming for end-users**
@@ -27,6 +28,7 @@ In just **10 days** in May 1995, Brendan Eich created the first version of JavaS
 #### 🏷️ The Name Game
 
 The language went through several name changes:
+
 1. **Mocha** (Initial internal name)
 2. **LiveScript** (First public name)
 3. **JavaScript** (Final name - part of a marketing partnership with Sun Microsystems)
@@ -43,22 +45,22 @@ As JavaScript became popular, different browser vendors started implementing the
 
 ### 📊 Version Timeline
 
-| Version | Release Year | Key Features | Significance |
-|---------|--------------|--------------|--------------|
-| **ES1** | 1997 | First standardized version | 🏁 Foundation established |
-| **ES2** | 1998 | Minor editorial changes | 🔧 Refinements |
-| **ES3** | 1999 | Regular expressions, try/catch | 💪 More robust language |
-| **ES4** | ❌ Abandoned | (Too ambitious) | 🚫 Never released |
-| **ES5** | 2009 | Strict mode, JSON support | 🛡️ More secure and reliable |
-| **ES6/ES2015** | 2015 | Classes, modules, arrow functions | 🚀 Modern JavaScript begins |
-| **ES2016** | 2016 | Array.includes(), exponentiation | 📈 Yearly releases begin |
-| **ES2017** | 2017 | async/await, Object.entries() | ⚡ Better async handling |
-| **ES2018** | 2018 | Rest/spread for objects | 🔄 More flexible syntax |
-| **ES2019** | 2019 | Array.flat(), Object.fromEntries() | 🛠️ Utility improvements |
-| **ES2020** | 2020 | BigInt, nullish coalescing | 🔢 Better number handling |
-| **ES2021** | 2021 | Logical assignment operators | 🧮 More operator options |
-| **ES2022** | 2022 | Top-level await, private fields | 🔒 Enhanced class features |
-| **ES2023** | 2023 | Array.toSorted(), Array.with() | 📊 Immutable array methods |
+| Version        | Release Year | Key Features                       | Significance                |
+| -------------- | ------------ | ---------------------------------- | --------------------------- |
+| **ES1**        | 1997         | First standardized version         | 🏁 Foundation established   |
+| **ES2**        | 1998         | Minor editorial changes            | 🔧 Refinements              |
+| **ES3**        | 1999         | Regular expressions, try/catch     | 💪 More robust language     |
+| **ES4**        | ❌ Abandoned | (Too ambitious)                    | 🚫 Never released           |
+| **ES5**        | 2009         | Strict mode, JSON support          | 🛡️ More secure and reliable |
+| **ES6/ES2015** | 2015         | Classes, modules, arrow functions  | 🚀 Modern JavaScript begins |
+| **ES2016**     | 2016         | Array.includes(), exponentiation   | 📈 Yearly releases begin    |
+| **ES2017**     | 2017         | async/await, Object.entries()      | ⚡ Better async handling    |
+| **ES2018**     | 2018         | Rest/spread for objects            | 🔄 More flexible syntax     |
+| **ES2019**     | 2019         | Array.flat(), Object.fromEntries() | 🛠️ Utility improvements     |
+| **ES2020**     | 2020         | BigInt, nullish coalescing         | 🔢 Better number handling   |
+| **ES2021**     | 2021         | Logical assignment operators       | 🧮 More operator options    |
+| **ES2022**     | 2022         | Top-level await, private fields    | 🔒 Enhanced class features  |
+| **ES2023**     | 2023         | Array.toSorted(), Array.with()     | 📊 Immutable array methods  |
 
 ---
 
@@ -72,33 +74,37 @@ As JavaScript became popular, different browser vendors started implementing the
    - Immediate feedback and execution
 
 2. **🔄 Loose Typing (Dynamic Typing)**
+
    ```javascript
-   let variable = "Hello";     // String
-   variable = 42;              // Now it's a Number
-   variable = true;            // Now it's a Boolean
-   variable = {};              // Now it's an Object
+   let variable = 'Hello'; // String
+   variable = 42; // Now it's a Number
+   variable = true; // Now it's a Boolean
+   variable = {}; // Now it's an Object
    ```
 
 3. **📦 Objects as General Containers**
+
    ```javascript
    const person = {
-     name: "John",
+     name: 'John',
      age: 30,
-     "favorite-color": "blue",  // Any string can be a property
-     123: "numeric key",         // Even numbers
-     calculateAge() {            // Methods too
+     'favorite-color': 'blue', // Any string can be a property
+     123: 'numeric key', // Even numbers
+     calculateAge() {
+       // Methods too
        return new Date().getFullYear() - this.birthYear;
-     }
+     },
    };
    ```
 
 4. **⛓️ Prototypal Inheritance**
+
    ```javascript
    function Animal(name) {
      this.name = name;
    }
 
-   Animal.prototype.speak = function() {
+   Animal.prototype.speak = function () {
      console.log(`${this.name} makes a sound`);
    };
 
@@ -111,9 +117,10 @@ As JavaScript became popular, different browser vendors started implementing the
    ```
 
 5. **🎭 Lambda Functions (First-Class Functions)**
+
    ```javascript
    // Functions are values
-   const greet = function(name) {
+   const greet = function (name) {
      return `Hello, ${name}!`;
    };
 
@@ -123,10 +130,11 @@ As JavaScript became popular, different browser vendors started implementing the
      callback(processed);
    }
 
-   processUser("John", console.log);
+   processUser('John', console.log);
    ```
 
 6. **🌐 Global Variable Linkage**
+
    ```javascript
    // Variables can be accessed globally
    var globalVar = "I'm global!";
@@ -150,21 +158,25 @@ As JavaScript became popular, different browser vendors started implementing the
 ### 🌍 Modern JavaScript Applications
 
 #### 🖥️ Frontend Development
+
 - **Web Applications**: React, Vue, Angular
 - **Mobile Apps**: React Native, Ionic
 - **Desktop Apps**: Electron (VS Code, Discord, Slack)
 
 #### ⚙️ Backend Development
+
 - **Server Applications**: Node.js, Deno
 - **APIs**: Express.js, Fastify, Koa
 - **Microservices**: Serverless functions
 
 #### 🔧 Development Tools
+
 - **Build Tools**: Webpack, Vite, Rollup
 - **Testing**: Jest, Cypress, Playwright
 - **Package Management**: npm, Yarn, pnpm
 
 #### 🤖 Emerging Areas
+
 - **Machine Learning**: TensorFlow.js
 - **IoT**: Johnny-Five, Node-RED
 - **Blockchain**: Web3.js, Ethereum development
@@ -184,6 +196,7 @@ As JavaScript became popular, different browser vendors started implementing the
 ### 🔮 The Future of JavaScript
 
 JavaScript continues to evolve with:
+
 - **⚡ Performance improvements** (V8, SpiderMonkey engines)
 - **🛠️ New language features** (yearly ECMAScript releases)
 - **🌐 Web standards** (WebAssembly integration)
@@ -196,21 +209,25 @@ JavaScript continues to evolve with:
 Now that you understand JavaScript's rich history and evolution, here's how to approach learning it:
 
 ### 1. 🌱 **Foundation** (Start Here)
+
 - Variables and data types
 - Functions and scope
 - Control flow
 
 ### 2. 🌿 **Intermediate**
+
 - Objects and prototypes
 - Asynchronous programming
 - DOM manipulation
 
 ### 3. 🌳 **Advanced**
+
 - Design patterns
 - Performance optimization
 - Modern ES6+ features
 
 ### 4. 🚀 **Expert**
+
 - Framework/library development
 - Browser internals
 - JavaScript engines

@@ -61,44 +61,44 @@ ProductA2 implements AbstractProductA
 // Abstract Products
 class Button {
   render() {
-    throw new Error("render() method must be implemented");
+    throw new Error('render() method must be implemented');
   }
 
   onClick() {
-    throw new Error("onClick() method must be implemented");
+    throw new Error('onClick() method must be implemented');
   }
 }
 
 class Checkbox {
   render() {
-    throw new Error("render() method must be implemented");
+    throw new Error('render() method must be implemented');
   }
 
   toggle() {
-    throw new Error("toggle() method must be implemented");
+    throw new Error('toggle() method must be implemented');
   }
 }
 
 class TextInput {
   render() {
-    throw new Error("render() method must be implemented");
+    throw new Error('render() method must be implemented');
   }
 
   setValue(value) {
-    throw new Error("setValue() method must be implemented");
+    throw new Error('setValue() method must be implemented');
   }
 }
 
 // Concrete Products - Windows Family
 class WindowsButton extends Button {
   render() {
-    console.log("🖼️ Rendering Windows button with native styling");
+    console.log('🖼️ Rendering Windows button with native styling');
     return `<button class="windows-btn" style="border: 2px solid #0078d4; background: #0078d4; color: white; padding: 8px 16px;">Windows Button</button>`;
   }
 
   onClick() {
-    console.log("💻 Windows button clicked - showing native dialog");
-    return "Windows dialog opened";
+    console.log('💻 Windows button clicked - showing native dialog');
+    return 'Windows dialog opened';
   }
 }
 
@@ -109,14 +109,14 @@ class WindowsCheckbox extends Checkbox {
   }
 
   render() {
-    const checkedState = this.checked ? "☑️" : "☐";
+    const checkedState = this.checked ? '☑️' : '☐';
     console.log(`🖼️ Rendering Windows checkbox: ${checkedState}`);
     return `<input type="checkbox" class="windows-checkbox" ${this.checked ? 'checked' : ''}> Windows Checkbox`;
   }
 
   toggle() {
     this.checked = !this.checked;
-    console.log(`💻 Windows checkbox toggled: ${this.checked ? "checked" : "unchecked"}`);
+    console.log(`💻 Windows checkbox toggled: ${this.checked ? 'checked' : 'unchecked'}`);
     return this.checked;
   }
 }
@@ -124,11 +124,11 @@ class WindowsCheckbox extends Checkbox {
 class WindowsTextInput extends TextInput {
   constructor() {
     super();
-    this.value = "";
+    this.value = '';
   }
 
   render() {
-    console.log("🖼️ Rendering Windows text input with native styling");
+    console.log('🖼️ Rendering Windows text input with native styling');
     return `<input type="text" class="windows-input" style="border: 1px solid #ccc; padding: 8px;" value="${this.value}">`;
   }
 
@@ -142,13 +142,13 @@ class WindowsTextInput extends TextInput {
 // Concrete Products - Mac Family
 class MacButton extends Button {
   render() {
-    console.log("🍎 Rendering Mac button with native styling");
+    console.log('🍎 Rendering Mac button with native styling');
     return `<button class="mac-btn" style="border: 1px solid #007aff; background: #007aff; color: white; border-radius: 6px; padding: 8px 16px;">Mac Button</button>`;
   }
 
   onClick() {
-    console.log("🖱️ Mac button clicked - showing Mac-style popup");
-    return "Mac popup displayed";
+    console.log('🖱️ Mac button clicked - showing Mac-style popup');
+    return 'Mac popup displayed';
   }
 }
 
@@ -159,14 +159,14 @@ class MacCheckbox extends Checkbox {
   }
 
   render() {
-    const checkedState = this.checked ? "✅" : "🔲";
+    const checkedState = this.checked ? '✅' : '🔲';
     console.log(`🍎 Rendering Mac checkbox: ${checkedState}`);
     return `<input type="checkbox" class="mac-checkbox" style="border-radius: 4px;" ${this.checked ? 'checked' : ''}> Mac Checkbox`;
   }
 
   toggle() {
     this.checked = !this.checked;
-    console.log(`🖱️ Mac checkbox toggled: ${this.checked ? "checked" : "unchecked"}`);
+    console.log(`🖱️ Mac checkbox toggled: ${this.checked ? 'checked' : 'unchecked'}`);
     return this.checked;
   }
 }
@@ -174,11 +174,11 @@ class MacCheckbox extends Checkbox {
 class MacTextInput extends TextInput {
   constructor() {
     super();
-    this.value = "";
+    this.value = '';
   }
 
   render() {
-    console.log("🍎 Rendering Mac text input with native styling");
+    console.log('🍎 Rendering Mac text input with native styling');
     return `<input type="text" class="mac-input" style="border: 1px solid #d1d1d6; border-radius: 6px; padding: 8px;" value="${this.value}">`;
   }
 
@@ -192,13 +192,13 @@ class MacTextInput extends TextInput {
 // Concrete Products - Linux Family
 class LinuxButton extends Button {
   render() {
-    console.log("🐧 Rendering Linux button with native styling");
+    console.log('🐧 Rendering Linux button with native styling');
     return `<button class="linux-btn" style="border: 1px solid #666; background: #f0f0f0; color: black; padding: 8px 16px;">Linux Button</button>`;
   }
 
   onClick() {
-    console.log("⌨️ Linux button clicked - executing command");
-    return "Linux command executed";
+    console.log('⌨️ Linux button clicked - executing command');
+    return 'Linux command executed';
   }
 }
 
@@ -209,14 +209,14 @@ class LinuxCheckbox extends Checkbox {
   }
 
   render() {
-    const checkedState = this.checked ? "[x]" : "[ ]";
+    const checkedState = this.checked ? '[x]' : '[ ]';
     console.log(`🐧 Rendering Linux checkbox: ${checkedState}`);
     return `<input type="checkbox" class="linux-checkbox" ${this.checked ? 'checked' : ''}> Linux Checkbox`;
   }
 
   toggle() {
     this.checked = !this.checked;
-    console.log(`⌨️ Linux checkbox toggled: ${this.checked ? "checked" : "unchecked"}`);
+    console.log(`⌨️ Linux checkbox toggled: ${this.checked ? 'checked' : 'unchecked'}`);
     return this.checked;
   }
 }
@@ -224,11 +224,11 @@ class LinuxCheckbox extends Checkbox {
 class LinuxTextInput extends TextInput {
   constructor() {
     super();
-    this.value = "";
+    this.value = '';
   }
 
   render() {
-    console.log("🐧 Rendering Linux text input with native styling");
+    console.log('🐧 Rendering Linux text input with native styling');
     return `<input type="text" class="linux-input" style="border: 1px solid #999; padding: 8px;" value="${this.value}">`;
   }
 
@@ -242,15 +242,15 @@ class LinuxTextInput extends TextInput {
 // Abstract Factory
 class UIFactory {
   createButton() {
-    throw new Error("createButton() method must be implemented");
+    throw new Error('createButton() method must be implemented');
   }
 
   createCheckbox() {
-    throw new Error("createCheckbox() method must be implemented");
+    throw new Error('createCheckbox() method must be implemented');
   }
 
   createTextInput() {
-    throw new Error("createTextInput() method must be implemented");
+    throw new Error('createTextInput() method must be implemented');
   }
 }
 
@@ -305,7 +305,7 @@ class Application {
   }
 
   createUI() {
-    console.log("🎨 Creating UI components...\n");
+    console.log('🎨 Creating UI components...\n');
 
     this.components.button = this.factory.createButton();
     this.components.checkbox = this.factory.createCheckbox();
@@ -315,17 +315,17 @@ class Application {
   }
 
   renderUI() {
-    console.log("🖼️ Rendering application UI:\n");
+    console.log('🖼️ Rendering application UI:\n');
 
     Object.entries(this.components).forEach(([name, component]) => {
       console.log(`${name.charAt(0).toUpperCase() + name.slice(1)}:`);
       component.render();
-      console.log("");
+      console.log('');
     });
   }
 
   simulateUserInteraction() {
-    console.log("👆 Simulating user interactions:\n");
+    console.log('👆 Simulating user interactions:\n');
 
     // Button interaction
     this.components.button.onClick();
@@ -335,31 +335,31 @@ class Application {
     this.components.checkbox.toggle();
 
     // Text input interaction
-    this.components.textInput.setValue("Hello World!");
+    this.components.textInput.setValue('Hello World!');
 
-    console.log("");
+    console.log('');
   }
 }
 
 // Usage
 function demonstrateAbstractFactory() {
-  console.log("=== Abstract Factory Pattern Demo ===\n");
+  console.log('=== Abstract Factory Pattern Demo ===\n');
 
   const platforms = [
-    { name: "Windows", factory: new WindowsUIFactory() },
-    { name: "Mac", factory: new MacUIFactory() },
-    { name: "Linux", factory: new LinuxUIFactory() }
+    { name: 'Windows', factory: new WindowsUIFactory() },
+    { name: 'Mac', factory: new MacUIFactory() },
+    { name: 'Linux', factory: new LinuxUIFactory() },
   ];
 
   platforms.forEach(({ name, factory }) => {
-    console.log(`${"=".repeat(20)} ${name} Platform ${"=".repeat(20)}`);
+    console.log(`${'='.repeat(20)} ${name} Platform ${'='.repeat(20)}`);
 
     const app = new Application(factory);
     app.createUI();
     app.renderUI();
     app.simulateUserInteraction();
 
-    console.log(`${"=".repeat(50 + name.length)}\n`);
+    console.log(`${'='.repeat(50 + name.length)}\n`);
   });
 }
 
@@ -373,26 +373,42 @@ demonstrateAbstractFactory();
 ```javascript
 // Abstract Products
 class Connection {
-  connect() { throw new Error("Not implemented"); }
-  disconnect() { throw new Error("Not implemented"); }
-  isConnected() { throw new Error("Not implemented"); }
+  connect() {
+    throw new Error('Not implemented');
+  }
+  disconnect() {
+    throw new Error('Not implemented');
+  }
+  isConnected() {
+    throw new Error('Not implemented');
+  }
 }
 
 class Command {
   constructor(connection) {
     this.connection = connection;
   }
-  execute(query) { throw new Error("Not implemented"); }
-  executeAsync(query) { throw new Error("Not implemented"); }
+  execute(query) {
+    throw new Error('Not implemented');
+  }
+  executeAsync(query) {
+    throw new Error('Not implemented');
+  }
 }
 
 class Transaction {
   constructor(connection) {
     this.connection = connection;
   }
-  begin() { throw new Error("Not implemented"); }
-  commit() { throw new Error("Not implemented"); }
-  rollback() { throw new Error("Not implemented"); }
+  begin() {
+    throw new Error('Not implemented');
+  }
+  commit() {
+    throw new Error('Not implemented');
+  }
+  rollback() {
+    throw new Error('Not implemented');
+  }
 }
 
 // MySQL Family
@@ -406,12 +422,12 @@ class MySQLConnection extends Connection {
   connect() {
     console.log(`🐬 Connecting to MySQL: ${this.config.host}:${this.config.port || 3306}`);
     this.connected = true;
-    return Promise.resolve("MySQL connected");
+    return Promise.resolve('MySQL connected');
   }
 
   disconnect() {
     this.connected = false;
-    console.log("🐬 MySQL connection closed");
+    console.log('🐬 MySQL connection closed');
     return Promise.resolve();
   }
 
@@ -423,7 +439,7 @@ class MySQLConnection extends Connection {
 class MySQLCommand extends Command {
   execute(query) {
     if (!this.connection.isConnected()) {
-      throw new Error("MySQL connection not established");
+      throw new Error('MySQL connection not established');
     }
     console.log(`📊 Executing MySQL query: ${query}`);
     return `MySQL result: ${query}`;
@@ -446,24 +462,24 @@ class MySQLTransaction extends Transaction {
 
   begin() {
     if (!this.connection.isConnected()) {
-      throw new Error("MySQL connection not established");
+      throw new Error('MySQL connection not established');
     }
     this.active = true;
-    console.log("🔄 MySQL transaction started");
+    console.log('🔄 MySQL transaction started');
     return Promise.resolve();
   }
 
   commit() {
-    if (!this.active) throw new Error("No active MySQL transaction");
+    if (!this.active) throw new Error('No active MySQL transaction');
     this.active = false;
-    console.log("✅ MySQL transaction committed");
+    console.log('✅ MySQL transaction committed');
     return Promise.resolve();
   }
 
   rollback() {
-    if (!this.active) throw new Error("No active MySQL transaction");
+    if (!this.active) throw new Error('No active MySQL transaction');
     this.active = false;
-    console.log("↩️ MySQL transaction rolled back");
+    console.log('↩️ MySQL transaction rolled back');
     return Promise.resolve();
   }
 }
@@ -479,12 +495,12 @@ class PostgreSQLConnection extends Connection {
   connect() {
     console.log(`🐘 Connecting to PostgreSQL: ${this.config.host}:${this.config.port || 5432}`);
     this.connected = true;
-    return Promise.resolve("PostgreSQL connected");
+    return Promise.resolve('PostgreSQL connected');
   }
 
   disconnect() {
     this.connected = false;
-    console.log("🐘 PostgreSQL connection closed");
+    console.log('🐘 PostgreSQL connection closed');
     return Promise.resolve();
   }
 
@@ -496,7 +512,7 @@ class PostgreSQLConnection extends Connection {
 class PostgreSQLCommand extends Command {
   execute(query) {
     if (!this.connection.isConnected()) {
-      throw new Error("PostgreSQL connection not established");
+      throw new Error('PostgreSQL connection not established');
     }
     console.log(`📊 Executing PostgreSQL query: ${query}`);
     return `PostgreSQL result: ${query}`;
@@ -519,33 +535,39 @@ class PostgreSQLTransaction extends Transaction {
 
   begin() {
     if (!this.connection.isConnected()) {
-      throw new Error("PostgreSQL connection not established");
+      throw new Error('PostgreSQL connection not established');
     }
     this.active = true;
-    console.log("🔄 PostgreSQL transaction started");
+    console.log('🔄 PostgreSQL transaction started');
     return Promise.resolve();
   }
 
   commit() {
-    if (!this.active) throw new Error("No active PostgreSQL transaction");
+    if (!this.active) throw new Error('No active PostgreSQL transaction');
     this.active = false;
-    console.log("✅ PostgreSQL transaction committed");
+    console.log('✅ PostgreSQL transaction committed');
     return Promise.resolve();
   }
 
   rollback() {
-    if (!this.active) throw new Error("No active PostgreSQL transaction");
+    if (!this.active) throw new Error('No active PostgreSQL transaction');
     this.active = false;
-    console.log("↩️ PostgreSQL transaction rolled back");
+    console.log('↩️ PostgreSQL transaction rolled back');
     return Promise.resolve();
   }
 }
 
 // Abstract Factory
 class DatabaseFactory {
-  createConnection(config) { throw new Error("Not implemented"); }
-  createCommand(connection) { throw new Error("Not implemented"); }
-  createTransaction(connection) { throw new Error("Not implemented"); }
+  createConnection(config) {
+    throw new Error('Not implemented');
+  }
+  createCommand(connection) {
+    throw new Error('Not implemented');
+  }
+  createTransaction(connection) {
+    throw new Error('Not implemented');
+  }
 }
 
 // Concrete Factories
@@ -594,16 +616,16 @@ class DatabaseManager {
     this.command = this.factory.createCommand(this.connection);
     this.transaction = this.factory.createTransaction(this.connection);
 
-    console.log("✅ Database manager initialized");
+    console.log('✅ Database manager initialized');
   }
 
   async executeQuery(query) {
-    if (!this.command) throw new Error("Database not initialized");
+    if (!this.command) throw new Error('Database not initialized');
     return await this.command.executeAsync(query);
   }
 
   async executeTransaction(queries) {
-    if (!this.transaction) throw new Error("Database not initialized");
+    if (!this.transaction) throw new Error('Database not initialized');
 
     try {
       await this.transaction.begin();
@@ -615,11 +637,11 @@ class DatabaseManager {
       }
 
       await this.transaction.commit();
-      console.log("🎉 Transaction completed successfully");
+      console.log('🎉 Transaction completed successfully');
       return results;
     } catch (error) {
       await this.transaction.rollback();
-      console.error("❌ Transaction failed:", error.message);
+      console.error('❌ Transaction failed:', error.message);
       throw error;
     }
   }
@@ -637,16 +659,16 @@ async function demonstrateDatabaseFactory() {
     host: 'localhost',
     username: 'admin',
     password: 'password',
-    database: 'testdb'
+    database: 'testdb',
   };
 
   const factories = [
     { name: 'MySQL', factory: new MySQLFactory() },
-    { name: 'PostgreSQL', factory: new PostgreSQLFactory() }
+    { name: 'PostgreSQL', factory: new PostgreSQLFactory() },
   ];
 
   for (const { name, factory } of factories) {
-    console.log(`\n${"=".repeat(15)} Testing ${name} ${"=".repeat(15)}`);
+    console.log(`\n${'='.repeat(15)} Testing ${name} ${'='.repeat(15)}`);
 
     const dbManager = new DatabaseManager(factory, config);
 
@@ -654,18 +676,17 @@ async function demonstrateDatabaseFactory() {
       await dbManager.initialize();
 
       // Single query
-      const result = await dbManager.executeQuery("SELECT * FROM users");
-      console.log("📋 Query result:", result);
+      const result = await dbManager.executeQuery('SELECT * FROM users');
+      console.log('📋 Query result:', result);
 
       // Transaction
       const transactionQueries = [
-        "UPDATE users SET balance = balance - 100 WHERE id = 1",
-        "UPDATE users SET balance = balance + 100 WHERE id = 2",
-        "INSERT INTO transactions (from_id, to_id, amount) VALUES (1, 2, 100)"
+        'UPDATE users SET balance = balance - 100 WHERE id = 1',
+        'UPDATE users SET balance = balance + 100 WHERE id = 2',
+        'INSERT INTO transactions (from_id, to_id, amount) VALUES (1, 2, 100)',
       ];
 
       await dbManager.executeTransaction(transactionQueries);
-
     } catch (error) {
       console.error(`❌ ${name} error:`, error.message);
     } finally {
@@ -683,46 +704,88 @@ demonstrateDatabaseFactory();
 ```javascript
 // Abstract Products
 class ColorScheme {
-  getPrimaryColor() { throw new Error("Not implemented"); }
-  getSecondaryColor() { throw new Error("Not implemented"); }
-  getBackgroundColor() { throw new Error("Not implemented"); }
-  getTextColor() { throw new Error("Not implemented"); }
-  getAccentColor() { throw new Error("Not implemented"); }
+  getPrimaryColor() {
+    throw new Error('Not implemented');
+  }
+  getSecondaryColor() {
+    throw new Error('Not implemented');
+  }
+  getBackgroundColor() {
+    throw new Error('Not implemented');
+  }
+  getTextColor() {
+    throw new Error('Not implemented');
+  }
+  getAccentColor() {
+    throw new Error('Not implemented');
+  }
 }
 
 class Typography {
-  getHeadingFont() { throw new Error("Not implemented"); }
-  getBodyFont() { throw new Error("Not implemented"); }
-  getCodeFont() { throw new Error("Not implemented"); }
-  getFontSizes() { throw new Error("Not implemented"); }
+  getHeadingFont() {
+    throw new Error('Not implemented');
+  }
+  getBodyFont() {
+    throw new Error('Not implemented');
+  }
+  getCodeFont() {
+    throw new Error('Not implemented');
+  }
+  getFontSizes() {
+    throw new Error('Not implemented');
+  }
 }
 
 class Layout {
-  getSpacing() { throw new Error("Not implemented"); }
-  getBorderRadius() { throw new Error("Not implemented"); }
-  getShadows() { throw new Error("Not implemented"); }
-  getBreakpoints() { throw new Error("Not implemented"); }
+  getSpacing() {
+    throw new Error('Not implemented');
+  }
+  getBorderRadius() {
+    throw new Error('Not implemented');
+  }
+  getShadows() {
+    throw new Error('Not implemented');
+  }
+  getBreakpoints() {
+    throw new Error('Not implemented');
+  }
 }
 
 // Light Theme Family
 class LightColorScheme extends ColorScheme {
-  getPrimaryColor() { return '#007bff'; }
-  getSecondaryColor() { return '#6c757d'; }
-  getBackgroundColor() { return '#ffffff'; }
-  getTextColor() { return '#212529'; }
-  getAccentColor() { return '#28a745'; }
+  getPrimaryColor() {
+    return '#007bff';
+  }
+  getSecondaryColor() {
+    return '#6c757d';
+  }
+  getBackgroundColor() {
+    return '#ffffff';
+  }
+  getTextColor() {
+    return '#212529';
+  }
+  getAccentColor() {
+    return '#28a745';
+  }
 }
 
 class LightTypography extends Typography {
-  getHeadingFont() { return "'Roboto', sans-serif"; }
-  getBodyFont() { return "'Open Sans', sans-serif"; }
-  getCodeFont() { return "'Fira Code', monospace"; }
+  getHeadingFont() {
+    return "'Roboto', sans-serif";
+  }
+  getBodyFont() {
+    return "'Open Sans', sans-serif";
+  }
+  getCodeFont() {
+    return "'Fira Code', monospace";
+  }
   getFontSizes() {
     return {
       small: '14px',
       normal: '16px',
       large: '18px',
-      xlarge: '24px'
+      xlarge: '24px',
     };
   }
 }
@@ -733,17 +796,19 @@ class LightLayout extends Layout {
       small: '8px',
       medium: '16px',
       large: '24px',
-      xlarge: '32px'
+      xlarge: '32px',
     };
   }
 
-  getBorderRadius() { return '4px'; }
+  getBorderRadius() {
+    return '4px';
+  }
 
   getShadows() {
     return {
       small: '0 2px 4px rgba(0,0,0,0.1)',
       medium: '0 4px 8px rgba(0,0,0,0.1)',
-      large: '0 8px 16px rgba(0,0,0,0.1)'
+      large: '0 8px 16px rgba(0,0,0,0.1)',
     };
   }
 
@@ -751,30 +816,46 @@ class LightLayout extends Layout {
     return {
       mobile: '768px',
       tablet: '1024px',
-      desktop: '1200px'
+      desktop: '1200px',
     };
   }
 }
 
 // Dark Theme Family
 class DarkColorScheme extends ColorScheme {
-  getPrimaryColor() { return '#0d6efd'; }
-  getSecondaryColor() { return '#6c757d'; }
-  getBackgroundColor() { return '#121212'; }
-  getTextColor() { return '#e9ecef'; }
-  getAccentColor() { return '#20c997'; }
+  getPrimaryColor() {
+    return '#0d6efd';
+  }
+  getSecondaryColor() {
+    return '#6c757d';
+  }
+  getBackgroundColor() {
+    return '#121212';
+  }
+  getTextColor() {
+    return '#e9ecef';
+  }
+  getAccentColor() {
+    return '#20c997';
+  }
 }
 
 class DarkTypography extends Typography {
-  getHeadingFont() { return "'Roboto', sans-serif"; }
-  getBodyFont() { return "'Open Sans', sans-serif"; }
-  getCodeFont() { return "'Fira Code', monospace"; }
+  getHeadingFont() {
+    return "'Roboto', sans-serif";
+  }
+  getBodyFont() {
+    return "'Open Sans', sans-serif";
+  }
+  getCodeFont() {
+    return "'Fira Code', monospace";
+  }
   getFontSizes() {
     return {
       small: '14px',
       normal: '16px',
       large: '18px',
-      xlarge: '24px'
+      xlarge: '24px',
     };
   }
 }
@@ -785,17 +866,19 @@ class DarkLayout extends Layout {
       small: '8px',
       medium: '16px',
       large: '24px',
-      xlarge: '32px'
+      xlarge: '32px',
     };
   }
 
-  getBorderRadius() { return '6px'; }
+  getBorderRadius() {
+    return '6px';
+  }
 
   getShadows() {
     return {
       small: '0 2px 4px rgba(255,255,255,0.1)',
       medium: '0 4px 8px rgba(255,255,255,0.1)',
-      large: '0 8px 16px rgba(255,255,255,0.1)'
+      large: '0 8px 16px rgba(255,255,255,0.1)',
     };
   }
 
@@ -803,30 +886,46 @@ class DarkLayout extends Layout {
     return {
       mobile: '768px',
       tablet: '1024px',
-      desktop: '1200px'
+      desktop: '1200px',
     };
   }
 }
 
 // High Contrast Theme Family
 class HighContrastColorScheme extends ColorScheme {
-  getPrimaryColor() { return '#000000'; }
-  getSecondaryColor() { return '#666666'; }
-  getBackgroundColor() { return '#ffffff'; }
-  getTextColor() { return '#000000'; }
-  getAccentColor() { return '#ff0000'; }
+  getPrimaryColor() {
+    return '#000000';
+  }
+  getSecondaryColor() {
+    return '#666666';
+  }
+  getBackgroundColor() {
+    return '#ffffff';
+  }
+  getTextColor() {
+    return '#000000';
+  }
+  getAccentColor() {
+    return '#ff0000';
+  }
 }
 
 class HighContrastTypography extends Typography {
-  getHeadingFont() { return "'Arial', sans-serif"; }
-  getBodyFont() { return "'Arial', sans-serif"; }
-  getCodeFont() { return "'Courier New', monospace"; }
+  getHeadingFont() {
+    return "'Arial', sans-serif";
+  }
+  getBodyFont() {
+    return "'Arial', sans-serif";
+  }
+  getCodeFont() {
+    return "'Courier New', monospace";
+  }
   getFontSizes() {
     return {
-      small: '16px',   // Larger for accessibility
+      small: '16px', // Larger for accessibility
       normal: '18px',
       large: '20px',
-      xlarge: '28px'
+      xlarge: '28px',
     };
   }
 }
@@ -834,20 +933,22 @@ class HighContrastTypography extends Typography {
 class HighContrastLayout extends Layout {
   getSpacing() {
     return {
-      small: '12px',   // More spacing for accessibility
+      small: '12px', // More spacing for accessibility
       medium: '20px',
       large: '28px',
-      xlarge: '36px'
+      xlarge: '36px',
     };
   }
 
-  getBorderRadius() { return '0px'; }  // No rounded corners for high contrast
+  getBorderRadius() {
+    return '0px';
+  } // No rounded corners for high contrast
 
   getShadows() {
     return {
       small: '2px 2px 0px rgba(0,0,0,1)',
       medium: '4px 4px 0px rgba(0,0,0,1)',
-      large: '6px 6px 0px rgba(0,0,0,1)'
+      large: '6px 6px 0px rgba(0,0,0,1)',
     };
   }
 
@@ -855,35 +956,59 @@ class HighContrastLayout extends Layout {
     return {
       mobile: '768px',
       tablet: '1024px',
-      desktop: '1200px'
+      desktop: '1200px',
     };
   }
 }
 
 // Abstract Factory
 class ThemeFactory {
-  createColorScheme() { throw new Error("Not implemented"); }
-  createTypography() { throw new Error("Not implemented"); }
-  createLayout() { throw new Error("Not implemented"); }
+  createColorScheme() {
+    throw new Error('Not implemented');
+  }
+  createTypography() {
+    throw new Error('Not implemented');
+  }
+  createLayout() {
+    throw new Error('Not implemented');
+  }
 }
 
 // Concrete Factories
 class LightThemeFactory extends ThemeFactory {
-  createColorScheme() { return new LightColorScheme(); }
-  createTypography() { return new LightTypography(); }
-  createLayout() { return new LightLayout(); }
+  createColorScheme() {
+    return new LightColorScheme();
+  }
+  createTypography() {
+    return new LightTypography();
+  }
+  createLayout() {
+    return new LightLayout();
+  }
 }
 
 class DarkThemeFactory extends ThemeFactory {
-  createColorScheme() { return new DarkColorScheme(); }
-  createTypography() { return new DarkTypography(); }
-  createLayout() { return new DarkLayout(); }
+  createColorScheme() {
+    return new DarkColorScheme();
+  }
+  createTypography() {
+    return new DarkTypography();
+  }
+  createLayout() {
+    return new DarkLayout();
+  }
 }
 
 class HighContrastThemeFactory extends ThemeFactory {
-  createColorScheme() { return new HighContrastColorScheme(); }
-  createTypography() { return new HighContrastTypography(); }
-  createLayout() { return new HighContrastLayout(); }
+  createColorScheme() {
+    return new HighContrastColorScheme();
+  }
+  createTypography() {
+    return new HighContrastTypography();
+  }
+  createLayout() {
+    return new HighContrastLayout();
+  }
 }
 
 // Theme Manager (Client)
@@ -906,7 +1031,7 @@ class ThemeManager {
 
   generateCSS() {
     if (!this.currentTheme) {
-      throw new Error("No theme set");
+      throw new Error('No theme set');
     }
 
     const colors = this.colorScheme;
@@ -989,7 +1114,7 @@ code {
 
   getThemeInfo() {
     if (!this.currentTheme) {
-      return "No theme selected";
+      return 'No theme selected';
     }
 
     return {
@@ -998,20 +1123,20 @@ code {
         secondary: this.colorScheme.getSecondaryColor(),
         background: this.colorScheme.getBackgroundColor(),
         text: this.colorScheme.getTextColor(),
-        accent: this.colorScheme.getAccentColor()
+        accent: this.colorScheme.getAccentColor(),
       },
       fonts: {
         heading: this.typography.getHeadingFont(),
         body: this.typography.getBodyFont(),
         code: this.typography.getCodeFont(),
-        sizes: this.typography.getFontSizes()
+        sizes: this.typography.getFontSizes(),
       },
       layout: {
         spacing: this.layout.getSpacing(),
         borderRadius: this.layout.getBorderRadius(),
         shadows: this.layout.getShadows(),
-        breakpoints: this.layout.getBreakpoints()
-      }
+        breakpoints: this.layout.getBreakpoints(),
+      },
     };
   }
 }
@@ -1022,21 +1147,21 @@ const themeManager = new ThemeManager();
 const themes = [
   { name: 'Light', factory: new LightThemeFactory() },
   { name: 'Dark', factory: new DarkThemeFactory() },
-  { name: 'High Contrast', factory: new HighContrastThemeFactory() }
+  { name: 'High Contrast', factory: new HighContrastThemeFactory() },
 ];
 
 themes.forEach(({ name, factory }) => {
-  console.log(`\n${"=".repeat(15)} ${name} Theme ${"=".repeat(15)}`);
+  console.log(`\n${'='.repeat(15)} ${name} Theme ${'='.repeat(15)}`);
 
   themeManager.setTheme(factory);
 
-  console.log("📋 Theme Info:");
+  console.log('📋 Theme Info:');
   console.log(JSON.stringify(themeManager.getThemeInfo(), null, 2));
 
-  console.log("\n🎨 Generated CSS:");
+  console.log('\n🎨 Generated CSS:');
   console.log(themeManager.generateCSS());
 
-  console.log(`\n${"=".repeat(30 + name.length)}`);
+  console.log(`\n${'='.repeat(30 + name.length)}`);
 });
 ```
 
@@ -1065,6 +1190,7 @@ themes.forEach(({ name, factory }) => {
 ## 🔄 Variations
 
 ### 1. **Parameterized Abstract Factory**
+
 ```javascript
 class ParameterizedFactory {
   createProduct(type, family) {
@@ -1076,6 +1202,7 @@ class ParameterizedFactory {
 ```
 
 ### 2. **Registry-based Abstract Factory**
+
 ```javascript
 class RegistryAbstractFactory {
   constructor() {
@@ -1093,6 +1220,7 @@ class RegistryAbstractFactory {
 ```
 
 ### 3. **Singleton Abstract Factory**
+
 ```javascript
 class SingletonAbstractFactory {
   constructor() {

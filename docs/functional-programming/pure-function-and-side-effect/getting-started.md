@@ -1,8 +1,9 @@
 # 🎯 Pure Functions and Side Effects
 
-> *The foundation of functional programming: understanding and implementing pure functions while eliminating side effects*
+> _The foundation of functional programming: understanding and implementing pure functions while eliminating side effects_
 
 ## Table of Contents
+
 - [What are Pure Functions?](#what-are-pure-functions)
 - [Characteristics of Pure Functions](#characteristics-of-pure-functions)
 - [Side Effects Explained](#side-effects-explained)
@@ -18,14 +19,16 @@
 A **pure function** is a function that, given the same input, will always return the same output and does not have any observable side effects. Pure functions are the building blocks of functional programming and make code more predictable, testable, and maintainable.
 
 ### Mathematical Foundation
+
 Pure functions mirror mathematical functions:
+
 - `f(x) = x²` always returns the same result for the same input
 - The function doesn't modify anything outside its scope
 - The result depends only on the input parameters
 
 ```javascript
 // Mathematical function representation
-const square = x => x * x;
+const square = (x) => x * x;
 console.log(square(4)); // Always 16
 console.log(square(4)); // Always 16
 ```
@@ -33,6 +36,7 @@ console.log(square(4)); // Always 16
 ## Characteristics of Pure Functions
 
 ### 1. **Deterministic Output**
+
 Given the same input, a pure function always produces the same output.
 
 ```javascript
@@ -46,6 +50,7 @@ console.log(addRandom(2, 3)); // Different each time
 ```
 
 ### 2. **No Side Effects**
+
 Pure functions don't modify anything outside their scope.
 
 ```javascript
@@ -55,12 +60,13 @@ const multiply = (a, b) => a * b;
 // ❌ Impure - modifies global variable
 let total = 0;
 const addToTotal = (value) => {
-    total += value; // Side effect!
-    return total;
+  total += value; // Side effect!
+  return total;
 };
 ```
 
 ### 3. **No External Dependencies**
+
 Pure functions don't depend on external mutable state.
 
 ```javascript
@@ -73,11 +79,12 @@ const multiplyBy = (x, multiplier) => x * multiplier;
 ```
 
 ### 4. **Referential Transparency**
+
 Function calls can be replaced with their return values without changing program behavior.
 
 ```javascript
 // ✅ Pure function
-const double = x => x * 2;
+const double = (x) => x * 2;
 
 // These are equivalent:
 const result1 = double(5) + double(3);
@@ -91,11 +98,12 @@ A **side effect** is any application state change that is observable outside the
 ### Types of Side Effects
 
 #### 1. **State Mutation**
+
 ```javascript
 // ❌ Mutating input parameters
 const addItemImpure = (array, item) => {
-    array.push(item); // Modifies original array
-    return array;
+  array.push(item); // Modifies original array
+  return array;
 };
 
 // ✅ Pure version - returns new array
@@ -103,6 +111,7 @@ const addItem = (array, item) => [...array, item];
 ```
 
 #### 2. **Global State Modification**
+
 ```javascript
 // ❌ Modifying global state
 let counter = 0;
@@ -113,15 +122,16 @@ const increment = (current) => current + 1;
 ```
 
 #### 3. **I/O Operations**
+
 ```javascript
 // ❌ Side effects with I/O
 const logAndDouble = (x) => {
-    console.log(`Doubling ${x}`); // I/O side effect
-    return x * 2;
+  console.log(`Doubling ${x}`); // I/O side effect
+  return x * 2;
 };
 
 // ✅ Separate concerns
-const double = x => x * 2;
+const double = (x) => x * 2;
 const logResult = (value, result) => console.log(`${value} doubled is ${result}`);
 
 // Usage
@@ -147,11 +157,11 @@ logResult(value, result);
 // ❌ Multiple side effects
 let globalCount = 0;
 const processData = (data) => {
-    console.log('Processing data...'); // I/O side effect
-    globalCount++; // Global state mutation
-    data.processed = true; // Parameter mutation
-    document.getElementById('status').textContent = 'Done'; // DOM manipulation
-    return data.value * Math.random(); // Non-deterministic
+  console.log('Processing data...'); // I/O side effect
+  globalCount++; // Global state mutation
+  data.processed = true; // Parameter mutation
+  document.getElementById('status').textContent = 'Done'; // DOM manipulation
+  return data.value * Math.random(); // Non-deterministic
 };
 
 // ✅ Pure version
@@ -159,10 +169,10 @@ const processValue = (value) => value * 2;
 
 // Side effects handled separately
 const handleSideEffects = (data, result) => {
-    console.log('Processing data...');
-    updateGlobalCount();
-    updateDOM('status', 'Done');
-    return { ...data, processed: true, result };
+  console.log('Processing data...');
+  updateGlobalCount();
+  updateDOM('status', 'Done');
+  return { ...data, processed: true, result };
 };
 ```
 
@@ -187,8 +197,8 @@ const greetDefault = (name, prefix = 'Hello, ') => prefix + name;
 ```javascript
 // ❌ Impure - mutates original array
 const removeFirstImpure = (array) => {
-    array.shift(); // Modifies original array
-    return array;
+  array.shift(); // Modifies original array
+  return array;
 };
 
 // ✅ Pure - returns new array
@@ -203,8 +213,8 @@ const removeFirstAlt = ([first, ...rest]) => rest;
 ```javascript
 // ❌ Impure - mutates object
 const updateAgeImpure = (person, newAge) => {
-    person.age = newAge; // Mutates original object
-    return person;
+  person.age = newAge; // Mutates original object
+  return person;
 };
 
 // ✅ Pure - returns new object
@@ -212,20 +222,21 @@ const updateAge = (person, newAge) => ({ ...person, age: newAge });
 
 // ✅ Pure nested update
 const updateNestedPure = (obj, path, value) => {
-    if (path.length === 1) {
-        return { ...obj, [path[0]]: value };
-    }
-    const [head, ...tail] = path;
-    return {
-        ...obj,
-        [head]: updateNestedPure(obj[head], tail, value)
-    };
+  if (path.length === 1) {
+    return { ...obj, [path[0]]: value };
+  }
+  const [head, ...tail] = path;
+  return {
+    ...obj,
+    [head]: updateNestedPure(obj[head], tail, value),
+  };
 };
 ```
 
 ## Immutability Techniques
 
 ### 1. **Primitive Values**
+
 Primitives are immutable by nature in JavaScript.
 
 ```javascript
@@ -250,13 +261,13 @@ const withoutLast = numbers.slice(0, -1);
 const withoutIndex = [...numbers.slice(0, 2), ...numbers.slice(3)];
 
 // Update elements
-const withUpdatedElement = numbers.map((n, i) => i === 2 ? n * 10 : n);
+const withUpdatedElement = numbers.map((n, i) => (i === 2 ? n * 10 : n));
 
 // Complex transformations
 const processedNumbers = numbers
-    .filter(n => n > 2)
-    .map(n => n * 2)
-    .reduce((acc, n) => [...acc, n], []);
+  .filter((n) => n > 2)
+  .map((n) => n * 2)
+  .reduce((acc, n) => [...acc, n], []);
 ```
 
 ### 3. **Objects**
@@ -276,21 +287,21 @@ const { city, ...withoutCity } = person;
 
 // Nested updates
 const userProfile = {
-    user: {
-        personal: { name: 'John', age: 30 },
-        preferences: { theme: 'dark', language: 'en' }
-    }
+  user: {
+    personal: { name: 'John', age: 30 },
+    preferences: { theme: 'dark', language: 'en' },
+  },
 };
 
 const updatedProfile = {
-    ...userProfile,
-    user: {
-        ...userProfile.user,
-        personal: {
-            ...userProfile.user.personal,
-            age: 31
-        }
-    }
+  ...userProfile,
+  user: {
+    ...userProfile.user,
+    personal: {
+      ...userProfile.user.personal,
+      age: 31,
+    },
+  },
 };
 ```
 
@@ -310,13 +321,11 @@ const updatedList = immutableList.push(5); // Returns new List
 import produce from 'immer';
 
 const state = {
-    users: [
-        { id: 1, name: 'John', posts: [] }
-    ]
+  users: [{ id: 1, name: 'John', posts: [] }],
 };
 
-const newState = produce(state, draft => {
-    draft.users[0].posts.push({ title: 'New Post', content: '...' });
+const newState = produce(state, (draft) => {
+  draft.users[0].posts.push({ title: 'New Post', content: '...' });
 });
 ```
 
@@ -329,26 +338,26 @@ Pure functions are incredibly easy to test because they're predictable and isola
 ```javascript
 // Pure function to test
 const calculateTotal = (items) =>
-    items.reduce((total, item) => total + (item.price * item.quantity), 0);
+  items.reduce((total, item) => total + item.price * item.quantity, 0);
 
 // Tests
 describe('calculateTotal', () => {
-    test('should calculate total for multiple items', () => {
-        const items = [
-            { price: 10, quantity: 2 },
-            { price: 5, quantity: 3 }
-        ];
-        expect(calculateTotal(items)).toBe(35);
-    });
+  test('should calculate total for multiple items', () => {
+    const items = [
+      { price: 10, quantity: 2 },
+      { price: 5, quantity: 3 },
+    ];
+    expect(calculateTotal(items)).toBe(35);
+  });
 
-    test('should return 0 for empty array', () => {
-        expect(calculateTotal([])).toBe(0);
-    });
+  test('should return 0 for empty array', () => {
+    expect(calculateTotal([])).toBe(0);
+  });
 
-    test('should handle single item', () => {
-        const items = [{ price: 15, quantity: 1 }];
-        expect(calculateTotal(items)).toBe(15);
-    });
+  test('should handle single item', () => {
+    const items = [{ price: 15, quantity: 1 }];
+    expect(calculateTotal(items)).toBe(15);
+  });
 });
 ```
 
@@ -359,14 +368,18 @@ describe('calculateTotal', () => {
 const fc = require('fast-check');
 
 // Property: adding zero should not change the result
-fc.assert(fc.property(fc.integer(), (n) => {
+fc.assert(
+  fc.property(fc.integer(), (n) => {
     return add(n, 0) === n;
-}));
+  }),
+);
 
 // Property: addition should be commutative
-fc.assert(fc.property(fc.integer(), fc.integer(), (a, b) => {
+fc.assert(
+  fc.property(fc.integer(), fc.integer(), (a, b) => {
     return add(a, b) === add(b, a);
-}));
+  }),
+);
 ```
 
 ### 3. **Snapshot Testing**
@@ -374,20 +387,23 @@ fc.assert(fc.property(fc.integer(), fc.integer(), (a, b) => {
 ```javascript
 // Complex pure function
 const formatUserData = (users) =>
-    users
-        .filter(user => user.active)
-        .map(user => ({
-            id: user.id,
-            name: user.name.toUpperCase(),
-            initials: user.name.split(' ').map(n => n[0]).join(''),
-            memberSince: new Date(user.createdAt).getFullYear()
-        }))
-        .sort((a, b) => a.name.localeCompare(b.name));
+  users
+    .filter((user) => user.active)
+    .map((user) => ({
+      id: user.id,
+      name: user.name.toUpperCase(),
+      initials: user.name
+        .split(' ')
+        .map((n) => n[0])
+        .join(''),
+      memberSince: new Date(user.createdAt).getFullYear(),
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name));
 
 // Snapshot test
 test('should format user data correctly', () => {
-    const users = [/* test data */];
-    expect(formatUserData(users)).toMatchSnapshot();
+  const users = [/* test data */];
+  expect(formatUserData(users)).toMatchSnapshot();
 });
 ```
 
@@ -402,8 +418,7 @@ const formatEmail = (email) => email.toLowerCase().trim();
 const hashEmail = (email) => btoa(email); // Base64 encoding for example
 
 // ✅ Composition over single complex function
-const processEmail = (email) =>
-    pipe(formatEmail, validateEmail, hashEmail)(email);
+const processEmail = (email) => pipe(formatEmail, validateEmail, hashEmail)(email);
 ```
 
 ### 2. **Error Handling in Pure Functions**
@@ -411,35 +426,33 @@ const processEmail = (email) =>
 ```javascript
 // ✅ Return error information instead of throwing
 const divide = (a, b) => {
-    if (b === 0) {
-        return { success: false, error: 'Division by zero' };
-    }
-    return { success: true, result: a / b };
+  if (b === 0) {
+    return { success: false, error: 'Division by zero' };
+  }
+  return { success: true, result: a / b };
 };
 
 // ✅ Using Maybe monad for error handling
-const safeDivide = (a, b) =>
-    b === 0 ? Maybe.none() : Maybe.some(a / b);
+const safeDivide = (a, b) => (b === 0 ? Maybe.none() : Maybe.some(a / b));
 ```
 
 ### 3. **Pure Function Patterns**
 
 ```javascript
 // ✅ Factory functions for configuration
-const createValidator = (rules) => (data) =>
-    rules.every(rule => rule(data));
+const createValidator = (rules) => (data) => rules.every((rule) => rule(data));
 
 const userValidator = createValidator([
-    user => user.name && user.name.length > 0,
-    user => user.email && validateEmail(user.email),
-    user => user.age && user.age >= 18
+  (user) => user.name && user.name.length > 0,
+  (user) => user.email && validateEmail(user.email),
+  (user) => user.age && user.age >= 18,
 ]);
 
 // ✅ Curried functions for partial application
-const curry = (fn) => (...args) =>
-    args.length >= fn.length
-        ? fn(...args)
-        : (...nextArgs) => curry(fn)(...args, ...nextArgs);
+const curry =
+  (fn) =>
+  (...args) =>
+    args.length >= fn.length ? fn(...args) : (...nextArgs) => curry(fn)(...args, ...nextArgs);
 
 const multiply = curry((a, b, c) => a * b * c);
 const double = multiply(2);
@@ -451,34 +464,34 @@ const quadruple = multiply(2, 2);
 ```javascript
 // ✅ Memoization for expensive pure functions
 const memoize = (fn) => {
-    const cache = new Map();
-    return (...args) => {
-        const key = JSON.stringify(args);
-        if (cache.has(key)) {
-            return cache.get(key);
-        }
-        const result = fn(...args);
-        cache.set(key, result);
-        return result;
-    };
+  const cache = new Map();
+  return (...args) => {
+    const key = JSON.stringify(args);
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+    const result = fn(...args);
+    cache.set(key, result);
+    return result;
+  };
 };
 
 const expensiveCalculation = memoize((n) => {
-    console.log(`Computing for ${n}`);
-    return n * n * n;
+  console.log(`Computing for ${n}`);
+  return n * n * n;
 });
 
 // ✅ Lazy evaluation
 const lazy = (fn) => {
-    let computed = false;
-    let result;
-    return () => {
-        if (!computed) {
-            result = fn();
-            computed = true;
-        }
-        return result;
-    };
+  let computed = false;
+  let result;
+  return () => {
+    if (!computed) {
+      result = fn();
+      computed = true;
+    }
+    return result;
+  };
 };
 
 const lazyValue = lazy(() => expensiveCalculation(100));
@@ -490,27 +503,28 @@ const lazyValue = lazy(() => expensiveCalculation(100));
 
 ```javascript
 // ✅ Pure recursive functions
-const factorial = (n) =>
-    n <= 1 ? 1 : n * factorial(n - 1);
+const factorial = (n) => (n <= 1 ? 1 : n * factorial(n - 1));
 
 // ✅ Tail-recursive version (more memory efficient)
-const factorialTail = (n, acc = 1) =>
-    n <= 1 ? acc : factorialTail(n - 1, n * acc);
+const factorialTail = (n, acc = 1) => (n <= 1 ? acc : factorialTail(n - 1, n * acc));
 
 // ✅ Pure tree traversal
 const mapTree = (fn, tree) => {
-    if (!tree || typeof tree !== 'object') {
-        return fn(tree);
-    }
+  if (!tree || typeof tree !== 'object') {
+    return fn(tree);
+  }
 
-    if (Array.isArray(tree)) {
-        return tree.map(child => mapTree(fn, child));
-    }
+  if (Array.isArray(tree)) {
+    return tree.map((child) => mapTree(fn, child));
+  }
 
-    return Object.keys(tree).reduce((acc, key) => ({
-        ...acc,
-        [key]: mapTree(fn, tree[key])
-    }), {});
+  return Object.keys(tree).reduce(
+    (acc, key) => ({
+      ...acc,
+      [key]: mapTree(fn, tree[key]),
+    }),
+    {},
+  );
 };
 ```
 
@@ -518,25 +532,37 @@ const mapTree = (fn, tree) => {
 
 ```javascript
 // ✅ Advanced composition utilities
-const pipe = (...fns) => (value) => fns.reduce((acc, fn) => fn(acc), value);
-const compose = (...fns) => (value) => fns.reduceRight((acc, fn) => fn(acc), value);
+const pipe =
+  (...fns) =>
+  (value) =>
+    fns.reduce((acc, fn) => fn(acc), value);
+const compose =
+  (...fns) =>
+  (value) =>
+    fns.reduceRight((acc, fn) => fn(acc), value);
 
 // ✅ Async composition
-const pipeAsync = (...fns) => (value) =>
+const pipeAsync =
+  (...fns) =>
+  (value) =>
     fns.reduce((acc, fn) => acc.then(fn), Promise.resolve(value));
 
 // ✅ Conditional composition
-const when = (predicate, fn) => (value) =>
-    predicate(value) ? fn(value) : value;
+const when = (predicate, fn) => (value) => (predicate(value) ? fn(value) : value);
 
-const unless = (predicate, fn) => (value) =>
-    !predicate(value) ? fn(value) : value;
+const unless = (predicate, fn) => (value) => (!predicate(value) ? fn(value) : value);
 
 // Usage
 const processNumber = pipe(
-    x => x * 2,
-    when(x => x > 10, x => x + 5),
-    unless(x => x % 2 === 0, x => x + 1)
+  (x) => x * 2,
+  when(
+    (x) => x > 10,
+    (x) => x + 5,
+  ),
+  unless(
+    (x) => x % 2 === 0,
+    (x) => x + 1,
+  ),
 );
 ```
 
@@ -545,20 +571,20 @@ const processNumber = pipe(
 ```javascript
 // ✅ Contract testing
 const testFunction = (fn, contracts) => {
-    contracts.forEach(({ input, expectedOutput, description }) => {
-        const result = fn(...input);
-        console.assert(
-            JSON.stringify(result) === JSON.stringify(expectedOutput),
-            `${description}: Expected ${expectedOutput}, got ${result}`
-        );
-    });
+  contracts.forEach(({ input, expectedOutput, description }) => {
+    const result = fn(...input);
+    console.assert(
+      JSON.stringify(result) === JSON.stringify(expectedOutput),
+      `${description}: Expected ${expectedOutput}, got ${result}`,
+    );
+  });
 };
 
 // Define contracts
 const addContracts = [
-    { input: [2, 3], expectedOutput: 5, description: 'Add positive numbers' },
-    { input: [-1, 1], expectedOutput: 0, description: 'Add negative and positive' },
-    { input: [0, 0], expectedOutput: 0, description: 'Add zeros' }
+  { input: [2, 3], expectedOutput: 5, description: 'Add positive numbers' },
+  { input: [-1, 1], expectedOutput: 0, description: 'Add negative and positive' },
+  { input: [0, 0], expectedOutput: 0, description: 'Add zeros' },
 ];
 
 testFunction(add, addContracts);

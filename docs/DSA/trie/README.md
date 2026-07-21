@@ -17,8 +17,6 @@ prefix tree.
 
 ![Trie](./images/trie.jpg)
 
-
-
 ## References
 
 - [Wikipedia](https://en.wikipedia.org/wiki/Trie)

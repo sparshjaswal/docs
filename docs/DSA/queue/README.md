@@ -20,8 +20,6 @@ Representation of a FIFO (first in, first out) queue
 
 ![Queue](./images/queue.jpeg)
 
-
-
 ## References
 
 - [Wikipedia](https://en.wikipedia.org/wiki/Queue_(abstract_data_type))

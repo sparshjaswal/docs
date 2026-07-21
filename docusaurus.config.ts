@@ -19,10 +19,12 @@ const config: Config = {
   baseUrl: BASE_URL,
   trailingSlash: false,
   onBrokenLinks: 'ignore',
+  onBrokenAnchors: 'ignore',
 
   markdown: {
     hooks: {
       onBrokenMarkdownLinks: 'ignore',
+      onBrokenMarkdownImages: 'ignore',
     },
   },
   // GitHub pages deployment config

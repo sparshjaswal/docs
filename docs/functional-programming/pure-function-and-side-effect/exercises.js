@@ -44,7 +44,8 @@ console.log('\n\nExercise 3: Immutable Array Operations');
 const originalArray = [1, 2, 3, 4, 5];
 
 // ❌ Mutating operations
-const mutatingOps = {
+// eslint-disable-next-line unused-imports/no-unused-vars -- illustrative example, intentionally unused
+const _mutatingOps = {
     // Don't run these - they would mutate the original!
     // addItem: (arr, item) => { arr.push(item); return arr; },
     // removeItem: (arr, index) => { arr.splice(index, 1); return arr; },
@@ -89,7 +90,8 @@ const immutableObjectOps = {
     }),
     addProperty: (user, key, value) => ({ ...user, [key]: value }),
     removeProperty: (user, key) => {
-        const { [key]: removed, ...rest } = user;
+        // eslint-disable-next-line unused-imports/no-unused-vars -- destructured to omit a key
+        const { [key]: _removed, ...rest } = user;
         return rest;
     }
 };
@@ -129,7 +131,8 @@ console.log('Processed:', processString(testString));
 console.log('\n\nExercise 6: Pure Error Handling');
 
 // ❌ Impure error handling (throws exceptions)
-const impureDivide = (a, b) => {
+// eslint-disable-next-line unused-imports/no-unused-vars -- illustrative example, intentionally unused
+const _impureDivide = (a, b) => {
     if (b === 0) throw new Error('Division by zero');
     return a / b;
 };

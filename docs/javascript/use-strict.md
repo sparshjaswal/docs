@@ -27,7 +27,7 @@ function example() {
 
 Examples
 
-1) Accidental global variables
+1. Accidental global variables
 
 ```javascript
 // Without strict mode this creates a global variable
@@ -35,11 +35,11 @@ name = 'sparsh';
 console.log(name); // 'sparsh'
 
 // With strict mode this throws
-'use strict';
+('use strict');
 name = 'sparsh'; // ReferenceError: name is not defined
 ```
 
-2) Duplicate function parameters
+2. Duplicate function parameters
 
 ```javascript
 // Non-strict mode allows duplicate parameter names (confusing behaviour)
@@ -49,7 +49,7 @@ function nonStrict(a, a, b) {
 nonStrict(1, 2, 3); // prints: 2 2 3
 
 // In strict mode this is a SyntaxError
-'use strict';
+('use strict');
 function strictFn(a, a, b) {
   // SyntaxError in strict mode
 }

@@ -1,4 +1,3 @@
-
 # ➕ Prefix Sum
 
 > **One-line summary**: Pre-compute cumulative sums so any range query `sum(L..R)` is answered in O(1) after O(n) preprocessing.
@@ -49,13 +48,13 @@ rectSum(r1,c1,r2,c2) = p[r2+1][c2+1] - p[r1][c2+1] - p[r2+1][c1] + p[r1][c1]
 
 ## ⚡ Time & Space Complexity
 
-| Operation | Time | Space | Notes |
-|-----------|------|-------|-------|
-| Build 1D prefix array | O(n) | O(n) | One pass |
-| 1D range query | O(1) | O(1) | Two lookups |
-| Difference array update | O(1) | O(n) | Read values in O(n) |
-| Build 2D prefix array | O(m·n) | O(m·n) | Inclusion–exclusion |
-| 2D rectangle query | O(1) | O(1) | Four lookups |
+| Operation               | Time   | Space  | Notes               |
+| ----------------------- | ------ | ------ | ------------------- |
+| Build 1D prefix array   | O(n)   | O(n)   | One pass            |
+| 1D range query          | O(1)   | O(1)   | Two lookups         |
+| Difference array update | O(1)   | O(n)   | Read values in O(n) |
+| Build 2D prefix array   | O(m·n) | O(m·n) | Inclusion–exclusion |
+| 2D rectangle query      | O(1)   | O(1)   | Four lookups        |
 
 **Key Insight**: Preprocessing pays off when you have **many queries** on a static array — amortize O(n) build across O(1) queries.
 
@@ -64,23 +63,28 @@ rectSum(r1,c1,r2,c2) = p[r2+1][c2+1] - p[r1][c2+1] - p[r2+1][c1] + p[r1][c1]
 ## Common Patterns
 
 ### Basic Prefix Sum
+
 ```javascript
 function buildPrefix(arr) {
   const p = new Array(arr.length + 1).fill(0);
   for (let i = 0; i < arr.length; i++) p[i + 1] = p[i] + arr[i];
   return p;
 }
-function rangeSum(p, l, r) { return p[r + 1] - p[l]; }
+function rangeSum(p, l, r) {
+  return p[r + 1] - p[l];
+}
 ```
 
 ### Subarray Sum Equals K (hash map + prefix)
+
 ```javascript
 function subarraySum(nums, k) {
   const map = new Map([[0, 1]]);
-  let count = 0, sum = 0;
+  let count = 0,
+    sum = 0;
   for (const n of nums) {
     sum += n;
-    count += (map.get(sum - k) || 0);
+    count += map.get(sum - k) || 0;
     map.set(sum, (map.get(sum) || 0) + 1);
   }
   return count;
@@ -88,20 +92,20 @@ function subarraySum(nums, k) {
 ```
 
 ### 2D Prefix Sum (Matrix Range Query)
+
 ```javascript
 class NumMatrix {
   constructor(matrix) {
-    const m = matrix.length, n = matrix[0].length;
+    const m = matrix.length,
+      n = matrix[0].length;
     this.p = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
     for (let i = 1; i <= m; i++)
       for (let j = 1; j <= n; j++)
         this.p[i][j] =
-          matrix[i - 1][j - 1] +
-          this.p[i - 1][j] + this.p[i][j - 1] - this.p[i - 1][j - 1];
+          matrix[i - 1][j - 1] + this.p[i - 1][j] + this.p[i][j - 1] - this.p[i - 1][j - 1];
   }
   sumRegion(r1, c1, r2, c2) {
-    return this.p[r2 + 1][c2 + 1] - this.p[r1][c2 + 1]
-         - this.p[r2 + 1][c1] + this.p[r1][c1];
+    return this.p[r2 + 1][c2 + 1] - this.p[r1][c2 + 1] - this.p[r2 + 1][c1] + this.p[r1][c1];
   }
 }
 // Build: O(m*n), Query: O(1)
@@ -139,35 +143,35 @@ function pivotIndex(nums) {
 
 ## Practice Problems
 
-| Problem | Difficulty | Solution |
-|---------|-----------|----------|
-| [LC 1480 — Running Sum of 1D Array](https://leetcode.com/problems/running-sum-of-1d-array/) | Easy |  |
-| [LC 303 — Range Sum Query](https://leetcode.com/problems/range-sum-query-immutable/) | Easy |  |
-| [LC 560 — Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) | Medium |  |
-| [LC 525 — Contiguous Array](https://leetcode.com/problems/contiguous-array/) | Medium |  |
-| [LC 304 — Range Sum Query 2D](https://leetcode.com/problems/range-sum-query-2d-immutable/) | Medium |  |
-| [LC 1171 — Remove Zero Sum Consecutive Nodes](https://leetcode.com/problems/remove-zero-sum-consecutive-nodes-from-linked-list/) | Medium |  |
-| [CC — Sumtastic (SUMTASTIC)](https://www.codechef.com/problems/SUMTASTIC) | Medium |  |
-| [CC — Chef Segment (CHSEG)](https://www.codechef.com/problems/CHSEG) | Medium |  |
-| [LC 363 — Max Sum of Rectangle No Larger Than K](https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/) | Hard |  |
-| [LC 930 — Binary Subarrays With Sum](https://leetcode.com/problems/binary-subarrays-with-sum/) | Medium |  |
-| [LC 523 — Continuous Subarray Sum](https://leetcode.com/problems/continuous-subarray-sum/) | Medium |  |
-| [LC 238 — Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) | Medium |  |
-| [LC 724 — Find Pivot Index](https://leetcode.com/problems/find-pivot-index/) | Easy |  |
-| [LC 1031 — Maximum Sum of Two Non-Overlapping Subarrays](https://leetcode.com/problems/maximum-sum-of-two-non-overlapping-subarrays/) | Medium |  |
-| [LC 1094 — Car Pooling](https://leetcode.com/problems/car-pooling/) | Medium |  |
-| [LC 1109 — Corporate Flight Bookings](https://leetcode.com/problems/corporate-flight-bookings/) | Medium |  |
-| [LC 1248 — Count Number of Nice Subarrays](https://leetcode.com/problems/count-number-of-nice-subarrays/) | Medium |  |
-| [LC 1314 — Matrix Block Sum](https://leetcode.com/problems/matrix-block-sum/) | Medium |  |
-| [LC 1442 — Count Triplets That Can Form Two Arrays of Equal XOR](https://leetcode.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/) | Medium |  |
-| [LC 1590 — Make Sum Divisible by P](https://leetcode.com/problems/make-sum-divisible-by-p/) | Medium |  |
-| [LC 1658 — Minimum Operations to Reduce X to Zero](https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/) | Medium |  |
-| [LC 1664 — Ways to Make a Fair Array](https://leetcode.com/problems/ways-to-make-a-fair-array/) | Medium |  |
-| [LC 1732 — Find the Highest Altitude](https://leetcode.com/problems/find-the-highest-altitude/) | Easy |  |
-| [LC 1991 — Find the Middle Index in Array](https://leetcode.com/problems/find-the-middle-index-in-array/) | Easy |  |
-| [CC — Range Sum Queries (RANGESUM)](https://www.codechef.com/problems/RANGESUM) | Easy |  |
-| [CC — Prefix Sum Array (PREFSUM)](https://www.codechef.com/problems/PREFSUM) | Easy |  |
-| [CC — Subarray Queries (SUBARR)](https://www.codechef.com/problems/SUBARR) | Medium |  |
+| Problem                                                                                                                                               | Difficulty | Solution |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | -------- |
+| [LC 1480 — Running Sum of 1D Array](https://leetcode.com/problems/running-sum-of-1d-array/)                                                           | Easy       |          |
+| [LC 303 — Range Sum Query](https://leetcode.com/problems/range-sum-query-immutable/)                                                                  | Easy       |          |
+| [LC 560 — Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/)                                                                | Medium     |          |
+| [LC 525 — Contiguous Array](https://leetcode.com/problems/contiguous-array/)                                                                          | Medium     |          |
+| [LC 304 — Range Sum Query 2D](https://leetcode.com/problems/range-sum-query-2d-immutable/)                                                            | Medium     |          |
+| [LC 1171 — Remove Zero Sum Consecutive Nodes](https://leetcode.com/problems/remove-zero-sum-consecutive-nodes-from-linked-list/)                      | Medium     |          |
+| [CC — Sumtastic (SUMTASTIC)](https://www.codechef.com/problems/SUMTASTIC)                                                                             | Medium     |          |
+| [CC — Chef Segment (CHSEG)](https://www.codechef.com/problems/CHSEG)                                                                                  | Medium     |          |
+| [LC 363 — Max Sum of Rectangle No Larger Than K](https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/)                                | Hard       |          |
+| [LC 930 — Binary Subarrays With Sum](https://leetcode.com/problems/binary-subarrays-with-sum/)                                                        | Medium     |          |
+| [LC 523 — Continuous Subarray Sum](https://leetcode.com/problems/continuous-subarray-sum/)                                                            | Medium     |          |
+| [LC 238 — Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/)                                                  | Medium     |          |
+| [LC 724 — Find Pivot Index](https://leetcode.com/problems/find-pivot-index/)                                                                          | Easy       |          |
+| [LC 1031 — Maximum Sum of Two Non-Overlapping Subarrays](https://leetcode.com/problems/maximum-sum-of-two-non-overlapping-subarrays/)                 | Medium     |          |
+| [LC 1094 — Car Pooling](https://leetcode.com/problems/car-pooling/)                                                                                   | Medium     |          |
+| [LC 1109 — Corporate Flight Bookings](https://leetcode.com/problems/corporate-flight-bookings/)                                                       | Medium     |          |
+| [LC 1248 — Count Number of Nice Subarrays](https://leetcode.com/problems/count-number-of-nice-subarrays/)                                             | Medium     |          |
+| [LC 1314 — Matrix Block Sum](https://leetcode.com/problems/matrix-block-sum/)                                                                         | Medium     |          |
+| [LC 1442 — Count Triplets That Can Form Two Arrays of Equal XOR](https://leetcode.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/) | Medium     |          |
+| [LC 1590 — Make Sum Divisible by P](https://leetcode.com/problems/make-sum-divisible-by-p/)                                                           | Medium     |          |
+| [LC 1658 — Minimum Operations to Reduce X to Zero](https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/)                             | Medium     |          |
+| [LC 1664 — Ways to Make a Fair Array](https://leetcode.com/problems/ways-to-make-a-fair-array/)                                                       | Medium     |          |
+| [LC 1732 — Find the Highest Altitude](https://leetcode.com/problems/find-the-highest-altitude/)                                                       | Easy       |          |
+| [LC 1991 — Find the Middle Index in Array](https://leetcode.com/problems/find-the-middle-index-in-array/)                                             | Easy       |          |
+| [CC — Range Sum Queries (RANGESUM)](https://www.codechef.com/problems/RANGESUM)                                                                       | Easy       |          |
+| [CC — Prefix Sum Array (PREFSUM)](https://www.codechef.com/problems/PREFSUM)                                                                          | Easy       |          |
+| [CC — Subarray Queries (SUBARR)](https://www.codechef.com/problems/SUBARR)                                                                            | Medium     |          |
 
 ---
 

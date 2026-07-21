@@ -1,14 +1,16 @@
 # 🔧 JavaScript Functions
 
-> *Master all aspects of JavaScript functions - from basics to advanced patterns*
+> _Master all aspects of JavaScript functions - from basics to advanced patterns_
 
 ## 📋 Table of Contents
 
 ### Function Fundamentals
+
 - [Function Types](./function-types.md) - Declaration, Expression, Arrow Functions
 - [Function Callbacks](./function-callback.md) - Understanding callback patterns
 
 ### Advanced Function Concepts
+
 - [Function Closures](./function-closure.md) - Lexical scoping and closure patterns
 - [IIFE (Immediately Invoked Function Expressions)](./function-iife.md) - Self-executing functions
 - [Function Recursion](./function-recursion.md) - Recursive programming patterns
@@ -33,5 +35,4 @@
 
 ---
 
-*Master these function concepts to become proficient in JavaScript! 🚀*
-
+_Master these function concepts to become proficient in JavaScript! 🚀_

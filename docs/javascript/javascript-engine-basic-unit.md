@@ -12,8 +12,6 @@ Abstract syntax tree
 
 Reads/Scans the code line by line and no intermediate code is generated.
 
-
-
 ### Profiler
 
 ### Complier
@@ -29,6 +27,7 @@ Reads/Scans the complete code and translate into machine code.
 > **Understanding the heart of JavaScript's asynchronous execution model**
 
 ## 📖 Table of Contents
+
 - [What is the Event Loop?](#what-is-the-event-loop)
 - [JavaScript Engine Architecture](#javascript-engine-architecture)
 - [Key Components](#key-components)
@@ -46,7 +45,9 @@ Reads/Scans the complete code and translate into machine code.
 The **Event Loop** is JavaScript's mechanism for handling **asynchronous operations** in a **single-threaded environment**. It's the reason JavaScript can perform non-blocking operations despite being single-threaded.
 
 ### 🧠 Mental Model
+
 > Think of the Event Loop as a **restaurant waiter**:
+>
 > - Takes orders (events) from customers (your code)
 > - Delivers orders to the kitchen (Web APIs)
 > - Brings completed dishes back to customers (executes callbacks)
@@ -81,23 +82,24 @@ The **Event Loop** is JavaScript's mechanism for handling **asynchronous operati
 ## Key Components
 
 ### 📚 **Call Stack** (LIFO - Last In, First Out)
+
 - **Purpose**: Keeps track of function calls
 - **Structure**: Stack data structure
 - **Behavior**: Functions are pushed when called, popped when completed
 
 ```javascript
 function first() {
-    console.log('First function');
-    second();
+  console.log('First function');
+  second();
 }
 
 function second() {
-    console.log('Second function');
-    third();
+  console.log('Second function');
+  third();
 }
 
 function third() {
-    console.log('Third function');
+  console.log('Third function');
 }
 
 first();
@@ -112,28 +114,33 @@ first();
 ```
 
 ### 🏪 **Heap** (Memory Storage)
+
 - **Purpose**: Stores objects and variables
 - **Structure**: Unorganized memory region
 - **Behavior**: Objects allocated here, garbage collected when not referenced
 
 ```javascript
-const user = {          // Object stored in heap
-    name: 'John',       // Properties stored in heap
-    age: 30             // Referenced by 'user' variable
+const user = {
+  // Object stored in heap
+  name: 'John', // Properties stored in heap
+  age: 30, // Referenced by 'user' variable
 };
 ```
 
 ### 🌐 **Web APIs** (Browser/Node.js Environment)
+
 - **Purpose**: Handle asynchronous operations
 - **Examples**: setTimeout, DOM events, HTTP requests, File I/O
 - **Behavior**: Execute outside the main thread
 
 ### 📬 **Callback Queue** (FIFO - First In, First Out)
+
 - **Purpose**: Holds completed async operations
 - **Structure**: Queue data structure
 - **Behavior**: Callbacks wait here until Call Stack is empty
 
 ### 🔄 **Event Loop** (The Coordinator)
+
 - **Purpose**: Manages execution flow
 - **Job**: Monitors Call Stack and moves callbacks from queue to stack
 - **Rule**: Only moves callbacks when Call Stack is empty
@@ -146,13 +153,14 @@ const user = {          // Object stored in heap
 
 ```javascript
 // Step-by-step execution example
-console.log('Start');                    // 1. Executes immediately
+console.log('Start'); // 1. Executes immediately
 
-setTimeout(() => {                       // 2. Goes to Web APIs
-    console.log('Timeout callback');     // 5. Executes after stack is empty
+setTimeout(() => {
+  // 2. Goes to Web APIs
+  console.log('Timeout callback'); // 5. Executes after stack is empty
 }, 0);
 
-console.log('End');                      // 3. Executes immediately
+console.log('End'); // 3. Executes immediately
 
 // Output:
 // Start
@@ -233,13 +241,13 @@ console.log('Sync');
 console.log('=== Start ===');
 
 setTimeout(() => {
-    console.log('Timeout 1');
-    Promise.resolve().then(() => console.log('Promise in Timeout'));
+  console.log('Timeout 1');
+  Promise.resolve().then(() => console.log('Promise in Timeout'));
 }, 0);
 
 Promise.resolve().then(() => {
-    console.log('Promise 1');
-    setTimeout(() => console.log('Timeout in Promise'), 0);
+  console.log('Promise 1');
+  setTimeout(() => console.log('Timeout in Promise'), 0);
 });
 
 queueMicrotask(() => console.log('Microtask'));
@@ -262,11 +270,11 @@ console.log('=== End ===');
 // HTML: <button id="btn">Click me</button>
 
 document.getElementById('btn').addEventListener('click', () => {
-    console.log('Button clicked');
+  console.log('Button clicked');
 
-    setTimeout(() => console.log('Click timeout'), 0);
+  setTimeout(() => console.log('Click timeout'), 0);
 
-    Promise.resolve().then(() => console.log('Click promise'));
+  Promise.resolve().then(() => console.log('Click promise'));
 });
 
 // When button is clicked:
@@ -280,6 +288,7 @@ document.getElementById('btn').addEventListener('click', () => {
 ## Common Misconceptions
 
 ### Myth 1: "setTimeout(fn, 0) executes immediately"
+
 ```javascript
 // Wrong understanding
 setTimeout(() => console.log('This runs immediately'), 0);
@@ -289,6 +298,7 @@ console.log('This actually runs first');
 ```
 
 ### Myth 2: "JavaScript is multi-threaded"
+
 ```javascript
 // JavaScript engine is single-threaded
 // Web APIs provide the illusion of concurrency
@@ -296,6 +306,7 @@ console.log('This actually runs first');
 ```
 
 ### Myth 3: "Promises are always faster than setTimeout"
+
 ```javascript
 // Correct: Promises are microtasks (higher priority)
 Promise.resolve().then(() => console.log('Promise'));
@@ -313,10 +324,10 @@ setTimeout(() => console.log('Timeout'), 0);
 ```javascript
 // BAD: Blocks the event loop
 function heavyTask() {
-    const start = Date.now();
-    while (Date.now() - start < 5000) {
-        // Blocks for 5 seconds - nothing else can run!
-    }
+  const start = Date.now();
+  while (Date.now() - start < 5000) {
+    // Blocks for 5 seconds - nothing else can run!
+  }
 }
 
 heavyTask(); // Browser becomes unresponsive
@@ -327,24 +338,24 @@ heavyTask(); // Browser becomes unresponsive
 ```javascript
 // GOOD: Break heavy tasks into chunks
 function heavyTaskNonBlocking(dataChunk, callback) {
-    // Process small chunk
-    processChunk(dataChunk);
+  // Process small chunk
+  processChunk(dataChunk);
 
-    // Continue with next chunk asynchronously
-    if (hasMoreData()) {
-        setTimeout(() => {
-            heavyTaskNonBlocking(nextChunk(), callback);
-        }, 0);
-    } else {
-        callback();
-    }
+  // Continue with next chunk asynchronously
+  if (hasMoreData()) {
+    setTimeout(() => {
+      heavyTaskNonBlocking(nextChunk(), callback);
+    }, 0);
+  } else {
+    callback();
+  }
 }
 
 // BETTER: Use Web Workers for CPU-intensive tasks
 const worker = new Worker('heavy-task-worker.js');
 worker.postMessage(data);
 worker.onmessage = (result) => {
-    // Handle result without blocking main thread
+  // Handle result without blocking main thread
 };
 ```
 
@@ -353,12 +364,12 @@ worker.onmessage = (result) => {
 ```javascript
 // Monitor Event Loop lag
 function measureEventLoopLag() {
-    const start = process.hrtime.bigint();
+  const start = process.hrtime.bigint();
 
-    setImmediate(() => {
-        const lag = process.hrtime.bigint() - start;
-        console.log(`Event Loop Lag: ${lag / 1000000n}ms`);
-    });
+  setImmediate(() => {
+    const lag = process.hrtime.bigint() - start;
+    console.log(`Event Loop Lag: ${lag / 1000000n}ms`);
+  });
 }
 
 setInterval(measureEventLoopLag, 1000);
@@ -369,41 +380,41 @@ setInterval(measureEventLoopLag, 1000);
 ## Best Practices
 
 ### 1. 🔄 **Keep the Event Loop Free**
+
 ```javascript
 // Avoid long-running synchronous operations
 // Break them into smaller async chunks
 ```
 
 ### 2. 🎯 **Understand Task Priorities**
+
 ```javascript
 // Microtasks: process.nextTick, Promises, queueMicrotask
 // Macrotasks: setTimeout, setInterval, I/O operations
 
 // Use appropriately based on urgency
 Promise.resolve().then(() => {
-    // High priority update
+  // High priority update
 });
 
 setTimeout(() => {
-    // Lower priority operation
+  // Lower priority operation
 }, 0);
 ```
 
 ### 3. 📈 **Optimize Async Operations**
+
 ```javascript
 // Group similar operations
-const promises = [
-    fetch('/api/data1'),
-    fetch('/api/data2'),
-    fetch('/api/data3')
-];
+const promises = [fetch('/api/data1'), fetch('/api/data2'), fetch('/api/data3')];
 
-Promise.all(promises).then(results => {
-    // Handle all results together
+Promise.all(promises).then((results) => {
+  // Handle all results together
 });
 ```
 
 ### 4. 🔍 **Debug with Tools**
+
 ```javascript
 // Use browser DevTools Performance tab
 // Monitor Call Stack and Async operations
@@ -417,6 +428,7 @@ Promise.all(promises).then(results => {
 ### 🎯 **Beginner Level**
 
 **Q1: What is the Event Loop?**
+
 ```
 A: The Event Loop is JavaScript's mechanism for handling asynchronous
 operations. It continuously monitors the Call Stack and callback queues,
@@ -424,6 +436,7 @@ moving callbacks to the stack when it's empty.
 ```
 
 **Q2: Predict the output:**
+
 ```javascript
 console.log('A');
 setTimeout(() => console.log('B'), 0);
@@ -435,6 +448,7 @@ console.log('C');
 ### 🔥 **Intermediate Level**
 
 **Q3: Explain microtasks vs macrotasks**
+
 ```javascript
 // Microtasks: Promises, queueMicrotask
 // Macrotasks: setTimeout, setInterval, I/O
@@ -442,9 +456,10 @@ console.log('C');
 ```
 
 **Q4: What's wrong with this code?**
+
 ```javascript
 for (var i = 0; i < 3; i++) {
-    setTimeout(() => console.log(i), 0);
+  setTimeout(() => console.log(i), 0);
 }
 // Issue: Prints 3, 3, 3 instead of 0, 1, 2
 // Solution: Use let or closures
@@ -453,25 +468,26 @@ for (var i = 0; i < 3; i++) {
 ### 🚀 **Advanced Level**
 
 **Q5: How would you implement a non-blocking loop?**
+
 ```javascript
 function nonBlockingLoop(array, processor, callback) {
-    function processChunk(index) {
-        const chunkSize = 100;
-        let processed = 0;
+  function processChunk(index) {
+    const chunkSize = 100;
+    let processed = 0;
 
-        while (processed < chunkSize && index < array.length) {
-            processor(array[index++]);
-            processed++;
-        }
-
-        if (index < array.length) {
-            setTimeout(() => processChunk(index), 0);
-        } else {
-            callback();
-        }
+    while (processed < chunkSize && index < array.length) {
+      processor(array[index++]);
+      processed++;
     }
 
-    processChunk(0);
+    if (index < array.length) {
+      setTimeout(() => processChunk(index), 0);
+    } else {
+      callback();
+    }
+  }
+
+  processChunk(0);
 }
 ```
 
@@ -497,7 +513,7 @@ function nonBlockingLoop(array, processor, callback) {
 
 ---
 
-*Ready to master asynchronous JavaScript? Practice these examples and experiment with different async patterns!* 🚀
+_Ready to master asynchronous JavaScript? Practice these examples and experiment with different async patterns!_ 🚀
 
 # Event Loop
 

@@ -3,6 +3,7 @@
 > **Master DOM manipulation for dynamic web applications**
 
 ## 📖 Table of Contents
+
 - [What is the DOM?](#what-is-the-dom)
 - [DOM Tree Structure](#dom-tree-structure)
 - [Selecting Elements](#selecting-elements)
@@ -21,17 +22,20 @@
 The **Document Object Model (DOM)** is a programming interface that represents HTML and XML documents as a tree structure of objects. It allows JavaScript to dynamically access and manipulate the content, structure, and styling of web pages.
 
 ### 🧠 Mental Model
+
 > Think of the DOM as a **family tree**:
+>
 > - Each HTML element is a **node** in the tree
 > - Elements can have **parent**, **children**, and **sibling** relationships
 > - JavaScript can **visit** any node and **modify** its properties
 
 ### 🏗️ DOM vs HTML
+
 ```html
 <!-- Static HTML -->
 <div class="container">
-    <h1>Welcome</h1>
-    <p>Hello World!</p>
+  <h1>Welcome</h1>
+  <p>Hello World!</p>
 </div>
 ```
 
@@ -47,6 +51,7 @@ heading.style.color = 'blue';
 ## DOM Tree Structure
 
 ### 📊 Visual Representation
+
 ```
 document
     └── html
@@ -63,30 +68,32 @@ document
 ```
 
 ### 🔍 Node Types
+
 ```javascript
 // Different types of DOM nodes
-console.log(Node.ELEMENT_NODE);        // 1 - <div>, <p>, etc.
-console.log(Node.TEXT_NODE);           // 3 - Text content
-console.log(Node.COMMENT_NODE);        // 8 - <!-- comments -->
-console.log(Node.DOCUMENT_NODE);       // 9 - document
-console.log(Node.DOCUMENT_TYPE_NODE);  // 10 - <!DOCTYPE>
+console.log(Node.ELEMENT_NODE); // 1 - <div>, <p>, etc.
+console.log(Node.TEXT_NODE); // 3 - Text content
+console.log(Node.COMMENT_NODE); // 8 - <!-- comments -->
+console.log(Node.DOCUMENT_NODE); // 9 - document
+console.log(Node.DOCUMENT_TYPE_NODE); // 10 - <!DOCTYPE>
 
 // Check node type
 const element = document.querySelector('div');
 if (element.nodeType === Node.ELEMENT_NODE) {
-    console.log('This is an element node');
+  console.log('This is an element node');
 }
 ```
 
 ### 🎯 Document Object
+
 ```javascript
 // Global document object
-console.log(document.title);           // Page title
-console.log(document.URL);             // Current URL
-console.log(document.domain);          // Domain name
+console.log(document.title); // Page title
+console.log(document.URL); // Current URL
+console.log(document.domain); // Domain name
 console.log(document.documentElement); // <html> element
-console.log(document.body);            // <body> element
-console.log(document.head);            // <head> element
+console.log(document.body); // <body> element
+console.log(document.head); // <head> element
 ```
 
 ---
@@ -96,6 +103,7 @@ console.log(document.head);            // <head> element
 ### 📌 Modern Selectors (Recommended)
 
 #### **querySelector() and querySelectorAll()**
+
 ```javascript
 // Select single element (first match)
 const firstButton = document.querySelector('button');
@@ -113,6 +121,7 @@ const siblingElement = document.querySelector('h1 + p');
 ```
 
 #### **Advanced CSS Selectors**
+
 ```javascript
 // Attribute selectors
 const requiredInputs = document.querySelectorAll('input[required]');
@@ -146,6 +155,7 @@ const radioButtons = document.getElementsByName('gender');
 ```
 
 ### ⚡ Performance Comparison
+
 ```javascript
 // Performance test
 console.time('getElementById');
@@ -168,6 +178,7 @@ console.timeEnd('getElementsByClassName');
 ### 📝 Content Manipulation
 
 #### **Text Content**
+
 ```javascript
 const heading = document.querySelector('h1');
 
@@ -183,6 +194,7 @@ heading.innerHTML = '<strong>Bold</strong> Text';
 ```
 
 #### **HTML Content**
+
 ```javascript
 const container = document.querySelector('.container');
 
@@ -198,6 +210,7 @@ container.appendChild(template.content.cloneNode(true));
 ### 🎨 Style Manipulation
 
 #### **Inline Styles**
+
 ```javascript
 const element = document.querySelector('.box');
 
@@ -215,13 +228,14 @@ element.style.setProperty('--main-color', '#ff6b6b');
 
 // Multiple styles
 Object.assign(element.style, {
-    width: '200px',
-    height: '100px',
-    background: 'linear-gradient(45deg, red, blue)'
+  width: '200px',
+  height: '100px',
+  background: 'linear-gradient(45deg, red, blue)',
 });
 ```
 
 #### **CSS Classes**
+
 ```javascript
 const element = document.querySelector('.card');
 
@@ -270,34 +284,36 @@ input.required = true;
 ### 📡 Adding Event Listeners
 
 #### **Basic Event Handling**
+
 ```javascript
 const button = document.querySelector('#submit-btn');
 
 // Method 1: addEventListener (recommended)
-button.addEventListener('click', function(event) {
-    console.log('Button clicked!', event);
+button.addEventListener('click', function (event) {
+  console.log('Button clicked!', event);
 });
 
 // Method 2: Arrow function
 button.addEventListener('click', (event) => {
-    event.preventDefault(); // Prevent default behavior
-    console.log('Click prevented!');
+  event.preventDefault(); // Prevent default behavior
+  console.log('Click prevented!');
 });
 
 // Method 3: Named function (reusable)
 function handleClick(event) {
-    console.log('Handled by named function');
+  console.log('Handled by named function');
 }
 button.addEventListener('click', handleClick);
 ```
 
 #### **Event Options**
+
 ```javascript
 // Event listener options
 button.addEventListener('click', handleClick, {
-    once: true,      // Run only once
-    passive: true,   // Never calls preventDefault
-    capture: true    // Capture phase
+  once: true, // Run only once
+  passive: true, // Never calls preventDefault
+  capture: true, // Capture phase
 });
 
 // Remove event listener
@@ -336,18 +352,18 @@ window.addEventListener('scroll', handleScroll);
 
 ```javascript
 function handleEvent(event) {
-    console.log('Event type:', event.type);
-    console.log('Target element:', event.target);
-    console.log('Current target:', event.currentTarget);
-    console.log('Mouse position:', event.clientX, event.clientY);
-    console.log('Key pressed:', event.key);
-    console.log('Shift key held:', event.shiftKey);
+  console.log('Event type:', event.type);
+  console.log('Target element:', event.target);
+  console.log('Current target:', event.currentTarget);
+  console.log('Mouse position:', event.clientX, event.clientY);
+  console.log('Key pressed:', event.key);
+  console.log('Shift key held:', event.shiftKey);
 
-    // Prevent default behavior
-    event.preventDefault();
+  // Prevent default behavior
+  event.preventDefault();
 
-    // Stop event bubbling
-    event.stopPropagation();
+  // Stop event bubbling
+  event.stopPropagation();
 }
 ```
 
@@ -357,18 +373,18 @@ function handleEvent(event) {
 // Instead of adding listeners to each item
 const list = document.querySelector('.todo-list');
 
-list.addEventListener('click', function(event) {
-    // Check if clicked element is a button
-    if (event.target.matches('button.delete-btn')) {
-        const todoItem = event.target.closest('.todo-item');
-        todoItem.remove();
-    }
+list.addEventListener('click', function (event) {
+  // Check if clicked element is a button
+  if (event.target.matches('button.delete-btn')) {
+    const todoItem = event.target.closest('.todo-item');
+    todoItem.remove();
+  }
 
-    // Check for edit buttons
-    if (event.target.matches('button.edit-btn')) {
-        const todoItem = event.target.closest('.todo-item');
-        editTodoItem(todoItem);
-    }
+  // Check for edit buttons
+  if (event.target.matches('button.edit-btn')) {
+    const todoItem = event.target.closest('.todo-item');
+    editTodoItem(todoItem);
+  }
 });
 ```
 
@@ -382,19 +398,19 @@ list.addEventListener('click', function(event) {
 const element = document.querySelector('.child');
 
 // Parent navigation
-console.log(element.parentNode);      // Immediate parent
-console.log(element.parentElement);   // Parent element (excludes text nodes)
+console.log(element.parentNode); // Immediate parent
+console.log(element.parentElement); // Parent element (excludes text nodes)
 console.log(element.closest('.container')); // Nearest ancestor with class
 
 // Child navigation
-console.log(element.children);        // Child elements (HTMLCollection)
-console.log(element.childNodes);      // All child nodes (includes text)
+console.log(element.children); // Child elements (HTMLCollection)
+console.log(element.childNodes); // All child nodes (includes text)
 console.log(element.firstElementChild); // First child element
-console.log(element.lastElementChild);  // Last child element
+console.log(element.lastElementChild); // Last child element
 
 // Check for children
 if (element.hasChildNodes()) {
-    console.log('Element has children');
+  console.log('Element has children');
 }
 ```
 
@@ -404,10 +420,10 @@ if (element.hasChildNodes()) {
 const element = document.querySelector('.current');
 
 // Sibling navigation
-console.log(element.nextElementSibling);     // Next sibling element
+console.log(element.nextElementSibling); // Next sibling element
 console.log(element.previousElementSibling); // Previous sibling element
-console.log(element.nextSibling);            // Next sibling node
-console.log(element.previousSibling);        // Previous sibling node
+console.log(element.nextSibling); // Next sibling node
+console.log(element.previousSibling); // Previous sibling node
 ```
 
 ### 🔍 Finding Elements
@@ -458,8 +474,8 @@ const container = document.querySelector('.container');
 const newElement = document.createElement('div');
 
 // Append methods
-container.appendChild(newElement);           // Add to end
-container.prepend(newElement);              // Add to beginning
+container.appendChild(newElement); // Add to end
+container.prepend(newElement); // Add to beginning
 container.insertBefore(newElement, reference); // Insert before reference
 
 // Modern methods (more flexible)
@@ -468,9 +484,9 @@ container.prepend('Text at start', newElement);
 
 // Position-based insertion
 element.insertAdjacentElement('beforebegin', newElement); // Before element
-element.insertAdjacentElement('afterbegin', newElement);  // First child
-element.insertAdjacentElement('beforeend', newElement);   // Last child
-element.insertAdjacentElement('afterend', newElement);    // After element
+element.insertAdjacentElement('afterbegin', newElement); // First child
+element.insertAdjacentElement('beforeend', newElement); // Last child
+element.insertAdjacentElement('afterend', newElement); // After element
 ```
 
 ### ❌ Removing Elements
@@ -486,7 +502,7 @@ parent.removeChild(child); // Legacy way
 element.innerHTML = ''; // Fast but loses event listeners
 // OR
 while (element.firstChild) {
-    element.removeChild(element.firstChild);
+  element.removeChild(element.firstChild);
 }
 
 // Replace element
@@ -503,26 +519,26 @@ oldElement.replaceWith(newElement);
 ```javascript
 // BAD: Multiple DOM queries and modifications
 function updateList(items) {
-    const list = document.querySelector('.list');
-    for (let item of items) {
-        const li = document.createElement('li');
-        li.textContent = item.name;
-        list.appendChild(li); // DOM modification in loop!
-    }
+  const list = document.querySelector('.list');
+  for (let item of items) {
+    const li = document.createElement('li');
+    li.textContent = item.name;
+    list.appendChild(li); // DOM modification in loop!
+  }
 }
 
 // GOOD: Batch operations
 function updateListOptimized(items) {
-    const list = document.querySelector('.list');
-    const fragment = document.createDocumentFragment();
+  const list = document.querySelector('.list');
+  const fragment = document.createDocumentFragment();
 
-    for (let item of items) {
-        const li = document.createElement('li');
-        li.textContent = item.name;
-        fragment.appendChild(li); // Add to fragment
-    }
+  for (let item of items) {
+    const li = document.createElement('li');
+    li.textContent = item.name;
+    fragment.appendChild(li); // Add to fragment
+  }
 
-    list.appendChild(fragment); // Single DOM modification
+  list.appendChild(fragment); // Single DOM modification
 }
 ```
 
@@ -530,8 +546,8 @@ function updateListOptimized(items) {
 
 ```javascript
 // BAD: Causes multiple reflows
-element.style.width = '100px';  // Reflow
-element.style.height = '50px';  // Reflow
+element.style.width = '100px'; // Reflow
+element.style.height = '50px'; // Reflow
 element.style.background = 'red'; // Repaint
 
 // GOOD: Batch style changes
@@ -546,22 +562,22 @@ element.className = 'optimized-styles';
 ```javascript
 // BAD: Repeated DOM queries
 function handleClicks() {
-    document.querySelector('.button').addEventListener('click', () => {
-        document.querySelector('.status').textContent = 'Clicked';
-        document.querySelector('.counter').textContent = count++;
-    });
+  document.querySelector('.button').addEventListener('click', () => {
+    document.querySelector('.status').textContent = 'Clicked';
+    document.querySelector('.counter').textContent = count++;
+  });
 }
 
 // GOOD: Cache references
 function handleClicksOptimized() {
-    const button = document.querySelector('.button');
-    const status = document.querySelector('.status');
-    const counter = document.querySelector('.counter');
+  const button = document.querySelector('.button');
+  const status = document.querySelector('.status');
+  const counter = document.querySelector('.counter');
 
-    button.addEventListener('click', () => {
-        status.textContent = 'Clicked';
-        counter.textContent = count++;
-    });
+  button.addEventListener('click', () => {
+    status.textContent = 'Clicked';
+    counter.textContent = count++;
+  });
 }
 ```
 
@@ -574,19 +590,19 @@ function handleClicksOptimized() {
 ```javascript
 // Lazy loading images
 const imageObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.dataset.src;
-            img.classList.remove('lazy');
-            imageObserver.unobserve(img);
-        }
-    });
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const img = entry.target;
+      img.src = img.dataset.src;
+      img.classList.remove('lazy');
+      imageObserver.unobserve(img);
+    }
+  });
 });
 
 // Observe all lazy images
-document.querySelectorAll('img[data-src]').forEach(img => {
-    imageObserver.observe(img);
+document.querySelectorAll('img[data-src]').forEach((img) => {
+  imageObserver.observe(img);
 });
 ```
 
@@ -595,21 +611,21 @@ document.querySelectorAll('img[data-src]').forEach(img => {
 ```javascript
 // Watch for DOM changes
 const observer = new MutationObserver((mutations) => {
-    mutations.forEach(mutation => {
-        if (mutation.type === 'childList') {
-            console.log('Children added/removed');
-        }
-        if (mutation.type === 'attributes') {
-            console.log('Attributes changed');
-        }
-    });
+  mutations.forEach((mutation) => {
+    if (mutation.type === 'childList') {
+      console.log('Children added/removed');
+    }
+    if (mutation.type === 'attributes') {
+      console.log('Attributes changed');
+    }
+  });
 });
 
 // Start observing
 observer.observe(document.body, {
-    childList: true,
-    attributes: true,
-    subtree: true
+  childList: true,
+  attributes: true,
+  subtree: true,
 });
 ```
 
@@ -617,11 +633,11 @@ observer.observe(document.body, {
 
 ```javascript
 // Watch for element size changes
-const resizeObserver = new ResizeObserver(entries => {
-    entries.forEach(entry => {
-        const { width, height } = entry.contentRect;
-        console.log(`Element resized to: ${width}x${height}`);
-    });
+const resizeObserver = new ResizeObserver((entries) => {
+  entries.forEach((entry) => {
+    const { width, height } = entry.contentRect;
+    console.log(`Element resized to: ${width}x${height}`);
+  });
 });
 
 resizeObserver.observe(document.querySelector('.resizable-element'));
@@ -632,6 +648,7 @@ resizeObserver.observe(document.querySelector('.resizable-element'));
 ## Best Practices
 
 ### 1. 🎯 **Efficient Selectors**
+
 ```javascript
 // Use specific selectors
 const element = document.getElementById('unique-id'); // Fastest
@@ -643,16 +660,18 @@ const elements = document.getElementsByClassName('class-name'); // Fast
 ```
 
 ### 2. 🔄 **Event Delegation**
+
 ```javascript
 // Handle events on parent container
 document.querySelector('.button-container').addEventListener('click', (e) => {
-    if (e.target.matches('.action-button')) {
-        handleAction(e.target);
-    }
+  if (e.target.matches('.action-button')) {
+    handleAction(e.target);
+  }
 });
 ```
 
 ### 3. 🛡️ **Security Considerations**
+
 ```javascript
 // Avoid innerHTML with user input
 // BAD: element.innerHTML = userInput;
@@ -665,12 +684,13 @@ element.innerHTML = sanitizeHTML(userInput);
 ```
 
 ### 4. 📱 **Responsive Design**
+
 ```javascript
 // Use modern CSS and feature detection
 if ('IntersectionObserver' in window) {
-    // Use Intersection Observer
+  // Use Intersection Observer
 } else {
-    // Fallback to scroll events
+  // Fallback to scroll events
 }
 ```
 
@@ -679,60 +699,61 @@ if ('IntersectionObserver' in window) {
 ## Real-World Examples
 
 ### 📝 **Dynamic Form Validation**
+
 ```javascript
 class FormValidator {
-    constructor(form) {
-        this.form = form;
-        this.errors = new Map();
-        this.init();
+  constructor(form) {
+    this.form = form;
+    this.errors = new Map();
+    this.init();
+  }
+
+  init() {
+    this.form.addEventListener('submit', this.handleSubmit.bind(this));
+    this.form.addEventListener('input', this.handleInput.bind(this));
+  }
+
+  handleSubmit(e) {
+    if (!this.validateForm()) {
+      e.preventDefault();
+      this.displayErrors();
     }
+  }
 
-    init() {
-        this.form.addEventListener('submit', this.handleSubmit.bind(this));
-        this.form.addEventListener('input', this.handleInput.bind(this));
+  handleInput(e) {
+    this.validateField(e.target);
+    this.updateFieldDisplay(e.target);
+  }
+
+  validateField(field) {
+    const value = field.value.trim();
+    const rules = field.dataset.rules?.split('|') || [];
+
+    this.errors.delete(field.name);
+
+    for (let rule of rules) {
+      if (rule === 'required' && !value) {
+        this.errors.set(field.name, 'This field is required');
+        break;
+      }
+      if (rule === 'email' && !this.isValidEmail(value)) {
+        this.errors.set(field.name, 'Please enter a valid email');
+        break;
+      }
     }
+  }
 
-    handleSubmit(e) {
-        if (!this.validateForm()) {
-            e.preventDefault();
-            this.displayErrors();
-        }
+  updateFieldDisplay(field) {
+    const errorElement = field.parentNode.querySelector('.error-message');
+    const hasError = this.errors.has(field.name);
+
+    field.classList.toggle('error', hasError);
+    field.classList.toggle('valid', !hasError && field.value);
+
+    if (errorElement) {
+      errorElement.textContent = this.errors.get(field.name) || '';
     }
-
-    handleInput(e) {
-        this.validateField(e.target);
-        this.updateFieldDisplay(e.target);
-    }
-
-    validateField(field) {
-        const value = field.value.trim();
-        const rules = field.dataset.rules?.split('|') || [];
-
-        this.errors.delete(field.name);
-
-        for (let rule of rules) {
-            if (rule === 'required' && !value) {
-                this.errors.set(field.name, 'This field is required');
-                break;
-            }
-            if (rule === 'email' && !this.isValidEmail(value)) {
-                this.errors.set(field.name, 'Please enter a valid email');
-                break;
-            }
-        }
-    }
-
-    updateFieldDisplay(field) {
-        const errorElement = field.parentNode.querySelector('.error-message');
-        const hasError = this.errors.has(field.name);
-
-        field.classList.toggle('error', hasError);
-        field.classList.toggle('valid', !hasError && field.value);
-
-        if (errorElement) {
-            errorElement.textContent = this.errors.get(field.name) || '';
-        }
-    }
+  }
 }
 
 // Usage
@@ -740,58 +761,59 @@ new FormValidator(document.querySelector('#contact-form'));
 ```
 
 ### 🎪 **Interactive Image Gallery**
+
 ```javascript
 class ImageGallery {
-    constructor(container) {
-        this.container = container;
-        this.modal = this.createModal();
-        this.currentIndex = 0;
-        this.images = [];
-        this.init();
-    }
+  constructor(container) {
+    this.container = container;
+    this.modal = this.createModal();
+    this.currentIndex = 0;
+    this.images = [];
+    this.init();
+  }
 
-    init() {
-        this.loadImages();
-        this.bindEvents();
-    }
+  init() {
+    this.loadImages();
+    this.bindEvents();
+  }
 
-    loadImages() {
-        this.images = Array.from(this.container.querySelectorAll('img'));
-        this.images.forEach((img, index) => {
-            img.dataset.index = index;
-            img.classList.add('gallery-image');
-        });
-    }
+  loadImages() {
+    this.images = Array.from(this.container.querySelectorAll('img'));
+    this.images.forEach((img, index) => {
+      img.dataset.index = index;
+      img.classList.add('gallery-image');
+    });
+  }
 
-    bindEvents() {
-        this.container.addEventListener('click', this.handleImageClick.bind(this));
-        this.modal.addEventListener('click', this.handleModalClick.bind(this));
-        document.addEventListener('keydown', this.handleKeyPress.bind(this));
-    }
+  bindEvents() {
+    this.container.addEventListener('click', this.handleImageClick.bind(this));
+    this.modal.addEventListener('click', this.handleModalClick.bind(this));
+    document.addEventListener('keydown', this.handleKeyPress.bind(this));
+  }
 
-    handleImageClick(e) {
-        if (e.target.matches('.gallery-image')) {
-            this.currentIndex = parseInt(e.target.dataset.index);
-            this.openModal();
-        }
+  handleImageClick(e) {
+    if (e.target.matches('.gallery-image')) {
+      this.currentIndex = parseInt(e.target.dataset.index);
+      this.openModal();
     }
+  }
 
-    openModal() {
-        const img = this.images[this.currentIndex];
-        this.modal.querySelector('.modal-image').src = img.src;
-        this.modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
+  openModal() {
+    const img = this.images[this.currentIndex];
+    this.modal.querySelector('.modal-image').src = img.src;
+    this.modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
 
-    closeModal() {
-        this.modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
+  closeModal() {
+    this.modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
 
-    createModal() {
-        const modal = document.createElement('div');
-        modal.className = 'image-modal';
-        modal.innerHTML = `
+  createModal() {
+    const modal = document.createElement('div');
+    modal.className = 'image-modal';
+    modal.innerHTML = `
             <div class="modal-content">
                 <img class="modal-image" src="" alt="">
                 <button class="modal-close">&times;</button>
@@ -799,9 +821,9 @@ class ImageGallery {
                 <button class="modal-next">&#8250;</button>
             </div>
         `;
-        document.body.appendChild(modal);
-        return modal;
-    }
+    document.body.appendChild(modal);
+    return modal;
+  }
 }
 
 // Usage
@@ -830,4 +852,4 @@ new ImageGallery(document.querySelector('.image-gallery'));
 
 ---
 
-*Ready to build dynamic web applications? Start practicing DOM manipulation today!* 🚀
+_Ready to build dynamic web applications? Start practicing DOM manipulation today!_ 🚀

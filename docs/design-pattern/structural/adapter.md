@@ -59,7 +59,7 @@ class FlacPlayer {
 // Target interface that client expects
 class MediaPlayer {
   play(audioType, filename) {
-    throw new Error("play() method must be implemented");
+    throw new Error('play() method must be implemented');
   }
 }
 
@@ -105,7 +105,7 @@ class AudioPlayer extends MediaPlayer {
 }
 
 // Usage
-console.log("=== Media Player Adapter Demo ===\n");
+console.log('=== Media Player Adapter Demo ===\n');
 
 const player = new AudioPlayer();
 
@@ -135,7 +135,7 @@ class MySQLDatabase {
   }
 
   mysqlClose() {
-    console.log("🐬 MySQL connection closed");
+    console.log('🐬 MySQL connection closed');
   }
 }
 
@@ -152,22 +152,22 @@ class PostgreSQLDatabase {
   }
 
   pgDisconnect() {
-    console.log("🐘 PostgreSQL disconnected");
+    console.log('🐘 PostgreSQL disconnected');
   }
 }
 
 // Target interface that client expects
 class DatabaseInterface {
   connect(config) {
-    throw new Error("connect() method must be implemented");
+    throw new Error('connect() method must be implemented');
   }
 
   query(sql) {
-    throw new Error("query() method must be implemented");
+    throw new Error('query() method must be implemented');
   }
 
   close() {
-    throw new Error("close() method must be implemented");
+    throw new Error('close() method must be implemented');
   }
 }
 
@@ -180,17 +180,13 @@ class MySQLAdapter extends DatabaseInterface {
   }
 
   connect(config) {
-    this.connection = this.database.mysqlConnect(
-      config.host,
-      config.username,
-      config.password
-    );
+    this.connection = this.database.mysqlConnect(config.host, config.username, config.password);
     return this.connection;
   }
 
   query(sql) {
     if (!this.connection) {
-      throw new Error("Not connected to MySQL");
+      throw new Error('Not connected to MySQL');
     }
     return this.database.mysqlQuery(sql);
   }
@@ -219,7 +215,7 @@ class PostgreSQLAdapter extends DatabaseInterface {
 
   query(sql) {
     if (!this.connection) {
-      throw new Error("Not connected to PostgreSQL");
+      throw new Error('Not connected to PostgreSQL');
     }
     return this.database.pgExecute(sql);
   }
@@ -244,32 +240,32 @@ class Application {
       host: 'localhost',
       username: 'admin',
       password: 'password',
-      database: 'myapp'
+      database: 'myapp',
     };
 
-    console.log("🚀 Starting application...");
+    console.log('🚀 Starting application...');
     this.db.connect(config);
 
-    const results = this.db.query("SELECT * FROM users");
-    console.log("📊 Query results:", results);
+    const results = this.db.query('SELECT * FROM users');
+    console.log('📊 Query results:', results);
 
     this.db.close();
-    console.log("🏁 Application finished\n");
+    console.log('🏁 Application finished\n');
   }
 }
 
 // Usage
-console.log("=== Database Adapter Demo ===\n");
+console.log('=== Database Adapter Demo ===\n');
 
 // Use MySQL
-console.log("Using MySQL Database:");
-console.log("-".repeat(20));
+console.log('Using MySQL Database:');
+console.log('-'.repeat(20));
 const mysqlApp = new Application(new MySQLAdapter());
 mysqlApp.run();
 
 // Use PostgreSQL
-console.log("Using PostgreSQL Database:");
-console.log("-".repeat(25));
+console.log('Using PostgreSQL Database:');
+console.log('-'.repeat(25));
 const pgApp = new Application(new PostgreSQLAdapter());
 pgApp.run();
 ```
@@ -290,7 +286,7 @@ class OldPaymentGateway {
 // New payment interface that client expects
 class PaymentInterface {
   processPayment(amount, currency) {
-    throw new Error("processPayment() method must be implemented");
+    throw new Error('processPayment() method must be implemented');
   }
 }
 
@@ -315,7 +311,7 @@ class PaymentAdapter extends PaymentInterface {
       success: result.status === 'success',
       transactionId: result.reference,
       amount: amount,
-      currency: currency
+      currency: currency,
     };
   }
 }
@@ -334,8 +330,8 @@ class ShoppingCart {
   checkout() {
     const total = this.items.reduce((sum, item) => sum + item.price, 0);
 
-    console.log("🛒 Checkout Summary:");
-    this.items.forEach(item => console.log(`   ${item.item}: $${item.price}`));
+    console.log('🛒 Checkout Summary:');
+    this.items.forEach((item) => console.log(`   ${item.item}: $${item.price}`));
     console.log(`   Total: $${total}`);
 
     const result = this.paymentProcessor.processPayment(total, 'USD');
@@ -343,17 +339,17 @@ class ShoppingCart {
     if (result.success) {
       console.log(`✅ Payment successful! Transaction ID: ${result.transactionId}`);
     } else {
-      console.log("❌ Payment failed!");
+      console.log('❌ Payment failed!');
     }
   }
 }
 
 // Usage
-console.log("=== Payment Gateway Adapter Demo ===\n");
+console.log('=== Payment Gateway Adapter Demo ===\n');
 
 const cart = new ShoppingCart(new PaymentAdapter());
-cart.addItem("Laptop", 999.99);
-cart.addItem("Mouse", 29.99);
+cart.addItem('Laptop', 999.99);
+cart.addItem('Mouse', 29.99);
 cart.checkout();
 ```
 
@@ -380,11 +376,13 @@ cart.checkout();
 ## 🔄 Types of Adapters
 
 ### 1. **Object Adapter** (shown in examples above)
+
 - Uses composition
 - More flexible
 - Can adapt multiple related classes
 
 ### 2. **Class Adapter** (using mixins in JavaScript)
+
 ```javascript
 class ClassAdapter extends OldClass {
   newMethod() {

@@ -1,20 +1,20 @@
 # 🔄 Callback Functions in JavaScript
 
-> *Understanding callback functions - the foundation of asynchronous programming in JavaScript*
+> _Understanding callback functions - the foundation of asynchronous programming in JavaScript_
 
 ## Callback
 
 When a function is passed as an argument to another function and then invoked inside the calling function.
 
 ```javascript
-function add(num){
-    console.log("multiply " + num +" by 2 = ",2*num)
+function add(num) {
+  console.log('multiply ' + num + ' by 2 = ', 2 * num);
 }
 
-function value(){
-    setTimeout(function(){
-        return 10;
-    },3000)
+function value() {
+  setTimeout(function () {
+    return 10;
+  }, 3000);
 }
 
 var num = value();
@@ -32,14 +32,14 @@ add(num);
 We can solve the above problem via callback by enforcing the order of executing function.
 
 ```javascript
-function add(num){
-    console.log("multiply " + num +" by 2 = ",2*num)
+function add(num) {
+  console.log('multiply ' + num + ' by 2 = ', 2 * num);
 }
 
-function value(callback){
-    setTimeout(function(){
-        callback(10);
-    },3000)
+function value(callback) {
+  setTimeout(function () {
+    callback(10);
+  }, 3000);
 }
 value(add);
 //multiply 20 by 2 =  40

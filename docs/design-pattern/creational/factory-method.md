@@ -52,26 +52,26 @@ ConcreteProductB implements Product
 // Product interface
 class Transport {
   deliver() {
-    throw new Error("deliver() method must be implemented");
+    throw new Error('deliver() method must be implemented');
   }
 }
 
 // Concrete Products
 class Truck extends Transport {
   deliver() {
-    return "🚚 Delivery by land in a truck";
+    return '🚚 Delivery by land in a truck';
   }
 }
 
 class Ship extends Transport {
   deliver() {
-    return "🚢 Delivery by sea in a ship";
+    return '🚢 Delivery by sea in a ship';
   }
 }
 
 class Plane extends Transport {
   deliver() {
-    return "✈️ Delivery by air in a plane";
+    return '✈️ Delivery by air in a plane';
   }
 }
 
@@ -79,7 +79,7 @@ class Plane extends Transport {
 class Logistics {
   // Factory method - to be implemented by subclasses
   createTransport() {
-    throw new Error("createTransport() method must be implemented");
+    throw new Error('createTransport() method must be implemented');
   }
 
   // Business logic that uses the factory method
@@ -112,15 +112,11 @@ class AirLogistics extends Logistics {
 
 // Usage
 function demonstrateFactoryMethod() {
-  console.log("=== Factory Method Pattern Demo ===\n");
+  console.log('=== Factory Method Pattern Demo ===\n');
 
-  const logistics = [
-    new RoadLogistics(),
-    new SeaLogistics(),
-    new AirLogistics()
-  ];
+  const logistics = [new RoadLogistics(), new SeaLogistics(), new AirLogistics()];
 
-  logistics.forEach(logistic => {
+  logistics.forEach((logistic) => {
     logistic.planDelivery();
   });
 }
@@ -136,57 +132,57 @@ demonstrateFactoryMethod();
 // Product interface
 class Button {
   render() {
-    throw new Error("render() method must be implemented");
+    throw new Error('render() method must be implemented');
   }
 
   onClick() {
-    throw new Error("onClick() method must be implemented");
+    throw new Error('onClick() method must be implemented');
   }
 }
 
 // Concrete Products
 class WindowsButton extends Button {
   render() {
-    console.log("🖼️ Rendering Windows-style button");
+    console.log('🖼️ Rendering Windows-style button');
     return "<button class='windows-btn'>Click me</button>";
   }
 
   onClick() {
-    console.log("💻 Windows button clicked - opening native dialog");
+    console.log('💻 Windows button clicked - opening native dialog');
   }
 }
 
 class MacButton extends Button {
   render() {
-    console.log("🍎 Rendering Mac-style button");
+    console.log('🍎 Rendering Mac-style button');
     return "<button class='mac-btn'>Click me</button>";
   }
 
   onClick() {
-    console.log("🖱️ Mac button clicked - showing Mac-style popup");
+    console.log('🖱️ Mac button clicked - showing Mac-style popup');
   }
 }
 
 class LinuxButton extends Button {
   render() {
-    console.log("🐧 Rendering Linux-style button");
+    console.log('🐧 Rendering Linux-style button');
     return "<button class='linux-btn'>Click me</button>";
   }
 
   onClick() {
-    console.log("⌨️ Linux button clicked - launching terminal command");
+    console.log('⌨️ Linux button clicked - launching terminal command');
   }
 }
 
 // Creator classes
 class Dialog {
   createButton() {
-    throw new Error("createButton() method must be implemented");
+    throw new Error('createButton() method must be implemented');
   }
 
   render() {
     const button = this.createButton();
-    console.log("🎨 Rendering dialog:");
+    console.log('🎨 Rendering dialog:');
     const html = `
       <div class="dialog">
         <h2>Confirmation</h2>
@@ -226,9 +222,9 @@ class Application {
   initialize() {
     const os = this.detectOS();
 
-    if (os === "Windows") {
+    if (os === 'Windows') {
       this.dialog = new WindowsDialog();
-    } else if (os === "Mac") {
+    } else if (os === 'Mac') {
       this.dialog = new MacDialog();
     } else {
       this.dialog = new LinuxDialog();
@@ -237,7 +233,7 @@ class Application {
 
   detectOS() {
     // Simulate OS detection
-    const osTypes = ["Windows", "Mac", "Linux"];
+    const osTypes = ['Windows', 'Mac', 'Linux'];
     return osTypes[Math.floor(Math.random() * osTypes.length)];
   }
 
@@ -247,7 +243,7 @@ class Application {
 
     // Simulate user interaction
     setTimeout(() => {
-      console.log("\n👆 User clicked the button:");
+      console.log('\n👆 User clicked the button:');
       button.onClick();
     }, 1000);
   }
@@ -264,15 +260,15 @@ app.run();
 // Product interface
 class DatabaseConnection {
   connect() {
-    throw new Error("connect() method must be implemented");
+    throw new Error('connect() method must be implemented');
   }
 
   query(sql) {
-    throw new Error("query() method must be implemented");
+    throw new Error('query() method must be implemented');
   }
 
   close() {
-    throw new Error("close() method must be implemented");
+    throw new Error('close() method must be implemented');
   }
 }
 
@@ -287,18 +283,18 @@ class MySQLConnection extends DatabaseConnection {
   connect() {
     console.log(`🐬 Connecting to MySQL: ${this.config.host}:${this.config.port}`);
     this.connected = true;
-    return "MySQL connection established";
+    return 'MySQL connection established';
   }
 
   query(sql) {
-    if (!this.connected) throw new Error("Not connected to MySQL");
+    if (!this.connected) throw new Error('Not connected to MySQL');
     console.log(`📊 Executing MySQL query: ${sql}`);
     return `MySQL result for: ${sql}`;
   }
 
   close() {
     this.connected = false;
-    console.log("🐬 MySQL connection closed");
+    console.log('🐬 MySQL connection closed');
   }
 }
 
@@ -312,18 +308,18 @@ class PostgreSQLConnection extends DatabaseConnection {
   connect() {
     console.log(`🐘 Connecting to PostgreSQL: ${this.config.host}:${this.config.port}`);
     this.connected = true;
-    return "PostgreSQL connection established";
+    return 'PostgreSQL connection established';
   }
 
   query(sql) {
-    if (!this.connected) throw new Error("Not connected to PostgreSQL");
+    if (!this.connected) throw new Error('Not connected to PostgreSQL');
     console.log(`📊 Executing PostgreSQL query: ${sql}`);
     return `PostgreSQL result for: ${sql}`;
   }
 
   close() {
     this.connected = false;
-    console.log("🐘 PostgreSQL connection closed");
+    console.log('🐘 PostgreSQL connection closed');
   }
 }
 
@@ -337,18 +333,18 @@ class MongoDBConnection extends DatabaseConnection {
   connect() {
     console.log(`🍃 Connecting to MongoDB: ${this.config.host}:${this.config.port}`);
     this.connected = true;
-    return "MongoDB connection established";
+    return 'MongoDB connection established';
   }
 
   query(query) {
-    if (!this.connected) throw new Error("Not connected to MongoDB");
+    if (!this.connected) throw new Error('Not connected to MongoDB');
     console.log(`📊 Executing MongoDB query: ${JSON.stringify(query)}`);
     return `MongoDB result for: ${JSON.stringify(query)}`;
   }
 
   close() {
     this.connected = false;
-    console.log("🍃 MongoDB connection closed");
+    console.log('🍃 MongoDB connection closed');
   }
 }
 
@@ -359,7 +355,7 @@ class DatabaseConnectionFactory {
   }
 
   createConnection() {
-    throw new Error("createConnection() method must be implemented");
+    throw new Error('createConnection() method must be implemented');
   }
 
   // Template method that uses factory method
@@ -380,7 +376,7 @@ class MySQLConnectionFactory extends DatabaseConnectionFactory {
   createConnection() {
     return new MySQLConnection({
       ...this.config,
-      port: this.config.port || 3306
+      port: this.config.port || 3306,
     });
   }
 }
@@ -389,7 +385,7 @@ class PostgreSQLConnectionFactory extends DatabaseConnectionFactory {
   createConnection() {
     return new PostgreSQLConnection({
       ...this.config,
-      port: this.config.port || 5432
+      port: this.config.port || 5432,
     });
   }
 }
@@ -398,7 +394,7 @@ class MongoDBConnectionFactory extends DatabaseConnectionFactory {
   createConnection() {
     return new MongoDBConnection({
       ...this.config,
-      port: this.config.port || 27017
+      port: this.config.port || 27017,
     });
   }
 }
@@ -430,7 +426,7 @@ class DatabaseManager {
 
   executeQuery(query) {
     if (!this.connection) {
-      throw new Error("No database connection");
+      throw new Error('No database connection');
     }
     return this.connection.query(query);
   }
@@ -448,12 +444,12 @@ const config = {
   host: 'localhost',
   username: 'admin',
   password: 'password',
-  database: 'myapp'
+  database: 'myapp',
 };
 
 const databases = ['mysql', 'postgresql', 'mongodb'];
 
-databases.forEach(dbType => {
+databases.forEach((dbType) => {
   console.log(`\n=== Testing ${dbType.toUpperCase()} ===`);
 
   const dbManager = new DatabaseManager(dbType, config);
@@ -481,11 +477,11 @@ databases.forEach(dbType => {
 // Product interface
 class DocumentParser {
   parse(content) {
-    throw new Error("parse() method must be implemented");
+    throw new Error('parse() method must be implemented');
   }
 
   getMetadata() {
-    throw new Error("getMetadata() method must be implemented");
+    throw new Error('getMetadata() method must be implemented');
   }
 }
 
@@ -497,13 +493,13 @@ class PDFParser extends DocumentParser {
   }
 
   parse(content) {
-    console.log("📄 Parsing PDF document...");
+    console.log('📄 Parsing PDF document...');
     // Simulate PDF parsing
     this.metadata = {
       type: 'PDF',
       pages: Math.floor(Math.random() * 100) + 1,
       author: 'Unknown Author',
-      createdDate: new Date().toISOString()
+      createdDate: new Date().toISOString(),
     };
 
     const text = content.replace(/%PDF-[\d.]+/g, '').trim();
@@ -523,13 +519,13 @@ class WordParser extends DocumentParser {
   }
 
   parse(content) {
-    console.log("📝 Parsing Word document...");
+    console.log('📝 Parsing Word document...');
     // Simulate Word parsing
     this.metadata = {
       type: 'DOCX',
       wordCount: content.split(/\s+/).length,
       lastModified: new Date().toISOString(),
-      hasImages: Math.random() > 0.5
+      hasImages: Math.random() > 0.5,
     };
 
     const text = content.replace(/[^\w\s]/gi, '').trim();
@@ -549,7 +545,7 @@ class ExcelParser extends DocumentParser {
   }
 
   parse(content) {
-    console.log("📊 Parsing Excel document...");
+    console.log('📊 Parsing Excel document...');
     // Simulate Excel parsing
     const rows = content.split('\n').length;
     const columns = content.split(',').length / rows;
@@ -559,7 +555,7 @@ class ExcelParser extends DocumentParser {
       sheets: Math.floor(Math.random() * 5) + 1,
       rows: rows,
       columns: Math.floor(columns),
-      hasFormulas: Math.random() > 0.3
+      hasFormulas: Math.random() > 0.3,
     };
 
     console.log(`✅ Excel parsed: ${this.metadata.sheets} sheets, ${rows} rows`);
@@ -574,7 +570,7 @@ class ExcelParser extends DocumentParser {
 // Creator classes
 class DocumentParserFactory {
   createParser() {
-    throw new Error("createParser() method must be implemented");
+    throw new Error('createParser() method must be implemented');
   }
 
   // Template method
@@ -590,13 +586,13 @@ class DocumentParserFactory {
         success: true,
         content: parsedContent,
         metadata: metadata,
-        filePath: filePath
+        filePath: filePath,
       };
     } catch (error) {
       return {
         success: false,
         error: error.message,
-        filePath: filePath
+        filePath: filePath,
       };
     }
   }
@@ -628,7 +624,7 @@ class DocumentProcessor {
       ['.docx', new WordParserFactory()],
       ['.doc', new WordParserFactory()],
       ['.xlsx', new ExcelParserFactory()],
-      ['.xls', new ExcelParserFactory()]
+      ['.xls', new ExcelParserFactory()],
     ]);
   }
 
@@ -658,19 +654,19 @@ const processor = new DocumentProcessor();
 const testDocuments = [
   {
     path: 'report.pdf',
-    content: '%PDF-1.4 This is a sample PDF content with multiple paragraphs and data.'
+    content: '%PDF-1.4 This is a sample PDF content with multiple paragraphs and data.',
   },
   {
     path: 'proposal.docx',
-    content: 'This is a Word document with formatted text, headings, and various content elements.'
+    content: 'This is a Word document with formatted text, headings, and various content elements.',
   },
   {
     path: 'data.xlsx',
-    content: 'Name,Age,City\nJohn,25,New York\nJane,30,Los Angeles\nBob,35,Chicago'
-  }
+    content: 'Name,Age,City\nJohn,25,New York\nJane,30,Los Angeles\nBob,35,Chicago',
+  },
 ];
 
-testDocuments.forEach(doc => {
+testDocuments.forEach((doc) => {
   try {
     const result = processor.processDocument(doc.path, doc.content);
 
@@ -708,19 +704,24 @@ testDocuments.forEach(doc => {
 ## 🔄 Variations
 
 ### 1. **Parameterized Factory Method**
+
 ```javascript
 class ParameterizedCreator {
   createProduct(type) {
-    switch(type) {
-      case 'A': return new ProductA();
-      case 'B': return new ProductB();
-      default: throw new Error(`Unknown product type: ${type}`);
+    switch (type) {
+      case 'A':
+        return new ProductA();
+      case 'B':
+        return new ProductB();
+      default:
+        throw new Error(`Unknown product type: ${type}`);
     }
   }
 }
 ```
 
 ### 2. **Registry-based Factory**
+
 ```javascript
 class RegistryFactory {
   constructor() {
@@ -742,6 +743,7 @@ class RegistryFactory {
 ```
 
 ### 3. **Async Factory Method**
+
 ```javascript
 class AsyncCreator {
   async createProduct() {

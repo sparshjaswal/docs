@@ -1,8 +1,9 @@
 # 🔒 Referential Transparency & Mathematical Foundations
 
-> *Understanding the mathematical foundations that make functional programming powerful and predictable*
+> _Understanding the mathematical foundations that make functional programming powerful and predictable_
 
 ## Table of Contents
+
 - [What is Referential Transparency?](#what-is-referential-transparency)
 - [Mathematical Foundations](#mathematical-foundations)
 - [Lambda Calculus](#lambda-calculus)
@@ -21,6 +22,7 @@
 ### Formal Definition
 
 An expression is referentially transparent if:
+
 1. It always evaluates to the same value given the same context
 2. It can be replaced by its value without affecting program behavior
 3. Its evaluation has no observable side effects
@@ -50,13 +52,14 @@ const result5 = 1 + 1; // Cannot substitute with first call's value
 ### Function as Mathematical Mappings
 
 In mathematics, a function maps inputs to outputs consistently:
+
 - `f: A → B` (function f maps from set A to set B)
 - For every input in A, there's exactly one output in B
 - The same input always produces the same output
 
 ```javascript
 // ✅ Mathematical function
-const square = x => x * x;
+const square = (x) => x * x;
 
 // Properties:
 // 1. Total: defined for all valid inputs
@@ -74,8 +77,8 @@ Pure functions are referentially transparent by definition:
 ```javascript
 // ✅ Pure and referentially transparent
 const multiply = (a, b) => a * b;
-const compose = (f, g) => x => f(g(x));
-const identity = x => x;
+const compose = (f, g) => (x) => f(g(x));
+const identity = (x) => x;
 
 // Mathematical properties hold:
 console.log(compose(identity, square)(5)); // 25
@@ -86,10 +89,11 @@ console.log(compose(square, identity)(5)); // 25
 ### Referential Transparency Laws
 
 #### 1. **Substitution Law**
+
 If `f(x) = y`, then every occurrence of `f(x)` can be replaced with `y`.
 
 ```javascript
-const double = x => x * 2;
+const double = (x) => x * 2;
 
 // If double(5) = 10, then:
 const calc1 = double(5) + double(5) + double(5);
@@ -100,6 +104,7 @@ console.log(calc1 === calc2 && calc2 === calc3); // true
 ```
 
 #### 2. **Referential Equality**
+
 If two expressions are referentially equal, they can be substituted for each other.
 
 ```javascript
@@ -121,17 +126,17 @@ Lambda calculus is the mathematical foundation of functional programming and ref
 
 ```javascript
 // Lambda abstraction: λx.x (identity function)
-const identity = x => x;
+const identity = (x) => x;
 
 // Lambda application: (λx.x) 5 = 5
 console.log(identity(5)); // 5
 
 // Lambda abstraction with multiple parameters
-const add = x => y => x + y; // λx.λy.x + y
+const add = (x) => (y) => x + y; // λx.λy.x + y
 console.log(add(3)(4)); // 7
 
 // Currying is natural in lambda calculus
-const multiply = a => b => a * b;
+const multiply = (a) => (b) => a * b;
 const double = multiply(2); // Partial application
 console.log(double(5)); // 10
 ```
@@ -142,7 +147,7 @@ Beta reduction is the process of substituting arguments into function bodies:
 
 ```javascript
 // ✅ Beta reduction example
-const f = x => x * x + 2 * x + 1;
+const f = (x) => x * x + 2 * x + 1;
 
 // Beta reduction of f(3):
 // (λx.x * x + 2 * x + 1) 3
@@ -161,9 +166,9 @@ Functions that differ only in parameter names are equivalent:
 
 ```javascript
 // These are alpha-equivalent (same function)
-const f1 = x => x + 1;
-const f2 = y => y + 1;
-const f3 = z => z + 1;
+const f1 = (x) => x + 1;
+const f2 = (y) => y + 1;
+const f3 = (z) => z + 1;
 
 // All represent the same mathematical function
 console.log(f1(5) === f2(5) && f2(5) === f3(5)); // true
@@ -175,31 +180,31 @@ Representing data as functions (demonstrates pure lambda calculus):
 
 ```javascript
 // ✅ Church numerals
-const zero = f => x => x;
-const one = f => x => f(x);
-const two = f => x => f(f(x));
-const three = f => x => f(f(f(x)));
+const zero = (f) => (x) => x;
+const one = (f) => (x) => f(x);
+const two = (f) => (x) => f(f(x));
+const three = (f) => (x) => f(f(f(x)));
 
 // Church arithmetic
-const succ = n => f => x => f(n(f)(x));
-const add = m => n => f => x => m(f)(n(f)(x));
+const succ = (n) => (f) => (x) => f(n(f)(x));
+const add = (m) => (n) => (f) => (x) => m(f)(n(f)(x));
 
 // Convert to JavaScript number for testing
-const toNumber = n => n(x => x + 1)(0);
+const toNumber = (n) => n((x) => x + 1)(0);
 
 console.log(toNumber(zero)); // 0
 console.log(toNumber(one)); // 1
 console.log(toNumber(add(two)(three))); // 5
 
 // Church booleans
-const TRUE = x => y => x;
-const FALSE = x => y => y;
-const NOT = b => b(FALSE)(TRUE);
-const AND = p => q => p(q)(p);
-const OR = p => q => p(p)(q);
+const TRUE = (x) => (y) => x;
+const FALSE = (x) => (y) => y;
+const NOT = (b) => b(FALSE)(TRUE);
+const AND = (p) => (q) => p(q)(p);
+const OR = (p) => (q) => p(p)(q);
 
 // Convert to JavaScript boolean
-const toBool = b => b(true)(false);
+const toBool = (b) => b(true)(false);
 
 console.log(toBool(NOT(TRUE))); // false
 console.log(toBool(AND(TRUE)(FALSE))); // false
@@ -214,8 +219,8 @@ The key property of referentially transparent expressions is that they can be su
 
 ```javascript
 // ✅ Safe substitution examples
-const max = (a, b) => a > b ? a : b;
-const min = (a, b) => a < b ? a : b;
+const max = (a, b) => (a > b ? a : b);
+const min = (a, b) => (a < b ? a : b);
 
 // Original expression
 const expr1 = max(min(10, 5), max(3, 7));
@@ -251,22 +256,22 @@ Referential transparency enables safe memoization:
 ```javascript
 // ✅ Safe memoization for referentially transparent functions
 const memoize = (fn) => {
-    const cache = new Map();
-    return (...args) => {
-        const key = JSON.stringify(args);
-        if (cache.has(key)) {
-            return cache.get(key); // Safe substitution with cached value
-        }
-        const result = fn(...args);
-        cache.set(key, result);
-        return result;
-    };
+  const cache = new Map();
+  return (...args) => {
+    const key = JSON.stringify(args);
+    if (cache.has(key)) {
+      return cache.get(key); // Safe substitution with cached value
+    }
+    const result = fn(...args);
+    cache.set(key, result);
+    return result;
+  };
 };
 
 // Expensive pure function
 const fibonacci = (n) => {
-    if (n <= 1) return n;
-    return fibonacci(n - 1) + fibonacci(n - 2);
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
 };
 
 const memoizedFib = memoize(fibonacci);
@@ -284,19 +289,19 @@ Referential transparency enables equational reasoning about programs.
 
 ```javascript
 // ✅ Identity laws
-const identity = x => x;
-const compose = f => g => x => f(g(x));
+const identity = (x) => x;
+const compose = (f) => (g) => (x) => f(g(x));
 
 // Left identity: compose(identity, f) = f
 // Right identity: compose(f, identity) = f
 
-const double = x => x * 2;
+const double = (x) => x * 2;
 const leftId = compose(identity)(double);
 const rightId = compose(double)(identity);
 
 // These should be equivalent to double
-[5, 10, 15].forEach(x => {
-    console.log(double(x) === leftId(x) && double(x) === rightId(x));
+[5, 10, 15].forEach((x) => {
+  console.log(double(x) === leftId(x) && double(x) === rightId(x));
 });
 ```
 
@@ -304,16 +309,16 @@ const rightId = compose(double)(identity);
 
 ```javascript
 // ✅ Function composition is associative
-const add1 = x => x + 1;
-const mult2 = x => x * 2;
-const square = x => x * x;
+const add1 = (x) => x + 1;
+const mult2 = (x) => x * 2;
+const square = (x) => x * x;
 
 // compose is associative: compose(f, compose(g, h)) = compose(compose(f, g), h)
 const assoc1 = compose(square)(compose(mult2)(add1));
 const assoc2 = compose(compose(square)(mult2))(add1);
 
-[1, 2, 3, 4, 5].forEach(x => {
-    console.log(assoc1(x) === assoc2(x)); // true
+[1, 2, 3, 4, 5].forEach((x) => {
+  console.log(assoc1(x) === assoc2(x)); // true
 });
 ```
 
@@ -334,12 +339,21 @@ console.log(JSON.stringify(composed) === JSON.stringify(distributed)); // true
 
 ```javascript
 // ✅ Define and verify custom laws
-const flatten = arr => arr.reduce((acc, val) => acc.concat(val), []);
+const flatten = (arr) => arr.reduce((acc, val) => acc.concat(val), []);
 
 // Flatten is associative for arrays
-const arr1 = [[1, 2], [3, 4]];
-const arr2 = [[5, 6], [7, 8]];
-const arr3 = [[9, 10], [11, 12]];
+const arr1 = [
+  [1, 2],
+  [3, 4],
+];
+const arr2 = [
+  [5, 6],
+  [7, 8],
+];
+const arr3 = [
+  [9, 10],
+  [11, 12],
+];
 
 const assocLeft = flatten([flatten([arr1, arr2]), arr3]);
 const assocRight = flatten([arr1, flatten([arr2, arr3])]);
@@ -347,8 +361,8 @@ const assocRight = flatten([arr1, flatten([arr2, arr3])]);
 console.log(JSON.stringify(assocLeft) === JSON.stringify(assocRight)); // true
 
 // Map-flatten law (for monads)
-const flatMap = f => arr => flatten(arr.map(f));
-const duplicate = x => [x, x];
+const flatMap = (f) => (arr) => flatten(arr.map(f));
+const duplicate = (x) => [x, x];
 
 const law1 = flatMap(duplicate)(numbers);
 const law2 = flatten(numbers.map(duplicate));
@@ -364,15 +378,15 @@ Referential transparency enables powerful compiler and runtime optimizations.
 
 ```javascript
 // ✅ Can eliminate unused pure expressions
-const compute = x => {
-    const unused1 = square(x); // Can be eliminated if not used
-    const unused2 = add1(x);   // Can be eliminated if not used
-    const result = x * 3;      // Actually used
-    return result;
+const compute = (x) => {
+  const unused1 = square(x); // Can be eliminated if not used
+  const unused2 = add1(x); // Can be eliminated if not used
+  const result = x * 3; // Actually used
+  return result;
 };
 
 // Optimized version:
-const computeOptimized = x => x * 3;
+const computeOptimized = (x) => x * 3;
 ```
 
 ### Common Subexpression Elimination
@@ -380,20 +394,20 @@ const computeOptimized = x => x * 3;
 ```javascript
 // ✅ Can eliminate redundant computations
 const original = (x, y) => {
-    const a = expensive(x);
-    const b = expensive(x); // Same as 'a' - can be eliminated
-    return a + b;
+  const a = expensive(x);
+  const b = expensive(x); // Same as 'a' - can be eliminated
+  return a + b;
 };
 
 // Optimized version:
 const optimized = (x, y) => {
-    const a = expensive(x);
-    return a + a; // or 2 * a
+  const a = expensive(x);
+  return a + a; // or 2 * a
 };
 
-const expensive = x => {
-    console.log(`Computing for ${x}`);
-    return x * x * x;
+const expensive = (x) => {
+  console.log(`Computing for ${x}`);
+  return x * x * x;
 };
 ```
 
@@ -402,7 +416,7 @@ const expensive = x => {
 ```javascript
 // ✅ Can compute constants at compile time
 const originalExpression = () => {
-    return add(multiply(3, 4), square(5)); // Can be folded to 37
+  return add(multiply(3, 4), square(5)); // Can be folded to 37
 };
 
 // Optimized version:
@@ -410,7 +424,7 @@ const optimizedExpression = () => 37;
 
 // Partial constant folding
 const partialFold = (x) => {
-    return add(12, square(x)); // 3 * 4 = 12 is precomputed
+  return add(12, square(x)); // 3 * 4 = 12 is precomputed
 };
 ```
 
@@ -418,14 +432,14 @@ const partialFold = (x) => {
 
 ```javascript
 // ✅ Can inline simple pure functions
-const simpleFunction = x => x + 1;
-const caller = x => simpleFunction(x) * 2;
+const simpleFunction = (x) => x + 1;
+const caller = (x) => simpleFunction(x) * 2;
 
 // Can be optimized to:
-const inlinedCaller = x => (x + 1) * 2;
+const inlinedCaller = (x) => (x + 1) * 2;
 
 // Or further to:
-const fullyOptimized = x => x * 2 + 2;
+const fullyOptimized = (x) => x * 2 + 2;
 ```
 
 ### Loop Optimizations
@@ -433,16 +447,15 @@ const fullyOptimized = x => x * 2 + 2;
 ```javascript
 // ✅ Can optimize pure loops
 const sumSquares = (arr) => {
-    let sum = 0;
-    for (let i = 0; i < arr.length; i++) {
-        sum += square(arr[i]); // square is pure, can be optimized
-    }
-    return sum;
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += square(arr[i]); // square is pure, can be optimized
+  }
+  return sum;
 };
 
 // Can be vectorized or parallelized because square is pure
-const parallelSumSquares = (arr) =>
-    arr.map(square).reduce(add, 0);
+const parallelSumSquares = (arr) => arr.map(square).reduce(add, 0);
 ```
 
 ## Category Theory Connections
@@ -454,21 +467,21 @@ Referential transparency connects to deep mathematical structures.
 ```javascript
 // ✅ Functors preserve referential transparency
 class Container {
-    constructor(value) {
-        this.value = value;
-    }
+  constructor(value) {
+    this.value = value;
+  }
 
-    map(f) {
-        return new Container(f(this.value));
-    }
+  map(f) {
+    return new Container(f(this.value));
+  }
 
-    static of(value) {
-        return new Container(value);
-    }
+  static of(value) {
+    return new Container(value);
+  }
 }
 
 // Natural transformation preserves structure
-const containerToArray = container => [container.value];
+const containerToArray = (container) => [container.value];
 const arrayToContainer = ([value]) => Container.of(value);
 
 // These are equivalent due to naturality
@@ -483,27 +496,27 @@ console.log(path1.value === path2.value); // true
 ```javascript
 // ✅ Monoids require referential transparency for their laws
 const Sum = {
-    empty: 0,
-    concat: (a, b) => a + b
+  empty: 0,
+  concat: (a, b) => a + b,
 };
 
 const Product = {
-    empty: 1,
-    concat: (a, b) => a * b
+  empty: 1,
+  concat: (a, b) => a * b,
 };
 
 // Verify monoid laws
 const verifyMonoidLaws = (M, a, b, c) => {
-    // Left identity: M.concat(M.empty, a) = a
-    const leftId = M.concat(M.empty, a) === a;
+  // Left identity: M.concat(M.empty, a) = a
+  const leftId = M.concat(M.empty, a) === a;
 
-    // Right identity: M.concat(a, M.empty) = a
-    const rightId = M.concat(a, M.empty) === a;
+  // Right identity: M.concat(a, M.empty) = a
+  const rightId = M.concat(a, M.empty) === a;
 
-    // Associativity: M.concat(M.concat(a, b), c) = M.concat(a, M.concat(b, c))
-    const assoc = M.concat(M.concat(a, b), c) === M.concat(a, M.concat(b, c));
+  // Associativity: M.concat(M.concat(a, b), c) = M.concat(a, M.concat(b, c))
+  const assoc = M.concat(M.concat(a, b), c) === M.concat(a, M.concat(b, c));
 
-    return { leftId, rightId, assoc, valid: leftId && rightId && assoc };
+  return { leftId, rightId, assoc, valid: leftId && rightId && assoc };
 };
 
 console.log(verifyMonoidLaws(Sum, 5, 3, 7)); // All true
@@ -514,19 +527,14 @@ console.log(verifyMonoidLaws(Product, 2, 3, 4)); // All true
 
 ```javascript
 // ✅ Monadic composition requires referential transparency
-const kleisliCompose = (f, g) => x => f(x).flatMap(g);
+const kleisliCompose = (f, g) => (x) => f(x).flatMap(g);
 
 // Example with Maybe monad
-const safeDivide = a => b =>
-    b === 0 ? Maybe.nothing() : Maybe.of(a / b);
+const safeDivide = (a) => (b) => (b === 0 ? Maybe.nothing() : Maybe.of(a / b));
 
-const safeSquareRoot = x =>
-    x < 0 ? Maybe.nothing() : Maybe.of(Math.sqrt(x));
+const safeSquareRoot = (x) => (x < 0 ? Maybe.nothing() : Maybe.of(Math.sqrt(x)));
 
-const composed = kleisliCompose(
-    x => safeDivide(100)(x),
-    safeSquareRoot
-);
+const composed = kleisliCompose((x) => safeDivide(100)(x), safeSquareRoot);
 
 // This composition is valid because both functions are referentially transparent
 console.log(composed(4).inspect()); // Maybe.Some(5)
@@ -540,15 +548,15 @@ console.log(composed(0).inspect()); // Maybe.Nothing
 ```javascript
 // ✅ Referentially transparent configuration
 const createConfig = (env) => ({
-    database: {
-        host: env === 'production' ? 'prod.db.com' : 'dev.db.com',
-        port: 5432,
-        ssl: env === 'production'
-    },
-    api: {
-        baseUrl: env === 'production' ? 'https://api.prod.com' : 'http://localhost:3000',
-        timeout: 5000
-    }
+  database: {
+    host: env === 'production' ? 'prod.db.com' : 'dev.db.com',
+    port: 5432,
+    ssl: env === 'production',
+  },
+  api: {
+    baseUrl: env === 'production' ? 'https://api.prod.com' : 'http://localhost:3000',
+    timeout: 5000,
+  },
 });
 
 // Safe to memoize because it's referentially transparent
@@ -565,16 +573,15 @@ console.log(config1 === config2); // true (same reference due to memoization)
 ```javascript
 // ✅ Referentially transparent templates
 const template = (name, age, city) =>
-    `Hello ${name}! You are ${age} years old and live in ${city}.`;
+  `Hello ${name}! You are ${age} years old and live in ${city}.`;
 
-const userTemplate = (user) =>
-    template(user.name, user.age, user.city);
+const userTemplate = (user) => template(user.name, user.age, user.city);
 
 // Can safely optimize template calls
 const users = [
-    { name: 'Alice', age: 30, city: 'Boston' },
-    { name: 'Bob', age: 25, city: 'Boston' },
-    { name: 'Charlie', age: 30, city: 'Boston' }
+  { name: 'Alice', age: 30, city: 'Boston' },
+  { name: 'Bob', age: 25, city: 'Boston' },
+  { name: 'Charlie', age: 30, city: 'Boston' },
 ];
 
 // Can precompute templates for repeated values
@@ -586,17 +593,20 @@ console.log(templates);
 
 ```javascript
 // ✅ Referentially transparent mathematical functions
-const derivative = (f, h = 1e-10) => x => (f(x + h) - f(x)) / h;
+const derivative =
+  (f, h = 1e-10) =>
+  (x) =>
+    (f(x + h) - f(x)) / h;
 const integral = (f, a, b, n = 1000) => {
-    const dx = (b - a) / n;
-    let sum = 0;
-    for (let i = 0; i < n; i++) {
-        sum += f(a + i * dx) * dx;
-    }
-    return sum;
+  const dx = (b - a) / n;
+  let sum = 0;
+  for (let i = 0; i < n; i++) {
+    sum += f(a + i * dx) * dx;
+  }
+  return sum;
 };
 
-const polynomial = x => x * x * x - 2 * x * x + x - 1;
+const polynomial = (x) => x * x * x - 2 * x * x + x - 1;
 const polyDerivative = derivative(polynomial);
 
 // These computations are referentially transparent
@@ -611,9 +621,9 @@ console.log(integral(polynomial, 0, 2)); // Definite integral from 0 to 2
 ```javascript
 // ❌ Side effect violations
 let globalCounter = 0;
-const incrementAndReturn = x => {
-    globalCounter++; // Side effect!
-    return x + globalCounter;
+const incrementAndReturn = (x) => {
+  globalCounter++; // Side effect!
+  return x + globalCounter;
 };
 
 // Not referentially transparent
@@ -625,7 +635,7 @@ console.log(incrementAndReturn(5)); // 7 (different result!)
 
 ```javascript
 // ❌ Non-deterministic violations
-const randomAdd = x => x + Math.random(); // Not referentially transparent
+const randomAdd = (x) => x + Math.random(); // Not referentially transparent
 const currentTime = () => Date.now(); // Not referentially transparent
 const userInput = () => prompt('Enter a number'); // Not referentially transparent
 
@@ -639,13 +649,13 @@ const withInput = (fn, input) => fn(input);
 
 ```javascript
 // ❌ Mutation violations
-const mutatingSort = arr => {
-    arr.sort(); // Mutates input!
-    return arr;
+const mutatingSort = (arr) => {
+  arr.sort(); // Mutates input!
+  return arr;
 };
 
 // ✅ Referentially transparent version
-const pureSort = arr => [...arr].sort();
+const pureSort = (arr) => [...arr].sort();
 
 const original = [3, 1, 4, 1, 5, 9, 2, 6];
 const sorted1 = pureSort(original);
@@ -661,17 +671,15 @@ console.log(sorted2); // [1, 1, 2, 3, 4, 5, 6, 9]
 ```javascript
 // ❌ Exception throwing can break referential transparency
 const unsafeDivide = (a, b) => {
-    if (b === 0) throw new Error('Division by zero');
-    return a / b;
+  if (b === 0) throw new Error('Division by zero');
+  return a / b;
 };
 
 // ✅ Referentially transparent error handling
-const safeDivide = (a, b) =>
-    b === 0 ? { error: 'Division by zero' } : { result: a / b };
+const safeDivide = (a, b) => (b === 0 ? { error: 'Division by zero' } : { result: a / b });
 
 // Or using Maybe/Either monads
-const monadicDivide = (a, b) =>
-    b === 0 ? Either.left('Division by zero') : Either.right(a / b);
+const monadicDivide = (a, b) => (b === 0 ? Either.left('Division by zero') : Either.right(a / b));
 ```
 
 ## Testing Referential Transparency
@@ -681,31 +689,31 @@ const monadicDivide = (a, b) =>
 ```javascript
 // ✅ Test referential transparency properties
 const testReferentialTransparency = (fn, generateInput) => {
-    const iterations = 100;
+  const iterations = 100;
 
-    for (let i = 0; i < iterations; i++) {
-        const input = generateInput();
-        const result1 = fn(input);
-        const result2 = fn(input);
+  for (let i = 0; i < iterations; i++) {
+    const input = generateInput();
+    const result1 = fn(input);
+    const result2 = fn(input);
 
-        // Should always be equal for same input
-        if (JSON.stringify(result1) !== JSON.stringify(result2)) {
-            return false;
-        }
+    // Should always be equal for same input
+    if (JSON.stringify(result1) !== JSON.stringify(result2)) {
+      return false;
     }
+  }
 
-    return true;
+  return true;
 };
 
 // Test pure functions
-const pureFn = x => x * x + 2 * x + 1;
+const pureFn = (x) => x * x + 2 * x + 1;
 const generateNumber = () => Math.floor(Math.random() * 100);
 
 console.log(testReferentialTransparency(pureFn, generateNumber)); // true
 
 // Test impure functions
 let counter = 0;
-const impureFn = x => x + (++counter);
+const impureFn = (x) => x + ++counter;
 
 console.log(testReferentialTransparency(impureFn, generateNumber)); // false
 ```
@@ -715,28 +723,28 @@ console.log(testReferentialTransparency(impureFn, generateNumber)); // false
 ```javascript
 // ✅ Test substitution property
 const testSubstitution = (expr, substitutions) => {
-    // Test if we can substitute sub-expressions with their values
-    const original = expr();
+  // Test if we can substitute sub-expressions with their values
+  const original = expr();
 
-    // Apply substitutions
-    const substituted = substitutions.reduce((acc, sub) => {
-        return acc.replace(sub.pattern, sub.value);
-    }, expr.toString());
+  // Apply substitutions
+  const substituted = substitutions.reduce((acc, sub) => {
+    return acc.replace(sub.pattern, sub.value);
+  }, expr.toString());
 
-    // Evaluate substituted expression (simplified test)
-    try {
-        const substitutedResult = eval(substituted.replace('function', '(function').replace(/^.*{|}$/g, '') + ')()');
-        return Math.abs(original - substitutedResult) < 1e-10;
-    } catch (e) {
-        return false; // Complex substitution failed
-    }
+  // Evaluate substituted expression (simplified test)
+  try {
+    const substitutedResult = eval(
+      substituted.replace('function', '(function').replace(/^.*{|}$/g, '') + ')()',
+    );
+    return Math.abs(original - substitutedResult) < 1e-10;
+  } catch (e) {
+    return false; // Complex substitution failed
+  }
 };
 
 // Simple test case
 const testExpr = () => add(3, 4) * 2;
-const substitutions = [
-    { pattern: 'add(3, 4)', value: '7' }
-];
+const substitutions = [{ pattern: 'add(3, 4)', value: '7' }];
 
 // This is a simplified test - real substitution testing is more complex
 console.log('Substitution test (simplified):', testExpr() === 14);
@@ -747,16 +755,15 @@ console.log('Substitution test (simplified):', testExpr() === 14);
 ```javascript
 // ✅ Test if function is safe to memoize
 const testMemoizationSafety = (fn, inputs) => {
-    const memoized = memoize(fn);
+  const memoized = memoize(fn);
 
-    return inputs.every(input => {
-        const original = fn(input);
-        const memoizedFirst = memoized(input);
-        const memoizedSecond = memoized(input);
+  return inputs.every((input) => {
+    const original = fn(input);
+    const memoizedFirst = memoized(input);
+    const memoizedSecond = memoized(input);
 
-        return original === memoizedFirst &&
-               memoizedFirst === memoizedSecond;
-    });
+    return original === memoizedFirst && memoizedFirst === memoizedSecond;
+  });
 };
 
 const testInputs = [1, 2, 3, 4, 5, 5, 4, 3, 2, 1]; // Includes duplicates
@@ -784,4 +791,4 @@ Referential transparency is the mathematical foundation that makes functional pr
 
 *This completes the comprehensive functional programming guide. You now have the mathematical and practical foundations to master functional programming concepts and apply them effectively in JavaScript and other languages.*eferential Transparency & Substitutability
 
- Referential transparency is a more formal way of defining a pure function. Purity in this sense refers to the existence of a pure mapping between a function’s arguments and its return value. If a function consistently results on the same input, it’s said to be referentially transparent.
+Referential transparency is a more formal way of defining a pure function. Purity in this sense refers to the existence of a pure mapping between a function’s arguments and its return value. If a function consistently results on the same input, it’s said to be referentially transparent.

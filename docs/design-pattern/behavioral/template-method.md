@@ -9,6 +9,7 @@ Define the skeleton of an algorithm in an operation, deferring some steps to sub
 ## 🤔 Problem
 
 You have several classes that perform similar operations with the same sequence of steps, but the implementation details differ:
+
 - **Code Duplication**: Similar algorithms with minor variations
 - **Algorithm Structure**: Want to ensure consistent algorithm structure
 - **Step Variations**: Some steps need different implementations
@@ -373,7 +374,7 @@ console.log(`   • Total: ${totalRecords} records processed across all formats`
 class LevelGenerator {
   constructor() {
     if (this.constructor === LevelGenerator) {
-      throw new Error("LevelGenerator is abstract");
+      throw new Error('LevelGenerator is abstract');
     }
   }
 
@@ -403,9 +404,16 @@ class LevelGenerator {
     const specialFeatures = this.addSpecialFeatures(terrain, params);
 
     // Step 8: Validate level (concrete method)
-    const level = this.validateAndFinalize(terrain, obstacles, enemies, collectibles, specialFeatures, params);
+    const level = this.validateAndFinalize(
+      terrain,
+      obstacles,
+      enemies,
+      collectibles,
+      specialFeatures,
+      params,
+    );
 
-    console.log("✅ Level generation completed\n");
+    console.log('✅ Level generation completed\n');
     return level;
   }
 
@@ -436,7 +444,7 @@ class LevelGenerator {
     const baseParams = {
       easy: { enemyCount: 5, obstaclePercent: 0.1, collectibleCount: 15 },
       medium: { enemyCount: 10, obstaclePercent: 0.2, collectibleCount: 10 },
-      hard: { enemyCount: 20, obstaclePercent: 0.3, collectibleCount: 5 }
+      hard: { enemyCount: 20, obstaclePercent: 0.3, collectibleCount: 5 },
     };
 
     const params = baseParams[difficulty] || baseParams.medium;
@@ -445,7 +453,7 @@ class LevelGenerator {
     params.height = 100;
 
     console.log(`   Enemy count: ${params.enemyCount}`);
-    console.log(`   Obstacle coverage: ${(params.obstaclePercent * 100)}%`);
+    console.log(`   Obstacle coverage: ${params.obstaclePercent * 100}%`);
     console.log(`   Collectibles: ${params.collectibleCount}`);
 
     return params;
@@ -453,20 +461,20 @@ class LevelGenerator {
 
   // Abstract methods - must be implemented
   generateTerrain(params) {
-    throw new Error("generateTerrain() must be implemented");
+    throw new Error('generateTerrain() must be implemented');
   }
 
   placeObstacles(terrain, params) {
-    throw new Error("placeObstacles() must be implemented");
+    throw new Error('placeObstacles() must be implemented');
   }
 
   addEnemies(terrain, params) {
-    throw new Error("addEnemies() must be implemented");
+    throw new Error('addEnemies() must be implemented');
   }
 
   // Hook methods - optional to override
   placeCollectibles(terrain, params) {
-    console.log("💎 Placing default collectibles");
+    console.log('💎 Placing default collectibles');
 
     const collectibles = [];
     for (let i = 0; i < params.collectibleCount; i++) {
@@ -474,7 +482,7 @@ class LevelGenerator {
         type: 'coin',
         x: Math.floor(this.random() * params.width),
         y: Math.floor(this.random() * params.height),
-        value: 10
+        value: 10,
       });
     }
 
@@ -483,13 +491,13 @@ class LevelGenerator {
   }
 
   addSpecialFeatures(terrain, params) {
-    console.log("✨ No special features added (default)");
+    console.log('✨ No special features added (default)');
     return [];
   }
 
   // Concrete method
   validateAndFinalize(terrain, obstacles, enemies, collectibles, specialFeatures, params) {
-    console.log("🔍 Validating level...");
+    console.log('🔍 Validating level...');
 
     const level = {
       seed: this.seed,
@@ -506,17 +514,19 @@ class LevelGenerator {
         enemyCount: enemies.length,
         obstacleCount: obstacles.length,
         collectibleCount: collectibles.length,
-        specialFeatureCount: specialFeatures.length
-      }
+        specialFeatureCount: specialFeatures.length,
+      },
     };
 
     // Validate level has start and end points
     level.startPoint = { x: 0, y: 0 };
     level.endPoint = { x: params.width - 1, y: params.height - 1 };
 
-    console.log("✅ Level validation passed");
+    console.log('✅ Level validation passed');
     console.log(`   Dimensions: ${level.dimensions.width}x${level.dimensions.height}`);
-    console.log(`   Elements: ${level.metadata.enemyCount} enemies, ${level.metadata.obstacleCount} obstacles, ${level.metadata.collectibleCount} collectibles`);
+    console.log(
+      `   Elements: ${level.metadata.enemyCount} enemies, ${level.metadata.obstacleCount} obstacles, ${level.metadata.collectibleCount} collectibles`,
+    );
 
     return level;
   }
@@ -525,28 +535,28 @@ class LevelGenerator {
 // Concrete implementation - Forest Level
 class ForestLevelGenerator extends LevelGenerator {
   generateTerrain(params) {
-    console.log("🌲 Generating forest terrain");
+    console.log('🌲 Generating forest terrain');
 
     const terrain = [];
     for (let y = 0; y < params.height; y++) {
       terrain[y] = [];
       for (let x = 0; x < params.width; x++) {
-        const tileType = this.random() < 0.7 ? 'grass' :
-                        this.random() < 0.8 ? 'dirt' : 'water';
+        const tileType = this.random() < 0.7 ? 'grass' : this.random() < 0.8 ? 'dirt' : 'water';
         terrain[y][x] = {
           type: tileType,
           walkable: tileType !== 'water',
-          x, y
+          x,
+          y,
         };
       }
     }
 
-    console.log("   Generated forest terrain with grass, dirt, and water tiles");
+    console.log('   Generated forest terrain with grass, dirt, and water tiles');
     return terrain;
   }
 
   placeObstacles(terrain, params) {
-    console.log("🌳 Placing forest obstacles (trees, rocks)");
+    console.log('🌳 Placing forest obstacles (trees, rocks)');
 
     const obstacles = [];
     const targetCount = Math.floor(params.width * params.height * params.obstaclePercent);
@@ -559,9 +569,10 @@ class ForestLevelGenerator extends LevelGenerator {
         const obstacleType = this.random() < 0.7 ? 'tree' : 'rock';
         obstacles.push({
           type: obstacleType,
-          x, y,
+          x,
+          y,
           blocking: true,
-          health: obstacleType === 'tree' ? 3 : 5
+          health: obstacleType === 'tree' ? 3 : 5,
         });
         terrain[y][x].walkable = false;
       }
@@ -572,7 +583,7 @@ class ForestLevelGenerator extends LevelGenerator {
   }
 
   addEnemies(terrain, params) {
-    console.log("🐻 Adding forest enemies (bears, wolves)");
+    console.log('🐻 Adding forest enemies (bears, wolves)');
 
     const enemies = [];
     const enemyTypes = ['bear', 'wolf', 'spider'];
@@ -589,10 +600,11 @@ class ForestLevelGenerator extends LevelGenerator {
           const enemyType = enemyTypes[Math.floor(this.random() * enemyTypes.length)];
           enemies.push({
             type: enemyType,
-            x, y,
+            x,
+            y,
             health: enemyType === 'bear' ? 30 : enemyType === 'wolf' ? 20 : 10,
             damage: enemyType === 'bear' ? 8 : enemyType === 'wolf' ? 5 : 3,
-            speed: enemyType === 'spider' ? 3 : enemyType === 'wolf' ? 2 : 1
+            speed: enemyType === 'spider' ? 3 : enemyType === 'wolf' ? 2 : 1,
           });
           placed = true;
         }
@@ -605,13 +617,13 @@ class ForestLevelGenerator extends LevelGenerator {
   }
 
   placeCollectibles(terrain, params) {
-    console.log("🍄 Placing forest collectibles (mushrooms, berries)");
+    console.log('🍄 Placing forest collectibles (mushrooms, berries)');
 
     const collectibles = [];
     const collectibleTypes = [
       { type: 'mushroom', value: 15, rarity: 0.3 },
       { type: 'berries', value: 8, rarity: 0.5 },
-      { type: 'healing_herb', value: 25, rarity: 0.2 }
+      { type: 'healing_herb', value: 25, rarity: 0.2 },
     ];
 
     for (let i = 0; i < params.collectibleCount; i++) {
@@ -631,8 +643,9 @@ class ForestLevelGenerator extends LevelGenerator {
 
         collectibles.push({
           type: selectedType.type,
-          x, y,
-          value: selectedType.value
+          x,
+          y,
+          value: selectedType.value,
         });
       }
     }
@@ -642,7 +655,7 @@ class ForestLevelGenerator extends LevelGenerator {
   }
 
   addSpecialFeatures(terrain, params) {
-    console.log("🏛️ Adding forest special features (ancient shrine)");
+    console.log('🏛️ Adding forest special features (ancient shrine)');
 
     const features = [];
 
@@ -656,10 +669,10 @@ class ForestLevelGenerator extends LevelGenerator {
         x: shrineX,
         y: shrineY,
         effect: 'heal_all',
-        description: 'An ancient shrine that fully heals the player'
+        description: 'An ancient shrine that fully heals the player',
       });
 
-      console.log("   Added ancient healing shrine");
+      console.log('   Added ancient healing shrine');
     }
 
     // Add hidden treasure for medium/hard
@@ -673,10 +686,10 @@ class ForestLevelGenerator extends LevelGenerator {
         y: treasureY,
         effect: 'gold_bonus',
         value: params.difficulty === 'hard' ? 1000 : 500,
-        description: 'A hidden treasure chest'
+        description: 'A hidden treasure chest',
       });
 
-      console.log("   Added hidden treasure chest");
+      console.log('   Added hidden treasure chest');
     }
 
     return features;
@@ -686,7 +699,7 @@ class ForestLevelGenerator extends LevelGenerator {
 // Concrete implementation - Dungeon Level
 class DungeonLevelGenerator extends LevelGenerator {
   generateTerrain(params) {
-    console.log("🏰 Generating dungeon terrain");
+    console.log('🏰 Generating dungeon terrain');
 
     const terrain = [];
     for (let y = 0; y < params.height; y++) {
@@ -696,7 +709,8 @@ class DungeonLevelGenerator extends LevelGenerator {
         terrain[y][x] = {
           type: tileType,
           walkable: tileType === 'floor',
-          x, y
+          x,
+          y,
         };
       }
     }
@@ -704,7 +718,7 @@ class DungeonLevelGenerator extends LevelGenerator {
     // Create corridors
     this.createCorridors(terrain, params);
 
-    console.log("   Generated dungeon with rooms and corridors");
+    console.log('   Generated dungeon with rooms and corridors');
     return terrain;
   }
 
@@ -725,7 +739,7 @@ class DungeonLevelGenerator extends LevelGenerator {
   }
 
   placeObstacles(terrain, params) {
-    console.log("⛩️ Placing dungeon obstacles (pillars, traps)");
+    console.log('⛩️ Placing dungeon obstacles (pillars, traps)');
 
     const obstacles = [];
     const targetCount = Math.floor(params.width * params.height * params.obstaclePercent);
@@ -738,9 +752,10 @@ class DungeonLevelGenerator extends LevelGenerator {
         const obstacleType = this.random() < 0.5 ? 'pillar' : 'spike_trap';
         obstacles.push({
           type: obstacleType,
-          x, y,
+          x,
+          y,
           blocking: obstacleType === 'pillar',
-          damage: obstacleType === 'spike_trap' ? 10 : 0
+          damage: obstacleType === 'spike_trap' ? 10 : 0,
         });
 
         if (obstacleType === 'pillar') {
@@ -754,7 +769,7 @@ class DungeonLevelGenerator extends LevelGenerator {
   }
 
   addEnemies(terrain, params) {
-    console.log("💀 Adding dungeon enemies (skeletons, goblins)");
+    console.log('💀 Adding dungeon enemies (skeletons, goblins)');
 
     const enemies = [];
     const enemyTypes = ['skeleton', 'goblin', 'orc'];
@@ -771,10 +786,11 @@ class DungeonLevelGenerator extends LevelGenerator {
           const enemyType = enemyTypes[Math.floor(this.random() * enemyTypes.length)];
           enemies.push({
             type: enemyType,
-            x, y,
+            x,
+            y,
             health: enemyType === 'orc' ? 40 : enemyType === 'goblin' ? 15 : 25,
             damage: enemyType === 'orc' ? 12 : enemyType === 'goblin' ? 4 : 8,
-            armor: enemyType === 'skeleton' ? 3 : enemyType === 'orc' ? 2 : 0
+            armor: enemyType === 'skeleton' ? 3 : enemyType === 'orc' ? 2 : 0,
           });
           placed = true;
         }
@@ -787,14 +803,14 @@ class DungeonLevelGenerator extends LevelGenerator {
   }
 
   placeCollectibles(terrain, params) {
-    console.log("💰 Placing dungeon collectibles (gold, gems)");
+    console.log('💰 Placing dungeon collectibles (gold, gems)');
 
     const collectibles = [];
     const collectibleTypes = [
       { type: 'gold_pile', value: 50, rarity: 0.4 },
       { type: 'ruby', value: 100, rarity: 0.2 },
       { type: 'magic_scroll', value: 75, rarity: 0.3 },
-      { type: 'health_potion', value: 40, rarity: 0.1 }
+      { type: 'health_potion', value: 40, rarity: 0.1 },
     ];
 
     for (let i = 0; i < params.collectibleCount; i++) {
@@ -814,8 +830,9 @@ class DungeonLevelGenerator extends LevelGenerator {
 
         collectibles.push({
           type: selectedType.type,
-          x, y,
-          value: selectedType.value
+          x,
+          y,
+          value: selectedType.value,
         });
       }
     }
@@ -825,7 +842,7 @@ class DungeonLevelGenerator extends LevelGenerator {
   }
 
   addSpecialFeatures(terrain, params) {
-    console.log("🗝️ Adding dungeon special features");
+    console.log('🗝️ Adding dungeon special features');
 
     const features = [];
 
@@ -838,7 +855,7 @@ class DungeonLevelGenerator extends LevelGenerator {
       x: bossX,
       y: bossY,
       effect: 'spawn_boss',
-      description: 'A dark chamber where the dungeon boss awaits'
+      description: 'A dark chamber where the dungeon boss awaits',
     });
 
     // Add teleportation circles for medium/hard
@@ -852,13 +869,13 @@ class DungeonLevelGenerator extends LevelGenerator {
           y: Math.floor(this.random() * params.height),
           effect: 'teleport',
           targetId: i,
-          description: `Magical teleportation circle #${i + 1}`
+          description: `Magical teleportation circle #${i + 1}`,
         });
       }
 
       console.log(`   Added boss room and ${teleCount} teleporters`);
     } else {
-      console.log("   Added boss room");
+      console.log('   Added boss room');
     }
 
     return features;
@@ -866,22 +883,22 @@ class DungeonLevelGenerator extends LevelGenerator {
 }
 
 // Usage
-console.log("\n=== Game Level Generator Template Method Demo ===\n");
+console.log('\n=== Game Level Generator Template Method Demo ===\n');
 
-console.log("Generating different level types:");
-console.log("-".repeat(35));
+console.log('Generating different level types:');
+console.log('-'.repeat(35));
 
 const seed = 12345;
 const difficulties = ['easy', 'medium', 'hard'];
 
-console.log("1. Forest Levels:");
-console.log("-".repeat(16));
+console.log('1. Forest Levels:');
+console.log('-'.repeat(16));
 
 const forestGenerator = new ForestLevelGenerator();
 
 difficulties.forEach((difficulty, index) => {
   console.log(`\n${index + 1}.${index + 1} Forest Level - ${difficulty.toUpperCase()}:`);
-  console.log("-".repeat(30));
+  console.log('-'.repeat(30));
 
   const forestLevel = forestGenerator.generateLevel(seed + index, difficulty);
 
@@ -895,16 +912,16 @@ difficulties.forEach((difficulty, index) => {
   console.log(`   Special Features: ${forestLevel.metadata.specialFeatureCount}`);
 });
 
-console.log("\n" + "=".repeat(70) + "\n");
+console.log('\n' + '='.repeat(70) + '\n');
 
-console.log("2. Dungeon Levels:");
-console.log("-".repeat(17));
+console.log('2. Dungeon Levels:');
+console.log('-'.repeat(17));
 
 const dungeonGenerator = new DungeonLevelGenerator();
 
 difficulties.forEach((difficulty, index) => {
   console.log(`\n${index + 1}.${index + 1} Dungeon Level - ${difficulty.toUpperCase()}:`);
-  console.log("-".repeat(32));
+  console.log('-'.repeat(32));
 
   const dungeonLevel = dungeonGenerator.generateLevel(seed + index + 100, difficulty);
 
@@ -918,10 +935,10 @@ difficulties.forEach((difficulty, index) => {
   console.log(`   Special Features: ${dungeonLevel.metadata.specialFeatureCount}`);
 });
 
-console.log("\n" + "=".repeat(70) + "\n");
+console.log('\n' + '='.repeat(70) + '\n');
 
-console.log("Level Generation Performance Summary:");
-console.log("-".repeat(38));
+console.log('Level Generation Performance Summary:');
+console.log('-'.repeat(38));
 
 const startTime = Date.now();
 
@@ -935,7 +952,8 @@ for (let i = 0; i < 6; i++) {
   batchResults.push({
     type: level.type,
     difficulty: level.difficulty,
-    elements: level.metadata.enemyCount + level.metadata.obstacleCount + level.metadata.collectibleCount
+    elements:
+      level.metadata.enemyCount + level.metadata.obstacleCount + level.metadata.collectibleCount,
   });
 }
 
@@ -948,7 +966,9 @@ console.log(`   Total Time: ${totalTime}ms`);
 console.log(`   Average Time per Level: ${(totalTime / batchResults.length).toFixed(1)}ms`);
 
 batchResults.forEach((result, index) => {
-  console.log(`   Level ${index + 1}: ${result.type} (${result.difficulty}) - ${result.elements} elements`);
+  console.log(
+    `   Level ${index + 1}: ${result.type} (${result.difficulty}) - ${result.elements} elements`,
+  );
 });
 ```
 
@@ -978,6 +998,7 @@ batchResults.forEach((result, index) => {
 ## 🔄 Template Method Variations
 
 ### 1. **Hook Methods**
+
 ```javascript
 class TemplateWithHooks {
   templateMethod() {
@@ -998,6 +1019,7 @@ class TemplateWithHooks {
 ```
 
 ### 2. **Strategy-Template Hybrid**
+
 ```javascript
 class StrategyTemplate {
   constructor(strategy) {
@@ -1013,6 +1035,7 @@ class StrategyTemplate {
 ```
 
 ### 3. **Functional Template Method**
+
 ```javascript
 class FunctionalTemplate {
   templateMethod(stepImplementations) {

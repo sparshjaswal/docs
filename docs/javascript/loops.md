@@ -7,15 +7,15 @@ When we want to repeat the same code over different values, we generally use a p
 1. Entry Control Loop(condition checked in the starting of loop e.g. for, while)
 
 2. Exit Control Loop( condition check at end of loop e.g. do while)
-    JavaScript support 3 basic loops construct
+   JavaScript support 3 basic loops construct
    for
    syntax of for loop:-
 
 3. **for Loop**
 
    ```js
-   for (initialization ;condition; increment/decrement) {
-    // code block to be executed
+   for (initialization; condition; increment / decrement) {
+     // code block to be executed
    }
    ```
 
@@ -23,9 +23,9 @@ When we want to repeat the same code over different values, we generally use a p
 
    ```js
    Initialization;
-   while(condition) {
-       // code block to be executed
-       increment/decrement;
+   while (condition) {
+     // code block to be executed
+     increment / decrement;
    }
    ```
 
@@ -42,12 +42,11 @@ When we want to repeat the same code over different values, we generally use a p
 6. **for of** [es6 introduce]
 
    ```js
-   for(element of arrayName) {
-       // code block
+   for (element of arrayName) {
+     // code block
    }
    // E.g.
-   const  array = [1,2,3,4,5,6,7];
-   for(const element of array)
-     console.log(element);
+   const array = [1, 2, 3, 4, 5, 6, 7];
+   for (const element of array) console.log(element);
    // output 1 2 3 4 5 6 7
    ```

@@ -6,9 +6,9 @@ Operands are the type of tokens on which operations are performed.
 
 Below are all Operators that are currently supported by the latest JavaScript standards:-
 
-| **Comparison** | **Unary** | **Bitwise** | **Logical** | **Assignment** | Arithmetic  |
-|:--------------:|:---------:|:-----------:|:-----------:|:--------------:|:-----------:|
-| ==             | delete    | &,\|        | &&,\||      | =              | +,-,\,*,/,% |
+| **Comparison** | **Unary** | **Bitwise** | **Logical** | **Assignment** | Arithmetic |
+| :------------: | :-------: | :---------: | :---------: | :------------: | :--------: |
+|       ==       |  delete   |    &,\|     |    &&,\|    |                |     =      | +,-,\,*,/,% |
 
 ## Conditional
 

@@ -9,6 +9,7 @@ Enable selecting an algorithm's behavior at runtime by encapsulating algorithms 
 ## 🤔 Problem
 
 You have multiple ways of performing a task (like sorting, payment processing, or data validation) and you want to:
+
 - Switch between them at runtime
 - Add new algorithms without modifying existing code
 - Avoid massive if-else or switch statements
@@ -48,14 +49,14 @@ ConcreteStrategyC implements Strategy
 // Strategy interface
 class Strategy {
   execute(data) {
-    throw new Error("execute() method must be implemented");
+    throw new Error('execute() method must be implemented');
   }
 }
 
 // Concrete Strategies
 class QuickSort extends Strategy {
   execute(data) {
-    console.log("Sorting using QuickSort algorithm");
+    console.log('Sorting using QuickSort algorithm');
     return this.quickSort([...data]);
   }
 
@@ -63,9 +64,9 @@ class QuickSort extends Strategy {
     if (arr.length <= 1) return arr;
 
     const pivot = arr[Math.floor(arr.length / 2)];
-    const left = arr.filter(x => x < pivot);
-    const middle = arr.filter(x => x === pivot);
-    const right = arr.filter(x => x > pivot);
+    const left = arr.filter((x) => x < pivot);
+    const middle = arr.filter((x) => x === pivot);
+    const right = arr.filter((x) => x > pivot);
 
     return [...this.quickSort(left), ...middle, ...this.quickSort(right)];
   }
@@ -73,7 +74,7 @@ class QuickSort extends Strategy {
 
 class BubbleSort extends Strategy {
   execute(data) {
-    console.log("Sorting using BubbleSort algorithm");
+    console.log('Sorting using BubbleSort algorithm');
     const arr = [...data];
 
     for (let i = 0; i < arr.length - 1; i++) {
@@ -89,7 +90,7 @@ class BubbleSort extends Strategy {
 
 class MergeSort extends Strategy {
   execute(data) {
-    console.log("Sorting using MergeSort algorithm");
+    console.log('Sorting using MergeSort algorithm');
     return this.mergeSort([...data]);
   }
 
@@ -105,7 +106,8 @@ class MergeSort extends Strategy {
 
   merge(left, right) {
     const result = [];
-    let i = 0, j = 0;
+    let i = 0,
+      j = 0;
 
     while (i < left.length && j < right.length) {
       if (left[i] <= right[j]) {
@@ -131,7 +133,7 @@ class Sorter {
 
   sort(data) {
     if (!this.strategy) {
-      throw new Error("No sorting strategy set");
+      throw new Error('No sorting strategy set');
     }
     return this.strategy.execute(data);
   }
@@ -141,12 +143,12 @@ class Sorter {
 const data = [64, 34, 25, 12, 22, 11, 90];
 const sorter = new Sorter(new QuickSort());
 
-console.log("Original:", data);
-console.log("Sorted:", sorter.sort(data));
+console.log('Original:', data);
+console.log('Sorted:', sorter.sort(data));
 
 // Change strategy at runtime
 sorter.setStrategy(new BubbleSort());
-console.log("Sorted with Bubble Sort:", sorter.sort(data));
+console.log('Sorted with Bubble Sort:', sorter.sort(data));
 ```
 
 ## 🌟 Real-World Examples
@@ -157,7 +159,7 @@ console.log("Sorted with Bubble Sort:", sorter.sort(data));
 // Payment strategies
 class PaymentStrategy {
   pay(amount) {
-    throw new Error("pay() method must be implemented");
+    throw new Error('pay() method must be implemented');
   }
 }
 
@@ -175,10 +177,10 @@ class CreditCardPayment extends PaymentStrategy {
 
     // Simulate payment processing
     if (this.validateCard()) {
-      console.log("✅ Payment successful!");
+      console.log('✅ Payment successful!');
       return { success: true, transactionId: `CC_${Date.now()}` };
     }
-    return { success: false, error: "Invalid card details" };
+    return { success: false, error: 'Invalid card details' };
   }
 
   validateCard() {
@@ -198,10 +200,10 @@ class PayPalPayment extends PaymentStrategy {
     console.log(`Account: ${this.email}`);
 
     if (this.authenticate()) {
-      console.log("✅ Payment successful!");
+      console.log('✅ Payment successful!');
       return { success: true, transactionId: `PP_${Date.now()}` };
     }
-    return { success: false, error: "Authentication failed" };
+    return { success: false, error: 'Authentication failed' };
   }
 
   authenticate() {
@@ -222,10 +224,10 @@ class CryptocurrencyPayment extends PaymentStrategy {
     console.log(`Wallet: ${this.walletAddress.slice(0, 6)}...${this.walletAddress.slice(-4)}`);
 
     if (this.validateWallet()) {
-      console.log("✅ Transaction broadcasted to blockchain!");
+      console.log('✅ Transaction broadcasted to blockchain!');
       return { success: true, transactionId: `${this.currency}_${Date.now()}` };
     }
-    return { success: false, error: "Invalid wallet" };
+    return { success: false, error: 'Invalid wallet' };
   }
 
   validateWallet() {
@@ -254,17 +256,17 @@ class ShoppingCart {
 
   checkout() {
     if (!this.paymentStrategy) {
-      console.log("❌ Please select a payment method");
+      console.log('❌ Please select a payment method');
       return false;
     }
 
     const total = this.getTotal();
-    console.log("\n🛒 Order Summary:");
-    this.items.forEach(item => {
+    console.log('\n🛒 Order Summary:');
+    this.items.forEach((item) => {
       console.log(`   ${item.item}: $${item.price}`);
     });
     console.log(`   Total: $${total}`);
-    console.log("─".repeat(30));
+    console.log('─'.repeat(30));
 
     return this.paymentStrategy.pay(total);
   }
@@ -272,13 +274,17 @@ class ShoppingCart {
 
 // Usage
 const cart = new ShoppingCart();
-cart.addItem("Laptop", 999.99);
-cart.addItem("Mouse", 29.99);
+cart.addItem('Laptop', 999.99);
+cart.addItem('Mouse', 29.99);
 
 // Try different payment methods
-const creditCard = new CreditCardPayment("1234567812345678", "12/25", "123");
-const paypal = new PayPalPayment("user@example.com", "password123");
-const bitcoin = new CryptocurrencyPayment("1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa", "private_key", "Bitcoin");
+const creditCard = new CreditCardPayment('1234567812345678', '12/25', '123');
+const paypal = new PayPalPayment('user@example.com', 'password123');
+const bitcoin = new CryptocurrencyPayment(
+  '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
+  'private_key',
+  'Bitcoin',
+);
 
 cart.setPaymentStrategy(creditCard);
 cart.checkout();
@@ -295,7 +301,7 @@ cart.checkout();
 ```javascript
 class ValidationStrategy {
   validate(data) {
-    throw new Error("validate() method must be implemented");
+    throw new Error('validate() method must be implemented');
   }
 }
 
@@ -306,7 +312,7 @@ class EmailValidation extends ValidationStrategy {
 
     return {
       isValid,
-      message: isValid ? "Valid email" : "Invalid email format"
+      message: isValid ? 'Valid email' : 'Invalid email format',
     };
   }
 }
@@ -328,14 +334,14 @@ class PasswordValidation extends ValidationStrategy {
 
     const issues = [];
     if (!hasMinLength) issues.push(`minimum ${this.minLength} characters`);
-    if (!hasUpperCase) issues.push("uppercase letter");
-    if (!hasLowerCase) issues.push("lowercase letter");
-    if (!hasNumbers) issues.push("number");
-    if (!hasSpecialChar) issues.push("special character");
+    if (!hasUpperCase) issues.push('uppercase letter');
+    if (!hasLowerCase) issues.push('lowercase letter');
+    if (!hasNumbers) issues.push('number');
+    if (!hasSpecialChar) issues.push('special character');
 
     return {
       isValid,
-      message: isValid ? "Strong password" : `Password must contain: ${issues.join(", ")}`
+      message: isValid ? 'Strong password' : `Password must contain: ${issues.join(', ')}`,
     };
   }
 }
@@ -347,7 +353,7 @@ class PhoneValidation extends ValidationStrategy {
 
     return {
       isValid,
-      message: isValid ? "Valid phone number" : "Invalid phone number format"
+      message: isValid ? 'Valid phone number' : 'Invalid phone number format',
     };
   }
 }
@@ -381,13 +387,13 @@ validator.addValidation('password', new PasswordValidation(10));
 validator.addValidation('phone', new PhoneValidation());
 
 const formData = {
-  email: "user@example.com",
-  password: "Weak123",
-  phone: "+1-555-123-4567"
+  email: 'user@example.com',
+  password: 'Weak123',
+  phone: '+1-555-123-4567',
 };
 
 const results = validator.validate(formData);
-console.log("Validation Results:", results);
+console.log('Validation Results:', results);
 ```
 
 ### 3. Compression Strategies
@@ -395,17 +401,17 @@ console.log("Validation Results:", results);
 ```javascript
 class CompressionStrategy {
   compress(data) {
-    throw new Error("compress() method must be implemented");
+    throw new Error('compress() method must be implemented');
   }
 
   decompress(data) {
-    throw new Error("decompress() method must be implemented");
+    throw new Error('decompress() method must be implemented');
   }
 }
 
 class ZipCompression extends CompressionStrategy {
   compress(data) {
-    console.log("🗜️  Compressing with ZIP algorithm");
+    console.log('🗜️  Compressing with ZIP algorithm');
     // Simulate ZIP compression
     const compressed = `ZIP_COMPRESSED[${data.length}]`;
     console.log(`Original: ${data.length} bytes → Compressed: ${compressed.length} bytes`);
@@ -413,36 +419,36 @@ class ZipCompression extends CompressionStrategy {
   }
 
   decompress(compressedData) {
-    console.log("📤 Decompressing ZIP data");
-    return compressedData.replace("ZIP_COMPRESSED[", "").replace("]", "");
+    console.log('📤 Decompressing ZIP data');
+    return compressedData.replace('ZIP_COMPRESSED[', '').replace(']', '');
   }
 }
 
 class GzipCompression extends CompressionStrategy {
   compress(data) {
-    console.log("🗜️  Compressing with GZIP algorithm");
+    console.log('🗜️  Compressing with GZIP algorithm');
     const compressed = `GZIP_COMPRESSED[${data.length}]`;
     console.log(`Original: ${data.length} bytes → Compressed: ${compressed.length} bytes`);
     return compressed;
   }
 
   decompress(compressedData) {
-    console.log("📤 Decompressing GZIP data");
-    return compressedData.replace("GZIP_COMPRESSED[", "").replace("]", "");
+    console.log('📤 Decompressing GZIP data');
+    return compressedData.replace('GZIP_COMPRESSED[', '').replace(']', '');
   }
 }
 
 class RarCompression extends CompressionStrategy {
   compress(data) {
-    console.log("🗜️  Compressing with RAR algorithm");
+    console.log('🗜️  Compressing with RAR algorithm');
     const compressed = `RAR_COMPRESSED[${data.length}]`;
     console.log(`Original: ${data.length} bytes → Compressed: ${compressed.length} bytes`);
     return compressed;
   }
 
   decompress(compressedData) {
-    console.log("📤 Decompressing RAR data");
-    return compressedData.replace("RAR_COMPRESSED[", "").replace("]", "");
+    console.log('📤 Decompressing RAR data');
+    return compressedData.replace('RAR_COMPRESSED[', '').replace(']', '');
   }
 }
 
@@ -466,19 +472,19 @@ class FileCompressor {
 }
 
 // Usage
-const data = "This is a sample file content that needs to be compressed...";
+const data = 'This is a sample file content that needs to be compressed...';
 const compressor = new FileCompressor(new ZipCompression());
 
 // Compress with ZIP
-let compressed = compressor.compressFile("document.txt", data);
+let compressed = compressor.compressFile('document.txt', data);
 
 // Switch to GZIP
 compressor.setStrategy(new GzipCompression());
-compressed = compressor.compressFile("document.txt", data);
+compressed = compressor.compressFile('document.txt', data);
 
 // Switch to RAR
 compressor.setStrategy(new RarCompression());
-compressed = compressor.compressFile("document.txt", data);
+compressed = compressor.compressFile('document.txt', data);
 ```
 
 ## ✅ Pros
@@ -522,7 +528,7 @@ class StatefulStrategy extends Strategy {
   }
 
   process(data) {
-    throw new Error("process() method must be implemented");
+    throw new Error('process() method must be implemented');
   }
 }
 ```
@@ -532,11 +538,15 @@ class StatefulStrategy extends Strategy {
 ```javascript
 class StrategyFactory {
   static createStrategy(type) {
-    switch(type) {
-      case 'quick': return new QuickSort();
-      case 'bubble': return new BubbleSort();
-      case 'merge': return new MergeSort();
-      default: throw new Error(`Unknown strategy type: ${type}`);
+    switch (type) {
+      case 'quick':
+        return new QuickSort();
+      case 'bubble':
+        return new BubbleSort();
+      case 'merge':
+        return new MergeSort();
+      default:
+        throw new Error(`Unknown strategy type: ${type}`);
     }
   }
 }
@@ -551,7 +561,7 @@ const sorter = new Sorter(strategy);
 ```javascript
 class AsyncStrategy {
   async execute(data) {
-    throw new Error("execute() method must be implemented");
+    throw new Error('execute() method must be implemented');
   }
 }
 

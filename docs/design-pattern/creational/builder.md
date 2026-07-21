@@ -20,6 +20,7 @@ class House {
 ```
 
 This approach has several problems:
+
 - Most parameters will be optional, leading to telescoping constructors
 - The constructor becomes hard to read and maintain
 - Creating different variations becomes cumbersome
@@ -89,11 +90,21 @@ class HouseBuilder {
   }
 
   // Abstract methods
-  buildFoundation() { throw new Error("buildFoundation() must be implemented"); }
-  buildWalls() { throw new Error("buildWalls() must be implemented"); }
-  buildRoof() { throw new Error("buildRoof() must be implemented"); }
-  buildDoors() { throw new Error("buildDoors() must be implemented"); }
-  buildWindows() { throw new Error("buildWindows() must be implemented"); }
+  buildFoundation() {
+    throw new Error('buildFoundation() must be implemented');
+  }
+  buildWalls() {
+    throw new Error('buildWalls() must be implemented');
+  }
+  buildRoof() {
+    throw new Error('buildRoof() must be implemented');
+  }
+  buildDoors() {
+    throw new Error('buildDoors() must be implemented');
+  }
+  buildWindows() {
+    throw new Error('buildWindows() must be implemented');
+  }
 
   getResult() {
     const result = this.house;
@@ -105,44 +116,44 @@ class HouseBuilder {
 // Concrete Builder - Modern House
 class ModernHouseBuilder extends HouseBuilder {
   buildFoundation() {
-    console.log("🏗️ Building concrete slab foundation");
-    this.house.addPart("Concrete slab foundation");
+    console.log('🏗️ Building concrete slab foundation');
+    this.house.addPart('Concrete slab foundation');
     return this;
   }
 
   buildWalls() {
-    console.log("🧱 Building glass and steel walls");
-    this.house.addPart("Glass and steel walls");
+    console.log('🧱 Building glass and steel walls');
+    this.house.addPart('Glass and steel walls');
     return this;
   }
 
   buildRoof() {
-    console.log("🏠 Building flat roof with solar panels");
-    this.house.addPart("Flat roof with solar panels");
+    console.log('🏠 Building flat roof with solar panels');
+    this.house.addPart('Flat roof with solar panels');
     return this;
   }
 
   buildDoors() {
-    console.log("🚪 Installing smart glass doors");
-    this.house.addPart("Smart glass doors");
+    console.log('🚪 Installing smart glass doors');
+    this.house.addPart('Smart glass doors');
     return this;
   }
 
   buildWindows() {
-    console.log("🪟 Installing floor-to-ceiling windows");
-    this.house.addPart("Floor-to-ceiling windows");
+    console.log('🪟 Installing floor-to-ceiling windows');
+    this.house.addPart('Floor-to-ceiling windows');
     return this;
   }
 
   addSmartHome() {
-    console.log("🤖 Installing smart home system");
-    this.house.addPart("Smart home automation system");
+    console.log('🤖 Installing smart home system');
+    this.house.addPart('Smart home automation system');
     return this;
   }
 
   addPool() {
-    console.log("🏊 Adding infinity pool");
-    this.house.addPart("Infinity pool");
+    console.log('🏊 Adding infinity pool');
+    this.house.addPart('Infinity pool');
     return this;
   }
 }
@@ -150,44 +161,44 @@ class ModernHouseBuilder extends HouseBuilder {
 // Concrete Builder - Traditional House
 class TraditionalHouseBuilder extends HouseBuilder {
   buildFoundation() {
-    console.log("🏗️ Building stone foundation");
-    this.house.addPart("Stone foundation");
+    console.log('🏗️ Building stone foundation');
+    this.house.addPart('Stone foundation');
     return this;
   }
 
   buildWalls() {
-    console.log("🧱 Building brick walls");
-    this.house.addPart("Brick walls");
+    console.log('🧱 Building brick walls');
+    this.house.addPart('Brick walls');
     return this;
   }
 
   buildRoof() {
-    console.log("🏠 Building pitched roof with tiles");
-    this.house.addPart("Pitched tile roof");
+    console.log('🏠 Building pitched roof with tiles');
+    this.house.addPart('Pitched tile roof');
     return this;
   }
 
   buildDoors() {
-    console.log("🚪 Installing wooden doors");
-    this.house.addPart("Wooden doors");
+    console.log('🚪 Installing wooden doors');
+    this.house.addPart('Wooden doors');
     return this;
   }
 
   buildWindows() {
-    console.log("🪟 Installing traditional windows");
-    this.house.addPart("Traditional windows");
+    console.log('🪟 Installing traditional windows');
+    this.house.addPart('Traditional windows');
     return this;
   }
 
   addFireplace() {
-    console.log("🔥 Adding stone fireplace");
-    this.house.addPart("Stone fireplace");
+    console.log('🔥 Adding stone fireplace');
+    this.house.addPart('Stone fireplace');
     return this;
   }
 
   addGarden() {
-    console.log("🌹 Adding cottage garden");
-    this.house.addPart("Cottage garden");
+    console.log('🌹 Adding cottage garden');
+    this.house.addPart('Cottage garden');
     return this;
   }
 }
@@ -204,21 +215,16 @@ class HouseDirector {
 
   // Different construction algorithms
   constructBasicHouse() {
-    if (!this.builder) throw new Error("Builder not set");
+    if (!this.builder) throw new Error('Builder not set');
 
-    console.log("🏗️ Constructing basic house...");
-    return this.builder
-      .buildFoundation()
-      .buildWalls()
-      .buildRoof()
-      .buildDoors()
-      .buildWindows();
+    console.log('🏗️ Constructing basic house...');
+    return this.builder.buildFoundation().buildWalls().buildRoof().buildDoors().buildWindows();
   }
 
   constructLuxuryHouse() {
-    if (!this.builder) throw new Error("Builder not set");
+    if (!this.builder) throw new Error('Builder not set');
 
-    console.log("🏗️ Constructing luxury house...");
+    console.log('🏗️ Constructing luxury house...');
     this.constructBasicHouse();
 
     // Add luxury features based on builder type
@@ -234,13 +240,13 @@ class HouseDirector {
 
 // Usage
 function demonstrateBuilder() {
-  console.log("=== Builder Pattern Demo ===\n");
+  console.log('=== Builder Pattern Demo ===\n');
 
   const director = new HouseDirector();
 
   // Build modern houses
-  console.log("Building Modern Houses:");
-  console.log("-".repeat(30));
+  console.log('Building Modern Houses:');
+  console.log('-'.repeat(30));
 
   const modernBuilder = new ModernHouseBuilder();
   director.setBuilder(modernBuilder);
@@ -257,11 +263,11 @@ function demonstrateBuilder() {
   const luxuryModernHouse = modernBuilder.getResult();
   luxuryModernHouse.describe();
 
-  console.log("\n" + "=".repeat(50) + "\n");
+  console.log('\n' + '='.repeat(50) + '\n');
 
   // Build traditional houses
-  console.log("Building Traditional Houses:");
-  console.log("-".repeat(30));
+  console.log('Building Traditional Houses:');
+  console.log('-'.repeat(30));
 
   const traditionalBuilder = new TraditionalHouseBuilder();
   director.setBuilder(traditionalBuilder);
@@ -440,13 +446,13 @@ class QueryBuilder {
 }
 
 // Usage examples
-console.log("=== SQL Query Builder Demo ===\n");
+console.log('=== SQL Query Builder Demo ===\n');
 
 const queryBuilder = new QueryBuilder();
 
 // Simple query
-console.log("Building Simple Query:");
-console.log("-".repeat(25));
+console.log('Building Simple Query:');
+console.log('-'.repeat(25));
 const simpleQuery = queryBuilder
   .select('name', 'email')
   .from('users')
@@ -454,14 +460,14 @@ const simpleQuery = queryBuilder
   .orderBy('name')
   .build();
 
-console.log("📝 Generated Query:");
+console.log('📝 Generated Query:');
 console.log(simpleQuery.toString());
 
-console.log("\n" + "=".repeat(40) + "\n");
+console.log('\n' + '='.repeat(40) + '\n');
 
 // Complex query with joins
-console.log("Building Complex Query:");
-console.log("-".repeat(25));
+console.log('Building Complex Query:');
+console.log('-'.repeat(25));
 const complexQuery = queryBuilder
   .select('u.name', 'u.email', 'p.title', 'COUNT(c.id) as comment_count')
   .from('users u')
@@ -475,7 +481,7 @@ const complexQuery = queryBuilder
   .limit(10)
   .build();
 
-console.log("📝 Generated Query:");
+console.log('📝 Generated Query:');
 console.log(complexQuery.toString());
 ```
 
@@ -500,7 +506,7 @@ class HTTPRequest {
       method: this.method,
       url: this.buildUrl(),
       headers: this.headers,
-      timeout: this.timeout
+      timeout: this.timeout,
     };
 
     if (this.body) {
@@ -513,7 +519,7 @@ class HTTPRequest {
   buildUrl() {
     let url = this.url;
     const paramString = Object.keys(this.queryParams)
-      .map(key => `${key}=${encodeURIComponent(this.queryParams[key])}`)
+      .map((key) => `${key}=${encodeURIComponent(this.queryParams[key])}`)
       .join('&');
 
     if (paramString) {
@@ -537,7 +543,7 @@ class HTTPRequest {
         resolve({
           status: 200,
           data: { message: 'Request successful', url: this.buildUrl() },
-          headers: { 'content-type': 'application/json' }
+          headers: { 'content-type': 'application/json' },
         });
       }, 100);
     });
@@ -644,7 +650,7 @@ class HTTPRequestBuilder {
   form(data) {
     this.contentType('application/x-www-form-urlencoded');
     const formData = Object.keys(data)
-      .map(key => `${key}=${encodeURIComponent(data[key])}`)
+      .map((key) => `${key}=${encodeURIComponent(data[key])}`)
       .join('&');
     return this.body(formData);
   }
@@ -677,13 +683,13 @@ class HTTPRequestBuilder {
 
 // Usage examples
 async function demonstrateHTTPBuilder() {
-  console.log("=== HTTP Request Builder Demo ===\n");
+  console.log('=== HTTP Request Builder Demo ===\n');
 
   const builder = new HTTPRequestBuilder();
 
   // Simple GET request
-  console.log("Building Simple GET Request:");
-  console.log("-".repeat(30));
+  console.log('Building Simple GET Request:');
+  console.log('-'.repeat(30));
 
   const getResponse = await builder
     .get('https://api.example.com/users')
@@ -693,13 +699,13 @@ async function demonstrateHTTPBuilder() {
     .timeout(3000)
     .execute();
 
-  console.log("✅ Response:", getResponse);
+  console.log('✅ Response:', getResponse);
 
-  console.log("\n" + "=".repeat(50) + "\n");
+  console.log('\n' + '='.repeat(50) + '\n');
 
   // Complex POST request
-  console.log("Building Complex POST Request:");
-  console.log("-".repeat(30));
+  console.log('Building Complex POST Request:');
+  console.log('-'.repeat(30));
 
   const postResponse = await builder
     .post('https://api.example.com/users')
@@ -708,30 +714,30 @@ async function demonstrateHTTPBuilder() {
     .json({
       name: 'John Doe',
       email: 'john@example.com',
-      role: 'user'
+      role: 'user',
     })
     .timeout(5000)
     .retries(2)
     .execute();
 
-  console.log("✅ Response:", postResponse);
+  console.log('✅ Response:', postResponse);
 
-  console.log("\n" + "=".repeat(50) + "\n");
+  console.log('\n' + '='.repeat(50) + '\n');
 
   // Form submission
-  console.log("Building Form POST Request:");
-  console.log("-".repeat(30));
+  console.log('Building Form POST Request:');
+  console.log('-'.repeat(30));
 
   const formResponse = await builder
     .post('https://api.example.com/contact')
     .form({
       name: 'Jane Smith',
       email: 'jane@example.com',
-      message: 'Hello World!'
+      message: 'Hello World!',
     })
     .execute();
 
-  console.log("✅ Response:", formResponse);
+  console.log('✅ Response:', formResponse);
 }
 
 // Run the demo
@@ -757,11 +763,11 @@ class AppConfig {
     const errors = [];
 
     // Validate required database settings
-    if (!this.database.host) errors.push("Database host is required");
-    if (!this.database.name) errors.push("Database name is required");
+    if (!this.database.host) errors.push('Database host is required');
+    if (!this.database.name) errors.push('Database name is required');
 
     // Validate server settings
-    if (!this.server.port) errors.push("Server port is required");
+    if (!this.server.port) errors.push('Server port is required');
 
     if (errors.length > 0) {
       throw new Error(`Configuration validation failed:\n- ${errors.join('\n- ')}`);
@@ -778,7 +784,7 @@ class AppConfig {
       security: this.security,
       cache: this.cache,
       email: this.email,
-      features: this.features
+      features: this.features,
     };
   }
 
@@ -801,7 +807,7 @@ class ConfigBuilder {
   // Database configuration
   database(options) {
     Object.assign(this.config.database, options);
-    console.log("🗄️ Database config:", options);
+    console.log('🗄️ Database config:', options);
     return this;
   }
 
@@ -809,7 +815,7 @@ class ConfigBuilder {
     return this.database({
       type: 'mysql',
       port: 3306,
-      ...options
+      ...options,
     });
   }
 
@@ -817,7 +823,7 @@ class ConfigBuilder {
     return this.database({
       type: 'postgresql',
       port: 5432,
-      ...options
+      ...options,
     });
   }
 
@@ -825,14 +831,14 @@ class ConfigBuilder {
     return this.database({
       type: 'mongodb',
       port: 27017,
-      ...options
+      ...options,
     });
   }
 
   // Server configuration
   server(options) {
     Object.assign(this.config.server, options);
-    console.log("🖥️ Server config:", options);
+    console.log('🖥️ Server config:', options);
     return this;
   }
 
@@ -851,7 +857,7 @@ class ConfigBuilder {
   // Logging configuration
   logging(options) {
     Object.assign(this.config.logging, options);
-    console.log("📝 Logging config:", options);
+    console.log('📝 Logging config:', options);
     return this;
   }
 
@@ -870,13 +876,13 @@ class ConfigBuilder {
   // Security configuration
   security(options) {
     Object.assign(this.config.security, options);
-    console.log("🔒 Security config:", options);
+    console.log('🔒 Security config:', options);
     return this;
   }
 
   jwtSecret(secret) {
     this.config.security.jwtSecret = secret;
-    console.log("🔑 JWT secret configured");
+    console.log('🔑 JWT secret configured');
     return this;
   }
 
@@ -885,16 +891,16 @@ class ConfigBuilder {
       enabled: true,
       origin: '*',
       methods: ['GET', 'POST', 'PUT', 'DELETE'],
-      ...options
+      ...options,
     };
-    console.log("🌐 CORS configured:", this.config.security.cors);
+    console.log('🌐 CORS configured:', this.config.security.cors);
     return this;
   }
 
   // Cache configuration
   cache(options) {
     Object.assign(this.config.cache, options);
-    console.log("💾 Cache config:", options);
+    console.log('💾 Cache config:', options);
     return this;
   }
 
@@ -903,7 +909,7 @@ class ConfigBuilder {
       type: 'redis',
       host: 'localhost',
       port: 6379,
-      ...options
+      ...options,
     });
   }
 
@@ -912,28 +918,28 @@ class ConfigBuilder {
       type: 'memcached',
       host: 'localhost',
       port: 11211,
-      ...options
+      ...options,
     });
   }
 
   // Email configuration
   email(options) {
     Object.assign(this.config.email, options);
-    console.log("📧 Email config set");
+    console.log('📧 Email config set');
     return this;
   }
 
   smtp(options) {
     return this.email({
       type: 'smtp',
-      ...options
+      ...options,
     });
   }
 
   // Feature flags
   features(options) {
     Object.assign(this.config.features, options);
-    console.log("🎛️ Features configured:", options);
+    console.log('🎛️ Features configured:', options);
     return this;
   }
 
@@ -945,16 +951,14 @@ class ConfigBuilder {
 
   // Environment-specific configurations
   development() {
-    return this
-      .logLevel('debug')
+    return this.logLevel('debug')
       .cors({ origin: 'http://localhost:3000' })
       .enableFeature('debug', true)
       .enableFeature('hotReload', true);
   }
 
   production() {
-    return this
-      .logLevel('error')
+    return this.logLevel('error')
       .cors({ origin: 'https://myapp.com' })
       .enableFeature('debug', false)
       .enableFeature('monitoring', true)
@@ -962,8 +966,7 @@ class ConfigBuilder {
   }
 
   testing() {
-    return this
-      .logLevel('warn')
+    return this.logLevel('warn')
       .database({ name: 'test_db' })
       .enableFeature('debug', true)
       .enableFeature('testMode', true);
@@ -979,20 +982,20 @@ class ConfigBuilder {
 
 // Usage examples
 function demonstrateConfigBuilder() {
-  console.log("=== Configuration Builder Demo ===\n");
+  console.log('=== Configuration Builder Demo ===\n');
 
   const builder = new ConfigBuilder();
 
   // Development configuration
-  console.log("Building Development Configuration:");
-  console.log("-".repeat(35));
+  console.log('Building Development Configuration:');
+  console.log('-'.repeat(35));
 
   const devConfig = builder
     .postgresql({
       host: 'localhost',
       name: 'myapp_dev',
       username: 'dev_user',
-      password: 'dev_pass'
+      password: 'dev_pass',
     })
     .port(3000)
     .host('localhost')
@@ -1001,19 +1004,19 @@ function demonstrateConfigBuilder() {
     .smtp({
       host: 'localhost',
       port: 1025,
-      secure: false
+      secure: false,
     })
     .jwtSecret('dev-secret-key')
     .build();
 
-  console.log("✅ Development Config:");
+  console.log('✅ Development Config:');
   console.log(devConfig.toString());
 
-  console.log("\n" + "=".repeat(60) + "\n");
+  console.log('\n' + '='.repeat(60) + '\n');
 
   // Production configuration
-  console.log("Building Production Configuration:");
-  console.log("-".repeat(35));
+  console.log('Building Production Configuration:');
+  console.log('-'.repeat(35));
 
   const prodConfig = builder
     .mysql({
@@ -1021,14 +1024,14 @@ function demonstrateConfigBuilder() {
       name: 'myapp_prod',
       username: 'prod_user',
       password: process.env.DB_PASSWORD || 'secure-password',
-      ssl: true
+      ssl: true,
     })
     .port(8080)
     .host('0.0.0.0')
     .production()
     .redis({
       host: 'redis.example.com',
-      password: process.env.REDIS_PASSWORD || 'redis-password'
+      password: process.env.REDIS_PASSWORD || 'redis-password',
     })
     .smtp({
       host: 'smtp.gmail.com',
@@ -1036,25 +1039,25 @@ function demonstrateConfigBuilder() {
       secure: true,
       auth: {
         user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD
-      }
+        pass: process.env.EMAIL_PASSWORD,
+      },
     })
     .jwtSecret(process.env.JWT_SECRET || 'super-secure-secret')
     .build();
 
-  console.log("✅ Production Config:");
+  console.log('✅ Production Config:');
   console.log(prodConfig.toString());
 
-  console.log("\n" + "=".repeat(60) + "\n");
+  console.log('\n' + '='.repeat(60) + '\n');
 
   // Testing configuration
-  console.log("Building Test Configuration:");
-  console.log("-".repeat(30));
+  console.log('Building Test Configuration:');
+  console.log('-'.repeat(30));
 
   const testConfig = builder
     .mongodb({
       host: 'localhost',
-      name: 'myapp_test'
+      name: 'myapp_test',
     })
     .port(3001)
     .testing()
@@ -1062,7 +1065,7 @@ function demonstrateConfigBuilder() {
     .enableFeature('mockData', true)
     .build();
 
-  console.log("✅ Test Config:");
+  console.log('✅ Test Config:');
   console.log(testConfig.toString());
 }
 
@@ -1097,6 +1100,7 @@ demonstrateConfigBuilder();
 ## 🔄 Variations
 
 ### 1. **Fluent Interface Builder**
+
 ```javascript
 class FluentBuilder {
   method1(value) {
@@ -1112,21 +1116,23 @@ class FluentBuilder {
 ```
 
 ### 2. **Step Builder**
+
 ```javascript
 class StepBuilder {
   constructor() {
     return {
       step1: (value) => ({
         step2: (value) => ({
-          build: () => new Product(value1, value2)
-        })
-      })
+          build: () => new Product(value1, value2),
+        }),
+      }),
     };
   }
 }
 ```
 
 ### 3. **Generic Builder**
+
 ```javascript
 class GenericBuilder {
   constructor(ProductClass) {

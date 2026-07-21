@@ -16,7 +16,7 @@ keywords:
 <div align="center">
 
 ![DSA Complexity Cheat Sheet](../assets/images/complexity-cheat-sheet.svg)
-*Big-O cheat sheet — understand time & space trade-offs across every approach*
+_Big-O cheat sheet — understand time & space trade-offs across every approach_
 
 </div>
 
@@ -71,70 +71,70 @@ All topics are grouped by category and cross-linked. Each page includes explanat
 
 ### 🏫 Foundations
 
-| Topic | What You'll Learn | Typical Complexity |
-| ----- | ----------------- | ------------------ |
-| [🏫 School Basics](./school-basics/README.md) | Core programming constructs & basic algorithms | Varies |
-| [🔢 Math](./math/README.md) | GCD, primes, modular arithmetic, combinatorics | O(√n) – O(n) |
+| Topic                                         | What You'll Learn                              | Typical Complexity |
+| --------------------------------------------- | ---------------------------------------------- | ------------------ |
+| [🏫 School Basics](./school-basics/README.md) | Core programming constructs & basic algorithms | Varies             |
+| [🔢 Math](./math/README.md)                   | GCD, primes, modular arithmetic, combinatorics | O(√n) – O(n)       |
 
 ### 🔤 Arrays, Strings & Sorting
 
-| Topic | What You'll Learn | Typical Complexity |
-| ----- | ----------------- | ------------------ |
-| [🔤 Strings](./strings/README.md) | Pattern matching, two pointers, hashing, KMP | O(n) – O(n+m) |
-| [🔃 Sorting](./sorting/README.md) | Comparison & non-comparison sorts, stability | O(n log n) |
-| [🗺️ Hashing](./hashing/README.md) | Hash maps/sets for O(1) lookups | O(1) avg |
+| Topic                             | What You'll Learn                            | Typical Complexity |
+| --------------------------------- | -------------------------------------------- | ------------------ |
+| [🔤 Strings](./strings/README.md) | Pattern matching, two pointers, hashing, KMP | O(n) – O(n+m)      |
+| [🔃 Sorting](./sorting/README.md) | Comparison & non-comparison sorts, stability | O(n log n)         |
+| [🗺️ Hashing](./hashing/README.md) | Hash maps/sets for O(1) lookups              | O(1) avg           |
 
 ### 🔧 Core Techniques
 
-| Topic | What You'll Learn | Typical Complexity |
-| ----- | ----------------- | ------------------ |
-| [🎯 Two Pointers](./two-pointers/README.md) | Converging/parallel pointers on arrays | O(n) |
-| [🪟 Sliding Window](./sliding-window/README.md) | Fixed/variable windows for subarrays | O(n) |
-| [➕ Prefix Sum](./prefix-sum/README.md) | O(1) range queries after preprocessing | O(1) query |
-| [🔍 Binary Search](./binary-search/README.md) | Search sorted spaces & "binary search on answer" | O(log n) |
-| [🔁 Recursion](./recursion/README.md) | Divide & conquer, call stacks, memoization | Varies |
-| [📉 Kadane's Algorithm](./kadanes-algorithm/README.md) | Maximum subarray sum | O(n) |
+| Topic                                                  | What You'll Learn                                | Typical Complexity |
+| ------------------------------------------------------ | ------------------------------------------------ | ------------------ |
+| [🎯 Two Pointers](./two-pointers/README.md)            | Converging/parallel pointers on arrays           | O(n)               |
+| [🪟 Sliding Window](./sliding-window/README.md)        | Fixed/variable windows for subarrays             | O(n)               |
+| [➕ Prefix Sum](./prefix-sum/README.md)                | O(1) range queries after preprocessing           | O(1) query         |
+| [🔍 Binary Search](./binary-search/README.md)          | Search sorted spaces & "binary search on answer" | O(log n)           |
+| [🔁 Recursion](./recursion/README.md)                  | Divide & conquer, call stacks, memoization       | Varies             |
+| [📉 Kadane's Algorithm](./kadanes-algorithm/README.md) | Maximum subarray sum                             | O(n)               |
 
 ### 🧱 Linear Data Structures
 
-| Topic | What You'll Learn | Typical Complexity |
-| ----- | ----------------- | ------------------ |
-| [🥞 Stack](./stack/README.md) | LIFO, expression parsing, DFS | O(1) push/pop |
-| [🚶 Queue](./queue/README.md) | FIFO, BFS, scheduling | O(1) enqueue/dequeue |
-| [🔗 Linked List](./linked-list/README.md) | Pointers, reversal, cycle detection | O(n) |
-| [⛰️ Heap](./heap/README.md) | Priority queues, Top-K, heapsort | O(log n) |
-| [📏 Monotonic Stack](./monotonic-stack/README.md) | Next greater/smaller element | O(n) |
+| Topic                                             | What You'll Learn                   | Typical Complexity   |
+| ------------------------------------------------- | ----------------------------------- | -------------------- |
+| [🥞 Stack](./stack/README.md)                     | LIFO, expression parsing, DFS       | O(1) push/pop        |
+| [🚶 Queue](./queue/README.md)                     | FIFO, BFS, scheduling               | O(1) enqueue/dequeue |
+| [🔗 Linked List](./linked-list/README.md)         | Pointers, reversal, cycle detection | O(n)                 |
+| [⛰️ Heap](./heap/README.md)                       | Priority queues, Top-K, heapsort    | O(log n)             |
+| [📏 Monotonic Stack](./monotonic-stack/README.md) | Next greater/smaller element        | O(n)                 |
 
 ### 🌳 Non-Linear Data Structures
 
-| Topic | What You'll Learn | Typical Complexity |
-| ----- | ----------------- | ------------------ |
-| [🔲 Matrix](./matrix/README.md) | 2D traversal, rotation, spiral | O(m·n) |
-| [🌳 Trees](./trees/README.md) | Traversals, BST, LCA, tree DP | O(n) |
-| [🕸️ Graphs](./graphs/README.md) | BFS, DFS, shortest paths, MST | O(V+E) |
+| Topic                           | What You'll Learn              | Typical Complexity |
+| ------------------------------- | ------------------------------ | ------------------ |
+| [🔲 Matrix](./matrix/README.md) | 2D traversal, rotation, spiral | O(m·n)             |
+| [🌳 Trees](./trees/README.md)   | Traversals, BST, LCA, tree DP  | O(n)               |
+| [🕸️ Graphs](./graphs/README.md) | BFS, DFS, shortest paths, MST  | O(V+E)             |
 
 ### 🚀 Advanced Problem Solving
 
-| Topic | What You'll Learn | Typical Complexity |
-| ----- | ----------------- | ------------------ |
-| [🔙 Backtracking](./backtracking/README.md) | Exhaustive search with pruning | O(bᵈ) |
-| [🧠 Dynamic Programming](./dp/README.md) | Overlapping subproblems, optimal substructure | O(n) – O(n²) |
-| [💡 Greedy](./greedy/README.md) | Locally optimal choices, exchange argument | O(n log n) |
-| [🔢 Bit Manipulation](./bit-manipulation/README.md) | XOR tricks, masks, set-bit counting | O(1) – O(n) |
+| Topic                                               | What You'll Learn                             | Typical Complexity |
+| --------------------------------------------------- | --------------------------------------------- | ------------------ |
+| [🔙 Backtracking](./backtracking/README.md)         | Exhaustive search with pruning                | O(bᵈ)              |
+| [🧠 Dynamic Programming](./dp/README.md)            | Overlapping subproblems, optimal substructure | O(n) – O(n²)       |
+| [💡 Greedy](./greedy/README.md)                     | Locally optimal choices, exchange argument    | O(n log n)         |
+| [🔢 Bit Manipulation](./bit-manipulation/README.md) | XOR tricks, masks, set-bit counting           | O(1) – O(n)        |
 
 ---
 
 ## ⚡ Big-O Quick Reference
 
-| Complexity | Name | Example |
-| ---------- | ---- | ------- |
-| O(1) | Constant | Hash lookup, array index |
-| O(log n) | Logarithmic | Binary search, balanced BST |
-| O(n) | Linear | Single pass, prefix sum build |
-| O(n log n) | Linearithmic | Merge sort, heap sort |
-| O(n²) | Quadratic | Nested loops, bubble sort |
-| O(2ⁿ) | Exponential | Naive recursion (fib), subsets |
-| O(n!) | Factorial | Permutations, brute-force TSP |
+| Complexity | Name         | Example                        |
+| ---------- | ------------ | ------------------------------ |
+| O(1)       | Constant     | Hash lookup, array index       |
+| O(log n)   | Logarithmic  | Binary search, balanced BST    |
+| O(n)       | Linear       | Single pass, prefix sum build  |
+| O(n log n) | Linearithmic | Merge sort, heap sort          |
+| O(n²)      | Quadratic    | Nested loops, bubble sort      |
+| O(2ⁿ)      | Exponential  | Naive recursion (fib), subsets |
+| O(n!)      | Factorial    | Permutations, brute-force TSP  |
 
 > See the [complexity cheat sheet](../assets/images/complexity-cheat-sheet.svg) above for a visual comparison.
 

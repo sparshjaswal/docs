@@ -24,9 +24,9 @@ emulate merge sort (top-down).
 
 ## Complexity
 
-| Name                  | Best            | Average             | Worst               | Memory    | Stable    | Comments  |
-| --------------------- | :-------------: | :-----------------: | :-----------------: | :-------: | :-------: | :-------- |
-| **Merge sort**        | n&nbsp;log(n)   | n&nbsp;log(n)       | n&nbsp;log(n)       | n         | Yes       |           |
+| Name           |     Best      |    Average    |     Worst     | Memory | Stable | Comments |
+| -------------- | :-----------: | :-----------: | :-----------: | :----: | :----: | :------- |
+| **Merge sort** | n&nbsp;log(n) | n&nbsp;log(n) | n&nbsp;log(n) |   n    |  Yes   |          |
 
 ## References
 

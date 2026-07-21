@@ -5,6 +5,7 @@ Object composition is a powerful way to build complex objects by combining small
 ## Understanding Object Composition
 
 Object composition is about building complex objects by combining simpler ones, following the principle "composition over inheritance". This approach allows for:
+
 - More flexible code structures
 - Better code reuse
 - Reduced coupling between components
@@ -12,7 +13,8 @@ Object composition is about building complex objects by combining simpler ones, 
 ## Types of Relationships
 
 ### 1. IS-A Relationship (Inheritance)
-```javascript
+
+````javascript
 class Person {
     constructor(firstName, lastName) {
         this.firstName = firstName;
@@ -54,61 +56,63 @@ class Order {
 const product = new Product(1, 'Levis-Pant');
 const order = new Order('ORD-001', product);
 console.log(order.getOrderDetails()); // "Order ORD-001: Levis-Pant"
-```
+````
 
 ## Implementing Composition
 
 ### 1. Basic Composition with Factory Functions
+
 ```javascript
 // Creating behavior objects
 const hasName = (name) => ({
-    getName: () => name,
-    setName: (newName) => name = newName
+  getName: () => name,
+  setName: (newName) => (name = newName),
 });
 
 const hasAge = (age) => ({
-    getAge: () => age,
-    setAge: (newAge) => age = newAge
+  getAge: () => age,
+  setAge: (newAge) => (age = newAge),
 });
 
 // Composing objects
 const createPerson = (name, age) => {
-    return {
-        ...hasName(name),
-        ...hasAge(age)
-    };
+  return {
+    ...hasName(name),
+    ...hasAge(age),
+  };
 };
 
-const person = createPerson("Sparsh", 25);
+const person = createPerson('Sparsh', 25);
 console.log(person.getName()); // "Sparsh"
 ```
 
 ### 2. Module Pattern with Private State
+
 ```javascript
 const createBankAccount = (initialBalance) => {
-    let balance = initialBalance; // Private state
+  let balance = initialBalance; // Private state
 
-    return {
-        deposit(amount) {
-            if (amount > 0) {
-                balance += amount;
-                return true;
-            }
-            return false;
-        },
+  return {
+    deposit(amount) {
+      if (amount > 0) {
+        balance += amount;
+        return true;
+      }
+      return false;
+    },
 
-        withdraw(amount) {
-            if (amount <= balance) {
-                balance -= amount;
-                return true;
-            }
-            return false;
-        },
+    withdraw(amount) {
+      if (amount <= balance) {
+        balance -= amount;
+        return true;
+      }
+      return false;
+    },
 
-        getBalance() {
-            return balance;
-        }
-    };
+    getBalance() {
+      return balance;
+    },
+  };
 };
 
 const account = createBankAccount(100);
@@ -129,113 +133,111 @@ console.log(ObjectInstance.__proto__.__proto__);
 ## Best Practices for Object Composition
 
 ### 1. Favor Composition Over Inheritance
+
 ```javascript
 // Instead of inheritance hierarchy
 const canSwim = (state) => ({
-    swim: () => console.log(`${state.name} is swimming`)
+  swim: () => console.log(`${state.name} is swimming`),
 });
 
 const canFly = (state) => ({
-    fly: () => console.log(`${state.name} is flying`)
+  fly: () => console.log(`${state.name} is flying`),
 });
 
 const createDuck = (name) => {
-    const state = { name };
-    return {
-        ...canSwim(state),
-        ...canFly(state)
-    };
+  const state = { name };
+  return {
+    ...canSwim(state),
+    ...canFly(state),
+  };
 };
 
-const duck = createDuck("Donald");
+const duck = createDuck('Donald');
 duck.swim(); // "Donald is swimming"
-duck.fly();  // "Donald is flying"
+duck.fly(); // "Donald is flying"
 ```
 
 ### 2. Keep Objects Small and Focused
+
 ```javascript
 // Small, focused behaviors
 const hasLogger = (prefix) => ({
-    log: (msg) => console.log(`${prefix}: ${msg}`)
+  log: (msg) => console.log(`${prefix}: ${msg}`),
 });
 
 const hasTimestamp = () => ({
-    getTimestamp: () => new Date().toISOString()
+  getTimestamp: () => new Date().toISOString(),
 });
 
 // Compose them together
 const createLogger = (prefix) => ({
-    ...hasLogger(prefix),
-    ...hasTimestamp()
+  ...hasLogger(prefix),
+  ...hasTimestamp(),
 });
 
-const logger = createLogger("APP");
+const logger = createLogger('APP');
 logger.log(logger.getTimestamp()); // "APP: 2025-10-25T..."
 ```
-
 
 ## Advanced Composition Patterns
 
 ### 1. Method Chaining
+
 ```javascript
 const createCalculator = () => {
-    let value = 0;
+  let value = 0;
 
-    return {
-        add(n) {
-            value += n;
-            return this;
-        },
-        subtract(n) {
-            value -= n;
-            return this;
-        },
-        multiply(n) {
-            value *= n;
-            return this;
-        },
-        getValue() {
-            return value;
-        }
-    };
+  return {
+    add(n) {
+      value += n;
+      return this;
+    },
+    subtract(n) {
+      value -= n;
+      return this;
+    },
+    multiply(n) {
+      value *= n;
+      return this;
+    },
+    getValue() {
+      return value;
+    },
+  };
 };
 
 const calc = createCalculator();
 console.log(
-    calc.add(5)
-        .multiply(2)
-        .subtract(3)
-        .getValue() // 7
+  calc.add(5).multiply(2).subtract(3).getValue(), // 7
 );
 ```
 
 ### 2. Event Emitter Pattern
+
 ```javascript
 const createEventEmitter = () => {
-    const events = new Map();
+  const events = new Map();
 
-    return {
-        on(event, callback) {
-            if (!events.has(event)) {
-                events.set(event, []);
-            }
-            events.get(event).push(callback);
-            return this;
-        },
+  return {
+    on(event, callback) {
+      if (!events.has(event)) {
+        events.set(event, []);
+      }
+      events.get(event).push(callback);
+      return this;
+    },
 
-        emit(event, data) {
-            if (events.has(event)) {
-                events.get(event).forEach(cb => cb(data));
-            }
-            return this;
-        }
-    };
+    emit(event, data) {
+      if (events.has(event)) {
+        events.get(event).forEach((cb) => cb(data));
+      }
+      return this;
+    },
+  };
 };
 
 const emitter = createEventEmitter();
-emitter
-    .on('data', console.log)
-    .emit('data', 'Hello World');
+emitter.on('data', console.log).emit('data', 'Hello World');
 ```
 
 ## Benefits of Object Composition
@@ -249,12 +251,14 @@ emitter
 ## When to Use Object Composition
 
 ✅ **Use When**:
+
 - You need flexible object creation
 - Objects share behavior but aren't hierarchical
 - You want to avoid deep inheritance chains
 - You need to combine multiple behaviors
 
 ❌ **Avoid When**:
+
 - You have a clear is-a relationship
 - You need tight coupling between objects
 - You're working with simple, single-purpose objects
@@ -269,41 +273,41 @@ How can I reuse/borrow the function print name?
 
 ```javascript
 const student = {
-    name : "sparsh",
-       printDetail : function (registrationNo,age) {
-           console.log("Name: "+this.name );
-           console.log("Registration Number: "+registrationNo );
-        console.log("Age: "+age );
-       }
+  name: 'sparsh',
+  printDetail: function (registrationNo, age) {
+    console.log('Name: ' + this.name);
+    console.log('Registration Number: ' + registrationNo);
+    console.log('Age: ' + age);
+  },
 };
-student.printDetail(10,28);
+student.printDetail(10, 28);
 // give output Name: sparsh    Roll No: 10
 
 const student2 = {
-       name: 'jaswal'
-}
-let student2Func = student.printDetail.bind(student2,11);
+  name: 'jaswal',
+};
+let student2Func = student.printDetail.bind(student2, 11);
 student2Func(40);
-student2Func(40,20);
-student.printDetail.call(student2,12,32)
-student.printDetail.apply(student,[22,41])
+student2Func(40, 20);
+student.printDetail.call(student2, 12, 32);
+student.printDetail.apply(student, [22, 41]);
 
-
-const array = [1,2,3];
-function getMaxNumber(arr){
-    return Math.max.apply(null, arr);
+const array = [1, 2, 3];
+function getMaxNumber(arr) {
+  return Math.max.apply(null, arr);
 }
-getMaxNumber(array)
+getMaxNumber(array);
 ```
+
 # Class [es6]
 
 ```js
- class companyItem {
-    constructor(productName) {
-        this.rawMaterial = "Iron";
-        this.company = "Tata";
-        this.productName = productName;
-    }
+class companyItem {
+  constructor(productName) {
+    this.rawMaterial = 'Iron';
+    this.company = 'Tata';
+    this.productName = productName;
+  }
 }
 
 const indianGoogleEmployee = new companyItem('jeep');
@@ -313,19 +317,19 @@ const indianGoogleEmployee = new companyItem('jeep');
 
 ```js
 class Employee {
-    constructor(name,age) {
-        this.name = name;
-        this.age = age;
-    }
-    getInfo(){
-        console.log(this.name,this.age);
-    }
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  getInfo() {
+    console.log(this.name, this.age);
+  }
 }
 
 class GoogleEmployee extends Employee {
-    constructor(){
-        super("sparsh jaswal",25);
-    }
+  constructor() {
+    super('sparsh jaswal', 25);
+  }
 }
 const indianGoogleEmployee = new GoogleEmployee();
 console.log(indianGoogleEmployee.getInfo());
@@ -338,9 +342,9 @@ the‌ ‌instance.‌ ‌
 
 ```js
 class Hotel {
-    static welcome(){
-        console.log("this is a static member function");
-    }
+  static welcome() {
+    console.log('this is a static member function');
+  }
 }
 console.log(Hotel.welcome());
 // this is a static member function
@@ -378,6 +382,7 @@ console.log(doubleSQUARE.doubleSqrt(5));
 // Uncaught ReferenceError ReferenceError: doubleSQUARE is not defined
 *some‌ ‌use-case‌ ‌of‌ ‌writing‌ ‌javascript‌ ‌ ‌
 ```
+
 Introduced‌ ‌in‌ ‌ES5,‌ ‌Setter‌ ‌and‌ ‌Getter‌ ‌let‌ ‌you‌ ‌define‌ ‌the‌ ‌object‌ ‌accessor.‌ ‌
 This‌ ‌Object‌ ‌accessor‌ ‌acts‌ ‌as‌ ‌property‌ ‌or‌ ‌methods‌ ‌in‌ ‌javaScript.‌ ‌
 Setter‌ ‌and‌ ‌Getter's‌ ‌syntax‌ ‌is‌ ‌way‌ ‌too‌ ‌standardizing‌ ‌the‌ ‌property‌ ‌of‌ ‌an‌ ‌
@@ -407,39 +412,39 @@ var Student = new Object();
 Student.name = 'Sparsh Jaswal';
 Student.dob = '25/07/1991';
 
-function Student(name,dob){
-    this.name=name;
-    this.dob=dob;
+function Student(name, dob) {
+  this.name = name;
+  this.dob = dob;
 }
-var student = new Student('sparsh','25/07/1991');
+var student = new Student('sparsh', '25/07/1991');
 ```
 
 1. **Object Literals (_comma-separated list of name-value pairs wrapped in curly braces_)**
 
 ```javascript
 var Student = {
-  name: "Sparsh Jaswal",
+  name: 'Sparsh Jaswal',
   age: 28,
   detail: function () {
-    console.log(this.name + "\n" + this.age);
+    console.log(this.name + '\n' + this.age);
   },
 };
 
 // Some Supported Syntax
 let name = 'sparsh';
 let age = 31;
-let address = "lives";
+let address = 'lives';
 let obj = {
-  name:'jaswal',
+  name: 'jaswal',
   age,
-  [address]:"delhi",
-  "welcome"() {
+  [address]: 'delhi',
+  welcome() {
     console.log(`
       name: ${this.name}
       lives: ${this.lives}
       age: ${this.age}
     `);
-  }
+  },
 };
 console.log(obj);
 console.log(obj[address]);
@@ -480,24 +485,24 @@ const Student2 = new Student("Sparsh","25");
 > **Note**: This advanced topic covers runtime scope modifications and will be expanded in future updates.
 
 **Coming Soon:**
+
 - Dynamic scope augmentation techniques
 - Runtime composition patterns
 - Advanced prototype manipulation
 - Performance implications
+
 # ****Deleting Properties****
 
 ****Delete operator removes a property from an object.****
 
-``
-delete Student.age;
-delete Student["Full-Name"]
-``
+`delete Student.age;
+delete Student["Full-Name"]`
 
-1. ``delete`` operators don't operate on value of the property but on property itself.
+1. `delete` operators don't operate on value of the property but on property itself.
 
-2. ``delete`` operator only deletes its own properties, not inherited ones.
+2. `delete` operator only deletes its own properties, not inherited ones.
 
-3. ``delete`` evaluates to true in below cases :-
+3. `delete` evaluates to true in below cases :-
 
    1. delete succeeded
    2. delete had no effect
@@ -514,7 +519,7 @@ class Student {
     this.age = age;
   }
   printDetail() {
-    console.log(this.name + " " + this.age);
+    console.log(this.name + ' ' + this.age);
   }
 }
 class Sport extends Student {
@@ -526,8 +531,8 @@ class Sport extends Student {
     console.log(this.playingGame, this.name, this.age);
   }
 }
-var student = new Student("sparsh", 28);
-var sport = new Sport("football", "sparsh", 28);
+var student = new Student('sparsh', 28);
+var sport = new Sport('football', 'sparsh', 28);
 sport.printDetail();
 student.printDetail();
 console.log(sport); // can se link between Student & Sport
@@ -548,10 +553,10 @@ Any change in linked/chained objects will automatically be reflected back.
 
 ```javascript
 var student = Object.create({
-  name: "sparsh",
+  name: 'sparsh',
   age: 26,
   print() {
-    console.log(this.name + "\n" + this.age);
+    console.log(this.name + '\n' + this.age);
   },
 });
 var student2 = Object.create(student);
@@ -574,12 +579,13 @@ console.log(student2.name, student2.age, student2.print);
 
 ```javascript
 var obj = {};
-obj.name = "sparsh"; //initializing property name
-obj.name //accessing property with dot operator
-obj.display = function () { // initializing method
-    console.log(this.name)
-}
-obj.display() // accessing method with dot operator
+obj.name = 'sparsh'; //initializing property name
+obj.name; //accessing property with dot operator
+obj.display = function () {
+  // initializing method
+  console.log(this.name);
+};
+obj.display(); // accessing method with dot operator
 ```
 
 1. Square Bracket
@@ -588,20 +594,20 @@ Associate Array is an abstract data type that can hold data in (key, value) pair
 
 ```javascript
 var obj = {};
-obj["name"] = "sparsh"; //initializing property name
-obj["name"] //accessing property with square bracket operator
+obj['name'] = 'sparsh'; //initializing property name
+obj['name']; //accessing property with square bracket operator
 
-Object.defineProperty
+Object.defineProperty;
 var object = {};
-Object.defineProperty(object,"name",{
-      value:"sparsh",
-      writable: true,
-      enumerable: true,
-      configurable: true
+Object.defineProperty(object, 'name', {
+  value: 'sparsh',
+  writable: true,
+  enumerable: true,
+  configurable: true,
 });
 ```
 
-## SET & GET properties of  Object
+## SET & GET properties of Object
 
 get , set and writable explanation
 Object.defineProperties
@@ -630,32 +636,33 @@ Private member
 
 ```js
 class Bank {
-    username;
-    #password;
-    constructor(){
-        this.username = 'sparsh';
-        this.#password = '1234';
-    }
-    #resetPassword(){
-        this.#password = 'sparsh';
-    }
-    getInfo(){
-        console.log(this.username,this.#password);
-        this.#resetPassword();
-    }
+  username;
+  #password;
+  constructor() {
+    this.username = 'sparsh';
+    this.#password = '1234';
+  }
+  #resetPassword() {
+    this.#password = 'sparsh';
+  }
+  getInfo() {
+    console.log(this.username, this.#password);
+    this.#resetPassword();
+  }
 }
 
 const instanceBank = new Bank();
 
-console.log(instanceBank.getInfo())
+console.log(instanceBank.getInfo());
 // sparsh 1234
-console.log(instanceBank.getInfo())
+console.log(instanceBank.getInfo());
 // sparsh sparsh
-console.log(instanceBank.#resetPassword())
+console.log(instanceBank.#resetPassword());
 // SyntaxError: Private field '#resetPassword' must be declared in an enclosing class
-console.log(instanceBank.#password)
+console.log(instanceBank.#password);
 // SyntaxError: Private field '#resetPassword' must be declared in an enclosing class
 ```
+
 # CHAPTER | prototyping chaining
 
 ## Let's take an example to understand prototype chaining
@@ -666,12 +673,12 @@ console.log(instanceBank.#password)
 function companyItem(productName) {
   this.productName = productName;
 }
-Item.prototype.rawMaterial = "Iron";
-Item.prototype.company = "Ford";
+Item.prototype.rawMaterial = 'Iron';
+Item.prototype.company = 'Ford';
 
-var Car = new companyItem("Car");
-var Bus = new companyItem("Bus");
-var Truck = new companyItem("Truck");
+var Car = new companyItem('Car');
+var Bus = new companyItem('Bus');
+var Truck = new companyItem('Truck');
 ```
 
 As a general use case, we have wide variety of car. So, our Car Object doesn't specify which modal of car is it.
@@ -713,6 +720,7 @@ What is an advantage of using a constructor function to build objects?
 You are correct!
 It lets you avoid writing redundant code.
 ```
+
 # CHAPTER | Prototype
 
 It's a property that an object has.
@@ -723,24 +731,24 @@ It's a property that an object has.
 
 ```javascript
 function Car() {
-  this.rawMaterial = "Iron";
-  this.company = "Ford";
-  this.productName = "Car";
+  this.rawMaterial = 'Iron';
+  this.company = 'Ford';
+  this.productName = 'Car';
 }
 
 var CarOne = new Car();
 
 function Truck() {
-  this.rawMaterial = "Iron";
-  this.company = "Ford";
-  this.productName = "Truck";
+  this.rawMaterial = 'Iron';
+  this.company = 'Ford';
+  this.productName = 'Truck';
 }
 var TruckOne = new Truck();
 
 function Bus() {
-  this.rawMaterial = "Iron";
-  this.company = "Ford";
-  this.productName = "Bus";
+  this.rawMaterial = 'Iron';
+  this.company = 'Ford';
+  this.productName = 'Bus';
 }
 var BusOne = new Bus();
 ```
@@ -751,12 +759,12 @@ var BusOne = new Bus();
 function companyItem(productName) {
   this.productName = productName;
 }
-companyItem.prototype.rawMaterial = "Iron";
-companyItem.prototype.company = "Ford";
+companyItem.prototype.rawMaterial = 'Iron';
+companyItem.prototype.company = 'Ford';
 
-var Car = new companyItem("Car");
-var Bus = new companyItem("Bus");
-var Truck = new companyItem("Truck");
+var Car = new companyItem('Car');
+var Bus = new companyItem('Bus');
+var Truck = new companyItem('Truck');
 ```
 
 ### **What are the benefits?**
@@ -799,7 +807,8 @@ Introduced‌ ‌in‌ ‌ES5,‌ ‌Setter‌ ‌and‌ ‌Getter‌ ‌let‌ 
 This‌ ‌Object‌ ‌accessor‌ ‌acts‌ ‌as‌ ‌property‌ ‌or‌ ‌methods‌ ‌in‌ ‌javaScript.‌ ‌
 Setter‌ ‌and‌ ‌Getter's‌ ‌syntax‌ ‌is‌ ‌way‌ ‌too‌ ‌standardizing‌ ‌the‌ ‌property‌ ‌of‌ ‌an‌ ‌
 object.‌ ‌
-```js
+
+````js
 let‌‌ ‌‌user‌‌ ‌=‌ ‌{‌ ‌
   ‌‌name:‌‌ ‌‌"John"‌,‌ ‌
   ‌‌surname:‌‌ ‌‌"Smith"‌,‌ ‌
@@ -815,13 +824,13 @@ let‌‌ ‌‌user‌‌ ‌=‌ ‌{‌ ‌
     ‌[‌this‌.‌name‌,‌ ‌‌this‌.‌surname‌]‌ ‌=‌ ‌‌value‌.‌split‌(‌"‌ ‌"‌);‌ ‌
   ‌}‌ ‌
 };‌ ‌
-```
+````
+
 # This
 
 This is the object that function is a property of
 
--
-  binds this lexically or lexically static scoping
+- binds this lexically or lexically static scoping
   In order to run your code in javascript, we need to wrap it in the execution context. Base execution context is called a global context. Global execution context will create
   Global object( in the browser is a window global object )
 
@@ -830,75 +839,84 @@ This is the object that function is a property of
   Gives all global objects and methods
   console.log(this)
 ```
+
 This (current execution context)
 points to objects of the current execution context
 Gives access to the method to the Object
 Reusability of code
+
 ```js
- var myCar = {
-     color:"Blue",
-     logColor: function() {
-         var self = this ;
-         console.log("In logColor - this.color:" + this.color);
-         console.log("In logColor - self.color:"+self.color);
-         (function(){
-             console.log("In logColor - this.color:" + this.color);
-             console.log("In logColor - self.color:"+self.color);
-         })();
-     }
-  }
-  myCar.logColor()
+var myCar = {
+  color: 'Blue',
+  logColor: function () {
+    var self = this;
+    console.log('In logColor - this.color:' + this.color);
+    console.log('In logColor - self.color:' + self.color);
+    (function () {
+      console.log('In logColor - this.color:' + this.color);
+      console.log('In logColor - self.color:' + self.color);
+    })();
+  },
+};
+myCar.logColor();
 ```
+
 Since JavaScript supports lexical scoping so the where the identifiers are defined is important and this is always dynamically scoped.
+
 ```js
 const a = function () {
-            console.log('a',this);
-            const b = function(){
-                console.log('b',this)
-                const c = {
-                        print :function(){
-                        console.log('c',this)
-                    }
-            }
-            c.hi()
-        }
-}
-a()
+  console.log('a', this);
+  const b = function () {
+    console.log('b', this);
+    const c = {
+      print: function () {
+        console.log('c', this);
+      },
+    };
+    c.hi();
+  };
+};
+a();
 
 const obj1 = {
-                name : 'sparsh',
-                print(){
-                    console.log(this.name,this)
-                    let Obj2 = function(){
-                        console.log(this.name,this)
-               }
-                Obj2();
-            }
-}
-obj1.print()
+  name: 'sparsh',
+  print() {
+    console.log(this.name, this);
+    let Obj2 = function () {
+      console.log(this.name, this);
+    };
+    Obj2();
+  },
+};
+obj1.print();
 ```
+
 Since JavaScript supports lexical scoping so the where the identifiers are defined is important and this is always dynamically scoped. To avoid the use of the dynamic nature of this and make our code more controlled we can use arrow function and bind. By using arrow function and bind we can explicitly assign an execution context to dynamically this.
+
 # ****Traversing Properties****
 
 ****Let’s suppose I have an object with lots of properties. How to Traverse through each property in javaScript?****
 
 ```js
 var Obj = {
-               name : 'sparsh',
-               age : 28,
-               position : 'Developer',
-               from : 'Himachal'
-       }
+  name: 'sparsh',
+  age: 28,
+  position: 'Developer',
+  from: 'Himachal',
+};
 ```
 
 Code will be more consistent by following the rules of functional programming and one such rule is immutability.An object that we are creating should be immutable.
+
 ```js
 Object.freeze(student);
 Object.seal(student);
 Object.preventExtensions(student);
 ```
+
 Code will be more performant if we use the objects that are frozen.
 Updating an Object with immutability practice
+
 ```js
 const person = { name:"sparsh"}
 // want to update the object and properties to same
@@ -907,28 +925,30 @@ const updatedPerson = {...person,name:"sparsh jaswal",age:30}
 Above pattern fails for nested Object
 updatedPerson.address.city = "delhi"
 ```
+
 Above code will change both updatedPerson & person as its shallow copy for nested objects(address).To avoid the above fail we can use the below pattern.
+
 ```js
-const person = { name:"sparsh",address: { city:"bengaluru",pin:560035}}
+const person = { name: 'sparsh', address: { city: 'bengaluru', pin: 560035 } };
 // want to update the object ,its nested properties and properties to same
-const updatedPerson =
-  Object.assign(
-    {},
-    person,
-    {address:{"city":person.address.city}},
-    {name:"sparsh jaswal"}
-)
+const updatedPerson = Object.assign(
+  {},
+  person,
+  { address: { city: person.address.city } },
+  { name: 'sparsh jaswal' },
+);
 
 const updatedPerson = {
-    ...person,
-    address:{
-      ...person.address
-    },
-    name:"sparsh jaswal",
-    age:30
-  }
+  ...person,
+  address: {
+    ...person.address,
+  },
+  name: 'sparsh jaswal',
+  age: 30,
+};
 ```
-# __CHAPTER 23 | Object__
+
+# **CHAPTER 23 | Object**
 
 Object term is generally referred to as a noun which is a word that is the name of a person, place, thing or idea. The main reason to support the Object in any language is to target data types that hold a value that can be related to the real world.
 
@@ -955,6 +975,7 @@ Object-oriented concept .
 # JavaScript Objects - Complete Guide
 
 ## Table of Contents
+
 1. [Introduction to Objects](#introduction-to-objects)
 2. [Creating Objects](#creating-objects)
 3. [Object Properties and Methods](#object-properties-and-methods)
@@ -973,12 +994,14 @@ Object-oriented concept .
 Objects in JavaScript are complex data types that represent real-world entities. They are containers that hold properties (data) and methods (functions) in an unordered manner.
 
 ### Why Objects?
+
 - **Real-world modeling**: Objects help represent real-world entities in code
 - **Data organization**: Group related data and functionality together
 - **Code reusability**: Create templates for similar objects
 - **Maintainability**: Easier to manage and extend code
 
 ### Object-Oriented Programming Principles
+
 1. **Abstraction** - Hide complex implementation details
 2. **Encapsulation** - Bundle data and methods together
 3. **Inheritance** - Create new objects based on existing ones
@@ -989,67 +1012,71 @@ Objects in JavaScript are complex data types that represent real-world entities.
 ## Creating Objects
 
 ### 1. Object Literals (Most Common)
+
 ```javascript
 // Basic object literal
 const person = {
-  name: "Sparsh Jaswal",
+  name: 'Sparsh Jaswal',
   age: 28,
-  city: "New Delhi",
-  greet: function() {
+  city: 'New Delhi',
+  greet: function () {
     return `Hello, I'm ${this.name}`;
-  }
+  },
 };
 
 // Shorthand property names (ES6)
-const name = "John";
+const name = 'John';
 const age = 30;
 const user = { name, age }; // Same as { name: name, age: age }
 
 // Computed property names
-const prop = "email";
+const prop = 'email';
 const contact = {
-  [prop]: "john@example.com",
-  [`${prop}Verified`]: true
+  [prop]: 'john@example.com',
+  [`${prop}Verified`]: true,
 };
 ```
 
 ### 2. Constructor Function
+
 ```javascript
 // Constructor function
 function Person(name, age) {
   this.name = name;
   this.age = age;
-  this.greet = function() {
+  this.greet = function () {
     return `Hello, I'm ${this.name}`;
   };
 }
 
-const person1 = new Person("Alice", 25);
-const person2 = new Person("Bob", 30);
+const person1 = new Person('Alice', 25);
+const person2 = new Person('Bob', 30);
 ```
 
 ### 3. Object.create()
+
 ```javascript
 // Creating object with specific prototype
 const personPrototype = {
-  greet: function() {
+  greet: function () {
     return `Hello, I'm ${this.name}`;
-  }
+  },
 };
 
 const person = Object.create(personPrototype);
-person.name = "Charlie";
+person.name = 'Charlie';
 person.age = 35;
 
 // With properties descriptor
 const employee = Object.create(personPrototype, {
-  name: { value: "Dave", writable: true },
+  name: { value: 'Dave', writable: true },
   age: { value: 40, writable: true },
-  employeeId: { value: "EMP001", writable: false }
+  employeeId: { value: 'EMP001', writable: false },
 });
 ```
 
 ### 4. Factory Function
+
 ```javascript
 function createPerson(name, age) {
   return {
@@ -1057,11 +1084,11 @@ function createPerson(name, age) {
     age,
     greet() {
       return `Hello, I'm ${this.name}`;
-    }
+    },
   };
 }
 
-const person = createPerson("Eve", 28);
+const person = createPerson('Eve', 28);
 ```
 
 ---
@@ -1069,42 +1096,45 @@ const person = createPerson("Eve", 28);
 ## Object Properties and Methods
 
 ### Property Access
+
 ```javascript
-const person = { name: "John", age: 30 };
+const person = { name: 'John', age: 30 };
 
 // Dot notation
 console.log(person.name); // "John"
 
 // Bracket notation
-console.log(person["age"]); // 30
+console.log(person['age']); // 30
 
 // Dynamic property access
-const prop = "name";
+const prop = 'name';
 console.log(person[prop]); // "John"
 ```
 
 ### Property Descriptors
+
 ```javascript
 const obj = {};
 
 // Define property with descriptor
-Object.defineProperty(obj, "name", {
-  value: "John",
-  writable: true,     // Can be changed
-  enumerable: true,   // Shows in for...in loops
-  configurable: true  // Can be deleted/reconfigured
+Object.defineProperty(obj, 'name', {
+  value: 'John',
+  writable: true, // Can be changed
+  enumerable: true, // Shows in for...in loops
+  configurable: true, // Can be deleted/reconfigured
 });
 
 // Get property descriptor
-const descriptor = Object.getOwnPropertyDescriptor(obj, "name");
+const descriptor = Object.getOwnPropertyDescriptor(obj, 'name');
 console.log(descriptor);
 ```
 
 ### Getters and Setters
+
 ```javascript
 const person = {
-  firstName: "John",
-  lastName: "Doe",
+  firstName: 'John',
+  lastName: 'Doe',
 
   // Getter
   get fullName() {
@@ -1113,16 +1143,17 @@ const person = {
 
   // Setter
   set fullName(value) {
-    [this.firstName, this.lastName] = value.split(" ");
-  }
+    [this.firstName, this.lastName] = value.split(' ');
+  },
 };
 
 console.log(person.fullName); // "John Doe"
-person.fullName = "Jane Smith";
+person.fullName = 'Jane Smith';
 console.log(person.firstName); // "Jane"
 ```
 
 ### Static Methods
+
 ```javascript
 class MathHelper {
   static add(a, b) {
@@ -1141,31 +1172,33 @@ console.log(MathHelper.PI); // 3.14159
 ## Object-Oriented Programming Concepts
 
 ### The `this` Keyword
+
 ```javascript
 const person = {
-  name: "John",
-  greet: function() {
+  name: 'John',
+  greet: function () {
     console.log(`Hello, I'm ${this.name}`);
   },
 
   // Arrow function doesn't bind 'this'
   greetArrow: () => {
     console.log(`Hello, I'm ${this.name}`); // undefined
-  }
+  },
 };
 
 person.greet(); // "Hello, I'm John"
 
 // Explicit binding
 const greetFunc = person.greet;
-greetFunc.call({ name: "Alice" }); // "Hello, I'm Alice"
-greetFunc.apply({ name: "Bob" }); // "Hello, I'm Bob"
+greetFunc.call({ name: 'Alice' }); // "Hello, I'm Alice"
+greetFunc.apply({ name: 'Bob' }); // "Hello, I'm Bob"
 
-const boundGreet = greetFunc.bind({ name: "Charlie" });
+const boundGreet = greetFunc.bind({ name: 'Charlie' });
 boundGreet(); // "Hello, I'm Charlie"
 ```
 
 ### Private Properties (Modern Approach)
+
 ```javascript
 class BankAccount {
   #balance = 0; // Private field
@@ -1200,6 +1233,7 @@ console.log(account.getBalance()); // 100
 ## Prototypes and Prototype Chain
 
 ### Understanding Prototypes
+
 ```javascript
 // Constructor function
 function Person(name) {
@@ -1207,14 +1241,14 @@ function Person(name) {
 }
 
 // Add method to prototype
-Person.prototype.greet = function() {
+Person.prototype.greet = function () {
   return `Hello, I'm ${this.name}`;
 };
 
-Person.prototype.species = "Homo sapiens";
+Person.prototype.species = 'Homo sapiens';
 
-const person1 = new Person("Alice");
-const person2 = new Person("Bob");
+const person1 = new Person('Alice');
+const person2 = new Person('Bob');
 
 console.log(person1.greet()); // "Hello, I'm Alice"
 console.log(person1.species); // "Homo sapiens"
@@ -1224,12 +1258,13 @@ console.log(person1.greet === person2.greet); // true
 ```
 
 ### Prototype Chain
+
 ```javascript
 function Animal(name) {
   this.name = name;
 }
 
-Animal.prototype.speak = function() {
+Animal.prototype.speak = function () {
   return `${this.name} makes a sound`;
 };
 
@@ -1242,13 +1277,13 @@ function Dog(name, breed) {
 Dog.prototype = Object.create(Animal.prototype);
 Dog.prototype.constructor = Dog;
 
-Dog.prototype.bark = function() {
+Dog.prototype.bark = function () {
   return `${this.name} barks!`;
 };
 
-const dog = new Dog("Rex", "German Shepherd");
+const dog = new Dog('Rex', 'German Shepherd');
 console.log(dog.speak()); // "Rex makes a sound"
-console.log(dog.bark());  // "Rex barks!"
+console.log(dog.bark()); // "Rex barks!"
 ```
 
 ---
@@ -1256,6 +1291,7 @@ console.log(dog.bark());  // "Rex barks!"
 ## Classes (ES6+)
 
 ### Basic Class Syntax
+
 ```javascript
 class Person {
   constructor(name, age) {
@@ -1268,16 +1304,17 @@ class Person {
   }
 
   static species() {
-    return "Homo sapiens";
+    return 'Homo sapiens';
   }
 }
 
-const person = new Person("John", 30);
+const person = new Person('John', 30);
 console.log(person.greet()); // "Hello, I'm John"
 console.log(Person.species()); // "Homo sapiens"
 ```
 
 ### Class Inheritance
+
 ```javascript
 class Animal {
   constructor(name) {
@@ -1304,7 +1341,7 @@ class Dog extends Animal {
   }
 }
 
-const dog = new Dog("Rex", "Labrador");
+const dog = new Dog('Rex', 'Labrador');
 console.log(dog.speak()); // "Rex barks!"
 console.log(dog.wagTail()); // "Rex wags tail"
 ```
@@ -1314,6 +1351,7 @@ console.log(dog.wagTail()); // "Rex wags tail"
 ## Inheritance
 
 ### Classical Inheritance (ES5 Style)
+
 ```javascript
 // Parent constructor
 function Vehicle(make, model) {
@@ -1321,7 +1359,7 @@ function Vehicle(make, model) {
   this.model = model;
 }
 
-Vehicle.prototype.start = function() {
+Vehicle.prototype.start = function () {
   return `${this.make} ${this.model} is starting`;
 };
 
@@ -1336,16 +1374,17 @@ Car.prototype = Object.create(Vehicle.prototype);
 Car.prototype.constructor = Car;
 
 // Add child-specific method
-Car.prototype.honk = function() {
+Car.prototype.honk = function () {
   return `${this.make} ${this.model} honks!`;
 };
 
-const car = new Car("Toyota", "Camry", 4);
+const car = new Car('Toyota', 'Camry', 4);
 console.log(car.start()); // "Toyota Camry is starting"
-console.log(car.honk());  // "Toyota Camry honks!"
+console.log(car.honk()); // "Toyota Camry honks!"
 ```
 
 ### Modern Inheritance (ES6 Classes)
+
 ```javascript
 class Vehicle {
   constructor(make, model) {
@@ -1369,7 +1408,7 @@ class Car extends Vehicle {
   }
 }
 
-const car = new Car("Honda", "Civic", 4);
+const car = new Car('Honda', 'Civic', 4);
 console.log(car.start()); // "Honda Civic is starting"
 ```
 
@@ -1380,6 +1419,7 @@ console.log(car.start()); // "Honda Civic is starting"
 ### IS-A vs HAS-A Relationships
 
 #### IS-A Relationship (Inheritance)
+
 ```javascript
 // Employee IS-A Person
 class Person {
@@ -1405,11 +1445,12 @@ class Employee extends Person {
   }
 }
 
-const emp = new Employee(101, "John", "Doe", 50000);
+const emp = new Employee(101, 'John', 'Doe', 50000);
 console.log(emp.getEmployeeInfo()); // "John Doe (ID: 101)"
 ```
 
 #### HAS-A Relationship (Composition)
+
 ```javascript
 // Order HAS-A Product
 class Product {
@@ -1440,16 +1481,16 @@ class Order {
     return {
       orderId: this.orderId,
       items: this.products.length,
-      total: this.total
+      total: this.total,
     };
   }
 }
 
 // Usage - Dependency Injection
-const laptop = new Product(1, "Laptop", 999);
-const mouse = new Product(2, "Mouse", 25);
+const laptop = new Product(1, 'Laptop', 999);
+const mouse = new Product(2, 'Mouse', 25);
 
-const order = new Order("ORD-001");
+const order = new Order('ORD-001');
 order.addProduct(laptop, 1);
 order.addProduct(mouse, 2);
 
@@ -1458,24 +1499,25 @@ console.log(order.getOrderSummary());
 ```
 
 ### Composition over Inheritance
+
 ```javascript
 // Instead of deep inheritance, use composition
 const canFly = {
   fly() {
     return `${this.name} is flying`;
-  }
+  },
 };
 
 const canSwim = {
   swim() {
     return `${this.name} is swimming`;
-  }
+  },
 };
 
 const canWalk = {
   walk() {
     return `${this.name} is walking`;
-  }
+  },
 };
 
 // Compose abilities
@@ -1494,11 +1536,11 @@ function createDuck(name) {
   return Object.assign(duck, canFly, canSwim, canWalk);
 }
 
-const eagle = createBird("Eagle");
-const duck = createDuck("Duck");
+const eagle = createBird('Eagle');
+const duck = createDuck('Duck');
 
-console.log(eagle.fly());  // "Eagle is flying"
-console.log(duck.swim());  // "Duck is swimming"
+console.log(eagle.fly()); // "Eagle is flying"
+console.log(duck.swim()); // "Duck is swimming"
 ```
 
 ---
@@ -1506,14 +1548,15 @@ console.log(duck.swim());  // "Duck is swimming"
 ## Advanced Object Concepts
 
 ### Object Destructuring
+
 ```javascript
 const person = {
-  name: "John",
+  name: 'John',
   age: 30,
   address: {
-    city: "New York",
-    country: "USA"
-  }
+    city: 'New York',
+    country: 'USA',
+  },
 };
 
 // Basic destructuring
@@ -1523,7 +1566,9 @@ const { name, age } = person;
 const { name: fullName, age: years } = person;
 
 // Nested destructuring
-const { address: { city, country } } = person;
+const {
+  address: { city, country },
+} = person;
 
 // Default values
 const { height = 180 } = person;
@@ -1535,9 +1580,10 @@ function greet({ name, age = 25 }) {
 ```
 
 ### Object Spread and Rest
+
 ```javascript
-const person = { name: "John", age: 30 };
-const job = { title: "Developer", company: "Tech Corp" };
+const person = { name: 'John', age: 30 };
+const job = { title: 'Developer', company: 'Tech Corp' };
 
 // Spread operator
 const employee = { ...person, ...job };
@@ -1551,6 +1597,7 @@ console.log(otherProps); // { age: 30, title: "Developer", company: "Tech Corp" 
 ```
 
 ### Object Methods and Utilities
+
 ```javascript
 const obj = { a: 1, b: 2, c: 3 };
 
@@ -1573,16 +1620,17 @@ Object.freeze(obj);
 Object.seal(obj);
 
 // Check property existence
-console.log("a" in obj); // true
-console.log(obj.hasOwnProperty("a")); // true
+console.log('a' in obj); // true
+console.log(obj.hasOwnProperty('a')); // true
 ```
 
 ### Traversing Object Properties
+
 ```javascript
 const person = {
-  name: "John",
+  name: 'John',
   age: 30,
-  city: "New York"
+  city: 'New York',
 };
 
 // for...in loop
@@ -1593,7 +1641,7 @@ for (const key in person) {
 }
 
 // Object.keys() with forEach
-Object.keys(person).forEach(key => {
+Object.keys(person).forEach((key) => {
   console.log(`${key}: ${person[key]}`);
 });
 
@@ -1604,8 +1652,9 @@ for (const [key, value] of Object.entries(person)) {
 ```
 
 ### Deleting Properties
+
 ```javascript
-const person = { name: "John", age: 30, temp: "delete me" };
+const person = { name: 'John', age: 30, temp: 'delete me' };
 
 // Delete operator
 delete person.temp;
@@ -1624,42 +1673,46 @@ console.log(person); // { name: "John", age: 30 }
 ## Best Practices
 
 ### 1. Use Meaningful Names
+
 ```javascript
 // Bad
-const u = { n: "John", a: 30 };
+const u = { n: 'John', a: 30 };
 
 // Good
-const user = { name: "John", age: 30 };
+const user = { name: 'John', age: 30 };
 ```
 
 ### 2. Prefer Composition over Inheritance
+
 ```javascript
 // Instead of deep inheritance hierarchies, use composition
 const withLogging = (obj) => ({
   ...obj,
   log(message) {
     console.log(`[${this.constructor.name}]: ${message}`);
-  }
+  },
 });
 ```
 
 ### 3. Use Object.freeze() for Immutable Objects
+
 ```javascript
 const config = Object.freeze({
-  API_URL: "https://api.example.com",
-  VERSION: "1.0.0"
+  API_URL: 'https://api.example.com',
+  VERSION: '1.0.0',
 });
 ```
 
 ### 4. Validate Constructor Parameters
+
 ```javascript
 class Person {
   constructor(name, age) {
-    if (!name || typeof name !== "string") {
-      throw new Error("Name must be a non-empty string");
+    if (!name || typeof name !== 'string') {
+      throw new Error('Name must be a non-empty string');
     }
     if (!age || age < 0) {
-      throw new Error("Age must be a positive number");
+      throw new Error('Age must be a positive number');
     }
 
     this.name = name;
@@ -1669,6 +1722,7 @@ class Person {
 ```
 
 ### 5. Use Getters/Setters for Computed Properties
+
 ```javascript
 class Rectangle {
   constructor(width, height) {
@@ -1687,6 +1741,7 @@ class Rectangle {
 ```
 
 ### 6. Implement toString() and valueOf() Methods
+
 ```javascript
 class Money {
   constructor(amount, currency) {
@@ -1703,7 +1758,7 @@ class Money {
   }
 }
 
-const price = new Money(100, "USD");
+const price = new Money(100, 'USD');
 console.log(String(price)); // "100 USD"
 console.log(Number(price)); // 100
 ```
@@ -1713,6 +1768,7 @@ console.log(Number(price)); // 100
 ## Summary
 
 JavaScript objects are powerful constructs that enable:
+
 - **Data organization** through properties and methods
 - **Code reuse** through prototypes and inheritance
 - **Encapsulation** through private fields and methods

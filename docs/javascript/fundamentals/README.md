@@ -1,15 +1,17 @@
 # 🏗️ JavaScript Fundamentals
 
-> *Essential JavaScript concepts every developer must master*
+> _Essential JavaScript concepts every developer must master_
 
 ## 📋 Table of Contents
 
 ### Variable & Type System
+
 - [Variables (var, let, const)](./variables-var-let-const.md) - Variable declarations and scoping
 - [Types of Identifiers](./types-of-identifiers.md) - Data types and identifier rules
 - [Type Casting & Coercion](./type-casting-and-coercion.md) - Type conversion in JavaScript
 
-### Core Language Concepts  
+### Core Language Concepts
+
 - [Scope](./scope.md) - Function scope, block scope, and lexical scoping
 - [Hoisting](./hoisting.md) - Variable and function hoisting behavior
 
@@ -24,15 +26,18 @@
 ## 🎯 Key Concepts
 
 ### Variable Declarations
+
 - **var**: Function-scoped, hoisted, can be redeclared
 - **let**: Block-scoped, temporal dead zone, cannot be redeclared
 - **const**: Block-scoped, must be initialized, immutable binding
 
 ### JavaScript Types
+
 - **Primitives**: string, number, boolean, null, undefined, symbol, bigint
 - **Reference Types**: object, array, function, date, regexp
 
 ### Scoping Rules
+
 - **Global Scope**: Accessible everywhere
 - **Function Scope**: Accessible within function
 - **Block Scope**: Accessible within block (let/const)
@@ -46,5 +51,5 @@
 
 ---
 
-*These fundamentals form the foundation of all JavaScript programming! 🚀*
-
+_These fundamentals form the foundation of all JavaScript programming! 🚀
+_

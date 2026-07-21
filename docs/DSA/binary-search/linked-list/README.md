@@ -19,8 +19,6 @@ have better cache locality as compared to linked lists.
 
 ![Linked List](./images/linked-list.jpeg)
 
-
-
 ## Pseudocode for Basic Operations
 
 ### Insert
@@ -146,9 +144,9 @@ end ReverseTraversal
 
 ### Time Complexity
 
-| Access    | Search    | Insertion | Deletion  |
-| :-------: | :-------: | :-------: | :-------: |
-| O(n)      | O(n)      | O(1)      | O(n)      |
+| Access | Search | Insertion | Deletion |
+| :----: | :----: | :-------: | :------: |
+|  O(n)  |  O(n)  |   O(1)    |   O(n)   |
 
 ### Space Complexity
 

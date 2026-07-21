@@ -27,8 +27,6 @@ The leaves are not drawn.
 
 ![Trie](./images/binary-search-tree.jpg)
 
-
-
 ## Pseudocode for Basic Operations
 
 ### Insertion
@@ -83,7 +81,6 @@ contains(root, value)
   end if
 end contains
 ```
-
 
 ### Deletion
 
@@ -262,7 +259,7 @@ end postorder
 
 ### Time Complexity
 
-| Access    | Search    | Insertion | Deletion  |
+|  Access   |  Search   | Insertion | Deletion  |
 | :-------: | :-------: | :-------: | :-------: |
 | O(log(n)) | O(log(n)) | O(log(n)) | O(log(n)) |
 

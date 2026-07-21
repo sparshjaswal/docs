@@ -3,6 +3,7 @@
 > **A comprehensive guide to writing clean, efficient, and maintainable JavaScript code in 2025**
 
 ## Table of Contents
+
 - [Code Quality & Standards](#code-quality--standards)
 - [Variable & Function Best Practices](#variable--function-best-practices)
 - [Error Handling & Type Safety](#error-handling--type-safety)
@@ -17,6 +18,7 @@
 ## Code Quality & Standards
 
 ### Use Strict Mode
+
 Always use strict mode to catch common mistakes and improve performance:
 
 ```javascript
@@ -106,8 +108,8 @@ function createUser({ name, email, age = 18 }) {
 ```javascript
 // ✅ Good - Arrow functions for short operations
 const numbers = [1, 2, 3, 4, 5];
-const doubled = numbers.map(n => n * 2);
-const evens = numbers.filter(n => n % 2 === 0);
+const doubled = numbers.map((n) => n * 2);
+const evens = numbers.filter((n) => n % 2 === 0);
 
 // ✅ Good - Pure functions
 const calculateDiscountedPrice = (price, discountPercent) => {
@@ -116,22 +118,25 @@ const calculateDiscountedPrice = (price, discountPercent) => {
 
 // ✅ Good - Higher-order functions
 const createValidator = (rules) => (data) => {
-  return rules.every(rule => rule(data));
+  return rules.every((rule) => rule(data));
 };
 
 const emailValidator = createValidator([
-  data => data.includes('@'),
-  data => data.length > 5,
-  data => data.includes('.')
+  (data) => data.includes('@'),
+  (data) => data.length > 5,
+  (data) => data.includes('.'),
 ]);
 
 // ✅ Good - Function composition
-const pipe = (...fns) => (value) => fns.reduce((acc, fn) => fn(acc), value);
+const pipe =
+  (...fns) =>
+  (value) =>
+    fns.reduce((acc, fn) => fn(acc), value);
 
 const processUserInput = pipe(
-  input => input.trim(),
-  input => input.toLowerCase(),
-  input => input.replace(/\s+/g, '-')
+  (input) => input.trim(),
+  (input) => input.toLowerCase(),
+  (input) => input.replace(/\s+/g, '-'),
 );
 ```
 
@@ -232,15 +237,17 @@ const createUserSchema = (input) => {
     name: '',
     email: '',
     age: 18,
-    isActive: true
+    isActive: true,
   };
 
   return {
     ...defaults,
     ...input,
     name: String(input.name || '').trim(),
-    email: String(input.email || '').toLowerCase().trim(),
-    age: Number(input.age) || 18
+    email: String(input.email || '')
+      .toLowerCase()
+      .trim(),
+    age: Number(input.age) || 18,
   };
 };
 ```
@@ -257,7 +264,7 @@ function updateUserList(users) {
   const container = document.getElementById('user-list');
   const fragment = document.createDocumentFragment();
 
-  users.forEach(user => {
+  users.forEach((user) => {
     const userElement = document.createElement('div');
     userElement.className = 'user-item';
     userElement.textContent = `${user.name} (${user.email})`;
@@ -270,7 +277,7 @@ function updateUserList(users) {
 // ❌ Bad - Multiple DOM manipulations
 function updateUserListSlow(users) {
   const container = document.getElementById('user-list');
-  users.forEach(user => {
+  users.forEach((user) => {
     const userElement = document.createElement('div');
     userElement.className = 'user-item';
     userElement.textContent = `${user.name} (${user.email})`;
@@ -308,7 +315,7 @@ const throttle = (func, limit) => {
     if (!inThrottle) {
       func.apply(null, args);
       inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
+      setTimeout(() => (inThrottle = false), limit);
     }
   };
 };
@@ -378,12 +385,10 @@ class LRUCache {
 
 ```javascript
 // ✅ Good - Promise utilities
-const timeout = (ms) => new Promise((_, reject) =>
-  setTimeout(() => reject(new Error('Timeout')), ms)
-);
+const timeout = (ms) =>
+  new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), ms));
 
-const withTimeout = (promise, ms) =>
-  Promise.race([promise, timeout(ms)]);
+const withTimeout = (promise, ms) => Promise.race([promise, timeout(ms)]);
 
 const retry = async (fn, maxAttempts = 3, delay = 1000) => {
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
@@ -391,24 +396,22 @@ const retry = async (fn, maxAttempts = 3, delay = 1000) => {
       return await fn();
     } catch (error) {
       if (attempt === maxAttempts) throw error;
-      await new Promise(resolve => setTimeout(resolve, delay * attempt));
+      await new Promise((resolve) => setTimeout(resolve, delay * attempt));
     }
   }
 };
 
 // ✅ Good - Parallel processing with error handling
 async function fetchMultipleUsers(userIds) {
-  const results = await Promise.allSettled(
-    userIds.map(id => fetchUserSafely(id))
-  );
+  const results = await Promise.allSettled(userIds.map((id) => fetchUserSafely(id)));
 
   const successful = results
-    .filter(result => result.status === 'fulfilled')
-    .map(result => result.value);
+    .filter((result) => result.status === 'fulfilled')
+    .map((result) => result.value);
 
   const failed = results
-    .filter(result => result.status === 'rejected')
-    .map(result => result.reason);
+    .filter((result) => result.status === 'rejected')
+    .map((result) => result.reason);
 
   return { successful, failed };
 }
@@ -486,17 +489,13 @@ const calculateOrderTotal = (items, taxRate = 0, discountPercent = 0) => {
     subtotal,
     discountAmount,
     taxAmount: tax,
-    total: discountedSubtotal + tax
+    total: discountedSubtotal + tax,
   };
 };
 
 // ✅ Good - Test examples
 const testCalculateOrderTotal = () => {
-  const items = [
-    { price: 10.00 },
-    { price: 20.00 },
-    { price: 15.00 }
-  ];
+  const items = [{ price: 10.0 }, { price: 20.0 }, { price: 15.0 }];
 
   // Test basic calculation
   const result1 = calculateOrderTotal(items, 0.1, 10);
@@ -537,9 +536,9 @@ const logger = {
     console.error(`❌ ERROR: ${message}`, {
       message: error.message,
       stack: error.stack,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
-  }
+  },
 };
 
 // ✅ Good - Performance monitoring
@@ -558,7 +557,7 @@ const performanceMonitor = {
     const end = performance.now();
     console.log(`${label}: ${end - start}ms`);
     return result;
-  }
+  },
 };
 ```
 
@@ -572,11 +571,11 @@ const performanceMonitor = {
 // ✅ Good - HTML escaping
 const escapeHtml = (unsafe) => {
   return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 };
 
 // ✅ Good - Safe DOM insertion
@@ -595,7 +594,7 @@ const secureAjax = async (url, options = {}) => {
   const headers = {
     'Content-Type': 'application/json',
     'X-CSRF-Token': csrfToken,
-    ...options.headers
+    ...options.headers,
   };
 
   return fetch(url, { ...options, headers });
@@ -653,7 +652,7 @@ class User {
     privateData.set(this, {
       name,
       email,
-      createdAt: new Date()
+      createdAt: new Date(),
     });
   }
 
@@ -685,19 +684,19 @@ const UserModule = (() => {
 
   return {
     getUserInfo: () => ({ userName, userAge }),
-    updateUserName: (newName) => userName = newName
+    updateUserName: (newName) => (userName = newName),
   };
 })();
 
 // ❌ Bad - Comparison issues
-const name1 = "sparsh";
-const name2 = "sparsh";
-console.log(name1 == name2);  // Works for primitives
+const name1 = 'sparsh';
+const name2 = 'sparsh';
+console.log(name1 == name2); // Works for primitives
 console.log(name1 === name2); // Better practice
 
-const user1 = { name: "sparsh", age: 28 };
-const user2 = { name: "sparsh", age: 28 };
-console.log(user1 == user2);  // false - different objects
+const user1 = { name: 'sparsh', age: 28 };
+const user2 = { name: 'sparsh', age: 28 };
+console.log(user1 == user2); // false - different objects
 console.log(user1 === user2); // false - different objects
 
 // ✅ Good - Object comparison utilities
@@ -715,7 +714,7 @@ const deepEqual = (obj1, obj2) => {
 
   if (keys1.length !== keys2.length) return false;
 
-  return keys1.every(key => deepEqual(obj1[key], obj2[key]));
+  return keys1.every((key) => deepEqual(obj1[key], obj2[key]));
 };
 
 console.log(deepEqual(user1, user2)); // true

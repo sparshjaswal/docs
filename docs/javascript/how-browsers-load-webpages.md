@@ -3,6 +3,7 @@
 A comprehensive guide to understanding browser rendering processes, performance optimization, and modern web development practices.
 
 ## Table of Contents
+
 1. [Overview](#overview)
 2. [Browser Architecture](#browser-architecture)
 3. [Critical Rendering Path](#critical-rendering-path)
@@ -20,6 +21,7 @@ A comprehensive guide to understanding browser rendering processes, performance 
 Understanding how browsers load and render webpages is crucial for building performant web applications. This process involves multiple phases that work together to transform HTML, CSS, and JavaScript into the visual webpage users see.
 
 ### Key Components
+
 - **DOM (Document Object Model)** - Tree structure representing HTML elements
 - **CSSOM (CSS Object Model)** - Tree structure representing CSS styles
 - **Render Tree** - Combined DOM and CSSOM for visual rendering
@@ -32,6 +34,7 @@ Understanding how browsers load and render webpages is crucial for building perf
 ## Browser Architecture
 
 ### Modern Browser Components
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    Browser Process                          │
@@ -50,6 +53,7 @@ Understanding how browsers load and render webpages is crucial for building perf
 ```
 
 ### Process Isolation Benefits
+
 - **Security**: Each tab runs in isolation
 - **Stability**: One tab crash doesn't affect others
 - **Performance**: Parallel processing across cores
@@ -62,6 +66,7 @@ Understanding how browsers load and render webpages is crucial for building perf
 The Critical Rendering Path (CRP) is the sequence of steps browsers follow to convert HTML, CSS, and JavaScript into pixels on the screen.
 
 ### The Complete Pipeline
+
 ```
 Network Request → HTML Parsing → DOM Construction
                               ↓
@@ -75,17 +80,20 @@ Layout (Reflow) → Paint → Composite → Display
 ### Detailed Phase Breakdown
 
 #### Phase 1: Network & Parsing
+
 1. **DNS Lookup**: Resolve domain to IP address
 2. **TCP Handshake**: Establish connection
 3. **HTTP Request/Response**: Download HTML
 4. **HTML Parsing**: Convert bytes to DOM
 
 #### Phase 2: Style Processing
+
 1. **CSS Download**: Fetch external stylesheets
 2. **CSS Parsing**: Convert CSS to CSSOM
 3. **Style Computation**: Calculate final styles
 
 #### Phase 3: Layout & Rendering
+
 1. **Render Tree**: Combine DOM + CSSOM
 2. **Layout**: Calculate positions and sizes
 3. **Paint**: Fill in pixels
@@ -100,18 +108,21 @@ The **Document Object Model (DOM)** represents the HTML document as a tree of ob
 ### DOM Building Steps
 
 #### 1. Byte Conversion
+
 ```javascript
 // Raw bytes received from server
-[60, 104, 116, 109, 108, 62] // <html> in UTF-8
+[60, 104, 116, 109, 108, 62]; // <html> in UTF-8
 ```
 
 #### 2. Character Conversion
+
 ```javascript
 // Bytes converted to characters using charset encoding
-"<html><head><title>Page</title></head><body>...</body></html>"
+'<html><head><title>Page</title></head><body>...</body></html>';
 ```
 
 #### 3. Tokenization
+
 ```javascript
 // Characters parsed into meaningful tokens
 const tokens = [
@@ -125,6 +136,7 @@ const tokens = [
 ```
 
 #### 4. Node Creation
+
 ```javascript
 // Tokens converted to Node objects
 class HTMLElement {
@@ -141,6 +153,7 @@ const headElement = new HTMLElement('head');
 ```
 
 #### 5. DOM Tree Construction
+
 ```javascript
 // Example DOM structure
 const dom = {
@@ -151,22 +164,23 @@ const dom = {
         tagName: 'HEAD',
         children: [
           { tagName: 'TITLE', textContent: 'Page Title' },
-          { tagName: 'META', attributes: { charset: 'UTF-8' } }
-        ]
+          { tagName: 'META', attributes: { charset: 'UTF-8' } },
+        ],
       },
       {
         tagName: 'BODY',
         children: [
           { tagName: 'H1', textContent: 'Welcome' },
-          { tagName: 'P', textContent: 'Content here...' }
-        ]
-      }
-    ]
-  }
+          { tagName: 'P', textContent: 'Content here...' },
+        ],
+      },
+    ],
+  },
 };
 ```
 
 ### DOM Construction Performance
+
 ```javascript
 // Measuring DOM construction time
 performance.mark('dom-start');
@@ -189,6 +203,7 @@ The **CSS Object Model (CSSOM)** represents all CSS styles as a tree structure t
 ### CSSOM Building Process
 
 #### 1. CSS Parsing
+
 ```css
 /* Input CSS */
 body {
@@ -209,6 +224,7 @@ body {
 ```
 
 #### 2. CSSOM Tree Structure
+
 ```javascript
 // Conceptual CSSOM representation
 const cssom = {
@@ -217,16 +233,16 @@ const cssom = {
       selector: 'body',
       declarations: {
         'font-size': '16px',
-        'color': '#333'
-      }
+        color: '#333',
+      },
     },
     {
       selector: '.header',
       declarations: {
-        'background': 'blue',
-        'padding': '20px'
-      }
-    }
+        background: 'blue',
+        padding: '20px',
+      },
+    },
   ],
   mediaRules: [
     {
@@ -235,16 +251,17 @@ const cssom = {
         {
           selector: '.header',
           declarations: {
-            'padding': '10px'
-          }
-        }
-      ]
-    }
-  ]
+            padding: '10px',
+          },
+        },
+      ],
+    },
+  ],
 };
 ```
 
 #### 3. Style Computation
+
 ```javascript
 // Browser computes final styles for each element
 function computeStyles(element, cssom) {
@@ -255,7 +272,7 @@ function computeStyles(element, cssom) {
 
   // Apply author styles (cascade, specificity, inheritance)
   const matchingRules = findMatchingRules(element, cssom);
-  matchingRules.forEach(rule => {
+  matchingRules.forEach((rule) => {
     Object.assign(computedStyle, rule.declarations);
   });
 
@@ -264,6 +281,7 @@ function computeStyles(element, cssom) {
 ```
 
 ### Accessing CSSOM via JavaScript
+
 ```javascript
 // Modern way to interact with CSSOM
 const element = document.querySelector('.header');
@@ -290,30 +308,35 @@ JavaScript can block DOM construction and manipulate both DOM and CSSOM, making 
 ### Script Loading Behaviors
 
 #### 1. Synchronous Scripts (Default)
+
 ```html
 <!-- Blocks DOM parsing until script loads and executes -->
 <script src="app.js"></script>
 ```
 
 #### 2. Async Scripts
+
 ```html
 <!-- Downloads in parallel, executes immediately when ready -->
 <script src="analytics.js" async></script>
 ```
 
 #### 3. Defer Scripts
+
 ```html
 <!-- Downloads in parallel, executes after DOM parsing -->
 <script src="main.js" defer></script>
 ```
 
 #### 4. Module Scripts (Modern Approach)
+
 ```html
 <!-- ES6 modules with automatic defer behavior -->
 <script type="module" src="app.mjs"></script>
 ```
 
 ### Script Execution Timeline
+
 ```javascript
 // Example of script execution monitoring
 class ScriptPerformanceMonitor {
@@ -364,6 +387,7 @@ monitor.trackScript('/js/app.js').then(() => {
 Modern browsers use sophisticated JavaScript engines. V8 (used by Chrome and Node.js) exemplifies advanced compilation techniques.
 
 #### V8 Compilation Pipeline
+
 ```javascript
 // V8's multi-tier compilation process
 class V8CompilationExample {
@@ -379,7 +403,7 @@ class V8CompilationExample {
     }
 
     // V8 can deoptimize if assumptions change
-    hotFunction("string", "concatenation"); // May trigger deoptimization
+    hotFunction('string', 'concatenation'); // May trigger deoptimization
   }
 
   static monitorOptimization() {
@@ -390,7 +414,7 @@ class V8CompilationExample {
 
     // Code that will be optimized
     const optimizedFunction = (data) => {
-      return data.map(item => item * 2).filter(item => item > 10);
+      return data.map((item) => item * 2).filter((item) => item > 10);
     };
 
     performance.mark('function-end');
@@ -400,6 +424,7 @@ class V8CompilationExample {
 ```
 
 #### Hidden Classes and Inline Caching
+
 ```javascript
 // Optimize object creation for V8
 class OptimizedObjectPatterns {
@@ -413,7 +438,7 @@ class OptimizedObjectPatterns {
         id: i,
         name: `object-${i}`,
         active: true,
-        value: i * 2
+        value: i * 2,
       });
     }
 
@@ -447,6 +472,7 @@ class OptimizedObjectPatterns {
 ### Memory Management and Garbage Collection
 
 #### Understanding Memory Allocation
+
 ```javascript
 // Memory-efficient patterns for web applications
 class MemoryOptimization {
@@ -476,7 +502,7 @@ class MemoryOptimization {
 
       size() {
         return pool.length;
-      }
+      },
     };
   }
 
@@ -489,7 +515,7 @@ class MemoryOptimization {
         element.textContent = '';
         element.style.cssText = '';
         element.removeAttribute('data-id');
-      }
+      },
     );
   }
 
@@ -532,6 +558,7 @@ class MemoryOptimization {
 ```
 
 #### Garbage Collection Monitoring
+
 ```javascript
 // Monitor and optimize garbage collection
 class GCMonitor {
@@ -545,7 +572,7 @@ class GCMonitor {
     if ('PerformanceObserver' in window) {
       try {
         const observer = new PerformanceObserver((list) => {
-          list.getEntries().forEach(entry => {
+          list.getEntries().forEach((entry) => {
             if (entry.entryType === 'measure' && entry.name.includes('gc')) {
               this.recordGCEvent(entry);
             }
@@ -569,7 +596,7 @@ class GCMonitor {
           used: performance.memory.usedJSHeapSize,
           total: performance.memory.totalJSHeapSize,
           limit: performance.memory.jsHeapSizeLimit,
-          timestamp: Date.now()
+          timestamp: Date.now(),
         };
 
         this.memoryMetrics.push(memInfo);
@@ -586,19 +613,18 @@ class GCMonitor {
     if (this.memoryMetrics.length < 3) return;
 
     const recent = this.memoryMetrics.slice(-3);
-    const increasing = recent.every((curr, i) =>
-      i === 0 || curr.used > recent[i - 1].used
-    );
+    const increasing = recent.every((curr, i) => i === 0 || curr.used > recent[i - 1].used);
 
     if (increasing) {
       const growth = recent[2].used - recent[0].used;
       const timespan = recent[2].timestamp - recent[0].timestamp;
-      const growthRate = growth / timespan * 1000; // bytes per second
+      const growthRate = (growth / timespan) * 1000; // bytes per second
 
-      if (growthRate > 100000) { // 100KB/s growth
+      if (growthRate > 100000) {
+        // 100KB/s growth
         console.warn('Potential memory leak detected:', {
           growthRate: `${(growthRate / 1024).toFixed(2)} KB/s`,
-          currentUsage: `${(recent[2].used / 1024 / 1024).toFixed(2)} MB`
+          currentUsage: `${(recent[2].used / 1024 / 1024).toFixed(2)} MB`,
         });
       }
     }
@@ -608,7 +634,7 @@ class GCMonitor {
     console.log('GC Event:', {
       duration: entry.duration,
       startTime: entry.startTime,
-      type: entry.name
+      type: entry.name,
     });
   }
 
@@ -635,6 +661,7 @@ const gcMonitor = new GCMonitor();
 Modern web applications can leverage HTTP/3 for improved performance, especially on mobile networks.
 
 #### Understanding HTTP/3 Advantages
+
 ```javascript
 // Monitor connection protocol and adapt accordingly
 class NetworkOptimizer {
@@ -644,7 +671,8 @@ class NetworkOptimizer {
   }
 
   getConnectionInfo() {
-    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const connection =
+      navigator.connection || navigator.mozConnection || navigator.webkitConnection;
     const protocol = this.detectHTTPVersion();
 
     return {
@@ -652,7 +680,7 @@ class NetworkOptimizer {
       downlink: connection?.downlink || 0,
       rtt: connection?.rtt || 0,
       saveData: connection?.saveData || false,
-      protocol: protocol
+      protocol: protocol,
     };
   }
 
@@ -709,7 +737,7 @@ class NetworkOptimizer {
     document.documentElement.classList.add('slow-connection');
 
     // Disable auto-loading content
-    document.querySelectorAll('img[loading="eager"]').forEach(img => {
+    document.querySelectorAll('img[loading="eager"]').forEach((img) => {
       img.loading = 'lazy';
     });
 
@@ -747,7 +775,7 @@ class NetworkOptimizer {
     document.documentElement.classList.add('data-saver');
 
     // Replace images with placeholders
-    document.querySelectorAll('img:not([data-original])').forEach(img => {
+    document.querySelectorAll('img:not([data-original])').forEach((img) => {
       img.dataset.original = img.src;
       img.src = this.generatePlaceholder(img.width, img.height);
     });
@@ -755,7 +783,7 @@ class NetworkOptimizer {
 
   enableAggressiveImageOptimization() {
     // Use modern image formats with fallbacks
-    document.querySelectorAll('img').forEach(img => {
+    document.querySelectorAll('img').forEach((img) => {
       if (!img.dataset.optimized) {
         this.optimizeImage(img);
         img.dataset.optimized = 'true';
@@ -803,13 +831,9 @@ class NetworkOptimizer {
 
   enableServerPushHints() {
     // Add server push hints for HTTP/3
-    const criticalResources = [
-      '/css/critical.css',
-      '/js/app.js',
-      '/fonts/main.woff2'
-    ];
+    const criticalResources = ['/css/critical.css', '/js/app.js', '/fonts/main.woff2'];
 
-    criticalResources.forEach(resource => {
+    criticalResources.forEach((resource) => {
       const link = document.createElement('link');
       link.rel = 'preload';
       link.href = resource;
@@ -856,10 +880,7 @@ class NetworkOptimizer {
   }
 
   prebufferCriticalResources() {
-    const criticalUrls = [
-      '/api/user-data',
-      '/api/app-config'
-    ];
+    const criticalUrls = ['/api/user-data', '/api/app-config'];
 
     criticalUrls.forEach(async (url) => {
       try {
@@ -888,6 +909,7 @@ const networkOptimizer = new NetworkOptimizer();
 CSP can significantly affect loading performance. Understanding how to optimize both security and performance is crucial.
 
 #### Implementing Performance-Aware CSP
+
 ```javascript
 // Optimize CSP for both security and performance
 class CSPOptimizer {
@@ -900,37 +922,17 @@ class CSPOptimizer {
   generateOptimalCSP() {
     const basePolicy = {
       'default-src': ["'self'"],
-      'script-src': [
-        "'self'",
-        "'nonce-{SCRIPT_NONCE}'",
-        'https://trusted-cdn.com'
-      ],
-      'style-src': [
-        "'self'",
-        "'nonce-{STYLE_NONCE}'",
-        'https://fonts.googleapis.com'
-      ],
-      'img-src': [
-        "'self'",
-        'data:',
-        'https:',
-        'blob:'
-      ],
-      'font-src': [
-        "'self'",
-        'https://fonts.gstatic.com'
-      ],
-      'connect-src': [
-        "'self'",
-        'https://api.example.com',
-        'wss://websocket.example.com'
-      ],
+      'script-src': ["'self'", "'nonce-{SCRIPT_NONCE}'", 'https://trusted-cdn.com'],
+      'style-src': ["'self'", "'nonce-{STYLE_NONCE}'", 'https://fonts.googleapis.com'],
+      'img-src': ["'self'", 'data:', 'https:', 'blob:'],
+      'font-src': ["'self'", 'https://fonts.gstatic.com'],
+      'connect-src': ["'self'", 'https://api.example.com', 'wss://websocket.example.com'],
       'media-src': ["'self'", 'blob:', 'https:'],
       'object-src': ["'none'"],
       'base-uri': ["'self'"],
       'form-action': ["'self'"],
       'frame-ancestors': ["'none'"],
-      'upgrade-insecure-requests': []
+      'upgrade-insecure-requests': [],
     };
 
     return this.optimizeForPerformance(basePolicy);
@@ -941,7 +943,7 @@ class CSPOptimizer {
     const performanceOptimized = {
       ...policy,
       'report-uri': ['/csp-report'],
-      'report-to': ['csp-endpoint']
+      'report-to': ['csp-endpoint'],
     };
 
     // Enable resource hints within CSP
@@ -966,9 +968,8 @@ class CSPOptimizer {
       if (sources.length === 0) {
         policyString += `${directive}; `;
       } else {
-        const processedSources = sources.map(source =>
-          source.replace('{SCRIPT_NONCE}', scriptNonce)
-                .replace('{STYLE_NONCE}', styleNonce)
+        const processedSources = sources.map((source) =>
+          source.replace('{SCRIPT_NONCE}', scriptNonce).replace('{STYLE_NONCE}', styleNonce),
         );
         policyString += `${directive} ${processedSources.join(' ')}; `;
       }
@@ -1018,7 +1019,7 @@ class CSPOptimizer {
       const content = await response.arrayBuffer();
       const hashBuffer = await crypto.subtle.digest('SHA-256', content);
       const hashArray = Array.from(new Uint8Array(hashBuffer));
-      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
       return `sha256-${btoa(hashHex)}`;
     } catch (error) {
       console.warn('Failed to generate integrity hash for:', url);
@@ -1035,7 +1036,7 @@ class CSPOptimizer {
         originalPolicy: event.originalPolicy,
         sourceFile: event.sourceFile,
         lineNumber: event.lineNumber,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
 
       this.reportViolation(violation);
@@ -1054,14 +1055,10 @@ class CSPOptimizer {
 
   analyzePerformanceImpact(violation) {
     // Check if violation affects performance-critical resources
-    const criticalResources = [
-      '/css/critical.css',
-      '/js/app.js',
-      'https://fonts.googleapis.com'
-    ];
+    const criticalResources = ['/css/critical.css', '/js/app.js', 'https://fonts.googleapis.com'];
 
-    const isCritical = criticalResources.some(resource =>
-      violation.blockedURI.includes(resource)
+    const isCritical = criticalResources.some((resource) =>
+      violation.blockedURI.includes(resource),
     );
 
     if (isCritical) {
@@ -1121,6 +1118,7 @@ document.head.appendChild(secureScript);
 ### CORS and Cross-Origin Resource Optimization
 
 #### Optimizing Cross-Origin Requests
+
 ```javascript
 // Handle CORS efficiently for better performance
 class CORSOptimizer {
@@ -1128,7 +1126,7 @@ class CORSOptimizer {
     this.trustedOrigins = new Set([
       'https://api.example.com',
       'https://cdn.example.com',
-      'https://fonts.googleapis.com'
+      'https://fonts.googleapis.com',
     ]);
     this.preflightCache = new Map();
     this.setupCORSOptimization();
@@ -1188,17 +1186,12 @@ class CORSOptimizer {
     const optimized = new Headers(headers);
 
     // Remove headers that trigger preflight if not necessary
-    const simpleHeaders = [
-      'accept',
-      'accept-language',
-      'content-language',
-      'content-type'
-    ];
+    const simpleHeaders = ['accept', 'accept-language', 'content-language', 'content-type'];
 
     const allowedContentTypes = [
       'application/x-www-form-urlencoded',
       'multipart/form-data',
-      'text/plain'
+      'text/plain',
     ];
 
     // Only keep simple headers when possible
@@ -1225,11 +1218,7 @@ class CORSOptimizer {
   }
 
   isEssentialHeader(name, value) {
-    const essentialHeaders = [
-      'authorization',
-      'x-api-key',
-      'x-csrf-token'
-    ];
+    const essentialHeaders = ['authorization', 'x-api-key', 'x-csrf-token'];
 
     return essentialHeaders.includes(name);
   }
@@ -1257,12 +1246,7 @@ class CORSOptimizer {
   }
 
   isSimpleHeader(name) {
-    const simpleHeaders = [
-      'accept',
-      'accept-language',
-      'content-language',
-      'content-type'
-    ];
+    const simpleHeaders = ['accept', 'accept-language', 'content-language', 'content-type'];
 
     return simpleHeaders.includes(name.toLowerCase());
   }
@@ -1275,7 +1259,7 @@ class CORSOptimizer {
     // Cache preflight response metadata
     this.preflightCache.set(origin, {
       timestamp: Date.now(),
-      maxAge: 86400000 // 24 hours default
+      maxAge: 86400000, // 24 hours default
     });
 
     // Set timeout to clear cache
@@ -1295,7 +1279,7 @@ class CORSOptimizer {
       const jsonpResult = await this.tryJSONP(url);
       if (jsonpResult) {
         return new Response(JSON.stringify(jsonpResult), {
-          headers: { 'Content-Type': 'application/json' }
+          headers: { 'Content-Type': 'application/json' },
         });
       }
     }
@@ -1369,7 +1353,7 @@ class CORSOptimizer {
       preflightCount: 0,
       preflightTime: 0,
       corsErrors: 0,
-      successfulRequests: 0
+      successfulRequests: 0,
     };
 
     // Monitor using Performance Observer
@@ -1379,7 +1363,8 @@ class CORSOptimizer {
           corsMetrics.successfulRequests++;
 
           // Check if request had preflight
-          if (entry.requestStart - entry.fetchStart > 50) { // Threshold for preflight
+          if (entry.requestStart - entry.fetchStart > 50) {
+            // Threshold for preflight
             corsMetrics.preflightCount++;
             corsMetrics.preflightTime += entry.requestStart - entry.fetchStart;
           }
@@ -1394,7 +1379,7 @@ class CORSOptimizer {
       if (corsMetrics.successfulRequests > 0) {
         console.log('CORS Performance Metrics:', {
           ...corsMetrics,
-          avgPreflightTime: corsMetrics.preflightTime / corsMetrics.preflightCount || 0
+          avgPreflightTime: corsMetrics.preflightTime / corsMetrics.preflightCount || 0,
         });
       }
     }, 30000);
@@ -1409,6 +1394,7 @@ corsOptimizer.monitorCORSPerformance();
 ### Subresource Integrity and Performance
 
 #### Balancing Security and Speed
+
 ```javascript
 // Implement SRI with performance considerations
 class SRIOptimizer {
@@ -1436,13 +1422,13 @@ class SRIOptimizer {
 
     observer.observe(document, {
       childList: true,
-      subtree: true
+      subtree: true,
     });
   }
 
   optimizeExistingResources() {
     // Process existing script and link elements
-    document.querySelectorAll('script[src], link[rel="stylesheet"]').forEach(element => {
+    document.querySelectorAll('script[src], link[rel="stylesheet"]').forEach((element) => {
       this.processElement(element);
     });
   }
@@ -1497,12 +1483,9 @@ class SRIOptimizer {
       }
 
       // Skip certain domains that don't support CORS
-      const skipDomains = [
-        'googletagmanager.com',
-        'google-analytics.com'
-      ];
+      const skipDomains = ['googletagmanager.com', 'google-analytics.com'];
 
-      return !skipDomains.some(domain => urlObj.hostname.includes(domain));
+      return !skipDomains.some((domain) => urlObj.hostname.includes(domain));
     } catch (error) {
       return false;
     }
@@ -1602,8 +1585,9 @@ class SRIOptimizer {
   getFallbackURL(originalUrl, type) {
     // Map external URLs to local fallbacks
     const fallbackMap = {
-      'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css': '/css/bootstrap.min.css',
-      'https://code.jquery.com/jquery-3.6.0.min.js': '/js/jquery.min.js'
+      'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css':
+        '/css/bootstrap.min.css',
+      'https://code.jquery.com/jquery-3.6.0.min.js': '/js/jquery.min.js',
     };
 
     return fallbackMap[originalUrl] || null;
@@ -1612,7 +1596,7 @@ class SRIOptimizer {
   getInlineScriptFallback(originalSrc) {
     // Provide minimal inline fallbacks for critical scripts
     const fallbacks = {
-      'jquery': 'window.jQuery = window.$ = function() { console.warn("jQuery fallback loaded"); };'
+      jquery: 'window.jQuery = window.$ = function() { console.warn("jQuery fallback loaded"); };',
     };
 
     for (const [key, code] of Object.entries(fallbacks)) {
@@ -1627,11 +1611,11 @@ class SRIOptimizer {
   getInlineCSSFallback(originalHref) {
     // Provide minimal CSS fallbacks
     const fallbacks = {
-      'bootstrap': `
+      bootstrap: `
         .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
         .row { display: flex; flex-wrap: wrap; margin: 0 -15px; }
         .col { flex: 1; padding: 0 15px; }
-      `
+      `,
     };
 
     for (const [key, css] of Object.entries(fallbacks)) {
@@ -1649,7 +1633,7 @@ class SRIOptimizer {
       totalResources: 0,
       sriEnabled: 0,
       sriFailures: 0,
-      fallbacksUsed: 0
+      fallbacksUsed: 0,
     };
 
     // Monitor resource loading
@@ -1670,12 +1654,16 @@ class SRIOptimizer {
     observer.observe({ entryTypes: ['resource'] });
 
     // Monitor SRI failures
-    document.addEventListener('error', (event) => {
-      if (event.target.integrity) {
-        sriMetrics.sriFailures++;
-        sriMetrics.fallbacksUsed++;
-      }
-    }, true);
+    document.addEventListener(
+      'error',
+      (event) => {
+        if (event.target.integrity) {
+          sriMetrics.sriFailures++;
+          sriMetrics.fallbacksUsed++;
+        }
+      },
+      true,
+    );
 
     // Report metrics
     setInterval(() => {

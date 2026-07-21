@@ -12,9 +12,9 @@ Imagine you're building an e-commerce application. Customers are interested in a
 
 ## 💡 Solution
 
-The Observer pattern suggests that you add a subscription mechanism to the publisher class so individual objects can subscribe to event notifications. This mechanism consists of:
+The Observer pattern adds a subscription mechanism to the publisher class so individual objects can subscribe to or unsubscribe from event notifications. This mechanism consists of:
 
-1. **Subject (Publisher)**: Maintains a list of observers and provides methods to add/remove observers
+1. **Subject (Publisher)**: Maintains a list of observers and provides methods to subscribe/unsubscribe
 2. **Observer (Subscriber)**: Defines an interface for objects that should be notified of changes
 3. **Concrete Subject**: Stores state of interest and notifies observers when state changes
 4. **Concrete Observer**: Implements the Observer interface to keep state consistent with the subject
@@ -22,111 +22,102 @@ The Observer pattern suggests that you add a subscription mechanism to the publi
 ## 🏗️ Structure
 
 ```
-Subject (Publisher)
-├── observers: Observer[]
-├── subscribe(observer)
-├── unsubscribe(observer)
-└── notify()
-
-Observer (Subscriber)
-└── update(data)
-
-ConcreteSubject extends Subject
-├── state
-├── setState(state)
-└── getState()
-
-ConcreteObserver implements Observer
-├── update(data)
-└── doSomething()
+┌─────────────────────────────┐
+│         Subject              │
+├─────────────────────────────┤
+│ - observers: Observer[]      │
+├─────────────────────────────┤
+│ + subscribe(observer): void  │
+│ + unsubscribe(observer): void│
+│ + notify(data): void         │
+└──────────┬──────────────────┘
+           │ notifies
+           ▼
+┌─────────────────────────────┐
+│     «interface» Observer     │
+├─────────────────────────────┤
+│ + update(data): void         │
+└──────────┬──────────────────┘
+           │ implements
+           ▼
+┌─────────────────────────────┐
+│    ConcreteObserver          │
+├─────────────────────────────┤
+│ - state                      │
+├─────────────────────────────┤
+│ + update(data): void         │
+└─────────────────────────────┘
 ```
 
 ## 💻 Code Example
 
 ### Basic Implementation
 
-```javascript
+```typescript
 // Observer interface
-class Observer {
-  update(data) {
-    throw new Error("update() method must be implemented");
-  }
+interface Observer {
+  update(data: unknown): void;
 }
 
 // Subject (Publisher)
 class Subject {
-  constructor() {
-    this.observers = [];
-  }
+  private observers: Observer[] = [];
 
-  subscribe(observer) {
+  subscribe(observer: Observer): void {
     this.observers.push(observer);
   }
 
-  unsubscribe(observer) {
-    this.observers = this.observers.filter(obs => obs !== observer);
+  unsubscribe(observer: Observer): void {
+    this.observers = this.observers.filter((obs) => obs !== observer);
   }
 
-  notify(data) {
-    this.observers.forEach(observer => observer.update(data));
+  protected notify(data: unknown): void {
+    this.observers.forEach((observer) => observer.update(data));
   }
 }
 
 // Concrete Subject
 class NewsAgency extends Subject {
-  constructor() {
-    super();
-    this.news = "";
-  }
+  private news: string = '';
 
-  setNews(news) {
+  setNews(news: string): void {
     this.news = news;
     this.notify(news);
   }
 
-  getNews() {
+  getNews(): string {
     return this.news;
   }
 }
 
 // Concrete Observers
-class NewsChannel extends Observer {
-  constructor(name) {
-    super();
-    this.name = name;
-    this.news = "";
-  }
+class NewsChannel implements Observer {
+  constructor(private name: string) {}
 
-  update(news) {
-    this.news = news;
+  update(news: unknown): void {
     console.log(`${this.name} broadcasting: ${news}`);
   }
 }
 
-class OnlinePortal extends Observer {
-  constructor(name) {
-    super();
-    this.name = name;
-    this.news = "";
-  }
+class OnlinePortal implements Observer {
+  constructor(private name: string) {}
 
-  update(news) {
-    this.news = news;
+  update(news: unknown): void {
     console.log(`${this.name} published online: ${news}`);
   }
 }
 
 // Usage
 const agency = new NewsAgency();
-const cnn = new NewsChannel("CNN");
-const bbc = new NewsChannel("BBC");
-const portal = new OnlinePortal("News Portal");
+const cnn = new NewsChannel('CNN');
+const bbc = new NewsChannel('BBC');
+const portal = new OnlinePortal('News Portal');
 
 agency.subscribe(cnn);
 agency.subscribe(bbc);
 agency.subscribe(portal);
 
-agency.setNews("Breaking: New JavaScript framework released!");
+agency.setNews('Breaking: New JavaScript framework released!');
 // Output:
 // CNN broadcasting: Breaking: New JavaScript framework released!
 // BBC broadcasting: Breaking: New JavaScript framework released!
@@ -137,236 +128,362 @@ agency.setNews("Breaking: New JavaScript framework released!");
 
 ### 1. Stock Price Monitor
 
-```javascript
+```typescript
+interface StockData {
+  symbol: string;
+  price: number;
+  timestamp: Date;
+}
+
 class Stock extends Subject {
-  constructor(symbol, price) {
+  constructor(public symbol: string, private price: number) {
     super();
-    this.symbol = symbol;
-    this.price = price;
   }
 
-  setPrice(price) {
+  setPrice(price: number): void {
     this.price = price;
-    this.notify({
-      symbol: this.symbol,
-      price: price,
-      timestamp: new Date()
-    });
+    this.notify({ symbol: this.symbol, price, timestamp: new Date() });
   }
 }
 
-class StockDisplay extends Observer {
-  constructor(name) {
-    super();
-    this.name = name;
-  }
+class StockDisplay implements Observer {
+  constructor(private name: string) {}
 
-  update(stockData) {
-    console.log(`${this.name}: ${stockData.symbol} is now $${stockData.price}`);
+  update(data: unknown): void {
+    const { symbol, price } = data as StockData;
+    console.log(`${this.name}: ${symbol} is now $${price}`);
   }
 }
 
-class StockAlert extends Observer {
-  constructor(threshold) {
-    super();
-    this.threshold = threshold;
-  }
+class StockAlert implements Observer {
+  constructor(private threshold: number) {}
 
-  update(stockData) {
+  update(data: unknown): void {
+    const stockData = data as StockData;
     if (stockData.price > this.threshold) {
       console.log(`🚨 ALERT: ${stockData.symbol} exceeded $${this.threshold}!`);
     }
   }
 }
 
-// Usage
-const appleStock = new Stock("AAPL", 150);
-const dashboard = new StockDisplay("Dashboard");
-const mobileApp = new StockDisplay("Mobile App");
+const appleStock = new Stock('AAPL', 150);
+const dashboard = new StockDisplay('Dashboard');
 const priceAlert = new StockAlert(180);
 
 appleStock.subscribe(dashboard);
-appleStock.subscribe(mobileApp);
 appleStock.subscribe(priceAlert);
-
 appleStock.setPrice(185);
 ```
 
-### 2. Model-View Architecture
+### 2. React Hook Pattern
 
-```javascript
-class UserModel extends Subject {
-  constructor() {
-    super();
-    this.users = [];
+```typescript
+import { useState, useEffect, useCallback } from 'react';
+
+// Generic observable store
+class Store<T> {
+  private listeners: Set<(data: T) => void> = new Set();
+
+  constructor(private state: T) {}
+
+  getState(): T {
+    return this.state;
   }
 
-  addUser(user) {
-    this.users.push(user);
-    this.notify({ action: 'add', user, users: this.users });
+  setState(next: T): void {
+    this.state = next;
+    this.listeners.forEach((fn) => fn(this.state));
   }
 
-  removeUser(userId) {
-    const user = this.users.find(u => u.id === userId);
-    this.users = this.users.filter(u => u.id !== userId);
-    this.notify({ action: 'remove', user, users: this.users });
-  }
-}
-
-class UserListView extends Observer {
-  update(data) {
-    console.log(`📋 User List updated: ${data.users.length} users`);
-    if (data.action === 'add') {
-      console.log(`➕ Added: ${data.user.name}`);
-    } else if (data.action === 'remove') {
-      console.log(`➖ Removed: ${data.user.name}`);
-    }
+  subscribe(listener: (data: T) => void): () => void {
+    this.listeners.add(listener);
+    return () => this.listeners.delete(listener);
   }
 }
 
-class UserStatsView extends Observer {
-  update(data) {
-    const totalUsers = data.users.length;
-    const activeUsers = data.users.filter(u => u.active).length;
-    console.log(`📊 Stats: ${totalUsers} total, ${activeUsers} active`);
-  }
+// Custom hook
+function useStore<T>(store: Store<T>): T {
+  const [state, setState] = useState<T>(store.getState());
+
+  useEffect(() => {
+    const unsubscribe = store.subscribe(setState);
+    return unsubscribe; // cleanup on unmount
+  }, [store]);
+
+  return state;
+}
+
+// Usage in React component
+const userStore = new Store({ name: 'Alice', online: false });
+
+function UserStatus() {
+  const user = useStore(userStore);
+  return <div>{user.name} is {user.online ? '🟢 online' : '🔴 offline'}</div>;
 }
 ```
 
-### 3. Event System with Custom Events
+### 3. Custom EventEmitter (Browser-Style)
 
-```javascript
-class EventEmitter extends Subject {
-  constructor() {
-    super();
-    this.events = new Map();
-  }
+```typescript
+type EventHandler = (...args: any[]) => void;
 
-  on(event, observer) {
+class EventEmitter {
+  private events = new Map<string, Set<EventHandler>>();
+
+  on(event: string, handler: EventHandler): void {
     if (!this.events.has(event)) {
-      this.events.set(event, []);
+      this.events.set(event, new Set());
     }
-    this.events.get(event).push(observer);
+    this.events.get(event)!.add(handler);
   }
 
-  off(event, observer) {
-    if (this.events.has(event)) {
-      const observers = this.events.get(event);
-      this.events.set(event, observers.filter(obs => obs !== observer));
-    }
+  off(event: string, handler: EventHandler): void {
+    this.events.get(event)?.delete(handler);
   }
 
-  emit(event, data) {
-    if (this.events.has(event)) {
-      this.events.get(event).forEach(observer => observer.update(data));
-    }
+  emit(event: string, ...args: unknown[]): void {
+    this.events.get(event)?.forEach((handler) => handler(...args));
   }
-}
 
-class Logger extends Observer {
-  update(data) {
-    console.log(`📝 Log: ${JSON.stringify(data)}`);
-  }
-}
-
-class EmailService extends Observer {
-  update(data) {
-    if (data.type === 'user_registered') {
-      console.log(`📧 Welcome email sent to ${data.email}`);
-    }
+  once(event: string, handler: EventHandler): void {
+    const wrapper = (...args: unknown[]) => {
+      handler(...args);
+      this.off(event, wrapper);
+    };
+    this.on(event, wrapper);
   }
 }
 
 // Usage
-const eventBus = new EventEmitter();
-const logger = new Logger();
-const emailService = new EmailService();
+const bus = new EventEmitter();
 
-eventBus.on('user_registered', logger);
-eventBus.on('user_registered', emailService);
-
-eventBus.emit('user_registered', {
-  type: 'user_registered',
-  userId: 123,
-  email: 'john@example.com'
+bus.on('user:login', (userId: string) => {
+  console.log(`User ${userId} logged in`);
 });
+
+bus.once('app:ready', () => {
+  console.log('One-time init');
+});
+
+bus.emit('user:login', '42');
+bus.emit('app:ready');
+bus.emit('app:ready'); // no output - handler removed after first call
+```
+
+## ⚠️ Common Pitfalls
+
+### 1. Memory Leaks from Forgotten Unsubscriptions
+
+Observers hold references to the subject. If not unsubscribed, they prevent garbage collection.
+
+```typescript
+// ❌ BAD: component unmounts but observer stays subscribed
+class BadComponent {
+  constructor(store: Subject) {
+    store.subscribe(this); // never unsubscribes
+  }
+}
+
+// ✅ GOOD: explicit cleanup or WeakRef-based subscription
+class GoodComponent {
+  private unsubscribe: () => void;
+
+  constructor(store: Subject) {
+    this.unsubscribe = store.subscribe(this);
+  }
+
+  destroy(): void {
+    this.unsubscribe(); // clean up
+  }
+}
+```
+
+### 2. Observer Modifying Collection During Iteration
+
+If an observer calls `unsubscribe()` inside `update()`, it mutates the array being iterated:
+
+```typescript
+// ✅ FIX: iterate over a snapshot
+protected notify(data: unknown): void {
+  const snapshot = [...this.observers];
+  snapshot.forEach((observer) => observer.update(data));
+}
+```
+
+### 3. Circular Update Chains
+
+Observer A reacts to a change by triggering a change that Observer B reacts to, which triggers Observer A again — infinite loop.
+
+```typescript
+// ✅ FIX with a re-entrancy guard
+private notifying = false;
+
+protected notify(data: unknown): void {
+  if (this.notifying) return; // prevent re-entrant calls
+  this.notifying = true;
+  try {
+    this.observers.forEach((obs) => obs.update(data));
+  } finally {
+    this.notifying = false;
+  }
+}
+```
+
+## ⚡ Performance Considerations
+
+- **Debounce rapid updates**: When state changes burst (e.g., typing), notify on a schedule
+- **Selective notification**: Only notify observers interested in the specific change
+- **Microtask batching**: Use `queueMicrotask` or `Promise.resolve()` to batch synchronous updates
+- **Lazy/Observable pattern**: Compute derived values only when an observer requests them
+
+```typescript
+class DebouncedSubject extends Subject {
+  private timer: ReturnType<typeof setTimeout> | null = null;
+
+  protected notify(data: unknown): void {
+    if (this.timer) clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      super.notify(data);
+      this.timer = null;
+    }, 16); // ~60fps
+  }
+}
+```
+
+## 🆚 Observer vs Pub/Sub
+
+These terms are often confused. They're related but distinct:
+
+| Aspect                    | Observer Pattern                        | Publish/Subscribe                        |
+| ------------------------- | --------------------------------------- | ---------------------------------------- |
+| **Coupling**              | Subject knows about its observers       | Publishers don't know subscribers        |
+| **Channel**               | Direct method call                      | Through an event bus/broker              |
+| **Filtering**             | Observers receive all notifications     | Subscribers pick specific topics/events  |
+| **Location**              | Same process/address space              | Can be cross-process (message queues)    |
+| **Typical use**           | UI updates, model-view binding          | Microservices, event-driven architecture |
+
+## 🔄 Built-in JavaScript Observers
+
+JavaScript ships with observer-like APIs that follow the same pattern:
+
+| API                      | Observes                              | Use Case                          |
+| ------------------------ | ------------------------------------- | --------------------------------- |
+| `EventTarget`            | DOM events (click, keydown, etc.)     | UI interactivity                  |
+| `MutationObserver`       | DOM tree mutations                    | Lazy-loading, attribute watching  |
+| `IntersectionObserver`   | Element visibility in viewport        | Infinite scroll, lazy images      |
+| `ResizeObserver`         | Element size changes                  | Responsive layouts                |
+| `PerformanceObserver`    | Performance timeline entries          | Real metrics monitoring           |
+
+```typescript
+// IntersectionObserver - lazy-load images
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const img = entry.target as HTMLImageElement;
+      img.src = img.dataset.src!;
+      observer.unobserve(img);
+    }
+  });
+});
+
+document.querySelectorAll('img[data-src]').forEach((img) => observer.observe(img));
 ```
 
 ## ✅ Pros
 
-- **Open/Closed Principle**: You can introduce new subscriber classes without changing publisher code
+- **Open/Closed Principle**: Introduce new subscriber classes without changing publisher code
 - **Loose Coupling**: The publisher doesn't need to know concrete classes of subscribers
-- **Dynamic Relationships**: You can establish relations between objects at runtime
+- **Dynamic Relationships**: Establish relations between objects at runtime
 - **Broadcast Communication**: One-to-many communication is easy to implement
 
 ## ❌ Cons
 
-- **Random Order**: Subscribers are notified in random order
-- **Memory Leaks**: Observers might not get garbage collected if not properly unsubscribed
-- **Performance**: If there are many observers, notifications can be slow
-- **Complex Dependencies**: Can create complex webs of dependencies that are hard to understand
+- **Random Order**: Subscribers are notified in unspecified order (use priority queues if ordering matters)
+- **Memory Leaks**: Observers linger if not properly unsubscribed
+- **Performance Overhead**: Large observer lists slow down notifications
+- **Debugging Complexity**: Cascading updates are hard to trace
 
 ## 🎯 When to Use
 
-- **Model-View architectures**: When changes to one object require updating multiple UI components
-- **Event handling systems**: When you need to handle events in multiple places
-- **Publish-Subscribe systems**: When you need loose coupling between components
-- **Real-time data updates**: Stock prices, chat messages, live feeds
-- **Caching**: When cached data needs to be invalidated across multiple caches
+- **Model-View architectures**: Changes to one object update multiple UI components
+- **Event handling systems**: Handle events in multiple places
+- **Real-time data updates**: Stock tickers, chat messages, live feeds
+- **State management**: Notify components when shared state changes (Redux, Zustand)
+- **Caching**: Invalidate cached data across multiple cache layers
 
 ## 🎭 Variations
 
-### 1. **Push vs Pull Model**
+### 1. Push vs Pull Model
 
-```javascript
-// Push Model - Subject sends data
+```typescript
+// PUSH: Subject sends full data payload
 class PushSubject extends Subject {
-  notify(data) {
-    this.observers.forEach(observer => observer.update(data));
+  protected notify(data: unknown): void {
+    this.observers.forEach((obs) => obs.update(data));
   }
 }
 
-// Pull Model - Observer requests data
+// PULL: Observer requests the data it needs
 class PullSubject extends Subject {
-  notify() {
-    this.observers.forEach(observer => observer.update(this));
+  protected notify(): void {
+    this.observers.forEach((obs) => obs.update(this));
   }
 }
 
-class PullObserver extends Observer {
-  update(subject) {
-    const data = subject.getData(); // Observer pulls data
+class PullObserver implements Observer {
+  update(subject: unknown): void {
+    const data = (subject as PullSubject).getData(); // pull only what's needed
     this.handleData(data);
   }
 }
 ```
 
-### 2. **Async Observer**
+### 2. WeakMap-based Subscription (Auto Cleanup)
 
-```javascript
-class AsyncSubject extends Subject {
-  async notify(data) {
-    const promises = this.observers.map(observer => observer.update(data));
-    await Promise.all(promises);
+```typescript
+class WeakRefSubject {
+  private observers = new Set<WeakRef<Observer>>();
+
+  subscribe(observer: Observer): void {
+    this.observers.add(new WeakRef(observer));
+  }
+
+  protected notify(data: unknown): void {
+    this.observers.forEach((ref) => {
+      const observer = ref.deref();
+      if (observer) observer.update(data);
+      else this.observers.delete(ref); // auto-remove garbage-collected observers
+    });
   }
 }
+```
 
-class AsyncObserver extends Observer {
-  async update(data) {
-    // Perform async operations
-    await this.processDataAsync(data);
+### 3. Async Observer
+
+```typescript
+interface AsyncObserver {
+  update(data: unknown): Promise<void>;
+}
+
+class AsyncSubject {
+  private observers: AsyncObserver[] = [];
+
+  async notify(data: unknown): Promise<void> {
+    await Promise.all(this.observers.map((obs) => obs.update(data)));
   }
 }
 ```
 
 ## 🔗 Related Patterns
 
-- **Mediator**: Both patterns promote loose coupling, but Observer distributes communication by introducing observer objects
-- **Command**: Can use Observer to notify about command execution
-- **MVC/MVP**: Observer is fundamental to these architectural patterns
+- **Mediator**: Both promote loose coupling, but Mediator centralizes communication while Observer distributes it
+- **Command**: Use Observer to notify listeners when commands execute
+- **MVC/MVP/MVVM**: Observer is fundamental to these architectural patterns for view-model binding
+- **State Management (Redux/Zustand)**: Modern libraries implement Observer under the hood for reactive UI updates
 
 ## 📚 Further Reading
 
 - [Gang of Four Design Patterns](https://en.wikipedia.org/wiki/Design_Patterns)
 - [Observer Pattern - Refactoring.Guru](https://refactoring.guru/design-patterns/observer)
 - [JavaScript Event System](https://developer.mozilla.org/en-US/docs/Web/Events)
+- [IntersectionObserver API](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver)

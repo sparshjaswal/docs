@@ -1,4 +1,3 @@
-
 # 📉 Printing Patterns
 
 > **One-line summary**: Master nested loops and logical thinking through visual pattern printing — the foundation for understanding 2D array manipulation and algorithmic problem-solving.
@@ -8,6 +7,7 @@
 ## Concept
 
 Pattern printing problems help develop:
+
 - **Nested loop control** — understanding row-column relationships
 - **Mathematical thinking** — finding formulas for positions and values
 - **Logical reasoning** — breaking complex patterns into simple rules
@@ -20,6 +20,7 @@ Pattern printing problems help develop:
 ## Common Techniques
 
 ### Basic Triangle Pattern
+
 ```javascript
 function printTriangle(n) {
   for (let i = 1; i <= n; i++) {
@@ -33,6 +34,7 @@ function printTriangle(n) {
 ```
 
 ### Number Pyramid
+
 ```javascript
 function numberPyramid(n) {
   for (let i = 1; i <= n; i++) {
@@ -47,6 +49,7 @@ function numberPyramid(n) {
 ```
 
 ### Diamond Pattern
+
 ```javascript
 function diamond(n) {
   // Upper half
@@ -65,101 +68,81 @@ function diamond(n) {
 ## Practice Problems
 
 ### Basic Patterns (Easy)
+
 | Problem | Difficulty | Solution |
-|---------|-----------|----------|
+| ------- | ---------- | -------- |
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-| Concentric Rectangle | Easy | [View Solution](./printing-pattern/P-ConcentricRect) |
-| Print Floyd's Triangle | Easy | [View Solution](./printing-pattern/P-PrintFloydsTriangle) |
-| Print Matrix Diagonal | Easy | [View Solution](./printing-pattern/P-PrintMatrixDiagonal) |
-| Print Rectangle Pattern | Easy | [View Solution](./printing-pattern/P-PrintRectPattern) |
-| Print X in Box | Easy | [View Solution](./printing-pattern/P-PrintXInBox) |
-| Star Triangle Pattern | Easy |  |
-| Right Triangle Pattern | Easy |  |
-| Inverted Triangle | Easy |  |
-| Hollow Rectangle | Easy |  |
-| Square Pattern | Easy |  |
-| Number Triangle | Easy |  |
-| Alphabet Triangle | Easy |  |
-| Plus Pattern | Easy |  |
-| Cross Pattern | Easy |  |
-| Simple Diamond | Easy |  |
-| Arrow Pattern | Easy |  |
-| Checkerboard Pattern | Easy |  |
-| Binary Pattern | Easy |  |
-| Multiplication Table Pattern | Easy |  |
-| Even-Odd Pattern | Easy |  |
+| Concentric Rectangle | Easy | [View Solution](./P-ConcentricRect) |
+| Print Floyd's Triangle | Easy | [View Solution](./P-PrintFloydsTriangle) |
+| Print Matrix Diagonal | Easy | [View Solution](./P-PrintMatrixDiagonal) |
+| Print Rectangle Pattern | Easy | [View Solution](./P-PrintRectPattern) |
+| Print X in Box | Easy | [View Solution](./P-PrintXInBox) |
+| Star Triangle Pattern | Easy | |
+| Right Triangle Pattern | Easy | |
+| Inverted Triangle | Easy | |
+| Hollow Rectangle | Easy | |
+| Square Pattern | Easy | |
+| Number Triangle | Easy | |
+| Alphabet Triangle | Easy | |
+| Plus Pattern | Easy | |
+| Cross Pattern | Easy | |
+| Simple Diamond | Easy | |
+| Arrow Pattern | Easy | |
+| Checkerboard Pattern | Easy | |
+| Binary Pattern | Easy | |
+| Multiplication Table Pattern | Easy | |
+| Even-Odd Pattern | Easy | |
 
 ### Intermediate Patterns (Medium)
-| Problem | Difficulty | Solution |
-|---------|-----------|----------|
-| Number Pyramid | Medium |  |
-| Diamond Pattern | Medium |  |
-| Pascal's Triangle | Medium |  |
-| Butterfly Pattern | Medium |  |
-| Zigzag Pattern | Medium |  |
-| Spiral Matrix | Medium |  |
-| Heart Pattern | Medium |  |
-| Number Diamond | Medium |  |
-| Alphabet Pattern | Medium |  |
-| Hourglass Pattern | Medium |  |
-| Rhombus Pattern | Medium |  |
-| Wave Pattern | Medium |  |
-| Hollow Diamond | Medium |  |
-| Fibonacci Triangle | Medium |  |
-| Prime Number Pattern | Medium |  |
-| Matrix Spiral | Medium |  |
-| Sandglass Pattern | Medium |  |
-| Hexagon Pattern | Medium |  |
-| Star Diamond | Medium |  |
-| Number Spiral | Medium |  |
+
+| Problem              | Difficulty | Solution |
+| -------------------- | ---------- | -------- |
+| Number Pyramid       | Medium     |          |
+| Diamond Pattern      | Medium     |          |
+| Pascal's Triangle    | Medium     |          |
+| Butterfly Pattern    | Medium     |          |
+| Zigzag Pattern       | Medium     |          |
+| Spiral Matrix        | Medium     |          |
+| Heart Pattern        | Medium     |          |
+| Number Diamond       | Medium     |          |
+| Alphabet Pattern     | Medium     |          |
+| Hourglass Pattern    | Medium     |          |
+| Rhombus Pattern      | Medium     |          |
+| Wave Pattern         | Medium     |          |
+| Hollow Diamond       | Medium     |          |
+| Fibonacci Triangle   | Medium     |          |
+| Prime Number Pattern | Medium     |          |
+| Matrix Spiral        | Medium     |          |
+| Sandglass Pattern    | Medium     |          |
+| Hexagon Pattern      | Medium     |          |
+| Star Diamond         | Medium     |          |
+| Number Spiral        | Medium     |          |
 
 ### Advanced Patterns (Hard)
-| Problem | Difficulty | Solution |
-|---------|-----------|----------|
-| Complex Fractal Pattern | Hard |  |
-| Sierpinski Triangle | Hard |  |
-| Matrix Rotation Pattern | Hard |  |
-| Multi-layer Diamond | Hard |  |
-| 3D Cube Pattern | Hard |  |
-| Mandala Pattern | Hard |  |
-| Celtic Knot Pattern | Hard |  |
-| Maze Pattern | Hard |  |
-| Tessellation Pattern | Hard |  |
-| Golden Ratio Spiral | Hard |  |
+
+| Problem                 | Difficulty | Solution |
+| ----------------------- | ---------- | -------- |
+| Complex Fractal Pattern | Hard       |          |
+| Sierpinski Triangle     | Hard       |          |
+| Matrix Rotation Pattern | Hard       |          |
+| Multi-layer Diamond     | Hard       |          |
+| 3D Cube Pattern         | Hard       |          |
+| Mandala Pattern         | Hard       |          |
+| Celtic Knot Pattern     | Hard       |          |
+| Maze Pattern            | Hard       |          |
+| Tessellation Pattern    | Hard       |          |
+| Golden Ratio Spiral     | Hard       |          |
 
 ### CodeChef Pattern Problems
-| Problem | Difficulty | Solution |
-|---------|-----------|----------|
-| [CC — Pattern Printing (PATTERN)](https://www.codechef.com/problems/PATTERN) | Easy |  |
-| [CC — Star Pattern (STARPTR)](https://www.codechef.com/problems/STARPTR) | Easy |  |
-| [CC — Number Pattern (NUMPTR)](https://www.codechef.com/problems/NUMPTR) | Medium |  |
-| [CC — Triangle Pattern (TRIPTR)](https://www.codechef.com/problems/TRIPTR) | Medium |  |
-| [CC — Diamond Design (DIAMPTR)](https://www.codechef.com/problems/DIAMPTR) | Medium |  |
-| [CC — Complex Pattern (COMPLXPTR)](https://www.codechef.com/problems/COMPLXPTR) | Hard |  |
+
+| Problem                                                                         | Difficulty | Solution |
+| ------------------------------------------------------------------------------- | ---------- | -------- |
+| [CC — Pattern Printing (PATTERN)](https://www.codechef.com/problems/PATTERN)    | Easy       |          |
+| [CC — Star Pattern (STARPTR)](https://www.codechef.com/problems/STARPTR)        | Easy       |          |
+| [CC — Number Pattern (NUMPTR)](https://www.codechef.com/problems/NUMPTR)        | Medium     |          |
+| [CC — Triangle Pattern (TRIPTR)](https://www.codechef.com/problems/TRIPTR)      | Medium     |          |
+| [CC — Diamond Design (DIAMPTR)](https://www.codechef.com/problems/DIAMPTR)      | Medium     |          |
+| [CC — Complex Pattern (COMPLXPTR)](https://www.codechef.com/problems/COMPLXPTR) | Hard       |          |
 
 ---
 

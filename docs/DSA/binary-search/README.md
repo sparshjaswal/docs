@@ -40,8 +40,6 @@ Binary search is a **divide-and-conquer** algorithm that efficiently finds a tar
 - **Rotated or mountain arrays**
 - **Optimization problems** with monotonic solution space
 
-
-
 ### Enhanced Visualization
 
 The enhanced animation above demonstrates:
@@ -147,9 +145,9 @@ function findLastOccurrence(arr, target) {
 ### 3️⃣ Binary Search on Answer - Optimization Problems
 
 ```javascript
-
 function binarySearchOnAnswer(nums, threshold) {
-  let left = 1, right = Math.max(...nums);
+  let left = 1,
+    right = Math.max(...nums);
   while (left < right) {
     const mid = Math.floor((left + right) / 2);
     if (isFeasible(nums, mid, threshold)) {
@@ -341,8 +339,8 @@ function feasible(capacity) {
 | [LC 1539 — Kth Missing Positive Number](https://leetcode.com/problems/kth-missing-positive-number/)                             | Easy       |                                                                                      |
 | [CC — Binary Search Basic (BINSRCH)](https://www.codechef.com/problems/BINSRCH)                                                 | Easy       |                                                                                      |
 | [CC — Find Element (FINDELEM)](https://www.codechef.com/problems/FINDELEM)                                                      | Easy       |                                                                                      |
-| [LC 1283 — Find Smallest Divisor](https://leetcode.com/problems/find-the-smallest-divisor-given-a-threshold/)                   | Medium     | [View Solution](./binary-search/LC-1283-find-the-smallest-divisor-given-a-threshold) |
-| [LC 1101 — Capacity to Ship Packages](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/)                   | Medium     | [View Solution](./binary-search/LC-1101-capacity-to-ship-packages-within-d-days)     |
+| [LC 1283 — Find Smallest Divisor](https://leetcode.com/problems/find-the-smallest-divisor-given-a-threshold/)                   | Medium     | [View Solution](./LC-1283-find-the-smallest-divisor-given-a-threshold) |
+| [LC 1101 — Capacity to Ship Packages](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/)                   | Medium     | [View Solution](./LC-1101-capacity-to-ship-packages-within-d-days)     |
 | [LC 875 — Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/)                                              | Medium     |                                                                                      |
 | [LC 33 — Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)                         | Medium     |                                                                                      |
 | [LC 153 — Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/)            | Medium     |                                                                                      |

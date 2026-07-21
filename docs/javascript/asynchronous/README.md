@@ -1,10 +1,11 @@
 # ⏰ Asynchronous JavaScript
 
-> *Master asynchronous programming - from callbacks to async/await*
+> _Master asynchronous programming - from callbacks to async/await_
 
 ## 📋 Table of Contents
 
 ### Core Concepts
+
 - [Asynchronous Programming](./asynchronous.md) - Understanding async vs sync programming
 - [Promises](./promises.md) - Modern asynchronous programming with Promises
 - [Async/Await](./async-await.md) - Clean, readable asynchronous code
@@ -20,16 +21,19 @@
 ## 🎯 Key Concepts
 
 ### Event Loop & Execution Model
+
 - **Call Stack**: Synchronous execution order
 - **Event Loop**: How JavaScript handles asynchronous operations
 - **Callback Queue**: Where async callbacks wait for execution
 
 ### Promise States
+
 - **Pending**: Initial state, neither fulfilled nor rejected
 - **Fulfilled**: Operation completed successfully
 - **Rejected**: Operation failed
 
 ### Async Patterns
+
 - **Sequential**: Operations executed one after another
 - **Parallel**: Multiple operations executed simultaneously
 - **Racing**: First completed operation wins
@@ -44,5 +48,4 @@
 
 ---
 
-*Master asynchronous JavaScript to build responsive, efficient applications! 🚀*
-
+_Master asynchronous JavaScript to build responsive, efficient applications! 🚀_

@@ -3,26 +3,28 @@
 ## Variable Declaration Keywords
 
 ### var (ES5)
+
 - Function-scoped or globally-scoped
 - Can be redeclared and updated
 - Hoisted with `undefined` value
 
 ```javascript
-var name = "John";
-var name = "Jane"; // Redeclaration allowed
-name = "Bob"; // Update allowed
+var name = 'John';
+var name = 'Jane'; // Redeclaration allowed
+name = 'Bob'; // Update allowed
 
 function example() {
-    var x = 1;
-    if (true) {
-        var x = 2; // Same variable
-        console.log(x); // 2
-    }
+  var x = 1;
+  if (true) {
+    var x = 2; // Same variable
     console.log(x); // 2
+  }
+  console.log(x); // 2
 }
 ```
 
 ### let (ES6)
+
 - Block-scoped
 - Cannot be redeclared in same scope
 - Can be updated
@@ -34,16 +36,17 @@ let age = 25;
 age = 30; // Update allowed
 
 function example() {
-    let y = 1;
-    if (true) {
-        let y = 2; // Different variable (block scope)
-        console.log(y); // 2
-    }
-    console.log(y); // 1
+  let y = 1;
+  if (true) {
+    let y = 2; // Different variable (block scope)
+    console.log(y); // 2
+  }
+  console.log(y); // 1
 }
 ```
 
 ### const (ES6)
+
 - Block-scoped
 - Cannot be redeclared or updated
 - Must be initialized at declaration
@@ -61,25 +64,27 @@ const PI = 3.14159;
 ## Important Differences
 
 ### Scope Comparison
+
 ```javascript
 function scopeExample() {
-    var varVariable = "var";
-    let letVariable = "let";
-    const constVariable = "const";
+  var varVariable = 'var';
+  let letVariable = 'let';
+  const constVariable = 'const';
 
-    if (true) {
-        var varInBlock = "var in block";
-        let letInBlock = "let in block";
-        const constInBlock = "const in block";
-    }
+  if (true) {
+    var varInBlock = 'var in block';
+    let letInBlock = 'let in block';
+    const constInBlock = 'const in block';
+  }
 
-    console.log(varInBlock); // "var in block" - accessible
-    // console.log(letInBlock); // Error: not defined
-    // console.log(constInBlock); // Error: not defined
+  console.log(varInBlock); // "var in block" - accessible
+  // console.log(letInBlock); // Error: not defined
+  // console.log(constInBlock); // Error: not defined
 }
 ```
 
 ### Hoisting Behavior
+
 ```javascript
 // var hoisting
 console.log(hoistedVar); // undefined (not error)
@@ -94,6 +99,7 @@ const hoistedConst = "I'm in TDZ";
 ```
 
 ### Object/Array with const
+
 ```javascript
 // const prevents reassignment, not mutation
 const arr = [1, 2, 3];
@@ -101,14 +107,15 @@ arr.push(4); // Allowed - mutating content
 console.log(arr); // [1, 2, 3, 4]
 // arr = [5, 6, 7]; // Error: Cannot reassign
 
-const obj = { name: "John" };
-obj.name = "Jane"; // Allowed - mutating property
+const obj = { name: 'John' };
+obj.name = 'Jane'; // Allowed - mutating property
 obj.age = 25; // Allowed - adding property
 console.log(obj); // { name: "Jane", age: 25 }
 // obj = {}; // Error: Cannot reassign
 ```
 
 ## Best Practices
+
 1. Use `const` by default
 2. Use `let` when you need to reassign the variable
 3. Avoid `var` in modern JavaScript
@@ -116,10 +123,10 @@ console.log(obj); // { name: "Jane", age: 25 }
 
 ## Quick Reference Table
 
-| Feature | var | let | const |
-|---------|-----|-----|-------|
-| Scope | Function/Global | Block | Block |
-| Redeclare | ✅ | ❌ | ❌ |
-| Update | ✅ | ✅ | ❌ |
-| Hoisting | ✅ (undefined) | ✅ (TDZ) | ✅ (TDZ) |
-| Initialize | Optional | Optional | Required |
+| Feature    | var             | let      | const    |
+| ---------- | --------------- | -------- | -------- |
+| Scope      | Function/Global | Block    | Block    |
+| Redeclare  | ✅              | ❌       | ❌       |
+| Update     | ✅              | ✅       | ❌       |
+| Hoisting   | ✅ (undefined)  | ✅ (TDZ) | ✅ (TDZ) |
+| Initialize | Optional        | Optional | Required |

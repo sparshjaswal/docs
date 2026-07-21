@@ -18,9 +18,9 @@ function backtrack(state, choices, result) {
   }
   for (const choice of choices) {
     if (!isValid(state, choice)) continue; // prune
-    state.push(choice);                     // choose
+    state.push(choice); // choose
     backtrack(state, nextChoices(choices, choice), result);
-    state.pop();                            // un-choose (backtrack)
+    state.pop(); // un-choose (backtrack)
   }
 }
 ```

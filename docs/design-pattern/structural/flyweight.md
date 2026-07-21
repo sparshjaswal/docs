@@ -15,6 +15,7 @@ Creating millions of character objects would consume massive amounts of memory, 
 ## 💡 Solution
 
 The Flyweight pattern suggests separating object state into two types:
+
 1. **Intrinsic state**: Data shared among objects (stored in flyweight)
 2. **Extrinsic state**: Context-specific data (passed to flyweight methods)
 
@@ -47,15 +48,16 @@ Context
 class CharacterFlyweight {
   constructor(character, font, size) {
     this.character = character; // Intrinsic state
-    this.font = font;          // Intrinsic state
-    this.size = size;          // Intrinsic state
+    this.font = font; // Intrinsic state
+    this.size = size; // Intrinsic state
   }
 
   // Operation that uses both intrinsic and extrinsic state
-  render(x, y, color) { // x, y, color are extrinsic state
+  render(x, y, color) {
+    // x, y, color are extrinsic state
     console.log(
       `Rendering '${this.character}' at (${x}, ${y}) ` +
-      `with ${this.font} font, size ${this.size}, color ${color}`
+        `with ${this.font} font, size ${this.size}, color ${color}`,
     );
   }
 }
@@ -123,8 +125,8 @@ class Document {
   }
 
   render() {
-    console.log("📄 Rendering document:");
-    this.characters.forEach(char => char.render());
+    console.log('📄 Rendering document:');
+    this.characters.forEach((char) => char.render());
   }
 
   getCharacterCount() {
@@ -133,13 +135,13 @@ class Document {
 }
 
 // Usage
-console.log("=== Text Editor Flyweight Demo ===\n");
+console.log('=== Text Editor Flyweight Demo ===\n');
 
 const factory = new CharacterFlyweightFactory();
 const document = new Document();
 
-console.log("Adding characters to document:");
-console.log("-".repeat(30));
+console.log('Adding characters to document:');
+console.log('-'.repeat(30));
 
 // Add characters - notice how flyweights are reused
 document.addCharacter('H', 'Arial', 12, 0, 0, 'black');
@@ -162,13 +164,13 @@ document.addCharacter('l', 'Arial', 12, 20, 40, 'green');
 document.addCharacter('l', 'Arial', 12, 30, 40, 'green');
 document.addCharacter('o', 'Arial', 12, 40, 40, 'purple');
 
-console.log("\nDocument statistics:");
-console.log("-".repeat(20));
+console.log('\nDocument statistics:');
+console.log('-'.repeat(20));
 console.log(`Total characters in document: ${document.getCharacterCount()}`);
 factory.listFlyweights();
 
-console.log("\nRendering document:");
-console.log("-".repeat(18));
+console.log('\nRendering document:');
+console.log('-'.repeat(18));
 document.render();
 ```
 
@@ -180,26 +182,27 @@ document.render();
 // Flyweight for tree types
 class TreeType {
   constructor(name, color, sprite) {
-    this.name = name;     // Intrinsic state
-    this.color = color;   // Intrinsic state
+    this.name = name; // Intrinsic state
+    this.color = color; // Intrinsic state
     this.sprite = sprite; // Intrinsic state (image data)
   }
 
   // Method that uses both intrinsic and extrinsic state
-  render(canvas, x, y, size) { // canvas, x, y, size are extrinsic
+  render(canvas, x, y, size) {
+    // canvas, x, y, size are extrinsic
     console.log(
       `🌲 Rendering ${this.name} tree (${this.color}) ` +
-      `at (${x}, ${y}) with size ${size}px using sprite: ${this.sprite}`
+        `at (${x}, ${y}) with size ${size}px using sprite: ${this.sprite}`,
     );
   }
 
   // Simulate tree-specific behavior
   getGrowthRate() {
     const growthRates = {
-      'Oak': 2,
-      'Pine': 3,
-      'Birch': 4,
-      'Maple': 2.5
+      Oak: 2,
+      Pine: 3,
+      Birch: 4,
+      Maple: 2.5,
     };
     return growthRates[this.name] || 2;
   }
@@ -256,7 +259,7 @@ class Tree {
     this.size += this.treeType.getGrowthRate();
     console.log(
       `🌱 ${this.treeType.name} at (${this.x}, ${this.y}) ` +
-      `grew to size ${this.size}px (age: ${this.age} years)`
+        `grew to size ${this.size}px (age: ${this.age} years)`,
     );
   }
 
@@ -266,7 +269,7 @@ class Tree {
       color: this.treeType.color,
       position: { x: this.x, y: this.y },
       size: this.size,
-      age: this.age
+      age: this.age,
     };
   }
 }
@@ -287,8 +290,8 @@ class Forest {
   }
 
   render() {
-    console.log("🏞️ Rendering forest:");
-    const canvas = "2D Canvas Context"; // Simulated canvas
+    console.log('🏞️ Rendering forest:');
+    const canvas = '2D Canvas Context'; // Simulated canvas
 
     this.trees.forEach((tree, index) => {
       console.log(`Tree ${index + 1}:`);
@@ -297,8 +300,8 @@ class Forest {
   }
 
   simulateGrowth() {
-    console.log("\n📈 Simulating tree growth (1 year):");
-    this.trees.forEach(tree => tree.grow());
+    console.log('\n📈 Simulating tree growth (1 year):');
+    this.trees.forEach((tree) => tree.grow());
   }
 
   getForestStats() {
@@ -306,11 +309,11 @@ class Forest {
       totalTrees: this.trees.length,
       uniqueTreeTypes: this.treeTypeFactory.getCreatedTypesCount(),
       averageSize: 0,
-      treesByType: {}
+      treesByType: {},
     };
 
     let totalSize = 0;
-    this.trees.forEach(tree => {
+    this.trees.forEach((tree) => {
       totalSize += tree.size;
       const typeName = tree.treeType.name;
       stats.treesByType[typeName] = (stats.treesByType[typeName] || 0) + 1;
@@ -322,12 +325,12 @@ class Forest {
 }
 
 // Usage
-console.log("=== Forest Simulation Flyweight Demo ===\n");
+console.log('=== Forest Simulation Flyweight Demo ===\n');
 
 const forest = new Forest();
 
-console.log("Planting trees in the forest:");
-console.log("-".repeat(30));
+console.log('Planting trees in the forest:');
+console.log('-'.repeat(30));
 
 // Plant many trees - notice flyweight reuse
 forest.plantTree(10, 20, 'Oak', 'Green', 'oak_sprite.png');
@@ -339,26 +342,32 @@ forest.plantTree(110, 120, 'Maple', 'Red', 'maple_sprite.png');
 forest.plantTree(130, 140, 'Oak', 'Green', 'oak_sprite.png'); // Reuses Oak-Green again
 forest.plantTree(150, 160, 'Oak', 'Yellow', 'oak_sprite.png'); // New Oak-Yellow flyweight
 
-console.log("\nForest statistics:");
-console.log("-".repeat(17));
+console.log('\nForest statistics:');
+console.log('-'.repeat(17));
 const stats = forest.getForestStats();
 console.log(`Total trees: ${stats.totalTrees}`);
 console.log(`Unique tree types (flyweights): ${stats.uniqueTreeTypes}`);
 console.log(`Trees by type:`, stats.treesByType);
 
-console.log("\nTree type flyweights:");
+console.log('\nTree type flyweights:');
 forest.treeTypeFactory.listTreeTypes();
 
-console.log("\nSimulating forest growth:");
-console.log("-".repeat(25));
+console.log('\nSimulating forest growth:');
+console.log('-'.repeat(25));
 forest.simulateGrowth();
 
-console.log(`\nAverage tree size after growth: ${forest.getForestStats().averageSize.toFixed(1)}px`);
+console.log(
+  `\nAverage tree size after growth: ${forest.getForestStats().averageSize.toFixed(1)}px`,
+);
 
-console.log("\nMemory efficiency demonstration:");
-console.log("-".repeat(32));
-console.log(`Without Flyweight: ${stats.totalTrees} tree objects × (name + color + sprite) = Heavy memory usage`);
-console.log(`With Flyweight: ${stats.totalTrees} context objects + ${stats.uniqueTreeTypes} flyweight objects = Efficient memory usage`);
+console.log('\nMemory efficiency demonstration:');
+console.log('-'.repeat(32));
+console.log(
+  `Without Flyweight: ${stats.totalTrees} tree objects × (name + color + sprite) = Heavy memory usage`,
+);
+console.log(
+  `With Flyweight: ${stats.totalTrees} context objects + ${stats.uniqueTreeTypes} flyweight objects = Efficient memory usage`,
+);
 ```
 
 ## 🔧 Another Simple Example
@@ -377,10 +386,10 @@ class ButtonStyle {
   }
 
   render(text, x, y, width, height, isPressed) {
-    const pressedStyle = isPressed ? " (pressed)" : "";
+    const pressedStyle = isPressed ? ' (pressed)' : '';
     console.log(
       `🔘 Button "${text}" at (${x}, ${y}) ${width}×${height}px ` +
-      `${this.backgroundColor} background, ${this.font} ${this.fontSize}px${pressedStyle}`
+        `${this.backgroundColor} background, ${this.font} ${this.fontSize}px${pressedStyle}`,
     );
   }
 }
@@ -456,7 +465,7 @@ class UIManager {
   }
 
   renderAll() {
-    console.log("🖼️ Rendering all UI buttons:");
+    console.log('🖼️ Rendering all UI buttons:');
     this.buttons.forEach((button, index) => {
       console.log(`Button ${index + 1}:`);
       button.render();
@@ -466,47 +475,51 @@ class UIManager {
   getStats() {
     return {
       totalButtons: this.buttons.length,
-      uniqueStyles: this.styleFactory.getStyleCount()
+      uniqueStyles: this.styleFactory.getStyleCount(),
     };
   }
 }
 
 // Usage
-console.log("=== UI Button Flyweight Demo ===\n");
+console.log('=== UI Button Flyweight Demo ===\n');
 
 const uiManager = new UIManager();
 
-console.log("Creating UI buttons:");
-console.log("-".repeat(20));
+console.log('Creating UI buttons:');
+console.log('-'.repeat(20));
 
 // Create buttons with shared styles
-const okBtn = uiManager.createButton("OK", 10, 10, 80, 30, "Arial", 14, "blue", "solid");
-const cancelBtn = uiManager.createButton("Cancel", 100, 10, 80, 30, "Arial", 14, "gray", "solid");
-const saveBtn = uiManager.createButton("Save", 10, 50, 80, 30, "Arial", 14, "green", "solid");
-const deleteBtn = uiManager.createButton("Delete", 100, 50, 80, 30, "Arial", 14, "red", "solid");
+const okBtn = uiManager.createButton('OK', 10, 10, 80, 30, 'Arial', 14, 'blue', 'solid');
+const cancelBtn = uiManager.createButton('Cancel', 100, 10, 80, 30, 'Arial', 14, 'gray', 'solid');
+const saveBtn = uiManager.createButton('Save', 10, 50, 80, 30, 'Arial', 14, 'green', 'solid');
+const deleteBtn = uiManager.createButton('Delete', 100, 50, 80, 30, 'Arial', 14, 'red', 'solid');
 
 // Create more buttons that reuse styles
-const yesBtn = uiManager.createButton("Yes", 10, 90, 80, 30, "Arial", 14, "blue", "solid"); // Reuses blue style
-const noBtn = uiManager.createButton("No", 100, 90, 80, 30, "Arial", 14, "gray", "solid"); // Reuses gray style
+const yesBtn = uiManager.createButton('Yes', 10, 90, 80, 30, 'Arial', 14, 'blue', 'solid'); // Reuses blue style
+const noBtn = uiManager.createButton('No', 100, 90, 80, 30, 'Arial', 14, 'gray', 'solid'); // Reuses gray style
 
-console.log("\nButton statistics:");
-console.log("-".repeat(17));
+console.log('\nButton statistics:');
+console.log('-'.repeat(17));
 const stats = uiManager.getStats();
 console.log(`Total buttons: ${stats.totalButtons}`);
 console.log(`Unique styles (flyweights): ${stats.uniqueStyles}`);
 
-console.log("\nTesting button interactions:");
-console.log("-".repeat(27));
+console.log('\nTesting button interactions:');
+console.log('-'.repeat(27));
 okBtn.press();
 okBtn.release();
 
 deleteBtn.press();
 deleteBtn.release();
 
-console.log("\nMemory savings:");
-console.log("-".repeat(14));
-console.log(`Without Flyweight: ${stats.totalButtons} × (font + fontSize + backgroundColor + borderStyle) objects`);
-console.log(`With Flyweight: ${stats.totalButtons} button contexts + ${stats.uniqueStyles} shared style objects`);
+console.log('\nMemory savings:');
+console.log('-'.repeat(14));
+console.log(
+  `Without Flyweight: ${stats.totalButtons} × (font + fontSize + backgroundColor + borderStyle) objects`,
+);
+console.log(
+  `With Flyweight: ${stats.totalButtons} button contexts + ${stats.uniqueStyles} shared style objects`,
+);
 ```
 
 ## ✅ Pros
@@ -533,6 +546,7 @@ console.log(`With Flyweight: ${stats.totalButtons} button contexts + ${stats.uni
 ## 🔄 Implementation Tips
 
 ### 1. **Identify Intrinsic vs Extrinsic State**
+
 ```javascript
 // Intrinsic: shared among many objects (store in flyweight)
 // Extrinsic: unique per object (pass as parameters)
@@ -540,17 +554,19 @@ console.log(`With Flyweight: ${stats.totalButtons} button contexts + ${stats.uni
 class FontFlyweight {
   constructor(family, size, style) {
     this.family = family; // Intrinsic
-    this.size = size;     // Intrinsic
-    this.style = style;   // Intrinsic
+    this.size = size; // Intrinsic
+    this.style = style; // Intrinsic
   }
 
-  render(text, color, position) { // Extrinsic parameters
+  render(text, color, position) {
+    // Extrinsic parameters
     // Render with intrinsic + extrinsic state
   }
 }
 ```
 
 ### 2. **Factory Pattern Integration**
+
 ```javascript
 class FlyweightFactory {
   constructor() {
@@ -569,7 +585,7 @@ class FlyweightFactory {
   getStats() {
     return {
       totalFlyweights: this.flyweights.size,
-      creationCount: this.creationCount
+      creationCount: this.creationCount,
     };
   }
 }

@@ -15,8 +15,10 @@ const compose = (f, g) => (x) => f(g(x));
 let counter = 0;
 const increment = () => ++counter;
 const random = () => Math.random();
-const currentTime = () => Date.now();
-const log = (message) => { console.log(message); return message; };
+// eslint-disable-next-line unused-imports/no-unused-vars -- illustrative example, intentionally unused
+const _currentTime = () => Date.now();
+// eslint-disable-next-line unused-imports/no-unused-vars -- illustrative example, intentionally unused
+const _log = (message) => { console.log(message); return message; };
 
 console.log('Testing transparent functions:');
 console.log('add(3, 4) called twice:', add(3, 4), add(3, 4)); // Same results

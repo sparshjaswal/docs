@@ -9,6 +9,7 @@ Avoid coupling the sender of a request to its receiver by giving more than one o
 ## 🤔 Problem
 
 You want to process a request through a series of handlers without coupling the sender to specific handlers. Consider scenarios like:
+
 - **Request Processing**: HTTP request filters, middleware
 - **Event Handling**: GUI event propagation
 - **Approval Workflow**: Document approval chain
@@ -62,17 +63,19 @@ class SupportHandler {
       console.log(`🔄 ${this.constructor.name}: Passing to next handler`);
       return this.nextHandler.handle(ticket);
     } else {
-      console.log(`❌ No handler available for ticket: ${ticket.type} (Priority: ${ticket.priority})`);
+      console.log(
+        `❌ No handler available for ticket: ${ticket.type} (Priority: ${ticket.priority})`,
+      );
       return null;
     }
   }
 
   canHandle(ticket) {
-    throw new Error("canHandle() method must be implemented");
+    throw new Error('canHandle() method must be implemented');
   }
 
   process(ticket) {
-    throw new Error("process() method must be implemented");
+    throw new Error('process() method must be implemented');
   }
 }
 
@@ -93,7 +96,7 @@ class Level1Support extends SupportHandler {
       handledBy: 'Level 1 Support',
       resolution: 'Standard procedure applied',
       ticketId: ticket.id,
-      resolvedAt: new Date()
+      resolvedAt: new Date(),
     };
   }
 }
@@ -101,8 +104,10 @@ class Level1Support extends SupportHandler {
 // Concrete Handler - Level 2 Support
 class Level2Support extends SupportHandler {
   canHandle(ticket) {
-    return (ticket.type === 'technical' && ticket.priority <= 3) ||
-           (ticket.type === 'basic' && ticket.priority <= 4);
+    return (
+      (ticket.type === 'technical' && ticket.priority <= 3) ||
+      (ticket.type === 'basic' && ticket.priority <= 4)
+    );
   }
 
   process(ticket) {
@@ -116,7 +121,7 @@ class Level2Support extends SupportHandler {
       handledBy: 'Level 2 Support',
       resolution: 'Technical solution provided',
       ticketId: ticket.id,
-      resolvedAt: new Date()
+      resolvedAt: new Date(),
     };
   }
 }
@@ -138,7 +143,7 @@ class Level3Support extends SupportHandler {
       handledBy: 'Level 3 Support',
       resolution: 'Expert-level solution provided',
       ticketId: ticket.id,
-      resolvedAt: new Date()
+      resolvedAt: new Date(),
     };
   }
 }
@@ -155,10 +160,10 @@ class SupportTicket {
 }
 
 // Usage
-console.log("=== Support Ticket Chain Demo ===\n");
+console.log('=== Support Ticket Chain Demo ===\n');
 
-console.log("Setting up support chain:");
-console.log("-".repeat(25));
+console.log('Setting up support chain:');
+console.log('-'.repeat(25));
 
 // Create handlers
 const level1 = new Level1Support();
@@ -168,10 +173,10 @@ const level3 = new Level3Support();
 // Set up chain: Level1 → Level2 → Level3
 level1.setNext(level2).setNext(level3);
 
-console.log("✅ Support chain established: Level1 → Level2 → Level3\n");
+console.log('✅ Support chain established: Level1 → Level2 → Level3\n');
 
-console.log("Processing various tickets:");
-console.log("-".repeat(30));
+console.log('Processing various tickets:');
+console.log('-'.repeat(30));
 
 // Test different types of tickets
 const tickets = [
@@ -180,12 +185,12 @@ const tickets = [
   new SupportTicket(1003, 'basic', 3, 'Account access problem'),
   new SupportTicket(1004, 'critical', 5, 'Server outage - production down'),
   new SupportTicket(1005, 'technical', 4, 'Database performance issues'),
-  new SupportTicket(1006, 'unknown', 1, 'Unhandled ticket type')
+  new SupportTicket(1006, 'unknown', 1, 'Unhandled ticket type'),
 ];
 
 tickets.forEach((ticket, index) => {
   console.log(`\n${index + 1}. Processing Ticket #${ticket.id}:`);
-  console.log("-".repeat(35));
+  console.log('-'.repeat(35));
 
   const result = level1.handle(ticket);
 
@@ -222,7 +227,7 @@ class Middleware {
   }
 
   process(request, response) {
-    throw new Error("process() method must be implemented");
+    throw new Error('process() method must be implemented');
   }
 }
 
@@ -274,10 +279,12 @@ class AuthorizationMiddleware extends Middleware {
     }
 
     const userRole = request.user.role;
-    const roleHierarchy = { 'user': 1, 'admin': 2, 'superadmin': 3 };
+    const roleHierarchy = { user: 1, admin: 2, superadmin: 3 };
 
     if (roleHierarchy[userRole] < roleHierarchy[this.requiredRole]) {
-      console.log(`❌ Authorization failed: Insufficient permissions (has: ${userRole}, needs: ${this.requiredRole})`);
+      console.log(
+        `❌ Authorization failed: Insufficient permissions (has: ${userRole}, needs: ${this.requiredRole})`,
+      );
       response.status = 403;
       response.body = { error: 'Insufficient permissions' };
       return false;
@@ -319,12 +326,14 @@ class RateLimitMiddleware extends Middleware {
 
     if (userRequests.count > this.maxRequests) {
       const resetIn = Math.ceil((userRequests.resetTime - now) / 1000);
-      console.log(`❌ Rate limit exceeded: ${userRequests.count}/${this.maxRequests} (resets in ${resetIn}s)`);
+      console.log(
+        `❌ Rate limit exceeded: ${userRequests.count}/${this.maxRequests} (resets in ${resetIn}s)`,
+      );
 
       response.status = 429;
       response.body = {
         error: 'Rate limit exceeded',
-        resetIn: resetIn
+        resetIn: resetIn,
       };
       return false;
     }
@@ -347,7 +356,7 @@ class ValidationMiddleware extends Middleware {
     const missingFields = [];
 
     // Check required fields in body
-    this.requiredFields.forEach(field => {
+    this.requiredFields.forEach((field) => {
       if (!request.body || !request.body[field]) {
         missingFields.push(field);
       }
@@ -358,7 +367,7 @@ class ValidationMiddleware extends Middleware {
       response.status = 400;
       response.body = {
         error: 'Validation failed',
-        missingFields: missingFields
+        missingFields: missingFields,
       };
       return false;
     }
@@ -402,10 +411,10 @@ class HTTPResponse {
 }
 
 // Usage
-console.log("\n=== HTTP Middleware Chain Demo ===\n");
+console.log('\n=== HTTP Middleware Chain Demo ===\n');
 
-console.log("Setting up middleware chain:");
-console.log("-".repeat(30));
+console.log('Setting up middleware chain:');
+console.log('-'.repeat(30));
 
 // Create middleware components
 const logger = new LoggerMiddleware();
@@ -415,51 +424,67 @@ const rateLimit = new RateLimitMiddleware(3, 1); // 3 requests per minute
 const validation = new ValidationMiddleware(['title', 'content']);
 
 // Set up middleware chain
-logger
-  .setNext(auth)
-  .setNext(authorization)
-  .setNext(rateLimit)
-  .setNext(validation);
+logger.setNext(auth).setNext(authorization).setNext(rateLimit).setNext(validation);
 
-console.log("✅ Middleware chain: Logger → Auth → Authorization → RateLimit → Validation\n");
+console.log('✅ Middleware chain: Logger → Auth → Authorization → RateLimit → Validation\n');
 
-console.log("Processing different requests:");
-console.log("-".repeat(35));
+console.log('Processing different requests:');
+console.log('-'.repeat(35));
 
 // Test requests
 const testRequests = [
   {
-    name: "Valid authenticated request",
-    request: new HTTPRequest('POST', '/api/posts', {
-      'authorization': 'Bearer valid_token',
-      'user-agent': 'MyApp/1.0'
-    }, { title: 'My Post', content: 'Post content here' })
+    name: 'Valid authenticated request',
+    request: new HTTPRequest(
+      'POST',
+      '/api/posts',
+      {
+        authorization: 'Bearer valid_token',
+        'user-agent': 'MyApp/1.0',
+      },
+      { title: 'My Post', content: 'Post content here' },
+    ),
   },
   {
-    name: "Request without authentication",
-    request: new HTTPRequest('POST', '/api/posts', {
-      'user-agent': 'MyApp/1.0'
-    }, { title: 'My Post', content: 'Post content here' })
+    name: 'Request without authentication',
+    request: new HTTPRequest(
+      'POST',
+      '/api/posts',
+      {
+        'user-agent': 'MyApp/1.0',
+      },
+      { title: 'My Post', content: 'Post content here' },
+    ),
   },
   {
-    name: "Request with invalid token",
-    request: new HTTPRequest('POST', '/api/posts', {
-      'authorization': 'Bearer invalid_token',
-      'user-agent': 'MyApp/1.0'
-    }, { title: 'My Post', content: 'Post content here' })
+    name: 'Request with invalid token',
+    request: new HTTPRequest(
+      'POST',
+      '/api/posts',
+      {
+        authorization: 'Bearer invalid_token',
+        'user-agent': 'MyApp/1.0',
+      },
+      { title: 'My Post', content: 'Post content here' },
+    ),
   },
   {
-    name: "Request with missing validation fields",
-    request: new HTTPRequest('POST', '/api/posts', {
-      'authorization': 'Bearer valid_token',
-      'user-agent': 'MyApp/1.0'
-    }, { title: 'My Post' }) // Missing 'content' field
-  }
+    name: 'Request with missing validation fields',
+    request: new HTTPRequest(
+      'POST',
+      '/api/posts',
+      {
+        authorization: 'Bearer valid_token',
+        'user-agent': 'MyApp/1.0',
+      },
+      { title: 'My Post' },
+    ), // Missing 'content' field
+  },
 ];
 
 testRequests.forEach((test, index) => {
   console.log(`\n${index + 1}. ${test.name}:`);
-  console.log("-".repeat(40));
+  console.log('-'.repeat(40));
 
   const response = new HTTPResponse();
   const success = logger.handle(test.request, response);
@@ -472,18 +497,23 @@ testRequests.forEach((test, index) => {
 });
 
 // Test rate limiting
-console.log(`\n${"=".repeat(50)}\n`);
-console.log("Testing rate limiting with multiple requests:");
-console.log("-".repeat(45));
+console.log(`\n${'='.repeat(50)}\n`);
+console.log('Testing rate limiting with multiple requests:');
+console.log('-'.repeat(45));
 
 for (let i = 1; i <= 5; i++) {
   console.log(`\nRequest ${i}:`);
-  console.log("-".repeat(12));
+  console.log('-'.repeat(12));
 
-  const request = new HTTPRequest('POST', '/api/posts', {
-    'authorization': 'Bearer valid_token',
-    'user-agent': 'MyApp/1.0'
-  }, { title: `Post ${i}`, content: `Content for post ${i}` });
+  const request = new HTTPRequest(
+    'POST',
+    '/api/posts',
+    {
+      authorization: 'Bearer valid_token',
+      'user-agent': 'MyApp/1.0',
+    },
+    { title: `Post ${i}`, content: `Content for post ${i}` },
+  );
 
   const response = new HTTPResponse();
   const success = logger.handle(request, response);
@@ -522,18 +552,22 @@ for (let i = 1; i <= 5; i++) {
 ## 🔄 Chain Variations
 
 ### 1. **Pure Chain of Responsibility**
+
 - Only one handler processes the request
 - Request stops after first successful handling
 
 ### 2. **Chain with Fallback** (shown in examples)
+
 - Handlers can reject and pass to next handler
 - Default handler at the end
 
 ### 3. **Processing Chain**
+
 - All handlers in the chain process the request
 - Each handler modifies the request
 
 ### 4. **Conditional Chain**
+
 ```javascript
 class ConditionalHandler extends Handler {
   constructor(condition) {

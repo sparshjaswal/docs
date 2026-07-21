@@ -9,6 +9,7 @@ Represent an operation to be performed on the elements of an object structure. V
 ## 🤔 Problem
 
 You have a complex object structure (like a composite tree) and want to perform various operations on it:
+
 - **Adding Operations**: Need to add new operations without modifying existing classes
 - **Type Safety**: Want compile-time type checking for operations
 - **Separation of Concerns**: Keep operations separate from the data structure
@@ -47,26 +48,26 @@ ConcreteElementA, ConcreteElementB implement Element
 // Visitor interface
 class DocumentVisitor {
   visitTextElement(element) {
-    throw new Error("visitTextElement() must be implemented");
+    throw new Error('visitTextElement() must be implemented');
   }
 
   visitImageElement(element) {
-    throw new Error("visitImageElement() must be implemented");
+    throw new Error('visitImageElement() must be implemented');
   }
 
   visitTableElement(element) {
-    throw new Error("visitTableElement() must be implemented");
+    throw new Error('visitTableElement() must be implemented');
   }
 
   visitListElement(element) {
-    throw new Error("visitListElement() must be implemented");
+    throw new Error('visitListElement() must be implemented');
   }
 }
 
 // Element interface
 class DocumentElement {
   accept(visitor) {
-    throw new Error("accept() must be implemented");
+    throw new Error('accept() must be implemented');
   }
 }
 
@@ -84,7 +85,7 @@ class TextElement extends DocumentElement {
   }
 
   getWordCount() {
-    return this.content.split(/\s+/).filter(word => word.length > 0).length;
+    return this.content.split(/\s+/).filter((word) => word.length > 0).length;
   }
 }
 
@@ -179,7 +180,7 @@ class HTMLRenderer extends DocumentVisitor {
     // Add headers
     if (element.headers.length > 0) {
       html += '  <thead>\n    <tr>\n';
-      element.headers.forEach(header => {
+      element.headers.forEach((header) => {
         html += `      <th>${header}</th>\n`;
       });
       html += '    </tr>\n  </thead>\n';
@@ -187,9 +188,9 @@ class HTMLRenderer extends DocumentVisitor {
 
     // Add rows
     html += '  <tbody>\n';
-    element.rows.forEach(row => {
+    element.rows.forEach((row) => {
       html += '    <tr>\n';
-      row.forEach(cell => {
+      row.forEach((cell) => {
         html += `      <td>${cell}</td>\n`;
       });
       html += '    </tr>\n';
@@ -201,12 +202,14 @@ class HTMLRenderer extends DocumentVisitor {
   }
 
   visitListElement(element) {
-    console.log(`📋 Rendering ${element.ordered ? 'ordered' : 'unordered'} list with ${element.items.length} items`);
+    console.log(
+      `📋 Rendering ${element.ordered ? 'ordered' : 'unordered'} list with ${element.items.length} items`,
+    );
 
     const tag = element.ordered ? 'ol' : 'ul';
     let html = `<${tag}>\n`;
 
-    element.items.forEach(item => {
+    element.items.forEach((item) => {
       html += `  <li>${item}</li>\n`;
     });
 
@@ -265,7 +268,7 @@ class MarkdownRenderer extends DocumentVisitor {
     }
 
     // Add rows
-    element.rows.forEach(row => {
+    element.rows.forEach((row) => {
       markdown += `| ${row.join(' | ')} |\n`;
     });
 
@@ -327,13 +330,13 @@ class WordCountAnalyzer extends DocumentVisitor {
     let tableWords = 0;
 
     // Count words in headers
-    element.headers.forEach(header => {
+    element.headers.forEach((header) => {
       tableWords += header.split(/\s+/).length;
     });
 
     // Count words in cells
-    element.rows.forEach(row => {
-      row.forEach(cell => {
+    element.rows.forEach((row) => {
+      row.forEach((cell) => {
         tableWords += String(cell).split(/\s+/).length;
       });
     });
@@ -347,7 +350,7 @@ class WordCountAnalyzer extends DocumentVisitor {
 
   visitListElement(element) {
     let listWords = 0;
-    element.items.forEach(item => {
+    element.items.forEach((item) => {
       listWords += String(item).split(/\s+/).length;
     });
 
@@ -362,7 +365,7 @@ class WordCountAnalyzer extends DocumentVisitor {
     return {
       totalWords: this.totalWords,
       breakdown: { ...this.elementCounts },
-      averagePerElement: this.totalWords / Object.keys(this.elementCounts).length
+      averagePerElement: this.totalWords / Object.keys(this.elementCounts).length,
     };
   }
 
@@ -385,107 +388,114 @@ class Document {
 
   accept(visitor) {
     console.log(`📄 Processing document: "${this.title}"`);
-    this.elements.forEach(element => element.accept(visitor));
+    this.elements.forEach((element) => element.accept(visitor));
   }
 }
 
 // Usage
-console.log("=== Document Processing Visitor Pattern Demo ===\n");
+console.log('=== Document Processing Visitor Pattern Demo ===\n');
 
-console.log("Creating sample document:");
-console.log("-".repeat(26));
+console.log('Creating sample document:');
+console.log('-'.repeat(26));
 
 // Create document
-const document = new Document("Sample Technical Report");
+const document = new Document('Sample Technical Report');
 
 // Add various elements
-document.addElement(new TextElement(
-  "Introduction to Modern Web Development",
-  { bold: true, color: 'blue' }
-));
+document.addElement(
+  new TextElement('Introduction to Modern Web Development', { bold: true, color: 'blue' }),
+);
 
-document.addElement(new TextElement(
-  "This comprehensive guide covers the fundamentals of modern web development, including HTML5, CSS3, and JavaScript ES6+ features. We'll explore best practices, design patterns, and performance optimization techniques that every developer should know."
-));
+document.addElement(
+  new TextElement(
+    "This comprehensive guide covers the fundamentals of modern web development, including HTML5, CSS3, and JavaScript ES6+ features. We'll explore best practices, design patterns, and performance optimization techniques that every developer should know.",
+  ),
+);
 
-document.addElement(new ImageElement(
-  "web-dev-diagram.png",
-  "Web Development Technologies Diagram",
-  800,
-  400
-));
+document.addElement(
+  new ImageElement('web-dev-diagram.png', 'Web Development Technologies Diagram', 800, 400),
+);
 
-document.addElement(new TableElement(
-  [
-    ["HTML5", "Markup Language", "Structure"],
-    ["CSS3", "Styling Language", "Presentation"],
-    ["JavaScript", "Programming Language", "Behavior"],
-    ["React", "Library", "UI Components"]
-  ],
-  ["Technology", "Type", "Purpose"]
-));
+document.addElement(
+  new TableElement(
+    [
+      ['HTML5', 'Markup Language', 'Structure'],
+      ['CSS3', 'Styling Language', 'Presentation'],
+      ['JavaScript', 'Programming Language', 'Behavior'],
+      ['React', 'Library', 'UI Components'],
+    ],
+    ['Technology', 'Type', 'Purpose'],
+  ),
+);
 
-document.addElement(new ListElement([
-  "Semantic HTML elements improve accessibility",
-  "CSS Grid and Flexbox for modern layouts",
-  "ES6+ features like arrow functions and modules",
-  "Component-based architecture with React"
-], true));
+document.addElement(
+  new ListElement(
+    [
+      'Semantic HTML elements improve accessibility',
+      'CSS Grid and Flexbox for modern layouts',
+      'ES6+ features like arrow functions and modules',
+      'Component-based architecture with React',
+    ],
+    true,
+  ),
+);
 
-document.addElement(new TextElement(
-  "Modern web development requires understanding of various technologies and how they work together to create compelling user experiences.",
-  { italic: true }
-));
+document.addElement(
+  new TextElement(
+    'Modern web development requires understanding of various technologies and how they work together to create compelling user experiences.',
+    { italic: true },
+  ),
+);
 
 console.log(`✅ Created document with ${document.elements.length} elements\n`);
 
-console.log("=".repeat(60) + "\n");
+console.log('='.repeat(60) + '\n');
 
-console.log("1. HTML Rendering:");
-console.log("-".repeat(18));
+console.log('1. HTML Rendering:');
+console.log('-'.repeat(18));
 
 const htmlRenderer = new HTMLRenderer();
 document.accept(htmlRenderer);
 
-console.log("\n📋 Generated HTML:");
-console.log("-".repeat(17));
+console.log('\n📋 Generated HTML:');
+console.log('-'.repeat(17));
 console.log(htmlRenderer.getResult());
 
-console.log("=".repeat(60) + "\n");
+console.log('='.repeat(60) + '\n');
 
-console.log("2. Markdown Conversion:");
-console.log("-".repeat(21));
+console.log('2. Markdown Conversion:');
+console.log('-'.repeat(21));
 
 const markdownRenderer = new MarkdownRenderer();
 document.accept(markdownRenderer);
 
-console.log("\n📋 Generated Markdown:");
-console.log("-".repeat(21));
+console.log('\n📋 Generated Markdown:');
+console.log('-'.repeat(21));
 console.log(markdownRenderer.getResult());
 
-console.log("=".repeat(60) + "\n");
+console.log('='.repeat(60) + '\n');
 
-console.log("3. Word Count Analysis:");
-console.log("-".repeat(21));
+console.log('3. Word Count Analysis:');
+console.log('-'.repeat(21));
 
 const analyzer = new WordCountAnalyzer();
 document.accept(analyzer);
 
 const report = analyzer.getReport();
 
-console.log("\n📊 Word Count Report:");
-console.log("-".repeat(20));
+console.log('\n📊 Word Count Report:');
+console.log('-'.repeat(20));
 console.log(`Total words: ${report.totalWords}`);
 console.log(`Average per element type: ${report.averagePerElement.toFixed(1)}`);
-console.log("\nBreakdown by element type:");
+console.log('\nBreakdown by element type:');
 Object.entries(report.breakdown).forEach(([type, count]) => {
   console.log(`  • ${type}: ${count} words`);
 });
 
-console.log("\n" + "=".repeat(60) + "\n");
+console.log('\n' + '='.repeat(60) + '\n');
 
-console.log("Performance Comparison:");
-console.log("-".repeat(23));
+console.log('Performance Comparison:');
+console.log('-'.repeat(23));
 
 // Performance test with multiple renders
 const startTime = Date.now();
@@ -523,7 +533,7 @@ class FileSystemElement {
   }
 
   accept(visitor) {
-    throw new Error("accept() must be implemented");
+    throw new Error('accept() must be implemented');
   }
 }
 
@@ -565,7 +575,7 @@ class Directory extends FileSystemElement {
     const result = visitor.visitDirectory(this);
 
     // Visit all children
-    this.children.forEach(child => child.accept(visitor));
+    this.children.forEach((child) => child.accept(visitor));
 
     return result;
   }
@@ -576,7 +586,7 @@ class Directory extends FileSystemElement {
 
   getTotalChildren() {
     let total = this.children.length;
-    this.children.forEach(child => {
+    this.children.forEach((child) => {
       if (child instanceof Directory) {
         total += child.getTotalChildren();
       }
@@ -604,15 +614,15 @@ class SymbolicLink extends FileSystemElement {
 // Visitor interface
 class FileSystemVisitor {
   visitFile(file) {
-    throw new Error("visitFile() must be implemented");
+    throw new Error('visitFile() must be implemented');
   }
 
   visitDirectory(directory) {
-    throw new Error("visitDirectory() must be implemented");
+    throw new Error('visitDirectory() must be implemented');
   }
 
   visitSymbolicLink(symlink) {
-    throw new Error("visitSymbolicLink() must be implemented");
+    throw new Error('visitSymbolicLink() must be implemented');
   }
 }
 
@@ -642,7 +652,9 @@ class SizeCalculatorVisitor extends FileSystemVisitor {
     return () => {
       this.currentDepth--;
       const dirSize = this.totalSize - startSize;
-      console.log(`${'  '.repeat(this.currentDepth)}   └─ Directory size: ${(dirSize / 1024).toFixed(2)} KB`);
+      console.log(
+        `${'  '.repeat(this.currentDepth)}   └─ Directory size: ${(dirSize / 1024).toFixed(2)} KB`,
+      );
       return dirSize;
     };
   }
@@ -658,7 +670,7 @@ class SizeCalculatorVisitor extends FileSystemVisitor {
       totalSizeKB: (this.totalSize / 1024).toFixed(2),
       totalSizeMB: (this.totalSize / (1024 * 1024)).toFixed(2),
       fileTypeCounts: { ...this.fileCounts },
-      totalFiles: Object.values(this.fileCounts).reduce((sum, count) => sum + count, 0)
+      totalFiles: Object.values(this.fileCounts).reduce((sum, count) => sum + count, 0),
     };
   }
 }
@@ -675,7 +687,7 @@ class SecurityScannerVisitor extends FileSystemVisitor {
       /api[_-]?key/i,
       /token/i,
       /credentials/i,
-      /private[_-]?key/i
+      /private[_-]?key/i,
     ];
     this.dangerousExtensions = ['.exe', '.bat', '.cmd', '.scr', '.pif'];
   }
@@ -691,29 +703,30 @@ class SecurityScannerVisitor extends FileSystemVisitor {
         type: 'dangerous_extension',
         severity: 'high',
         path: file.path,
-        message: `Potentially dangerous file extension: ${file.extension}`
+        message: `Potentially dangerous file extension: ${file.extension}`,
       });
     }
 
     // Check for suspicious content patterns
-    this.suspiciousPatterns.forEach(pattern => {
+    this.suspiciousPatterns.forEach((pattern) => {
       if (pattern.test(file.content) || pattern.test(file.name)) {
         this.issues.push({
           type: 'sensitive_data',
           severity: 'medium',
           path: file.path,
-          message: `Potentially sensitive information found matching pattern: ${pattern}`
+          message: `Potentially sensitive information found matching pattern: ${pattern}`,
         });
       }
     });
 
     // Check for large files that might be suspicious
-    if (file.size > 100 * 1024 * 1024) { // > 100MB
+    if (file.size > 100 * 1024 * 1024) {
+      // > 100MB
       this.issues.push({
         type: 'large_file',
         severity: 'low',
         path: file.path,
-        message: `Unusually large file: ${file.getSizeInKB()} KB`
+        message: `Unusually large file: ${file.getSizeInKB()} KB`,
       });
     }
 
@@ -725,12 +738,12 @@ class SecurityScannerVisitor extends FileSystemVisitor {
 
     // Check for suspicious directory names
     const suspiciousNames = ['temp', 'tmp', 'cache', 'hidden', '.git', '.svn'];
-    if (suspiciousNames.some(name => directory.name.toLowerCase().includes(name))) {
+    if (suspiciousNames.some((name) => directory.name.toLowerCase().includes(name))) {
       this.issues.push({
         type: 'suspicious_directory',
         severity: 'low',
         path: directory.path,
-        message: `Directory with potentially sensitive name: ${directory.name}`
+        message: `Directory with potentially sensitive name: ${directory.name}`,
       });
     }
 
@@ -746,7 +759,7 @@ class SecurityScannerVisitor extends FileSystemVisitor {
         type: 'suspicious_symlink',
         severity: 'medium',
         path: symlink.path,
-        message: `Symbolic link points outside current directory: ${symlink.targetPath}`
+        message: `Symbolic link points outside current directory: ${symlink.targetPath}`,
       });
     }
 
@@ -755,9 +768,9 @@ class SecurityScannerVisitor extends FileSystemVisitor {
 
   getSecurityReport() {
     const severityGroups = {
-      high: this.issues.filter(issue => issue.severity === 'high'),
-      medium: this.issues.filter(issue => issue.severity === 'medium'),
-      low: this.issues.filter(issue => issue.severity === 'low')
+      high: this.issues.filter((issue) => issue.severity === 'high'),
+      medium: this.issues.filter((issue) => issue.severity === 'medium'),
+      low: this.issues.filter((issue) => issue.severity === 'low'),
     };
 
     return {
@@ -766,17 +779,18 @@ class SecurityScannerVisitor extends FileSystemVisitor {
       severityBreakdown: {
         high: severityGroups.high.length,
         medium: severityGroups.medium.length,
-        low: severityGroups.low.length
+        low: severityGroups.low.length,
       },
       issues: this.issues,
-      riskLevel: this.calculateRiskLevel(severityGroups)
+      riskLevel: this.calculateRiskLevel(severityGroups),
     };
   }
 
   calculateRiskLevel(severityGroups) {
-    const score = severityGroups.high.length * 3 +
-                 severityGroups.medium.length * 2 +
-                 severityGroups.low.length * 1;
+    const score =
+      severityGroups.high.length * 3 +
+      severityGroups.medium.length * 2 +
+      severityGroups.low.length * 1;
 
     if (score >= 10) return 'HIGH';
     if (score >= 5) return 'MEDIUM';
@@ -797,20 +811,22 @@ class BackupCreatorVisitor extends FileSystemVisitor {
   }
 
   visitFile(file) {
-    const shouldBackup = !this.excludePatterns.some(pattern =>
-      pattern.test(file.name) || pattern.test(file.path)
+    const shouldBackup = !this.excludePatterns.some(
+      (pattern) => pattern.test(file.name) || pattern.test(file.path),
     );
 
     if (shouldBackup) {
       const backupFilePath = `${this.backupPath}${file.path}`;
-      console.log(`${'  '.repeat(this.currentDepth)}💾 Backing up: ${file.name} → ${backupFilePath}`);
+      console.log(
+        `${'  '.repeat(this.currentDepth)}💾 Backing up: ${file.name} → ${backupFilePath}`,
+      );
 
       // Simulate backup operation
       this.backedUpFiles.push({
         originalPath: file.path,
         backupPath: backupFilePath,
         size: file.size,
-        timestamp: new Date()
+        timestamp: new Date(),
       });
 
       return true;
@@ -818,7 +834,7 @@ class BackupCreatorVisitor extends FileSystemVisitor {
       console.log(`${'  '.repeat(this.currentDepth)}⏭️ Skipping: ${file.name} (excluded)`);
       this.skippedFiles.push({
         path: file.path,
-        reason: 'excluded_pattern'
+        reason: 'excluded_pattern',
       });
 
       return false;
@@ -826,13 +842,15 @@ class BackupCreatorVisitor extends FileSystemVisitor {
   }
 
   visitDirectory(directory) {
-    const shouldBackup = !this.excludePatterns.some(pattern =>
-      pattern.test(directory.name) || pattern.test(directory.path)
+    const shouldBackup = !this.excludePatterns.some(
+      (pattern) => pattern.test(directory.name) || pattern.test(directory.path),
     );
 
     if (shouldBackup) {
       const backupDirPath = `${this.backupPath}${directory.path}`;
-      console.log(`${'  '.repeat(this.currentDepth)}📁 Creating backup directory: ${backupDirPath}`);
+      console.log(
+        `${'  '.repeat(this.currentDepth)}📁 Creating backup directory: ${backupDirPath}`,
+      );
       this.currentDepth++;
 
       return () => {
@@ -840,10 +858,12 @@ class BackupCreatorVisitor extends FileSystemVisitor {
         console.log(`${'  '.repeat(this.currentDepth)}   └─ Directory backup completed`);
       };
     } else {
-      console.log(`${'  '.repeat(this.currentDepth)}⏭️ Skipping directory: ${directory.name} (excluded)`);
+      console.log(
+        `${'  '.repeat(this.currentDepth)}⏭️ Skipping directory: ${directory.name} (excluded)`,
+      );
       this.skippedFiles.push({
         path: directory.path,
-        reason: 'excluded_pattern'
+        reason: 'excluded_pattern',
       });
 
       return () => {}; // No-op cleanup
@@ -853,14 +873,16 @@ class BackupCreatorVisitor extends FileSystemVisitor {
   visitSymbolicLink(symlink) {
     // For safety, we'll recreate the symlink in backup
     const backupLinkPath = `${this.backupPath}${symlink.path}`;
-    console.log(`${'  '.repeat(this.currentDepth)}🔗 Recreating symlink: ${backupLinkPath} → ${symlink.targetPath}`);
+    console.log(
+      `${'  '.repeat(this.currentDepth)}🔗 Recreating symlink: ${backupLinkPath} → ${symlink.targetPath}`,
+    );
 
     this.backedUpFiles.push({
       originalPath: symlink.path,
       backupPath: backupLinkPath,
       targetPath: symlink.targetPath,
       type: 'symlink',
-      timestamp: new Date()
+      timestamp: new Date(),
     });
 
     return true;
@@ -868,7 +890,7 @@ class BackupCreatorVisitor extends FileSystemVisitor {
 
   getBackupReport() {
     const totalBackupSize = this.backedUpFiles
-      .filter(item => item.size)
+      .filter((item) => item.size)
       .reduce((sum, item) => sum + item.size, 0);
 
     return {
@@ -877,49 +899,85 @@ class BackupCreatorVisitor extends FileSystemVisitor {
       skippedFiles: this.skippedFiles.length,
       totalBackupSize: totalBackupSize,
       totalBackupSizeMB: (totalBackupSize / (1024 * 1024)).toFixed(2),
-      excludePatterns: this.excludePatterns.map(p => p.toString()),
+      excludePatterns: this.excludePatterns.map((p) => p.toString()),
       timestamp: new Date(),
       fileDetails: this.backedUpFiles,
-      skippedDetails: this.skippedFiles
+      skippedDetails: this.skippedFiles,
     };
   }
 }
 
 // Usage
-console.log("\n=== File System Scanner Visitor Pattern Demo ===\n");
+console.log('\n=== File System Scanner Visitor Pattern Demo ===\n');
 
-console.log("Building sample file system:");
-console.log("-".repeat(29));
+console.log('Building sample file system:');
+console.log('-'.repeat(29));
 
 // Create sample file system
-const root = new Directory("project", "/");
+const root = new Directory('project', '/');
 
 // Add source directory
-const src = new Directory("src", "/src");
-src.addChild(new File("app.js", "/src/app.js", 15360, ".js", "const express = require('express');\nconst app = express();"));
-src.addChild(new File("config.js", "/src/config.js", 2048, ".js", "const API_KEY = 'secret-key-123';\nmodule.exports = { API_KEY };"));
-src.addChild(new File("utils.js", "/src/utils.js", 8192, ".js", "function formatDate(date) { return date.toString(); }"));
+const src = new Directory('src', '/src');
+src.addChild(
+  new File(
+    'app.js',
+    '/src/app.js',
+    15360,
+    '.js',
+    "const express = require('express');\nconst app = express();",
+  ),
+);
+src.addChild(
+  new File(
+    'config.js',
+    '/src/config.js',
+    2048,
+    '.js',
+    "const API_KEY = 'secret-key-123';\nmodule.exports = { API_KEY };",
+  ),
+);
+src.addChild(
+  new File(
+    'utils.js',
+    '/src/utils.js',
+    8192,
+    '.js',
+    'function formatDate(date) { return date.toString(); }',
+  ),
+);
 
 // Add docs directory
-const docs = new Directory("docs", "/docs");
-docs.addChild(new File("README.md", "/docs/README.md", 4096, ".md", "# Project Documentation\nThis is the main documentation."));
-docs.addChild(new File("api.md", "/docs/api.md", 6144, ".md", "# API Documentation\nAPI endpoints and usage."));
+const docs = new Directory('docs', '/docs');
+docs.addChild(
+  new File(
+    'README.md',
+    '/docs/README.md',
+    4096,
+    '.md',
+    '# Project Documentation\nThis is the main documentation.',
+  ),
+);
+docs.addChild(
+  new File('api.md', '/docs/api.md', 6144, '.md', '# API Documentation\nAPI endpoints and usage.'),
+);
 
 // Add temp directory with some files
-const temp = new Directory("temp", "/temp");
-temp.addChild(new File("cache.tmp", "/temp/cache.tmp", 1024, ".tmp", "temporary cache data"));
-temp.addChild(new File("debug.log", "/temp/debug.log", 2048, ".log", "debug information"));
+const temp = new Directory('temp', '/temp');
+temp.addChild(new File('cache.tmp', '/temp/cache.tmp', 1024, '.tmp', 'temporary cache data'));
+temp.addChild(new File('debug.log', '/temp/debug.log', 2048, '.log', 'debug information'));
 
 // Add a large file
-const data = new Directory("data", "/data");
-data.addChild(new File("large-dataset.json", "/data/large-dataset.json", 150 * 1024 * 1024, ".json", "{}"));
+const data = new Directory('data', '/data');
+data.addChild(
+  new File('large-dataset.json', '/data/large-dataset.json', 150 * 1024 * 1024, '.json', '{}'),
+);
 
 // Add executable file
-const bin = new Directory("bin", "/bin");
-bin.addChild(new File("startup.exe", "/bin/startup.exe", 5120, ".exe", "binary content"));
+const bin = new Directory('bin', '/bin');
+bin.addChild(new File('startup.exe', '/bin/startup.exe', 5120, '.exe', 'binary content'));
 
 // Add symlink
-const link = new SymbolicLink("current", "/current", "../data/large-dataset.json");
+const link = new SymbolicLink('current', '/current', '../data/large-dataset.json');
 
 // Build structure
 root.addChild(src);
@@ -931,91 +989,91 @@ root.addChild(link);
 
 console.log(`✅ Built file system with ${root.getTotalChildren()} total items\n`);
 
-console.log("=".repeat(70) + "\n");
+console.log('='.repeat(70) + '\n');
 
-console.log("1. Size Calculation:");
-console.log("-".repeat(18));
+console.log('1. Size Calculation:');
+console.log('-'.repeat(18));
 
 const sizeCalculator = new SizeCalculatorVisitor();
 root.accept(sizeCalculator);
 
 const sizeReport = sizeCalculator.getReport();
-console.log("\n📊 Size Report:");
-console.log("-".repeat(14));
+console.log('\n📊 Size Report:');
+console.log('-'.repeat(14));
 console.log(`Total size: ${sizeReport.totalSizeMB} MB (${sizeReport.totalSizeKB} KB)`);
 console.log(`Total files: ${sizeReport.totalFiles}`);
-console.log("\nFile types:");
+console.log('\nFile types:');
 Object.entries(sizeReport.fileTypeCounts).forEach(([ext, count]) => {
   console.log(`  ${ext}: ${count} files`);
 });
 
-console.log("\n" + "=".repeat(70) + "\n");
+console.log('\n' + '='.repeat(70) + '\n');
 
-console.log("2. Security Scanning:");
-console.log("-".repeat(19));
+console.log('2. Security Scanning:');
+console.log('-'.repeat(19));
 
 const securityScanner = new SecurityScannerVisitor();
 root.accept(securityScanner);
 
 const securityReport = securityScanner.getSecurityReport();
-console.log("\n🔒 Security Report:");
-console.log("-".repeat(17));
+console.log('\n🔒 Security Report:');
+console.log('-'.repeat(17));
 console.log(`Scanned files: ${securityReport.scannedFiles}`);
 console.log(`Total issues: ${securityReport.totalIssues}`);
 console.log(`Risk level: ${securityReport.riskLevel}`);
 
-console.log("\nIssue breakdown:");
+console.log('\nIssue breakdown:');
 Object.entries(securityReport.severityBreakdown).forEach(([severity, count]) => {
   console.log(`  ${severity.toUpperCase()}: ${count} issues`);
 });
 
 if (securityReport.issues.length > 0) {
-  console.log("\nDetailed issues:");
+  console.log('\nDetailed issues:');
   securityReport.issues.forEach((issue, index) => {
     console.log(`  ${index + 1}. [${issue.severity.toUpperCase()}] ${issue.message}`);
     console.log(`     Path: ${issue.path}`);
   });
 }
 
-console.log("\n" + "=".repeat(70) + "\n");
+console.log('\n' + '='.repeat(70) + '\n');
 
-console.log("3. Backup Creation:");
-console.log("-".repeat(17));
+console.log('3. Backup Creation:');
+console.log('-'.repeat(17));
 
-const backupCreator = new BackupCreatorVisitor("/backup/2024-01-15/");
+const backupCreator = new BackupCreatorVisitor('/backup/2024-01-15/');
 root.accept(backupCreator);
 
 const backupReport = backupCreator.getBackupReport();
-console.log("\n💾 Backup Report:");
-console.log("-".repeat(16));
+console.log('\n💾 Backup Report:');
+console.log('-'.repeat(16));
 console.log(`Backup location: ${backupReport.backupPath}`);
 console.log(`Files backed up: ${backupReport.backedUpFiles}`);
 console.log(`Files skipped: ${backupReport.skippedFiles}`);
 console.log(`Total backup size: ${backupReport.totalBackupSizeMB} MB`);
 console.log(`Created at: ${backupReport.timestamp}`);
 
-console.log("\nExclusion patterns:");
-backupReport.excludePatterns.forEach(pattern => {
+console.log('\nExclusion patterns:');
+backupReport.excludePatterns.forEach((pattern) => {
   console.log(`  • ${pattern}`);
 });
 
-console.log("\n" + "=".repeat(70) + "\n");
+console.log('\n' + '='.repeat(70) + '\n');
 
-console.log("Visitor Pattern Benefits Summary:");
-console.log("-".repeat(33));
+console.log('Visitor Pattern Benefits Summary:');
+console.log('-'.repeat(33));
 
-console.log("✅ Benefits demonstrated:");
-console.log("   • Adding operations without modifying file system classes");
-console.log("   • Type-safe operation dispatch");
-console.log("   • Separation of concerns (structure vs operations)");
-console.log("   • Easy to add new analysis types");
-console.log("   • Polymorphic behavior across different element types");
+console.log('✅ Benefits demonstrated:');
+console.log('   • Adding operations without modifying file system classes');
+console.log('   • Type-safe operation dispatch');
+console.log('   • Separation of concerns (structure vs operations)');
+console.log('   • Easy to add new analysis types');
+console.log('   • Polymorphic behavior across different element types');
 
-console.log("\n📈 Performance & Flexibility:");
-console.log("   • Single traversal for multiple operations");
-console.log("   • Visitors can maintain state across elements");
-console.log("   • Easy to combine or chain visitors");
-console.log("   • Extensible without touching existing code");
+console.log('\n📈 Performance & Flexibility:');
+console.log('   • Single traversal for multiple operations');
+console.log('   • Visitors can maintain state across elements');
+console.log('   • Easy to combine or chain visitors');
+console.log('   • Extensible without touching existing code');
 ```
 
 ## ✅ Pros
@@ -1045,6 +1103,7 @@ console.log("   • Extensible without touching existing code");
 ## 🔄 Visitor Variations
 
 ### 1. **Generic Visitor**
+
 ```javascript
 class GenericVisitor {
   visit(element) {
@@ -1058,6 +1117,7 @@ class GenericVisitor {
 ```
 
 ### 2. **Intrusive Visitor**
+
 ```javascript
 class Element {
   // Element includes operation directly
@@ -1068,11 +1128,18 @@ class Element {
 ```
 
 ### 3. **Hierarchical Visitor**
+
 ```javascript
 class HierarchicalVisitor {
-  visitBefore(element) { /* pre-processing */ }
-  visit(element) { /* main processing */ }
-  visitAfter(element) { /* post-processing */ }
+  visitBefore(element) {
+    /* pre-processing */
+  }
+  visit(element) {
+    /* main processing */
+  }
+  visitAfter(element) {
+    /* post-processing */
+  }
 }
 ```
 

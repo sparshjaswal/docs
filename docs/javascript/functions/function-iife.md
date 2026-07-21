@@ -17,6 +17,7 @@ var sayHello = function (name) {
 ```
 
 ## Advantages of using IIFE:
+
 - **Maintain private scope**
 - **Provide implementation best practices or design patterns**
 
@@ -63,3 +64,4 @@ Lots of IIFE are used which increase the slowness.
 - Advanced Parameter Passing
 - IIFE with Async/Await
 - Performance Optimization Techniques
+```

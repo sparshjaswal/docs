@@ -17,12 +17,12 @@ Runnable implementations (with tests) live alongside this guide in this folder:
 
 ## Quick Comparison
 
-| Algorithm | Time (avg) | Requires Sorted? |
-| --------- | ---------- | ---------------- |
-| Linear Search | O(n) | No |
-| Binary Search | O(log n) | Yes |
-| Jump Search | O(√n) | Yes |
-| Interpolation Search | O(log log n) | Yes (uniform) |
+| Algorithm            | Time (avg)   | Requires Sorted? |
+| -------------------- | ------------ | ---------------- |
+| Linear Search        | O(n)         | No               |
+| Binary Search        | O(log n)     | Yes              |
+| Jump Search          | O(√n)        | Yes              |
+| Interpolation Search | O(log log n) | Yes (uniform)    |
 
 ---
 

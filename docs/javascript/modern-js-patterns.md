@@ -3,6 +3,7 @@
 > **Advanced patterns for professional JavaScript development in 2025**
 
 ## Table of Contents
+
 - [Advanced ES6+ Features](#advanced-es6-features)
 - [Design Patterns in JavaScript](#design-patterns-in-javascript)
 - [Performance Optimization Patterns](#performance-optimization-patterns)
@@ -21,9 +22,9 @@
 const user = {
   profile: {
     address: {
-      street: '123 Main St'
-    }
-  }
+      street: '123 Main St',
+    },
+  },
 };
 
 // Optional chaining (?.)
@@ -38,8 +39,8 @@ const port = process.env.PORT ?? 3000;
 const config = {
   api: {
     timeout: null,
-    retries: 0
-  }
+    retries: 0,
+  },
 };
 
 // Only use default if null or undefined (not for falsy values)
@@ -55,23 +56,23 @@ const response = {
   data: {
     users: [
       { id: 1, name: 'Alice', metadata: { role: 'admin' } },
-      { id: 2, name: 'Bob' }
-    ]
+      { id: 2, name: 'Bob' },
+    ],
   },
   meta: {
     total: 2,
-    page: 1
-  }
+    page: 1,
+  },
 };
 
 const {
   data: {
     users: [
       { name: firstName, metadata: { role: firstUserRole = 'user' } = {} },
-      { name: secondName = 'Unknown' } = {}
-    ] = []
+      { name: secondName = 'Unknown' } = {},
+    ] = [],
   } = {},
-  meta: { total = 0, page = 1 } = {}
+  meta: { total = 0, page = 1 } = {},
 } = response;
 
 // ✅ Dynamic property destructuring
@@ -104,10 +105,8 @@ const html = (strings, ...values) => {
   }, '');
 };
 
-const escapeHtml = (str) => String(str)
-  .replace(/&/g, '&amp;')
-  .replace(/</g, '&lt;')
-  .replace(/>/g, '&gt;');
+const escapeHtml = (str) =>
+  String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 // Usage - automatically escapes values
 const userInput = '<script>alert("xss")</script>';
@@ -117,7 +116,7 @@ const safeHtml = html`<div>User input: ${userInput}</div>`;
 // ✅ SQL-like tagged template
 const sql = (strings, ...values) => ({
   query: strings.join('?'),
-  params: values
+  params: values,
 });
 
 const userId = 123;
@@ -147,7 +146,7 @@ const UserManager = (() => {
         validateUser: (user) => {
           return user && typeof user.name === 'string' && user.name.length > 0;
         },
-        generateId: () => Date.now().toString(36) + Math.random().toString(36).substr(2)
+        generateId: () => Date.now().toString(36) + Math.random().toString(36).substr(2),
       });
     }
 
@@ -216,7 +215,7 @@ class ReactiveStore extends EventEmitter {
     this.emit('stateChange', {
       prevState,
       nextState: this.state,
-      updates
+      updates,
     });
   }
 
@@ -379,18 +378,16 @@ class VirtualList {
   }
 
   attachScrollListener() {
-    this.container.addEventListener('scroll',
-      this.throttle(() => this.handleScroll(), 16)
+    this.container.addEventListener(
+      'scroll',
+      this.throttle(() => this.handleScroll(), 16),
     );
   }
 
   handleScroll() {
     this.scrollTop = this.container.scrollTop;
     const newVisibleStart = Math.floor(this.scrollTop / this.itemHeight);
-    const newVisibleEnd = Math.min(
-      newVisibleStart + this.visibleCount,
-      this.items.length
-    );
+    const newVisibleEnd = Math.min(newVisibleStart + this.visibleCount, this.items.length);
 
     if (newVisibleStart !== this.visibleStart || newVisibleEnd !== this.visibleEnd) {
       this.visibleStart = newVisibleStart;
@@ -402,7 +399,7 @@ class VirtualList {
   render() {
     // Clear existing items
     const existingItems = this.container.querySelectorAll('.virtual-item');
-    existingItems.forEach(item => item.remove());
+    existingItems.forEach((item) => item.remove());
 
     // Render visible items
     for (let i = this.visibleStart; i < this.visibleEnd; i++) {
@@ -423,13 +420,13 @@ class VirtualList {
 
   throttle(func, limit) {
     let inThrottle;
-    return function() {
+    return function () {
       const args = arguments;
       const context = this;
       if (!inThrottle) {
         func.apply(context, args);
         inThrottle = true;
-        setTimeout(() => inThrottle = false, limit);
+        setTimeout(() => (inThrottle = false), limit);
       }
     };
   }
@@ -445,13 +442,10 @@ class LazyLoader {
     this.options = {
       rootMargin: '50px',
       threshold: 0.1,
-      ...options
+      ...options,
     };
 
-    this.observer = new IntersectionObserver(
-      this.handleIntersection.bind(this),
-      this.options
-    );
+    this.observer = new IntersectionObserver(this.handleIntersection.bind(this), this.options);
 
     this.loadingPromises = new Map();
   }
@@ -510,7 +504,7 @@ class LazyLoader {
 const lazyLoader = new LazyLoader({ rootMargin: '100px' });
 
 // Lazy load images
-document.querySelectorAll('img[data-src]').forEach(img => {
+document.querySelectorAll('img[data-src]').forEach((img) => {
   lazyLoader.observe(img, async (element) => {
     const src = element.dataset.src;
     const response = await fetch(src);
@@ -520,7 +514,7 @@ document.querySelectorAll('img[data-src]').forEach(img => {
 });
 
 // Lazy load components
-document.querySelectorAll('.lazy-component').forEach(container => {
+document.querySelectorAll('.lazy-component').forEach((container) => {
   lazyLoader.observe(container, async (element) => {
     const componentName = element.dataset.component;
     const Component = await import(`./components/${componentName}.js`);
@@ -544,13 +538,13 @@ class Observable {
   }
 
   subscribe(observer) {
-    const normalizedObserver = typeof observer === 'function'
-      ? { next: observer }
-      : observer;
+    const normalizedObserver = typeof observer === 'function' ? { next: observer } : observer;
 
     const subscription = {
       closed: false,
-      unsubscribe() { this.closed = true; }
+      unsubscribe() {
+        this.closed = true;
+      },
     };
 
     try {
@@ -575,7 +569,7 @@ class Observable {
               normalizedObserver.complete();
             }
           }
-        }
+        },
       });
 
       if (typeof teardown === 'function') {
@@ -592,47 +586,47 @@ class Observable {
   }
 
   map(fn) {
-    return new Observable(observer => {
+    return new Observable((observer) => {
       return this.subscribe({
-        next: value => observer.next(fn(value)),
-        error: error => observer.error(error),
-        complete: () => observer.complete()
+        next: (value) => observer.next(fn(value)),
+        error: (error) => observer.error(error),
+        complete: () => observer.complete(),
       });
     });
   }
 
   filter(predicate) {
-    return new Observable(observer => {
+    return new Observable((observer) => {
       return this.subscribe({
-        next: value => {
+        next: (value) => {
           if (predicate(value)) {
             observer.next(value);
           }
         },
-        error: error => observer.error(error),
-        complete: () => observer.complete()
+        error: (error) => observer.error(error),
+        complete: () => observer.complete(),
       });
     });
   }
 
   debounce(ms) {
-    return new Observable(observer => {
+    return new Observable((observer) => {
       let timeoutId;
 
       return this.subscribe({
-        next: value => {
+        next: (value) => {
           clearTimeout(timeoutId);
           timeoutId = setTimeout(() => observer.next(value), ms);
         },
-        error: error => observer.error(error),
-        complete: () => observer.complete()
+        error: (error) => observer.error(error),
+        complete: () => observer.complete(),
       });
     });
   }
 
   static fromEvent(element, eventName) {
-    return new Observable(observer => {
-      const handler = event => observer.next(event);
+    return new Observable((observer) => {
+      const handler = (event) => observer.next(event);
       element.addEventListener(eventName, handler);
 
       return () => element.removeEventListener(eventName, handler);
@@ -640,18 +634,18 @@ class Observable {
   }
 
   static fromPromise(promise) {
-    return new Observable(observer => {
+    return new Observable((observer) => {
       promise
-        .then(value => {
+        .then((value) => {
           observer.next(value);
           observer.complete();
         })
-        .catch(error => observer.error(error));
+        .catch((error) => observer.error(error));
     });
   }
 
   static interval(ms) {
-    return new Observable(observer => {
+    return new Observable((observer) => {
       let count = 0;
       const intervalId = setInterval(() => {
         observer.next(count++);
@@ -664,19 +658,17 @@ class Observable {
 
 // Usage examples
 const clicks$ = Observable.fromEvent(document, 'click');
-const doubleClicks$ = clicks$
-  .debounce(300)
-  .filter(event => event.detail === 2);
+const doubleClicks$ = clicks$.debounce(300).filter((event) => event.detail === 2);
 
-doubleClicks$.subscribe(event => {
+doubleClicks$.subscribe((event) => {
   console.log('Double click at:', event.clientX, event.clientY);
 });
 
 // Search with debouncing
 const searchInput = document.getElementById('search');
 const search$ = Observable.fromEvent(searchInput, 'input')
-  .map(event => event.target.value)
-  .filter(value => value.length > 2)
+  .map((event) => event.target.value)
+  .filter((value) => value.length > 2)
   .debounce(300);
 
 search$.subscribe(async (query) => {
@@ -722,20 +714,24 @@ const Types = {
 
   optional: (typeValidator) => ({
     type: typeValidator,
-    optional: true
+    optional: true,
   }),
 
-  oneOf: (...validators) => (value) => {
-    return validators.some(validator => validator(value));
-  },
+  oneOf:
+    (...validators) =>
+    (value) => {
+      return validators.some((validator) => validator(value));
+    },
 
   validate: (value, validator, path = '') => {
     const isValid = validator(value);
     if (!isValid) {
-      throw new TypeError(`Type validation failed at ${path || 'root'}: expected valid type, got ${typeof value}`);
+      throw new TypeError(
+        `Type validation failed at ${path || 'root'}: expected valid type, got ${typeof value}`,
+      );
     }
     return value;
-  }
+  },
 };
 
 // ✅ Schema validation example
@@ -744,14 +740,16 @@ const UserSchema = Types.objectOf({
   name: Types.string,
   email: Types.string,
   age: Types.optional(Types.number),
-  preferences: Types.optional(Types.objectOf({
-    theme: Types.oneOf(
-      value => value === 'light',
-      value => value === 'dark'
-    ),
-    notifications: Types.boolean
-  })),
-  roles: Types.arrayOf(Types.string)
+  preferences: Types.optional(
+    Types.objectOf({
+      theme: Types.oneOf(
+        (value) => value === 'light',
+        (value) => value === 'dark',
+      ),
+      notifications: Types.boolean,
+    }),
+  ),
+  roles: Types.arrayOf(Types.string),
 });
 
 // Usage
@@ -773,7 +771,7 @@ const createTypedAPI = (schema) => {
     const response = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
 
     const result = await response.json();
@@ -788,8 +786,8 @@ const createUserAPI = createTypedAPI({
   output: Types.objectOf({
     success: Types.boolean,
     user: UserSchema,
-    token: Types.optional(Types.string)
-  })
+    token: Types.optional(Types.string),
+  }),
 });
 ```
 
@@ -844,7 +842,11 @@ class ObjectPool {
 // Usage for expensive objects
 const vectorPool = new ObjectPool(
   () => ({ x: 0, y: 0, z: 0 }),
-  (vector) => { vector.x = 0; vector.y = 0; vector.z = 0; }
+  (vector) => {
+    vector.x = 0;
+    vector.y = 0;
+    vector.z = 0;
+  },
 );
 
 // ✅ Efficient string operations
@@ -922,7 +924,7 @@ const ArrayUtils = {
     }
 
     return left;
-  }
+  },
 };
 ```
 
@@ -966,7 +968,7 @@ class PerformanceMonitor {
         totalTime: 0,
         minTime: Infinity,
         maxTime: 0,
-        errors: 0
+        errors: 0,
       });
     }
 
@@ -979,7 +981,7 @@ class PerformanceMonitor {
     if (error) metric.errors++;
 
     // Notify observers
-    this.observers.forEach(observer => {
+    this.observers.forEach((observer) => {
       observer({ name, duration, error, metric });
     });
   }
@@ -991,7 +993,7 @@ class PerformanceMonitor {
     return {
       ...metric,
       averageTime: metric.totalTime / metric.count,
-      errorRate: metric.errors / metric.count
+      errorRate: metric.errors / metric.count,
     };
   }
 
@@ -1033,7 +1035,7 @@ perfMon.subscribe(({ name, duration, error }) => {
 const monitored = (name) => (target, propertyKey, descriptor) => {
   const originalMethod = descriptor.value;
 
-  descriptor.value = function(...args) {
+  descriptor.value = function (...args) {
     return perfMon.measure(`${target.constructor.name}.${propertyKey}`, () => {
       return originalMethod.apply(this, args);
     });
@@ -1052,9 +1054,9 @@ class UserService {
 
   @monitored('processUsers')
   processUsers(users) {
-    return users.map(user => ({
+    return users.map((user) => ({
       ...user,
-      displayName: `${user.firstName} ${user.lastName}`
+      displayName: `${user.firstName} ${user.lastName}`,
     }));
   }
 }

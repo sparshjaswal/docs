@@ -3,6 +3,7 @@
 > **Comprehensive testing strategies for robust JavaScript applications**
 
 ## Table of Contents
+
 - [Testing Fundamentals](#testing-fundamentals)
 - [Unit Testing Best Practices](#unit-testing-best-practices)
 - [Integration Testing](#integration-testing)
@@ -27,7 +28,7 @@ describe('UserService', () => {
       const userData = {
         name: 'John Doe',
         email: 'john@example.com',
-        age: 30
+        age: 30,
       };
       const userService = new UserService();
 
@@ -40,7 +41,7 @@ describe('UserService', () => {
         name: 'John Doe',
         email: 'john@example.com',
         age: 30,
-        createdAt: expect.any(Date)
+        createdAt: expect.any(Date),
       });
     });
 
@@ -49,20 +50,19 @@ describe('UserService', () => {
       const userData = {
         name: 'John Doe',
         email: 'invalid-email',
-        age: 30
+        age: 30,
       };
       const userService = new UserService();
 
       // Act & Assert
-      expect(() => userService.createUser(userData))
-        .toThrow('Invalid email format');
+      expect(() => userService.createUser(userData)).toThrow('Invalid email format');
     });
 
     it('should assign default age when age is not provided', () => {
       // Arrange
       const userData = {
         name: 'Jane Doe',
-        email: 'jane@example.com'
+        email: 'jane@example.com',
       };
       const userService = new UserService();
 
@@ -86,9 +86,8 @@ const customMatchers = {
     const pass = emailRegex.test(received);
 
     return {
-      message: () =>
-        `Expected ${received} ${pass ? 'not ' : ''}to be a valid email`,
-      pass
+      message: () => `Expected ${received} ${pass ? 'not ' : ''}to be a valid email`,
+      pass,
     };
   },
 
@@ -96,9 +95,8 @@ const customMatchers = {
     const pass = received >= min && received <= max;
 
     return {
-      message: () =>
-        `Expected ${received} ${pass ? 'not ' : ''}to be within range ${min}-${max}`,
-      pass
+      message: () => `Expected ${received} ${pass ? 'not ' : ''}to be within range ${min}-${max}`,
+      pass,
     };
   },
 
@@ -106,24 +104,24 @@ const customMatchers = {
     if (received.mock.calls.length === 0) {
       return {
         message: () => 'Expected function to have been called',
-        pass: false
+        pass: false,
       };
     }
 
     const lastCall = received.mock.calls[received.mock.calls.length - 1];
     const user = lastCall[0];
 
-    const isValid = user &&
+    const isValid =
+      user &&
       typeof user.name === 'string' &&
       typeof user.email === 'string' &&
       user.email.includes('@');
 
     return {
-      message: () =>
-        `Expected function to have been called with valid user object`,
-      pass: isValid
+      message: () => `Expected function to have been called with valid user object`,
+      pass: isValid,
     };
-  }
+  },
 };
 
 // Extend Jest matchers
@@ -144,7 +142,7 @@ class TestDataBuilder {
       name: 'Test User',
       email: 'test@example.com',
       age: 25,
-      isActive: true
+      isActive: true,
     };
     return this;
   }
@@ -202,22 +200,20 @@ describe('Pure Functions', () => {
       [100, 10, 10],
       [200, 25, 50],
       [50, 0, 0],
-      [1000, 100, 1000]
+      [1000, 100, 1000],
     ])('should calculate %d with %d%% discount as %d', (price, discount, expected) => {
       expect(calculateDiscount(price, discount)).toBe(expected);
     });
 
     it('should throw error for negative price', () => {
-      expect(() => calculateDiscount(-100, 10))
-        .toThrow('Price cannot be negative');
+      expect(() => calculateDiscount(-100, 10)).toThrow('Price cannot be negative');
     });
 
     it.each([
       [-5, 'Discount percent must be between 0 and 100'],
-      [101, 'Discount percent must be between 0 and 100']
+      [101, 'Discount percent must be between 0 and 100'],
     ])('should throw error for invalid discount %d', (discount, expectedMessage) => {
-      expect(() => calculateDiscount(100, discount))
-        .toThrow(expectedMessage);
+      expect(() => calculateDiscount(100, discount)).toThrow(expectedMessage);
     });
   });
 });
@@ -252,7 +248,7 @@ class UserService {
     const user = {
       id: this.generateId(),
       ...userData,
-      createdAt: new Date()
+      createdAt: new Date(),
     };
 
     await this.userRepository.save(user);
@@ -277,30 +273,26 @@ describe('UserService', () => {
   beforeEach(() => {
     mockUserRepository = {
       findByEmail: jest.fn(),
-      save: jest.fn()
+      save: jest.fn(),
     };
 
     mockEmailService = {
-      sendWelcomeEmail: jest.fn()
+      sendWelcomeEmail: jest.fn(),
     };
 
     mockLogger = {
       info: jest.fn(),
-      error: jest.fn()
+      error: jest.fn(),
     };
 
-    userService = new UserService(
-      mockUserRepository,
-      mockEmailService,
-      mockLogger
-    );
+    userService = new UserService(mockUserRepository, mockEmailService, mockLogger);
   });
 
   describe('createUser', () => {
     const validUserData = {
       name: 'John Doe',
       email: 'john@example.com',
-      age: 30
+      age: 30,
     };
 
     it('should create user successfully with valid data', async () => {
@@ -318,7 +310,7 @@ describe('UserService', () => {
         email: 'john@example.com',
         age: 30,
         id: expect.any(String),
-        createdAt: expect.any(Date)
+        createdAt: expect.any(Date),
       });
 
       expect(mockUserRepository.findByEmail).toHaveBeenCalledWith('john@example.com');
@@ -332,8 +324,7 @@ describe('UserService', () => {
       mockUserRepository.findByEmail.mockResolvedValue({ id: '123' });
 
       // Act & Assert
-      await expect(userService.createUser(validUserData))
-        .rejects.toThrow('User already exists');
+      await expect(userService.createUser(validUserData)).rejects.toThrow('User already exists');
 
       expect(mockUserRepository.save).not.toHaveBeenCalled();
       expect(mockEmailService.sendWelcomeEmail).not.toHaveBeenCalled();
@@ -343,13 +334,12 @@ describe('UserService', () => {
       // Arrange
       mockUserRepository.findByEmail.mockResolvedValue(null);
       mockUserRepository.save.mockResolvedValue();
-      mockEmailService.sendWelcomeEmail.mockRejectedValue(
-        new Error('Email service unavailable')
-      );
+      mockEmailService.sendWelcomeEmail.mockRejectedValue(new Error('Email service unavailable'));
 
       // Act & Assert
-      await expect(userService.createUser(validUserData))
-        .rejects.toThrow('Email service unavailable');
+      await expect(userService.createUser(validUserData)).rejects.toThrow(
+        'Email service unavailable',
+      );
 
       // User should still be saved even if email fails
       expect(mockUserRepository.save).toHaveBeenCalled();
@@ -392,14 +382,11 @@ describe('User API Integration', () => {
       const userData = {
         name: 'John Doe',
         email: 'john@example.com',
-        age: 30
+        age: 30,
       };
 
       // Act
-      const response = await request(server)
-        .post('/api/users')
-        .send(userData)
-        .expect(201);
+      const response = await request(server).post('/api/users').send(userData).expect(201);
 
       // Assert
       expect(response.body).toMatchObject({
@@ -407,12 +394,11 @@ describe('User API Integration', () => {
         name: 'John Doe',
         email: 'john@example.com',
         age: 30,
-        createdAt: expect.any(String)
+        createdAt: expect.any(String),
       });
 
       // Verify in database
-      const userInDb = await testDb.collection('users')
-        .findOne({ email: 'john@example.com' });
+      const userInDb = await testDb.collection('users').findOne({ email: 'john@example.com' });
       expect(userInDb).toBeTruthy();
       expect(userInDb.name).toBe('John Doe');
     });
@@ -422,13 +408,13 @@ describe('User API Integration', () => {
       await testDb.collection('users').insertOne({
         name: 'Existing User',
         email: 'john@example.com',
-        createdAt: new Date()
+        createdAt: new Date(),
       });
 
       const userData = {
         name: 'John Doe',
         email: 'john@example.com',
-        age: 30
+        age: 30,
       };
 
       // Act & Assert
@@ -436,7 +422,7 @@ describe('User API Integration', () => {
         .post('/api/users')
         .send(userData)
         .expect(409)
-        .expect(response => {
+        .expect((response) => {
           expect(response.body.error).toBe('User already exists');
         });
     });
@@ -445,7 +431,7 @@ describe('User API Integration', () => {
       const testCases = [
         { data: { name: 'John' }, expectedError: 'Email is required' },
         { data: { email: 'john@example.com' }, expectedError: 'Name is required' },
-        { data: { name: '', email: 'john@example.com' }, expectedError: 'Name cannot be empty' }
+        { data: { name: '', email: 'john@example.com' }, expectedError: 'Name cannot be empty' },
       ];
 
       for (const testCase of testCases) {
@@ -453,7 +439,7 @@ describe('User API Integration', () => {
           .post('/api/users')
           .send(testCase.data)
           .expect(400)
-          .expect(response => {
+          .expect((response) => {
             expect(response.body.error).toContain(testCase.expectedError);
           });
       }
@@ -468,21 +454,19 @@ describe('User API Integration', () => {
         name: 'John Doe',
         email: 'john@example.com',
         age: 30,
-        createdAt: new Date()
+        createdAt: new Date(),
       };
       await testDb.collection('users').insertOne(user);
 
       // Act
-      const response = await request(server)
-        .get(`/api/users/${user._id}`)
-        .expect(200);
+      const response = await request(server).get(`/api/users/${user._id}`).expect(200);
 
       // Assert
       expect(response.body).toMatchObject({
         id: user._id.toString(),
         name: 'John Doe',
         email: 'john@example.com',
-        age: 30
+        age: 30,
       });
     });
 
@@ -492,7 +476,7 @@ describe('User API Integration', () => {
       await request(server)
         .get(`/api/users/${nonExistentId}`)
         .expect(404)
-        .expect(response => {
+        .expect((response) => {
           expect(response.body.error).toBe('User not found');
         });
     });
@@ -516,13 +500,13 @@ describe('Advanced Mocking Examples', () => {
 
     beforeEach(() => {
       mockHttpClient = {
-        get: jest.fn()
+        get: jest.fn(),
       };
 
       mockCache = {
         get: jest.fn(),
         set: jest.fn(),
-        has: jest.fn()
+        has: jest.fn(),
       };
 
       weatherService = new WeatherService(mockHttpClient, mockCache);
@@ -548,7 +532,7 @@ describe('Advanced Mocking Examples', () => {
       // Arrange
       const apiResponse = {
         main: { temp: 22, humidity: 65 },
-        weather: [{ main: 'Sunny' }]
+        weather: [{ main: 'Sunny' }],
       };
       const expectedResult = { temperature: 22, humidity: 65, condition: 'Sunny' };
 
@@ -560,13 +544,11 @@ describe('Advanced Mocking Examples', () => {
 
       // Assert
       expect(result).toEqual(expectedResult);
-      expect(mockHttpClient.get).toHaveBeenCalledWith(
-        'https://api.weather.com/weather?q=Paris'
-      );
+      expect(mockHttpClient.get).toHaveBeenCalledWith('https://api.weather.com/weather?q=Paris');
       expect(mockCache.set).toHaveBeenCalledWith(
         'weather:Paris',
         expectedResult,
-        300 // 5 minutes TTL
+        300, // 5 minutes TTL
       );
     });
 
@@ -576,8 +558,9 @@ describe('Advanced Mocking Examples', () => {
       mockHttpClient.get.mockRejectedValue(new Error('API unavailable'));
 
       // Act & Assert
-      await expect(weatherService.getWeather('InvalidCity'))
-        .rejects.toThrow('Weather service unavailable');
+      await expect(weatherService.getWeather('InvalidCity')).rejects.toThrow(
+        'Weather service unavailable',
+      );
 
       expect(mockCache.set).not.toHaveBeenCalled();
     });
@@ -611,7 +594,7 @@ describe('Advanced Mocking Examples', () => {
         to: 'test@example.com',
         subject: 'Welcome to our platform!',
         template: 'welcome',
-        data: { userName: 'Test User' }
+        data: { userName: 'Test User' },
       });
     });
 
@@ -642,30 +625,30 @@ describe('Advanced Mocking Examples', () => {
 const createMockDatabase = () => ({
   users: new Map(),
 
-  findUser: jest.fn().mockImplementation(function(id) {
+  findUser: jest.fn().mockImplementation(function (id) {
     return Promise.resolve(this.users.get(id) || null);
   }),
 
-  saveUser: jest.fn().mockImplementation(function(user) {
+  saveUser: jest.fn().mockImplementation(function (user) {
     this.users.set(user.id, user);
     return Promise.resolve(user);
   }),
 
-  deleteUser: jest.fn().mockImplementation(function(id) {
+  deleteUser: jest.fn().mockImplementation(function (id) {
     const deleted = this.users.delete(id);
     return Promise.resolve(deleted);
   }),
 
   // Add test data
-  seedData: function(users) {
-    users.forEach(user => this.users.set(user.id, user));
+  seedData: function (users) {
+    users.forEach((user) => this.users.set(user.id, user));
   },
 
   // Reset for tests
-  reset: function() {
+  reset: function () {
     this.users.clear();
     jest.clearAllMocks();
-  }
+  },
 });
 
 const createMockLogger = () => ({
@@ -675,18 +658,16 @@ const createMockLogger = () => ({
   error: jest.fn(),
 
   // Helper to check if error was logged
-  hasErrorBeenLogged: function(message) {
-    return this.error.mock.calls.some(call =>
-      call[0].includes(message)
-    );
-  }
+  hasErrorBeenLogged: function (message) {
+    return this.error.mock.calls.some((call) => call[0].includes(message));
+  },
 });
 
 // ✅ Test-specific stubs
 const createStubApiClient = (responses = {}) => {
   const defaultResponses = {
     '/users': { data: [] },
-    '/posts': { data: [] }
+    '/posts': { data: [] },
   };
 
   const allResponses = { ...defaultResponses, ...responses };
@@ -702,7 +683,7 @@ const createStubApiClient = (responses = {}) => {
 
     post: jest.fn().mockResolvedValue({ success: true }),
     put: jest.fn().mockResolvedValue({ success: true }),
-    delete: jest.fn().mockResolvedValue({ success: true })
+    delete: jest.fn().mockResolvedValue({ success: true }),
   };
 };
 ```
@@ -749,22 +730,15 @@ describe('Async Operations', () => {
 
     it('should handle timeout scenarios', async () => {
       // Arrange
-      mockApi.get.mockImplementation(() =>
-        new Promise(resolve => setTimeout(resolve, 6000))
-      );
+      mockApi.get.mockImplementation(() => new Promise((resolve) => setTimeout(resolve, 6000)));
 
       // Act & Assert
-      await expect(dataService.fetchUsersWithTimeout(5000))
-        .rejects.toThrow('Request timeout');
+      await expect(dataService.fetchUsersWithTimeout(5000)).rejects.toThrow('Request timeout');
     }, 10000); // Extend test timeout
 
     it('should handle concurrent requests', async () => {
       // Arrange
-      const responses = [
-        { data: [{ id: 1 }] },
-        { data: [{ id: 2 }] },
-        { data: [{ id: 3 }] }
-      ];
+      const responses = [{ data: [{ id: 1 }] }, { data: [{ id: 2 }] }, { data: [{ id: 3 }] }];
 
       mockApi.get
         .mockResolvedValueOnce(responses[0])
@@ -775,7 +749,7 @@ describe('Async Operations', () => {
       const promises = [
         dataService.fetchUser(1),
         dataService.fetchUser(2),
-        dataService.fetchUser(3)
+        dataService.fetchUser(3),
       ];
 
       const results = await Promise.all(promises);
@@ -791,11 +765,11 @@ describe('Async Operations', () => {
     it('should process async generator correctly', async () => {
       // Arrange
       const mockDataSource = {
-        * getData() {
+        *getData() {
           yield Promise.resolve({ id: 1, data: 'first' });
           yield Promise.resolve({ id: 2, data: 'second' });
           yield Promise.resolve({ id: 3, data: 'third' });
-        }
+        },
       };
 
       const stream = new AsyncDataStream(mockDataSource);
@@ -810,7 +784,7 @@ describe('Async Operations', () => {
       expect(results).toEqual([
         { id: 1, data: 'first', processed: true },
         { id: 2, data: 'second', processed: true },
-        { id: 3, data: 'third', processed: true }
+        { id: 3, data: 'third', processed: true },
       ]);
     });
   });
@@ -875,7 +849,8 @@ describe('Timer-based functionality', () => {
 
   it('should test retry logic with exponential backoff', async () => {
     // Arrange
-    const mockFn = jest.fn()
+    const mockFn = jest
+      .fn()
       .mockRejectedValueOnce(new Error('Fail 1'))
       .mockRejectedValueOnce(new Error('Fail 2'))
       .mockResolvedValue('Success');
@@ -923,12 +898,12 @@ describe('User Interface Components', () => {
       // Arrange
       const mockSearchFn = jest.fn().mockResolvedValue([
         { id: 1, name: 'John Doe' },
-        { id: 2, name: 'Jane Smith' }
+        { id: 2, name: 'Jane Smith' },
       ]);
 
       const searchComponent = new SearchComponent(container, {
         onSearch: mockSearchFn,
-        debounceMs: 300
+        debounceMs: 300,
       });
 
       searchComponent.render();
@@ -957,7 +932,7 @@ describe('User Interface Components', () => {
       // Arrange
       const mockSearchFn = jest.fn().mockResolvedValue([]);
       const searchComponent = new SearchComponent(container, {
-        onSearch: mockSearchFn
+        onSearch: mockSearchFn,
       });
 
       searchComponent.render();
@@ -976,7 +951,7 @@ describe('User Interface Components', () => {
       // Arrange
       const mockSearchFn = jest.fn().mockRejectedValue(new Error('Search failed'));
       const searchComponent = new SearchComponent(container, {
-        onSearch: mockSearchFn
+        onSearch: mockSearchFn,
       });
 
       searchComponent.render();
@@ -1082,7 +1057,7 @@ class PerformanceTester {
       average: Number(average.toFixed(3)),
       min: Number(min.toFixed(3)),
       max: Number(max.toFixed(3)),
-      p95: Number(p95.toFixed(3))
+      p95: Number(p95.toFixed(3)),
     };
   }
 
@@ -1116,21 +1091,21 @@ describe('Performance Tests', () => {
         return sum;
       },
 
-      'reduce': () => {
+      reduce: () => {
         return largeArray.reduce((sum, num) => sum + num, 0);
       },
 
-      'forEach': () => {
+      forEach: () => {
         let sum = 0;
-        largeArray.forEach(num => sum += num);
+        largeArray.forEach((num) => (sum += num));
         return sum;
-      }
+      },
     };
 
     const results = await PerformanceTester.compareImplementations(
       'Array Sum',
       implementations,
-      100
+      100,
     );
 
     // Assert performance characteristics
@@ -1149,8 +1124,8 @@ describe('Performance Tests', () => {
       const obj = {
         data: new Array(1000).fill(Math.random()),
         nested: {
-          moreData: new Array(100).fill('test')
-        }
+          moreData: new Array(100).fill('test'),
+        },
       };
       // Force object to be used
       obj.toString();
@@ -1185,7 +1160,7 @@ describe('ShoppingCart', () => {
     it('should add item to empty cart', () => {
       // Arrange
       const cart = new ShoppingCart();
-      const item = { id: '1', name: 'Apple', price: 1.50 };
+      const item = { id: '1', name: 'Apple', price: 1.5 };
 
       // Act
       cart.addItem(item);
@@ -1222,7 +1197,7 @@ describe('ShoppingCart', () => {
 
   describe('addItem', () => {
     it('should add item to empty cart', () => {
-      const item = { id: '1', name: 'Apple', price: 1.50 };
+      const item = { id: '1', name: 'Apple', price: 1.5 };
       cart.addItem(item);
 
       expect(cart.getItems()).toHaveLength(1);
@@ -1230,7 +1205,7 @@ describe('ShoppingCart', () => {
     });
 
     it('should increase quantity when adding existing item', () => {
-      const item = { id: '1', name: 'Apple', price: 1.50 };
+      const item = { id: '1', name: 'Apple', price: 1.5 };
 
       cart.addItem(item);
       cart.addItem(item);
@@ -1240,7 +1215,7 @@ describe('ShoppingCart', () => {
     });
 
     it('should add different items separately', () => {
-      const apple = { id: '1', name: 'Apple', price: 1.50 };
+      const apple = { id: '1', name: 'Apple', price: 1.5 };
       const banana = { id: '2', name: 'Banana', price: 0.75 };
 
       cart.addItem(apple);
@@ -1256,36 +1231,36 @@ describe('ShoppingCart', () => {
     });
 
     it('should calculate total for single item', () => {
-      const item = { id: '1', name: 'Apple', price: 1.50 };
+      const item = { id: '1', name: 'Apple', price: 1.5 };
       cart.addItem(item);
 
-      expect(cart.getTotalPrice()).toBe(1.50);
+      expect(cart.getTotalPrice()).toBe(1.5);
     });
 
     it('should calculate total for multiple quantities', () => {
-      const item = { id: '1', name: 'Apple', price: 1.50 };
+      const item = { id: '1', name: 'Apple', price: 1.5 };
       cart.addItem(item);
       cart.addItem(item);
       cart.addItem(item);
 
-      expect(cart.getTotalPrice()).toBe(4.50);
+      expect(cart.getTotalPrice()).toBe(4.5);
     });
 
     it('should calculate total for multiple different items', () => {
-      const apple = { id: '1', name: 'Apple', price: 1.50 };
+      const apple = { id: '1', name: 'Apple', price: 1.5 };
       const banana = { id: '2', name: 'Banana', price: 0.75 };
 
       cart.addItem(apple); // 1.50
       cart.addItem(banana); // 0.75
       cart.addItem(banana); // 0.75
 
-      expect(cart.getTotalPrice()).toBe(3.00);
+      expect(cart.getTotalPrice()).toBe(3.0);
     });
   });
 
   describe('removeItem', () => {
     it('should remove item completely when quantity is 1', () => {
-      const item = { id: '1', name: 'Apple', price: 1.50 };
+      const item = { id: '1', name: 'Apple', price: 1.5 };
       cart.addItem(item);
 
       cart.removeItem('1');
@@ -1294,7 +1269,7 @@ describe('ShoppingCart', () => {
     });
 
     it('should decrease quantity when removing from multiple quantities', () => {
-      const item = { id: '1', name: 'Apple', price: 1.50 };
+      const item = { id: '1', name: 'Apple', price: 1.5 };
       cart.addItem(item);
       cart.addItem(item);
       cart.addItem(item);
@@ -1306,8 +1281,7 @@ describe('ShoppingCart', () => {
     });
 
     it('should throw error when removing non-existent item', () => {
-      expect(() => cart.removeItem('999'))
-        .toThrow('Item not found in cart');
+      expect(() => cart.removeItem('999')).toThrow('Item not found in cart');
     });
   });
 });
@@ -1319,7 +1293,7 @@ class ShoppingCart {
   }
 
   addItem(item) {
-    const existingItem = this.items.find(cartItem => cartItem.id === item.id);
+    const existingItem = this.items.find((cartItem) => cartItem.id === item.id);
 
     if (existingItem) {
       existingItem.quantity += 1;
@@ -1329,7 +1303,7 @@ class ShoppingCart {
   }
 
   removeItem(itemId) {
-    const itemIndex = this.items.findIndex(item => item.id === itemId);
+    const itemIndex = this.items.findIndex((item) => item.id === itemId);
 
     if (itemIndex === -1) {
       throw new Error('Item not found in cart');
@@ -1350,7 +1324,7 @@ class ShoppingCart {
 
   getTotalPrice() {
     return this.items.reduce((total, item) => {
-      return total + (item.price * item.quantity);
+      return total + item.price * item.quantity;
     }, 0);
   }
 
@@ -1369,6 +1343,7 @@ class ShoppingCart {
 ## 📚 Testing Best Practices Summary
 
 ### ✅ Do's
+
 - Write descriptive test names that explain the scenario
 - Use the AAA pattern (Arrange, Act, Assert)
 - Test behavior, not implementation details
@@ -1378,6 +1353,7 @@ class ShoppingCart {
 - Write tests first in TDD approach
 
 ### ❌ Don'ts
+
 - Don't test private methods directly
 - Don't make tests dependent on each other
 - Don't ignore flaky tests
@@ -1386,6 +1362,7 @@ class ShoppingCart {
 - Don't forget to test async operations properly
 
 ### 🏆 Advanced Tips
+
 - Use test coverage as a guide, not a goal
 - Consider mutation testing for test quality
 - Implement visual regression testing for UI

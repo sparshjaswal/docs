@@ -1,6 +1,6 @@
 # 🔄 Transpilers & Compilers in JavaScript
 
-> *Understanding how JavaScript code transformation tools work*
+> _Understanding how JavaScript code transformation tools work_
 
 ## 🎯 What is a Compiler?
 
@@ -13,14 +13,17 @@ A **transpiler** (also called source-to-source compiler) converts code from one 
 ## 📋 Popular JavaScript Transpilers
 
 ### Babel
+
 - Converts ES6+ JavaScript to ES5 for browser compatibility
 - Supports JSX transformation for React
 
 ### TypeScript Compiler (tsc)
+
 - Converts TypeScript to JavaScript
 - Provides type checking and modern JavaScript features
 
 ### Webpack
+
 - Module bundler with transpilation capabilities
 - Can work with various loaders for different file types
 
@@ -39,11 +42,11 @@ const greet = (name = 'World') => `Hello, ${name}!`;
 
 // ES5 Code (Transpiled Output)
 function greet(name) {
-    if (name === undefined) name = 'World';
-    return 'Hello, ' + name + '!';
+  if (name === undefined) name = 'World';
+  return 'Hello, ' + name + '!';
 }
 ```
 
 ---
 
-*Transpilers enable us to write modern JavaScript while maintaining compatibility with older environments! 🚀*
+_Transpilers enable us to write modern JavaScript while maintaining compatibility with older environments! 🚀_

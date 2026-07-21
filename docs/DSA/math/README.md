@@ -80,7 +80,7 @@ function trailingZeros(n) {
 | [LC 415 — Add Strings](https://leetcode.com/problems/add-strings/)                                                                                | Easy       |                                                 |
 | [LC 441 — Arranging Coins](https://leetcode.com/problems/arranging-coins/)                                                                        | Easy       |                                                 |
 | [LC 507 — Perfect Number](https://leetcode.com/problems/perfect-number/)                                                                          | Easy       |                                                 |
-| [LC 509 — Fibonacci Number](https://leetcode.com/problems/fibonacci-number/)                                                                      | Easy       | [View Solution](./math/LC-509-Fibonacci-Number) |
+| [LC 509 — Fibonacci Number](https://leetcode.com/problems/fibonacci-number/)                                                                      | Easy       | [View Solution](./LC-509-Fibonacci-Number) |
 | [LC 728 — Self Dividing Numbers](https://leetcode.com/problems/self-dividing-numbers/)                                                            | Easy       |                                                 |
 | [LC 1137 — N-th Tribonacci Number](https://leetcode.com/problems/n-th-tribonacci-number/)                                                         | Easy       |                                                 |
 | [LC 1175 — Prime Arrangements](https://leetcode.com/problems/prime-arrangements/)                                                                 | Easy       |                                                 |

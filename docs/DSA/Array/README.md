@@ -29,6 +29,7 @@ end Set
 ### Insert
 
 Append (dynamic array with automatic resize):
+
 ```text
 Append(A, value)
   Pre: A has fields: data, size, capacity
@@ -42,6 +43,7 @@ end Append
 ```
 
 Insert at arbitrary index (shift right):
+
 ```text
 InsertAt(A, i, value)
   Pre: 0 <= i <= size(A)
@@ -60,6 +62,7 @@ end InsertAt
 ```
 
 Prepend is a special case of InsertAt at index 0:
+
 ```text
 Prepend(A, value)
   InsertAt(A, 0, value)
@@ -69,6 +72,7 @@ end Prepend
 ### Search
 
 Linear search (unsorted array):
+
 ```text
 Contains(A, value)
   Pre: A is an array
@@ -85,6 +89,7 @@ end Contains
 ```
 
 Binary search (sorted array):
+
 ```text
 BinarySearch(A, value)
   Pre: A is sorted in non-decreasing order
@@ -108,6 +113,7 @@ end BinarySearch
 ### Delete
 
 Delete at index (shift left):
+
 ```text
 RemoveAt(A, i)
   Pre: 0 <= i < size(A)
@@ -122,6 +128,7 @@ end RemoveAt
 ```
 
 Delete by value (first occurrence):
+
 ```text
 RemoveValue(A, value)
   Pre: A is an array
@@ -167,11 +174,12 @@ end ReverseTraverse
 
 ### Time Complexity
 
-| Access | Search           | Insertion | Deletion |
+| Access |      Search      | Insertion | Deletion |
 | :----: | :--------------: | :-------: | :------: |
 |  O(1)  | O(n) [O(log n)*] |   O(n)    |   O(n)   |
 
 Notes:
+
 - Append on a dynamic array is amortized O(1) due to geometric resizing.
 - [O(log n)*] applies to BinarySearch on a sorted array.
 
@@ -179,12 +187,11 @@ Notes:
 
 O(n) to store n elements. Dynamic arrays may over-allocate capacity (up to O(n)) to support amortized O(1) append.
 
-
 ## Practice Problems
 
-| Problem | Difficulty | Solution |
-| ------- | ---------- | -------- |
-| [LC 1 — Two Sum](https://leetcode.com/problems/two-sum/) | Easy | [View Solution](./Array/LC-1-two-sum) |
+| Problem                                                  | Difficulty | Solution                              |
+| -------------------------------------------------------- | ---------- | ------------------------------------- |
+| [LC 1 — Two Sum](https://leetcode.com/problems/two-sum/) | Easy       | [View Solution](../hashing/LC-1-two-sum) |
 
 ## References
 

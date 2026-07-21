@@ -9,6 +9,7 @@ Without violating encapsulation, capture and externalize an object's internal st
 ## 🤔 Problem
 
 You need to save and restore object states, but:
+
 - **Encapsulation**: Direct access to object's private state breaks encapsulation
 - **Undo/Redo**: Need to implement undo/redo functionality
 - **Snapshots**: Want to create snapshots of object state at different points
@@ -100,7 +101,7 @@ class TextEditor {
       this.content,
       this.cursorPosition,
       this.selectionStart,
-      this.selectionEnd
+      this.selectionEnd,
     );
   }
 
@@ -189,7 +190,7 @@ class TextEditor {
       characters: this.content.length,
       words: wordCount,
       lines: lineCount,
-      cursorPosition: this.cursorPosition
+      cursorPosition: this.cursorPosition,
     };
   }
 }
@@ -287,10 +288,10 @@ class EditorHistory {
 }
 
 // Usage
-console.log("=== Text Editor Memento Demo ===\n");
+console.log('=== Text Editor Memento Demo ===\n');
 
-console.log("Creating text editor:");
-console.log("-".repeat(20));
+console.log('Creating text editor:');
+console.log('-'.repeat(20));
 
 const editor = new TextEditor();
 const history = new EditorHistory();
@@ -298,43 +299,43 @@ const history = new EditorHistory();
 // Initial backup
 history.backup(editor);
 
-console.log("Starting to type:");
-console.log("-".repeat(17));
+console.log('Starting to type:');
+console.log('-'.repeat(17));
 
-editor.type("Hello");
+editor.type('Hello');
 history.backup(editor);
 
-editor.type(" World");
+editor.type(' World');
 history.backup(editor);
 
-editor.type("!");
+editor.type('!');
 history.backup(editor);
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
-console.log("Making some edits:");
-console.log("-".repeat(18));
+console.log('Making some edits:');
+console.log('-'.repeat(18));
 
 editor.selectText(6, 11); // Select "World"
 history.backup(editor);
 
-editor.replaceSelection("JavaScript");
+editor.replaceSelection('JavaScript');
 history.backup(editor);
 
-editor.type(" Programming");
+editor.type(' Programming');
 history.backup(editor);
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
-console.log("History overview:");
-console.log("-".repeat(16));
+console.log('History overview:');
+console.log('-'.repeat(16));
 
 history.showHistory();
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
-console.log("Testing undo operations:");
-console.log("-".repeat(25));
+console.log('Testing undo operations:');
+console.log('-'.repeat(25));
 
 // Undo several operations
 history.undo(editor);
@@ -345,28 +346,28 @@ console.log();
 
 history.undo(editor);
 
-console.log("\nAfter undos:");
-console.log("-".repeat(12));
+console.log('\nAfter undos:');
+console.log('-'.repeat(12));
 editor.displayState();
 
-console.log("\n" + "-".repeat(30) + "\n");
+console.log('\n' + '-'.repeat(30) + '\n');
 
-console.log("Testing redo operations:");
-console.log("-".repeat(25));
+console.log('Testing redo operations:');
+console.log('-'.repeat(25));
 
 history.redo(editor);
 console.log();
 
 history.redo(editor);
 
-console.log("\nAfter redos:");
-console.log("-".repeat(12));
+console.log('\nAfter redos:');
+console.log('-'.repeat(12));
 editor.displayState();
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
-console.log("Final editor statistics:");
-console.log("-".repeat(25));
+console.log('Final editor statistics:');
+console.log('-'.repeat(25));
 
 const stats = editor.getStats();
 console.log(`📊 Editor Stats:`);
@@ -375,7 +376,9 @@ console.log(`   Words: ${stats.words}`);
 console.log(`   Lines: ${stats.lines}`);
 console.log(`   Cursor Position: ${stats.cursorPosition}`);
 
-console.log(`\n🕒 History: ${history.canUndo() ? 'Can undo' : 'Cannot undo'}, ${history.canRedo() ? 'Can redo' : 'Cannot redo'}`);
+console.log(
+  `\n🕒 History: ${history.canUndo() ? 'Can undo' : 'Cannot undo'}, ${history.canRedo() ? 'Can redo' : 'Cannot redo'}`,
+);
 ```
 
 ## 🌟 Real-World Example
@@ -395,20 +398,34 @@ class GameSaveMemento {
     this._saveVersion = '1.0.0';
   }
 
-  getPlayerData() { return this._playerData; }
-  getGameWorld() { return this._gameWorld; }
-  getInventory() { return this._inventory; }
-  getAchievements() { return this._achievements; }
-  getSettings() { return this._settings; }
-  getTimestamp() { return this._timestamp; }
-  getSaveVersion() { return this._saveVersion; }
+  getPlayerData() {
+    return this._playerData;
+  }
+  getGameWorld() {
+    return this._gameWorld;
+  }
+  getInventory() {
+    return this._inventory;
+  }
+  getAchievements() {
+    return this._achievements;
+  }
+  getSettings() {
+    return this._settings;
+  }
+  getTimestamp() {
+    return this._timestamp;
+  }
+  getSaveVersion() {
+    return this._saveVersion;
+  }
 
   getSaveInfo() {
     return {
       playerLevel: this._playerData.level,
       location: this._gameWorld.currentLocation,
       playTime: this._playerData.totalPlayTime,
-      timestamp: this._timestamp
+      timestamp: this._timestamp,
     };
   }
 }
@@ -423,19 +440,19 @@ class GameEngine {
       mana: 50,
       experience: 0,
       gold: 100,
-      totalPlayTime: 0
+      totalPlayTime: 0,
     };
 
     this.gameWorld = {
       currentLocation: 'Starting Village',
       visitedLocations: ['Starting Village'],
       completedQuests: [],
-      worldSeed: Math.random()
+      worldSeed: Math.random(),
     };
 
     this.inventory = [
       { name: 'Wooden Sword', type: 'weapon', damage: 10 },
-      { name: 'Health Potion', type: 'consumable', quantity: 3 }
+      { name: 'Health Potion', type: 'consumable', quantity: 3 },
     ];
 
     this.achievements = [];
@@ -444,7 +461,7 @@ class GameEngine {
       difficulty: 'normal',
       soundVolume: 0.8,
       musicVolume: 0.6,
-      graphics: 'medium'
+      graphics: 'medium',
     };
 
     this.sessionStartTime = Date.now();
@@ -465,7 +482,7 @@ class GameEngine {
       gameWorld: this.gameWorld,
       inventory: this.inventory,
       achievements: this.achievements,
-      settings: this.settings
+      settings: this.settings,
     });
   }
 
@@ -527,9 +544,7 @@ class GameEngine {
 
   addToInventory(item) {
     // Check if item already exists (for stackable items)
-    const existingItem = this.inventory.find(i =>
-      i.name === item.name && i.type === item.type
-    );
+    const existingItem = this.inventory.find((i) => i.name === item.name && i.type === item.type);
 
     if (existingItem && item.quantity) {
       existingItem.quantity = (existingItem.quantity || 1) + (item.quantity || 1);
@@ -656,7 +671,9 @@ class SaveManager {
       this.autoSaves.shift();
     }
 
-    console.log(`🤖 Auto save created (${trigger}) - ${this.autoSaves.length}/${this.maxAutoSaves}`);
+    console.log(
+      `🤖 Auto save created (${trigger}) - ${this.autoSaves.length}/${this.maxAutoSaves}`,
+    );
   }
 
   // List all saves
@@ -668,7 +685,9 @@ class SaveManager {
       console.log(`\n   Named Saves (${this.saveSlots.size}):`);
       for (const [name, memento] of this.saveSlots) {
         const info = memento.getSaveInfo();
-        console.log(`     ${name}: Level ${info.playerLevel} at ${info.location} (${memento.getTimestamp().toLocaleString()})`);
+        console.log(
+          `     ${name}: Level ${info.playerLevel} at ${info.location} (${memento.getTimestamp().toLocaleString()})`,
+        );
       }
     }
 
@@ -677,7 +696,9 @@ class SaveManager {
       console.log(`\n   Quick Saves (${this.quickSaves.length}):`);
       this.quickSaves.forEach((memento, index) => {
         const info = memento.getSaveInfo();
-        console.log(`     ${index + 1}: Level ${info.playerLevel} at ${info.location} (${memento.getTimestamp().toLocaleString()})`);
+        console.log(
+          `     ${index + 1}: Level ${info.playerLevel} at ${info.location} (${memento.getTimestamp().toLocaleString()})`,
+        );
       });
     }
 
@@ -686,7 +707,9 @@ class SaveManager {
       console.log(`\n   Auto Saves (${this.autoSaves.length}):`);
       this.autoSaves.forEach((save, index) => {
         const info = save.memento.getSaveInfo();
-        console.log(`     ${index + 1}: ${save.trigger} - Level ${info.playerLevel} (${save.timestamp.toLocaleString()})`);
+        console.log(
+          `     ${index + 1}: ${save.trigger} - Level ${info.playerLevel} (${save.timestamp.toLocaleString()})`,
+        );
       });
     }
   }
@@ -704,20 +727,20 @@ class SaveManager {
 }
 
 // Usage
-console.log("\n=== Game Save System Demo ===\n");
+console.log('\n=== Game Save System Demo ===\n');
 
-console.log("Starting new game:");
-console.log("-".repeat(18));
+console.log('Starting new game:');
+console.log('-'.repeat(18));
 
 const game = new GameEngine();
 const saveManager = new SaveManager();
 
 game.getGameStatus();
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
-console.log("Playing the game:");
-console.log("-".repeat(17));
+console.log('Playing the game:');
+console.log('-'.repeat(17));
 
 // Simulate gameplay
 game.moveToLocation('Forest Path');
@@ -736,35 +759,35 @@ game.addToInventory({ name: 'Magic Potion', type: 'consumable', quantity: 2 });
 // Manual save
 saveManager.save(game, 'Before Boss Fight');
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
-console.log("Current game state:");
-console.log("-".repeat(20));
+console.log('Current game state:');
+console.log('-'.repeat(20));
 
 game.getGameStatus();
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
-console.log("Save system overview:");
-console.log("-".repeat(22));
+console.log('Save system overview:');
+console.log('-'.repeat(22));
 
 saveManager.listSaves();
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
-console.log("Simulating game over and reload:");
-console.log("-".repeat(35));
+console.log('Simulating game over and reload:');
+console.log('-'.repeat(35));
 
 // Continue playing (simulate boss fight loss)
-console.log("😵 Player died in boss fight!");
-console.log("💀 Game Over\n");
+console.log('😵 Player died in boss fight!');
+console.log('💀 Game Over\n');
 
 // Load from previous save
-console.log("Loading previous save...");
+console.log('Loading previous save...');
 saveManager.load(game, 'Before Boss Fight');
 
-console.log("\nGame state after reload:");
-console.log("-".repeat(25));
+console.log('\nGame state after reload:');
+console.log('-'.repeat(25));
 game.getGameStatus();
 ```
 
@@ -794,6 +817,7 @@ game.getGameStatus();
 ## 🔄 Memento Variations
 
 ### 1. **Command-based Memento**
+
 ```javascript
 class CommandMemento {
   constructor(command) {
@@ -808,6 +832,7 @@ class CommandMemento {
 ```
 
 ### 2. **Incremental Memento**
+
 ```javascript
 class IncrementalMemento {
   constructor(changes) {
@@ -822,6 +847,7 @@ class IncrementalMemento {
 ```
 
 ### 3. **Compressed Memento**
+
 ```javascript
 class CompressedMemento {
   constructor(state) {

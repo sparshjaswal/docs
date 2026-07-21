@@ -9,6 +9,7 @@ Ensure a class has only one instance, and provide a global point of access to it
 ## 🤔 Problem
 
 You need to ensure that a class has only one instance because:
+
 - **Resource Management**: Database connections, file systems, or print spoolers
 - **Configuration Settings**: Application settings that should be consistent
 - **Logging**: Central logging mechanism
@@ -16,6 +17,7 @@ You need to ensure that a class has only one instance because:
 - **Thread Pools**: Managing limited resources
 
 Having multiple instances could cause:
+
 - Resource conflicts
 - Inconsistent behavior
 - Memory waste
@@ -56,7 +58,7 @@ class AppSettings {
       language: 'en',
       apiUrl: 'https://api.example.com',
       timeout: 5000,
-      debug: false
+      debug: false,
     };
 
     this.version = '1.0.0';
@@ -65,15 +67,15 @@ class AppSettings {
     // Store instance
     AppSettings.instance = this;
 
-    console.log("⚙️ AppSettings instance created");
+    console.log('⚙️ AppSettings instance created');
   }
 
   static getInstance() {
     if (!AppSettings.instance) {
-      console.log("🏭 Creating new AppSettings instance");
+      console.log('🏭 Creating new AppSettings instance');
       AppSettings.instance = new AppSettings();
     } else {
-      console.log("♻️ Returning existing AppSettings instance");
+      console.log('♻️ Returning existing AppSettings instance');
     }
 
     return AppSettings.instance;
@@ -91,7 +93,7 @@ class AppSettings {
   }
 
   getAllSettings() {
-    console.log("📋 Current Settings:");
+    console.log('📋 Current Settings:');
     Object.entries(this.settings).forEach(([key, value]) => {
       console.log(`   ${key}: ${value}`);
     });
@@ -99,13 +101,13 @@ class AppSettings {
   }
 
   resetToDefaults() {
-    console.log("🔄 Resetting to default settings");
+    console.log('🔄 Resetting to default settings');
     this.settings = {
       theme: 'light',
       language: 'en',
       apiUrl: 'https://api.example.com',
       timeout: 5000,
-      debug: false
+      debug: false,
     };
   }
 
@@ -118,38 +120,38 @@ class AppSettings {
 }
 
 // Usage
-console.log("=== Application Settings Singleton Demo ===\n");
+console.log('=== Application Settings Singleton Demo ===\n');
 
-console.log("Getting instances from different parts of the app:");
-console.log("-".repeat(50));
+console.log('Getting instances from different parts of the app:');
+console.log('-'.repeat(50));
 
 // Simulate different modules accessing settings
-console.log("1. Main App Module:");
+console.log('1. Main App Module:');
 const mainAppSettings = AppSettings.getInstance();
 mainAppSettings.setSetting('theme', 'dark');
 mainAppSettings.setSetting('debug', true);
 
-console.log("\n2. User Interface Module:");
+console.log('\n2. User Interface Module:');
 const uiSettings = AppSettings.getInstance();
 console.log(`UI Theme: ${uiSettings.getSetting('theme')}`);
 
-console.log("\n3. API Module:");
+console.log('\n3. API Module:');
 const apiSettings = AppSettings.getInstance();
 console.log(`API URL: ${apiSettings.getSetting('apiUrl')}`);
 apiSettings.setSetting('timeout', 10000);
 
-console.log("\n4. Logger Module:");
+console.log('\n4. Logger Module:');
 const loggerSettings = AppSettings.getInstance();
 console.log(`Debug Mode: ${loggerSettings.getSetting('debug')}`);
 
-console.log("\nVerifying all instances are the same:");
-console.log("-".repeat(35));
+console.log('\nVerifying all instances are the same:');
+console.log('-'.repeat(35));
 console.log(`mainAppSettings === uiSettings: ${mainAppSettings === uiSettings}`);
 console.log(`uiSettings === apiSettings: ${uiSettings === apiSettings}`);
 console.log(`apiSettings === loggerSettings: ${apiSettings === loggerSettings}`);
 
-console.log("\nFinal settings state:");
-console.log("-".repeat(20));
+console.log('\nFinal settings state:');
+console.log('-'.repeat(20));
 mainAppSettings.getAllSettings();
 mainAppSettings.getInfo();
 ```
@@ -179,19 +181,19 @@ class DatabaseManager {
       port: 5432,
       database: 'myapp',
       username: 'admin',
-      password: '****'
+      password: '****',
     });
 
     DatabaseManager.instance = this;
-    console.log("🗃️ DatabaseManager singleton created");
+    console.log('🗃️ DatabaseManager singleton created');
   }
 
   static getInstance() {
     if (!DatabaseManager.instance) {
-      console.log("🏭 Creating new DatabaseManager instance");
+      console.log('🏭 Creating new DatabaseManager instance');
       DatabaseManager.instance = new DatabaseManager();
     } else {
-      console.log("♻️ Returning existing DatabaseManager instance");
+      console.log('♻️ Returning existing DatabaseManager instance');
     }
 
     return DatabaseManager.instance;
@@ -214,7 +216,7 @@ class DatabaseManager {
       connected: false,
       lastUsed: null,
       queryCount: 0,
-      id: ++this.connectionCount
+      id: ++this.connectionCount,
     };
 
     this.connections.set(name, connection);
@@ -236,7 +238,9 @@ class DatabaseManager {
     }
 
     // Simulate connection establishment
-    console.log(`🔗 Connecting to database: ${connection.config.host}:${connection.config.port}/${connection.config.database}`);
+    console.log(
+      `🔗 Connecting to database: ${connection.config.host}:${connection.config.port}/${connection.config.database}`,
+    );
     connection.connected = true;
     connection.lastUsed = new Date();
 
@@ -277,7 +281,7 @@ class DatabaseManager {
       connection: connectionName,
       query: sql,
       result: `Result for: ${sql}`,
-      timestamp: new Date()
+      timestamp: new Date(),
     };
   }
 
@@ -313,7 +317,9 @@ class DatabaseManager {
     console.log(`   Host: ${connection.config.host}:${connection.config.port}`);
     console.log(`   Database: ${connection.config.database}`);
     console.log(`   Queries: ${connection.queryCount}`);
-    console.log(`   Last Used: ${connection.lastUsed ? connection.lastUsed.toLocaleString() : 'Never'}`);
+    console.log(
+      `   Last Used: ${connection.lastUsed ? connection.lastUsed.toLocaleString() : 'Never'}`,
+    );
 
     return connection;
   }
@@ -329,7 +335,7 @@ class DatabaseManager {
     this.connections.forEach((conn, name) => {
       connectionStats[name] = {
         connected: conn.connected,
-        queries: conn.queryCount
+        queries: conn.queryCount,
       };
     });
 
@@ -338,7 +344,7 @@ class DatabaseManager {
   }
 
   closeAllConnections() {
-    console.log("🔒 Closing all database connections");
+    console.log('🔒 Closing all database connections');
     let closedCount = 0;
 
     this.connections.forEach((connection, name) => {
@@ -353,57 +359,57 @@ class DatabaseManager {
 }
 
 // Usage
-console.log("\n=== Database Manager Singleton Demo ===\n");
+console.log('\n=== Database Manager Singleton Demo ===\n');
 
-console.log("Different modules accessing database:");
-console.log("-".repeat(35));
+console.log('Different modules accessing database:');
+console.log('-'.repeat(35));
 
 // Module 1: User Service
-console.log("1. User Service Module:");
+console.log('1. User Service Module:');
 const userServiceDB = DatabaseManager.getInstance();
 userServiceDB.initializeConnection('users', {
   host: 'user-db.company.com',
   port: 5432,
   database: 'users',
-  username: 'user_service'
+  username: 'user_service',
 });
 
-userServiceDB.query("SELECT * FROM users WHERE active = true", 'users');
+userServiceDB.query('SELECT * FROM users WHERE active = true', 'users');
 
-console.log("\n2. Product Service Module:");
+console.log('\n2. Product Service Module:');
 const productServiceDB = DatabaseManager.getInstance();
-productServiceDB.query("SELECT * FROM products WHERE in_stock = true");
+productServiceDB.query('SELECT * FROM products WHERE in_stock = true');
 
-console.log("\n3. Order Service Module:");
+console.log('\n3. Order Service Module:');
 const orderServiceDB = DatabaseManager.getInstance();
 orderServiceDB.initializeConnection('orders', {
   host: 'order-db.company.com',
   port: 5433,
   database: 'orders',
-  username: 'order_service'
+  username: 'order_service',
 });
 
 orderServiceDB.query("SELECT * FROM orders WHERE status = 'pending'", 'orders');
 
-console.log("\nVerifying singleton behavior:");
-console.log("-".repeat(30));
+console.log('\nVerifying singleton behavior:');
+console.log('-'.repeat(30));
 console.log(`userServiceDB === productServiceDB: ${userServiceDB === productServiceDB}`);
 console.log(`productServiceDB === orderServiceDB: ${productServiceDB === orderServiceDB}`);
 
-console.log("\nDatabase statistics:");
-console.log("-".repeat(20));
+console.log('\nDatabase statistics:');
+console.log('-'.repeat(20));
 userServiceDB.getStats();
 
-console.log("\nConnection details:");
-console.log("-".repeat(18));
+console.log('\nConnection details:');
+console.log('-'.repeat(18));
 userServiceDB.getConnectionInfo('default');
 console.log();
 userServiceDB.getConnectionInfo('users');
 console.log();
 userServiceDB.getConnectionInfo('orders');
 
-console.log("\nShutdown:");
-console.log("-".repeat(9));
+console.log('\nShutdown:');
+console.log('-'.repeat(9));
 userServiceDB.closeAllConnections();
 ```
 
@@ -426,7 +432,7 @@ class Logger {
     this.logCount = 0;
 
     Logger.instance = this;
-    console.log("📝 Logger singleton created");
+    console.log('📝 Logger singleton created');
   }
 
   static getInstance() {
@@ -463,7 +469,7 @@ class Logger {
       timestamp: new Date(),
       level: level.toUpperCase(),
       category,
-      message
+      message,
     };
 
     this.logs.push(logEntry);
@@ -497,11 +503,11 @@ class Logger {
 
   getStats() {
     const stats = { debug: 0, info: 0, warn: 0, error: 0 };
-    this.logs.forEach(log => {
+    this.logs.forEach((log) => {
       stats[log.level.toLowerCase()]++;
     });
 
-    console.log("📊 Logger Statistics:");
+    console.log('📊 Logger Statistics:');
     console.log(`   Total Logs: ${this.logCount}`);
     console.log(`   Current Level: ${this.level}`);
     console.log(`   Debug: ${stats.debug}`);
@@ -516,7 +522,7 @@ class Logger {
   getRecentLogs(count = 10) {
     const recent = this.logs.slice(-count);
     console.log(`📋 Recent ${count} logs:`);
-    recent.forEach(log => {
+    recent.forEach((log) => {
       console.log(`   ${log.id}: [${log.level}] ${log.category} - ${log.message}`);
     });
     return recent;
@@ -530,44 +536,44 @@ class Logger {
 }
 
 // Usage
-console.log("\n=== Logger Singleton Demo ===\n");
+console.log('\n=== Logger Singleton Demo ===\n');
 
-console.log("Different modules using logger:");
-console.log("-".repeat(30));
+console.log('Different modules using logger:');
+console.log('-'.repeat(30));
 
 // Module 1
-console.log("1. Authentication Module:");
+console.log('1. Authentication Module:');
 const authLogger = Logger.getInstance();
-authLogger.info("User login attempt", "AUTH");
-authLogger.warn("Invalid password attempt", "AUTH");
-authLogger.info("User successfully logged in", "AUTH");
+authLogger.info('User login attempt', 'AUTH');
+authLogger.warn('Invalid password attempt', 'AUTH');
+authLogger.info('User successfully logged in', 'AUTH');
 
-console.log("\n2. Database Module:");
+console.log('\n2. Database Module:');
 const dbLogger = Logger.getInstance();
-dbLogger.debug("Connection pool initialized", "DATABASE");
-dbLogger.info("Query executed successfully", "DATABASE");
-dbLogger.error("Connection timeout", "DATABASE");
+dbLogger.debug('Connection pool initialized', 'DATABASE');
+dbLogger.info('Query executed successfully', 'DATABASE');
+dbLogger.error('Connection timeout', 'DATABASE');
 
-console.log("\n3. API Module:");
+console.log('\n3. API Module:');
 const apiLogger = Logger.getInstance();
-apiLogger.info("API server started on port 3000", "API");
-apiLogger.warn("Rate limit approaching for user 123", "API");
+apiLogger.info('API server started on port 3000', 'API');
+apiLogger.warn('Rate limit approaching for user 123', 'API');
 
-console.log("\nVerifying singleton:");
-console.log("-".repeat(18));
+console.log('\nVerifying singleton:');
+console.log('-'.repeat(18));
 console.log(`authLogger === dbLogger: ${authLogger === dbLogger}`);
 console.log(`dbLogger === apiLogger: ${dbLogger === apiLogger}`);
 
-console.log("\nChanging log level:");
-console.log("-".repeat(18));
+console.log('\nChanging log level:');
+console.log('-'.repeat(18));
 authLogger.setLevel('warn');
 
-console.log("\nTesting with new level (debug should be filtered):");
-authLogger.debug("This debug message won't show", "TEST");
-authLogger.warn("This warning will show", "TEST");
+console.log('\nTesting with new level (debug should be filtered):');
+authLogger.debug("This debug message won't show", 'TEST');
+authLogger.warn('This warning will show', 'TEST');
 
-console.log("\nLogger statistics:");
-console.log("-".repeat(18));
+console.log('\nLogger statistics:');
+console.log('-'.repeat(18));
 authLogger.getStats();
 
 console.log();
@@ -602,6 +608,7 @@ authLogger.getRecentLogs(5);
 ## 🔄 Implementation Variations
 
 ### 1. **Eager Initialization**
+
 ```javascript
 class EagerSingleton {
   static instance = new EagerSingleton();
@@ -619,6 +626,7 @@ class EagerSingleton {
 ```
 
 ### 2. **Lazy Initialization** (shown in examples above)
+
 ```javascript
 static getInstance() {
   if (!MySingleton.instance) {
@@ -629,6 +637,7 @@ static getInstance() {
 ```
 
 ### 3. **Thread-Safe (for Node.js with worker threads)**
+
 ```javascript
 const singletonInstances = new Map();
 

@@ -11,6 +11,7 @@ Provide a unified interface to a set of interfaces in a subsystem. Facade define
 You need to work with a complex library or framework that has many classes and methods. Using the library directly requires understanding many details and making multiple method calls in the right order. You want a simpler way to perform common operations.
 
 For example, to play a video, you might need to:
+
 - Initialize video codec
 - Load audio codec
 - Create video file reader
@@ -47,11 +48,11 @@ Facade
 // Complex subsystem classes
 class DVDPlayer {
   on() {
-    console.log("💿 DVD Player is ON");
+    console.log('💿 DVD Player is ON');
   }
 
   off() {
-    console.log("💿 DVD Player is OFF");
+    console.log('💿 DVD Player is OFF');
   }
 
   play(movie) {
@@ -59,17 +60,17 @@ class DVDPlayer {
   }
 
   stop() {
-    console.log("💿 DVD Player stopped");
+    console.log('💿 DVD Player stopped');
   }
 }
 
 class Projector {
   on() {
-    console.log("📽️ Projector is ON");
+    console.log('📽️ Projector is ON');
   }
 
   off() {
-    console.log("📽️ Projector is OFF");
+    console.log('📽️ Projector is OFF');
   }
 
   setInput(input) {
@@ -79,11 +80,11 @@ class Projector {
 
 class SoundSystem {
   on() {
-    console.log("🔊 Sound System is ON");
+    console.log('🔊 Sound System is ON');
   }
 
   off() {
-    console.log("🔊 Sound System is OFF");
+    console.log('🔊 Sound System is OFF');
   }
 
   setVolume(volume) {
@@ -91,7 +92,7 @@ class SoundSystem {
   }
 
   setSurroundSound() {
-    console.log("🔊 Surround sound enabled");
+    console.log('🔊 Surround sound enabled');
   }
 }
 
@@ -101,22 +102,22 @@ class Lights {
   }
 
   on() {
-    console.log("💡 Lights are ON");
+    console.log('💡 Lights are ON');
   }
 }
 
 class PopcornMaker {
   on() {
-    console.log("🍿 Popcorn maker is ON");
+    console.log('🍿 Popcorn maker is ON');
   }
 
   off() {
-    console.log("🍿 Popcorn maker is OFF");
+    console.log('🍿 Popcorn maker is OFF');
   }
 
   pop() {
-    console.log("🍿 Popping popcorn...");
-    console.log("🍿 Popcorn ready!");
+    console.log('🍿 Popping popcorn...');
+    console.log('🍿 Popcorn ready!');
   }
 }
 
@@ -131,7 +132,7 @@ class HomeTheaterFacade {
   }
 
   watchMovie(movie) {
-    console.log("🎬 Setting up movie experience...\n");
+    console.log('🎬 Setting up movie experience...\n');
 
     // Complex sequence of operations simplified into one method
     this.popcornMaker.on();
@@ -140,7 +141,7 @@ class HomeTheaterFacade {
     this.lights.dim(20);
 
     this.projector.on();
-    this.projector.setInput("DVD");
+    this.projector.setInput('DVD');
 
     this.soundSystem.on();
     this.soundSystem.setVolume(8);
@@ -153,7 +154,7 @@ class HomeTheaterFacade {
   }
 
   endMovie() {
-    console.log("\n🎬 Shutting down movie experience...\n");
+    console.log('\n🎬 Shutting down movie experience...\n');
 
     this.dvdPlayer.stop();
     this.dvdPlayer.off();
@@ -164,19 +165,19 @@ class HomeTheaterFacade {
 
     this.popcornMaker.off();
 
-    console.log("\n✅ Movie experience ended. Thanks for watching!");
+    console.log('\n✅ Movie experience ended. Thanks for watching!');
   }
 }
 
 // Usage
-console.log("=== Home Theater Facade Demo ===\n");
+console.log('=== Home Theater Facade Demo ===\n');
 
 const homeTheater = new HomeTheaterFacade();
 
 // Simple interface for complex operations
-homeTheater.watchMovie("The Matrix");
+homeTheater.watchMovie('The Matrix');
 
-console.log("\n" + "=".repeat(40));
+console.log('\n' + '='.repeat(40));
 
 homeTheater.endMovie();
 ```
@@ -189,31 +190,31 @@ homeTheater.endMovie();
 // Complex subsystem classes
 class CPU {
   start() {
-    console.log("🖥️ CPU: Starting processor");
+    console.log('🖥️ CPU: Starting processor');
   }
 
   execute() {
-    console.log("🖥️ CPU: Executing instructions");
+    console.log('🖥️ CPU: Executing instructions');
   }
 
   stop() {
-    console.log("🖥️ CPU: Stopping processor");
+    console.log('🖥️ CPU: Stopping processor');
   }
 }
 
 class Memory {
   load() {
-    console.log("💾 Memory: Loading system data");
+    console.log('💾 Memory: Loading system data');
   }
 
   free() {
-    console.log("💾 Memory: Freeing up memory");
+    console.log('💾 Memory: Freeing up memory');
   }
 }
 
 class HardDrive {
   read() {
-    console.log("💽 Hard Drive: Reading boot sector");
+    console.log('💽 Hard Drive: Reading boot sector');
   }
 
   write(data) {
@@ -223,39 +224,39 @@ class HardDrive {
 
 class GraphicsCard {
   initialize() {
-    console.log("🎮 Graphics Card: Initializing display");
+    console.log('🎮 Graphics Card: Initializing display');
   }
 
   render() {
-    console.log("🎮 Graphics Card: Rendering graphics");
+    console.log('🎮 Graphics Card: Rendering graphics');
   }
 
   shutdown() {
-    console.log("🎮 Graphics Card: Shutting down display");
+    console.log('🎮 Graphics Card: Shutting down display');
   }
 }
 
 class NetworkCard {
   connect() {
-    console.log("🌐 Network Card: Connecting to network");
+    console.log('🌐 Network Card: Connecting to network');
   }
 
   disconnect() {
-    console.log("🌐 Network Card: Disconnecting from network");
+    console.log('🌐 Network Card: Disconnecting from network');
   }
 }
 
 class OperatingSystem {
   load() {
-    console.log("💻 OS: Loading operating system");
+    console.log('💻 OS: Loading operating system');
   }
 
   startServices() {
-    console.log("💻 OS: Starting system services");
+    console.log('💻 OS: Starting system services');
   }
 
   shutdown() {
-    console.log("💻 OS: Shutting down system");
+    console.log('💻 OS: Shutting down system');
   }
 }
 
@@ -271,7 +272,7 @@ class ComputerFacade {
   }
 
   startComputer() {
-    console.log("🔌 Starting computer...\n");
+    console.log('🔌 Starting computer...\n');
 
     // Boot sequence - complex process simplified
     this.cpu.start();
@@ -286,11 +287,11 @@ class ComputerFacade {
     this.cpu.execute();
     this.graphicsCard.render();
 
-    console.log("\n✅ Computer ready to use!");
+    console.log('\n✅ Computer ready to use!');
   }
 
   shutdownComputer() {
-    console.log("\n🔌 Shutting down computer...\n");
+    console.log('\n🔌 Shutting down computer...\n');
 
     // Shutdown sequence
     this.os.shutdown();
@@ -299,7 +300,7 @@ class ComputerFacade {
     this.memory.free();
     this.cpu.stop();
 
-    console.log("\n✅ Computer shut down safely!");
+    console.log('\n✅ Computer shut down safely!');
   }
 
   installSoftware(softwareName) {
@@ -315,18 +316,18 @@ class ComputerFacade {
 }
 
 // Usage
-console.log("=== Computer System Facade Demo ===\n");
+console.log('=== Computer System Facade Demo ===\n');
 
 const computer = new ComputerFacade();
 
 // Simple methods hide complex subsystem interactions
 computer.startComputer();
 
-console.log("\n" + "=".repeat(50));
+console.log('\n' + '='.repeat(50));
 
-computer.installSoftware("Adobe Photoshop");
+computer.installSoftware('Adobe Photoshop');
 
-console.log("\n" + "=".repeat(50));
+console.log('\n' + '='.repeat(50));
 
 computer.shutdownComputer();
 ```
@@ -404,18 +405,18 @@ class BankingFacade {
 
     // Complex process simplified into one method
     if (!this.securityService.authenticateUser(username, password)) {
-      console.log("❌ Authentication failed!");
+      console.log('❌ Authentication failed!');
       return false;
     }
 
     if (!this.securityService.authorizeTransaction(fromAccount, amount)) {
-      console.log("❌ Transaction not authorized!");
+      console.log('❌ Transaction not authorized!');
       return false;
     }
 
     const balance = this.accountService.getBalance(fromAccount);
     if (balance < amount) {
-      console.log("❌ Insufficient funds!");
+      console.log('❌ Insufficient funds!');
       return false;
     }
 
@@ -428,14 +429,16 @@ class BankingFacade {
       from: fromAccount,
       to: toAccount,
       amount: amount,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
 
     this.auditService.logTransaction(transaction);
-    this.notificationService.sendEmail("user@example.com",
-      `Transfer of $${amount} completed successfully`);
+    this.notificationService.sendEmail(
+      'user@example.com',
+      `Transfer of $${amount} completed successfully`,
+    );
 
-    console.log("\n✅ Money transfer completed!");
+    console.log('\n✅ Money transfer completed!');
     return true;
   }
 
@@ -443,30 +446,37 @@ class BankingFacade {
     console.log(`\n💰 Checking account balance...\n`);
 
     if (!this.securityService.authenticateUser(username, password)) {
-      console.log("❌ Authentication failed!");
+      console.log('❌ Authentication failed!');
       return null;
     }
 
     const balance = this.accountService.getBalance(accountNumber);
 
-    this.notificationService.sendEmail(email,
-      `Your account balance is $${balance}`);
+    this.notificationService.sendEmail(email, `Your account balance is $${balance}`);
 
     this.auditService.logTransaction({
       type: 'balance_check',
       account: accountNumber,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
 
     console.log(`\n💰 Current balance: $${balance}`);
     return balance;
   }
 
-  internationalTransfer(fromAccount, toAccount, amount, fromCurrency, toCurrency, username, password) {
+  internationalTransfer(
+    fromAccount,
+    toAccount,
+    amount,
+    fromCurrency,
+    toCurrency,
+    username,
+    password,
+  ) {
     console.log(`\n🌍 Processing international transfer...\n`);
 
     if (!this.securityService.authenticateUser(username, password)) {
-      console.log("❌ Authentication failed!");
+      console.log('❌ Authentication failed!');
       return false;
     }
 
@@ -479,39 +489,20 @@ class BankingFacade {
 }
 
 // Usage
-console.log("=== Banking System Facade Demo ===\n");
+console.log('=== Banking System Facade Demo ===\n');
 
 const bank = new BankingFacade();
 
 // Simple interface for complex banking operations
-const transferResult = bank.transferMoney(
-  "ACC123456",
-  "ACC789012",
-  500,
-  "john_doe",
-  "password123"
-);
+const transferResult = bank.transferMoney('ACC123456', 'ACC789012', 500, 'john_doe', 'password123');
 
-console.log("\n" + "=".repeat(50));
+console.log('\n' + '='.repeat(50));
 
-bank.checkBalanceWithNotification(
-  "ACC123456",
-  "john_doe",
-  "password123",
-  "john@example.com"
-);
+bank.checkBalanceWithNotification('ACC123456', 'john_doe', 'password123', 'john@example.com');
 
-console.log("\n" + "=".repeat(50));
+console.log('\n' + '='.repeat(50));
 
-bank.internationalTransfer(
-  "ACC123456",
-  "ACC999888",
-  1000,
-  "USD",
-  "EUR",
-  "john_doe",
-  "password123"
-);
+bank.internationalTransfer('ACC123456', 'ACC999888', 1000, 'USD', 'EUR', 'john_doe', 'password123');
 ```
 
 ## ✅ Pros
@@ -540,6 +531,7 @@ bank.internationalTransfer(
 ## 🔄 Facade Variations
 
 ### 1. **Multiple Facades**
+
 ```javascript
 // Different facades for different user types
 class AdminBankingFacade extends BankingFacade {
@@ -554,6 +546,7 @@ class CustomerBankingFacade extends BankingFacade {
 ```
 
 ### 2. **Configurable Facade**
+
 ```javascript
 class ConfigurableFacade {
   constructor(config) {

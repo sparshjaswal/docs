@@ -4,10 +4,10 @@
 const symbol = Symbol('age');
 const anotherSymbol = Symbol('age');
 const Obj = {
-    name: 'sparsh',
-    age: 16,
-    [symbol]: 31
-}
+  name: 'sparsh',
+  age: 16,
+  [symbol]: 31,
+};
 console.log(Obj.symbol);
 // undefined
 console.log(Obj.anotherSymbol);
@@ -26,10 +26,10 @@ console.log(symbol === anotherSymbol);
 const symbol = Symbol.for('debug');
 const anotherSymbol = Symbol.for('age');
 const Obj = {
-    name: 'sparsh',
-    age: 16,
-    [symbol]: 31
-}
+  name: 'sparsh',
+  age: 16,
+  [symbol]: 31,
+};
 console.log(Obj.symbol);
 // undefined
 console.log(Obj.anotherSymbol);

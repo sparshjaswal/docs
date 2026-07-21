@@ -16,6 +16,7 @@ Imagine you're developing a text editor with various operations like copy, paste
 - No way to queue, log, or delay operations
 
 For example, a "Save" button directly calling a save method makes it impossible to:
+
 - Undo the save operation
 - Queue multiple save operations
 - Log when saves occurred
@@ -24,6 +25,7 @@ For example, a "Save" button directly calling a save method makes it impossible 
 ## 💡 Solution
 
 The Command pattern suggests encapsulating requests as objects. This provides several benefits:
+
 - **Decoupling**: Sender (button) doesn't need to know about the receiver (document)
 - **Queuing**: Commands can be stored and executed later
 - **Undo Support**: Commands can reverse their operations
@@ -66,18 +68,18 @@ MacroCommand implements Command
 // Command interface
 class Command {
   execute() {
-    throw new Error("execute() method must be implemented");
+    throw new Error('execute() method must be implemented');
   }
 
   undo() {
-    throw new Error("undo() method must be implemented");
+    throw new Error('undo() method must be implemented');
   }
 }
 
 // Receiver - knows how to perform operations
 class Document {
   constructor() {
-    this.content = "";
+    this.content = '';
   }
 
   write(text) {
@@ -119,7 +121,7 @@ class DeleteCommand extends Command {
     super();
     this.document = document;
     this.length = length;
-    this.deletedText = "";
+    this.deletedText = '';
   }
 
   execute() {
@@ -157,7 +159,7 @@ class TextEditor {
       command.undo();
       this.currentPosition--;
     } else {
-      console.log("❌ Nothing to undo");
+      console.log('❌ Nothing to undo');
     }
   }
 
@@ -167,7 +169,7 @@ class TextEditor {
       const command = this.history[this.currentPosition];
       command.execute();
     } else {
-      console.log("❌ Nothing to redo");
+      console.log('❌ Nothing to redo');
     }
   }
 
@@ -180,8 +182,8 @@ class TextEditor {
 const doc = new Document();
 const editor = new TextEditor(doc);
 
-editor.executeCommand(new WriteCommand(doc, "Hello "));
-editor.executeCommand(new WriteCommand(doc, "World!"));
+editor.executeCommand(new WriteCommand(doc, 'Hello '));
+editor.executeCommand(new WriteCommand(doc, 'World!'));
 editor.showContent(); // "Hello World!"
 
 editor.undo(); // Removes "World!"
@@ -364,7 +366,7 @@ class RemoteControl {
   }
 
   toString() {
-    let result = "\n--- Remote Control ---\n";
+    let result = '\n--- Remote Control ---\n';
     for (let i = 0; i < this.onCommands.length; i++) {
       result += `[slot ${i}] ${this.onCommands[i].constructor.name} | ${this.offCommands[i].constructor.name}\n`;
     }
@@ -373,45 +375,33 @@ class RemoteControl {
 }
 
 // Usage
-const livingRoomLight = new Light("Living Room");
-const kitchenLight = new Light("Kitchen");
-const fan = new Fan("Living Room");
-const stereo = new Stereo("Living Room");
+const livingRoomLight = new Light('Living Room');
+const kitchenLight = new Light('Kitchen');
+const fan = new Fan('Living Room');
+const stereo = new Stereo('Living Room');
 
 const remote = new RemoteControl();
 
 // Set up commands
-remote.setCommand(0,
-  new LightOnCommand(livingRoomLight),
-  new LightOffCommand(livingRoomLight)
-);
+remote.setCommand(0, new LightOnCommand(livingRoomLight), new LightOffCommand(livingRoomLight));
 
-remote.setCommand(1,
-  new LightOnCommand(kitchenLight),
-  new LightOffCommand(kitchenLight)
-);
+remote.setCommand(1, new LightOnCommand(kitchenLight), new LightOffCommand(kitchenLight));
 
-remote.setCommand(2,
-  new FanHighCommand(fan),
-  new NoCommand()
-);
+remote.setCommand(2, new FanHighCommand(fan), new NoCommand());
 
-remote.setCommand(3,
-  new StereoOnWithVolumeCommand(stereo, 11),
-  new LightOffCommand(stereo)
-);
+remote.setCommand(3, new StereoOnWithVolumeCommand(stereo, 11), new LightOffCommand(stereo));
 
 // Test the remote
 console.log(remote.toString());
 
-remote.onButtonPressed(0);  // Living room light on
+remote.onButtonPressed(0); // Living room light on
 remote.offButtonPressed(0); // Living room light off
 remote.undoButtonPressed(); // Undo (light back on)
 
-remote.onButtonPressed(2);  // Fan high
+remote.onButtonPressed(2); // Fan high
 remote.undoButtonPressed(); // Fan back to previous speed
 
-remote.onButtonPressed(3);  // Stereo on with volume
+remote.onButtonPressed(3); // Stereo on with volume
 remote.undoButtonPressed(); // Undo stereo command
 ```
 
@@ -429,12 +419,12 @@ class MacroCommand extends Command {
   }
 
   execute() {
-    console.log("🎬 Executing macro command...");
-    this.commands.forEach(command => command.execute());
+    console.log('🎬 Executing macro command...');
+    this.commands.forEach((command) => command.execute());
   }
 
   undo() {
-    console.log("⏪ Undoing macro command...");
+    console.log('⏪ Undoing macro command...');
     // Undo in reverse order
     for (let i = this.commands.length - 1; i >= 0; i--) {
       this.commands[i].undo();
@@ -447,16 +437,16 @@ const partyMode = new MacroCommand([
   new LightOnCommand(livingRoomLight),
   new LightOnCommand(kitchenLight),
   new StereoOnWithVolumeCommand(stereo, 15),
-  new FanHighCommand(fan)
+  new FanHighCommand(fan),
 ]);
 
 // Set up party mode on remote
 remote.setCommand(6, partyMode, new MacroCommand([]));
 
-console.log("\n🎉 Activating Party Mode!");
+console.log('\n🎉 Activating Party Mode!');
 remote.onButtonPressed(6); // Execute all party commands
 
-console.log("\n😴 Undoing Party Mode...");
+console.log('\n😴 Undoing Party Mode...');
 remote.undoButtonPressed(); // Undo all party commands
 ```
 
@@ -471,22 +461,22 @@ class DatabaseConnection {
 
   connect() {
     this.isConnected = true;
-    console.log("🔌 Database connected");
+    console.log('🔌 Database connected');
   }
 
   disconnect() {
     this.isConnected = false;
-    console.log("🔌 Database disconnected");
+    console.log('🔌 Database disconnected');
   }
 
   insert(key, value) {
-    if (!this.isConnected) throw new Error("Database not connected");
+    if (!this.isConnected) throw new Error('Database not connected');
     this.data.set(key, value);
     console.log(`➕ Inserted: ${key} = ${value}`);
   }
 
   update(key, value) {
-    if (!this.isConnected) throw new Error("Database not connected");
+    if (!this.isConnected) throw new Error('Database not connected');
     const oldValue = this.data.get(key);
     this.data.set(key, value);
     console.log(`🔄 Updated: ${key} = ${value} (was ${oldValue})`);
@@ -494,7 +484,7 @@ class DatabaseConnection {
   }
 
   delete(key) {
-    if (!this.isConnected) throw new Error("Database not connected");
+    if (!this.isConnected) throw new Error('Database not connected');
     const value = this.data.get(key);
     this.data.delete(key);
     console.log(`❌ Deleted: ${key}`);
@@ -573,19 +563,19 @@ class Transaction {
   }
 
   execute() {
-    console.log("\n💾 Starting transaction...");
+    console.log('\n💾 Starting transaction...');
     try {
-      this.commands.forEach(command => command.execute());
-      console.log("✅ Transaction completed successfully");
+      this.commands.forEach((command) => command.execute());
+      console.log('✅ Transaction completed successfully');
     } catch (error) {
-      console.log("❌ Transaction failed, rolling back...");
+      console.log('❌ Transaction failed, rolling back...');
       this.rollback();
       throw error;
     }
   }
 
   rollback() {
-    console.log("🔄 Rolling back transaction...");
+    console.log('🔄 Rolling back transaction...');
     for (let i = this.commands.length - 1; i >= 0; i--) {
       try {
         this.commands[i].undo();
@@ -593,7 +583,7 @@ class Transaction {
         console.log(`⚠️ Error during rollback: ${error.message}`);
       }
     }
-    console.log("✅ Rollback completed");
+    console.log('✅ Rollback completed');
   }
 }
 
@@ -602,14 +592,14 @@ const db = new DatabaseConnection();
 db.connect();
 
 const transaction = new Transaction(db);
-transaction.addCommand(new InsertCommand(db, "user1", "John Doe"));
-transaction.addCommand(new InsertCommand(db, "user2", "Jane Smith"));
-transaction.addCommand(new UpdateCommand(db, "user1", "John Smith"));
+transaction.addCommand(new InsertCommand(db, 'user1', 'John Doe'));
+transaction.addCommand(new InsertCommand(db, 'user2', 'Jane Smith'));
+transaction.addCommand(new UpdateCommand(db, 'user1', 'John Smith'));
 
 transaction.execute();
 
 // Simulate transaction rollback
-console.log("\n🔄 Testing rollback...");
+console.log('\n🔄 Testing rollback...');
 transaction.rollback();
 ```
 
@@ -641,12 +631,15 @@ transaction.rollback();
 ## 🔄 Variations
 
 ### 1. **Smart Commands (with Receiver)**
+
 Commands that know how to perform operations themselves.
 
 ### 2. **Simple Commands (without Receiver)**
+
 Commands that delegate work to receivers.
 
 ### 3. **Parameterized Commands**
+
 ```javascript
 class ParameterizedCommand extends Command {
   constructor(receiver, method, params) {
@@ -663,6 +656,7 @@ class ParameterizedCommand extends Command {
 ```
 
 ### 4. **Async Commands**
+
 ```javascript
 class AsyncCommand extends Command {
   async execute() {

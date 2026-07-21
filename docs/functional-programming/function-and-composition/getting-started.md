@@ -1,8 +1,9 @@
 # 🔄 Function Composition & Higher-Order Functions
 
-> *Master the art of combining simple functions to create powerful, reusable abstractions*
+> _Master the art of combining simple functions to create powerful, reusable abstractions_
 
 ## Table of Contents
+
 - [First-Class Functions](#first-class-functions)
 - [Higher-Order Functions](#higher-order-functions)
 - [Function Composition](#function-composition)
@@ -16,6 +17,7 @@
 ## First-Class Functions
 
 In JavaScript, functions are **first-class citizens**, meaning they can be:
+
 - Assigned to variables
 - Passed as arguments to other functions
 - Returned from functions
@@ -26,8 +28,8 @@ In JavaScript, functions are **first-class citizens**, meaning they can be:
 
 ```javascript
 // ✅ Function as a variable
-const greet = function(name) {
-    return `Hello, ${name}!`;
+const greet = function (name) {
+  return `Hello, ${name}!`;
 };
 
 // ✅ Function as an arrow function
@@ -35,17 +37,13 @@ const add = (a, b) => a + b;
 
 // ✅ Function stored in an object
 const mathOperations = {
-    add: (a, b) => a + b,
-    multiply: (a, b) => a * b,
-    divide: (a, b) => b !== 0 ? a / b : null
+  add: (a, b) => a + b,
+  multiply: (a, b) => a * b,
+  divide: (a, b) => (b !== 0 ? a / b : null),
 };
 
 // ✅ Function in an array
-const operations = [
-    x => x + 1,
-    x => x * 2,
-    x => x ** 2
-];
+const operations = [(x) => x + 1, (x) => x * 2, (x) => x ** 2];
 ```
 
 ### Function Declarations vs Expressions
@@ -53,16 +51,16 @@ const operations = [
 ```javascript
 // Function declaration - hoisted
 function declaredFunction(x) {
-    return x * 2;
+  return x * 2;
 }
 
 // Function expression - not hoisted
-const expressedFunction = function(x) {
-    return x * 2;
+const expressedFunction = function (x) {
+  return x * 2;
 };
 
 // Arrow function expression - concise syntax
-const arrowFunction = x => x * 2;
+const arrowFunction = (x) => x * 2;
 
 // Immediately Invoked Function Expression (IIFE)
 const result = ((x) => x * 2)(5); // result = 10
@@ -73,20 +71,20 @@ const result = ((x) => x * 2)(5); // result = 10
 ```javascript
 // ✅ Functions as object properties
 const calculator = {
-    value: 0,
+  value: 0,
 
-    // Method using function expression
-    add: function(n) {
-        return this.value + n;
-    },
+  // Method using function expression
+  add: function (n) {
+    return this.value + n;
+  },
 
-    // Method using arrow function (no 'this' binding)
-    multiply: (n) => n * 2,
+  // Method using arrow function (no 'this' binding)
+  multiply: (n) => n * 2,
 
-    // ES6 method syntax
-    subtract(n) {
-        return this.value - n;
-    }
+  // ES6 method syntax
+  subtract(n) {
+    return this.value - n;
+  },
 };
 
 console.log(calculator.add(5)); // 5
@@ -97,6 +95,7 @@ console.log(calculator.subtract(2)); // -2
 ## Higher-Order Functions
 
 A **higher-order function** is a function that either:
+
 1. Takes one or more functions as arguments
 2. Returns a function as its result
 3. Or both
@@ -107,22 +106,24 @@ A **higher-order function** is a function that either:
 // ✅ Array methods are higher-order functions
 const numbers = [1, 2, 3, 4, 5];
 
-const doubled = numbers.map(x => x * 2);
+const doubled = numbers.map((x) => x * 2);
 // [2, 4, 6, 8, 10]
 
-const evens = numbers.filter(x => x % 2 === 0);
+const evens = numbers.filter((x) => x % 2 === 0);
 // [2, 4]
 
 const sum = numbers.reduce((acc, x) => acc + x, 0);
 // 15
 
 // ✅ Custom higher-order function
-const withLogging = (fn) => (...args) => {
+const withLogging =
+  (fn) =>
+  (...args) => {
     console.log(`Calling function with args: ${args}`);
     const result = fn(...args);
     console.log(`Result: ${result}`);
     return result;
-};
+  };
 
 const addWithLogging = withLogging((a, b) => a + b);
 addWithLogging(3, 4); // Logs the call and result
@@ -142,18 +143,18 @@ console.log(triple(4)); // 12
 
 // ✅ Configuration function
 const createValidator = (rules) => (data) => {
-    return rules.every(rule => {
-        const isValid = rule.test(data);
-        if (!isValid) {
-            console.log(`Validation failed: ${rule.message}`);
-        }
-        return isValid;
-    });
+  return rules.every((rule) => {
+    const isValid = rule.test(data);
+    if (!isValid) {
+      console.log(`Validation failed: ${rule.message}`);
+    }
+    return isValid;
+  });
 };
 
 const emailRules = [
-    { test: email => email.includes('@'), message: 'Must contain @' },
-    { test: email => email.length > 3, message: 'Must be longer than 3 chars' }
+  { test: (email) => email.includes('@'), message: 'Must contain @' },
+  { test: (email) => email.length > 3, message: 'Must be longer than 3 chars' },
 ];
 
 const validateEmail = createValidator(emailRules);
@@ -165,14 +166,17 @@ console.log(validateEmail('user@example.com')); // true
 ```javascript
 // ✅ Closures preserve outer function's variables
 const createCounter = (initialValue = 0) => {
-    let count = initialValue;
+  let count = initialValue;
 
-    return {
-        increment: () => ++count,
-        decrement: () => --count,
-        getValue: () => count,
-        reset: () => { count = initialValue; return count; }
-    };
+  return {
+    increment: () => ++count,
+    decrement: () => --count,
+    getValue: () => count,
+    reset: () => {
+      count = initialValue;
+      return count;
+    },
+  };
 };
 
 const counter = createCounter(5);
@@ -183,15 +187,15 @@ console.log(counter.reset()); // 5
 
 // ✅ Module pattern using closures
 const mathModule = (() => {
-    const PI = 3.14159;
+  const PI = 3.14159;
 
-    const circleArea = (radius) => PI * radius * radius;
-    const circleCircumference = (radius) => 2 * PI * radius;
+  const circleArea = (radius) => PI * radius * radius;
+  const circleCircumference = (radius) => 2 * PI * radius;
 
-    return {
-        area: circleArea,
-        circumference: circleCircumference
-    };
+  return {
+    area: circleArea,
+    circumference: circleCircumference,
+  };
 })();
 
 console.log(mathModule.area(5)); // 78.54
@@ -206,12 +210,12 @@ Function composition is the process of combining two or more functions to produc
 
 ```javascript
 // ✅ Manual composition
-const add1 = x => x + 1;
-const multiply2 = x => x * 2;
-const square = x => x * x;
+const add1 = (x) => x + 1;
+const multiply2 = (x) => x * 2;
+const square = (x) => x * x;
 
 // Composing manually
-const addThenMultiplyThenSquare = x => square(multiply2(add1(x)));
+const addThenMultiplyThenSquare = (x) => square(multiply2(add1(x)));
 console.log(addThenMultiplyThenSquare(3)); // ((3+1)*2)^2 = 64
 
 // ✅ Generic composition function
@@ -225,11 +229,15 @@ console.log(add1ThenMultiply2(3)); // (3+1)*2 = 8
 
 ```javascript
 // ✅ Compose multiple functions (right to left)
-const compose = (...fns) => (value) =>
+const compose =
+  (...fns) =>
+  (value) =>
     fns.reduceRight((acc, fn) => fn(acc), value);
 
 // ✅ Pipe multiple functions (left to right)
-const pipe = (...fns) => (value) =>
+const pipe =
+  (...fns) =>
+  (value) =>
     fns.reduce((acc, fn) => fn(acc), value);
 
 // Example functions
@@ -252,35 +260,30 @@ console.log(complexOperation2(3)); // "Result: 64"
 ```javascript
 // ✅ Data transformation pipeline
 const users = [
-    { name: 'John Doe', age: 25, active: true },
-    { name: 'Jane Smith', age: 30, active: false },
-    { name: 'Bob Johnson', age: 35, active: true }
+  { name: 'John Doe', age: 25, active: true },
+  { name: 'Jane Smith', age: 30, active: false },
+  { name: 'Bob Johnson', age: 35, active: true },
 ];
 
 // Individual transformation functions
-const filterActive = users => users.filter(user => user.active);
-const extractNames = users => users.map(user => user.name);
-const sortNames = names => [...names].sort();
-const formatList = names => names.join(', ');
+const filterActive = (users) => users.filter((user) => user.active);
+const extractNames = (users) => users.map((user) => user.name);
+const sortNames = (names) => [...names].sort();
+const formatList = (names) => names.join(', ');
 
 // Compose the pipeline
-const getActiveUserNames = pipe(
-    filterActive,
-    extractNames,
-    sortNames,
-    formatList
-);
+const getActiveUserNames = pipe(filterActive, extractNames, sortNames, formatList);
 
 console.log(getActiveUserNames(users)); // "Bob Johnson, John Doe"
 
 // ✅ String processing pipeline
 const processText = pipe(
-    text => text.toLowerCase(),
-    text => text.trim(),
-    text => text.replace(/\s+/g, ' '),
-    text => text.split(' '),
-    words => words.filter(word => word.length > 2),
-    words => words.join('-')
+  (text) => text.toLowerCase(),
+  (text) => text.trim(),
+  (text) => text.replace(/\s+/g, ' '),
+  (text) => text.split(' '),
+  (words) => words.filter((word) => word.length > 2),
+  (words) => words.join('-'),
 );
 
 console.log(processText('  Hello   World  FOO  ')); // "hello-world"
@@ -292,15 +295,17 @@ console.log(processText('  Hello   World  FOO  ')); // "hello-world"
 
 ```javascript
 // Mathematical composition: f(g(x))
-const compose = (...fns) => (value) =>
+const compose =
+  (...fns) =>
+  (value) =>
     fns.reduceRight((acc, fn) => fn(acc), value);
 
 // Reads from right to left
 const operation = compose(
-    x => `Final: ${x}`,  // 4. Last operation
-    x => x * 2,          // 3. Then multiply by 2
-    x => x + 10,         // 2. Then add 10
-    x => x ** 2          // 1. First, square the input
+  (x) => `Final: ${x}`, // 4. Last operation
+  (x) => x * 2, // 3. Then multiply by 2
+  (x) => x + 10, // 2. Then add 10
+  (x) => x ** 2, // 1. First, square the input
 );
 
 console.log(operation(3)); // "Final: 38" (3^2 + 10) * 2 = 38
@@ -310,15 +315,17 @@ console.log(operation(3)); // "Final: 38" (3^2 + 10) * 2 = 38
 
 ```javascript
 // Unix pipe-like: left to right flow
-const pipe = (...fns) => (value) =>
+const pipe =
+  (...fns) =>
+  (value) =>
     fns.reduce((acc, fn) => fn(acc), value);
 
 // Reads from left to right (more intuitive)
 const operation = pipe(
-    x => x ** 2,         // 1. First, square the input
-    x => x + 10,         // 2. Then add 10
-    x => x * 2,          // 3. Then multiply by 2
-    x => `Final: ${x}`   // 4. Finally, format result
+  (x) => x ** 2, // 1. First, square the input
+  (x) => x + 10, // 2. Then add 10
+  (x) => x * 2, // 3. Then multiply by 2
+  (x) => `Final: ${x}`, // 4. Finally, format result
 );
 
 console.log(operation(3)); // "Final: 38"
@@ -331,18 +338,13 @@ console.log(operation(3)); // "Final: 38"
 
 ```javascript
 // ✅ Pipe for data transformation (recommended)
-const processData = pipe(
-    validateInput,
-    sanitizeData,
-    transformData,
-    formatOutput
-);
+const processData = pipe(validateInput, sanitizeData, transformData, formatOutput);
 
 // ✅ Compose for mathematical operations
 const mathOperation = compose(
-    Math.sqrt,
-    x => x * 2,
-    x => x + 1
+  Math.sqrt,
+  (x) => x * 2,
+  (x) => x + 1,
 );
 ```
 
@@ -359,15 +361,15 @@ console.log(add(1)(2)(3)); // 6
 
 // ✅ Generic curry function
 const curry = (fn) => {
-    return function curried(...args) {
-        if (args.length >= fn.length) {
-            return fn.apply(this, args);
-        } else {
-            return function(...nextArgs) {
-                return curried.apply(this, args.concat(nextArgs));
-            };
-        }
-    };
+  return function curried(...args) {
+    if (args.length >= fn.length) {
+      return fn.apply(this, args);
+    } else {
+      return function (...nextArgs) {
+        return curried.apply(this, args.concat(nextArgs));
+      };
+    }
+  };
 };
 
 // Original function
@@ -387,40 +389,37 @@ console.log(curriedMultiply(2, 3, 4)); // 24
 ```javascript
 // ✅ Configuration with currying
 const createLogger = (level) => (module) => (message) => {
-    console.log(`[${level}] ${module}: ${message}`);
+  console.log(`[${level}] ${module}: ${message}`);
 };
 
 const errorLogger = createLogger('ERROR');
 const dbErrorLogger = errorLogger('DATABASE');
 const apiErrorLogger = errorLogger('API');
 
-dbErrorLogger('Connection failed');    // [ERROR] DATABASE: Connection failed
-apiErrorLogger('Invalid request');     // [ERROR] API: Invalid request
+dbErrorLogger('Connection failed'); // [ERROR] DATABASE: Connection failed
+apiErrorLogger('Invalid request'); // [ERROR] API: Invalid request
 
 // ✅ Validation with currying
 const validate = (rule) => (message) => (value) => {
-    if (!rule(value)) {
-        throw new Error(message);
-    }
-    return value;
+  if (!rule(value)) {
+    throw new Error(message);
+  }
+  return value;
 };
 
-const isString = validate(x => typeof x === 'string');
-const isNumber = validate(x => typeof x === 'number');
-const isPositive = validate(x => x > 0);
+const isString = validate((x) => typeof x === 'string');
+const isNumber = validate((x) => typeof x === 'number');
+const isPositive = validate((x) => x > 0);
 
 const validateName = isString('Name must be a string');
-const validateAge = pipe(
-    isNumber('Age must be a number'),
-    isPositive('Age must be positive')
-);
+const validateAge = pipe(isNumber('Age must be a number'), isPositive('Age must be positive'));
 
 try {
-    const name = validateName('John');
-    const age = validateAge(25);
-    console.log({ name, age }); // { name: 'John', age: 25 }
+  const name = validateName('John');
+  const age = validateAge(25);
+  console.log({ name, age }); // { name: 'John', age: 25 }
 } catch (error) {
-    console.error(error.message);
+  console.error(error.message);
 }
 ```
 
@@ -435,21 +434,24 @@ const multiplyBy2 = (b, c) => multiply(2, b, c);
 console.log(multiplyBy2(3, 4)); // 24
 
 // ✅ Generic partial function
-const partial = (fn, ...args1) => (...args2) => fn(...args1, ...args2);
+const partial =
+  (fn, ...args1) =>
+  (...args2) =>
+    fn(...args1, ...args2);
 
 const multiplyBy2Partial = partial(multiply, 2);
 console.log(multiplyBy2Partial(3, 4)); // 24
 
 // ✅ Partial application with object methods
 const fetchData = (method, url, options) => {
-    return fetch(url, { method, ...options });
+  return fetch(url, { method, ...options });
 };
 
 const get = partial(fetchData, 'GET');
 const post = partial(fetchData, 'POST');
 
 // Usage
-get('/api/users').then(response => response.json());
+get('/api/users').then((response) => response.json());
 post('/api/users', { body: JSON.stringify(userData) });
 ```
 
@@ -461,30 +463,31 @@ Point-free style (also called tacit programming) is writing functions without ex
 
 ```javascript
 // ❌ Pointful (explicit arguments)
-const double = x => x * 2;
+const double = (x) => x * 2;
 const numbers = [1, 2, 3, 4, 5];
-const doubled = numbers.map(x => double(x));
+const doubled = numbers.map((x) => double(x));
 
 // ✅ Point-free (no explicit arguments)
 const doubled2 = numbers.map(double);
 
 // ✅ More point-free examples
 const add = (a, b) => a + b;
-const isEven = x => x % 2 === 0;
-const toString = x => x.toString();
+const isEven = (x) => x % 2 === 0;
+const toString = (x) => x.toString();
 
 // Pointful
-const processNumbers = arr => arr
-    .filter(x => isEven(x))
-    .map(x => add(x, 1))
-    .map(x => toString(x));
+const processNumbers = (arr) =>
+  arr
+    .filter((x) => isEven(x))
+    .map((x) => add(x, 1))
+    .map((x) => toString(x));
 
 // Point-free
 const addOne = add.bind(null, 1); // or curry(add)(1)
 const processNumbersPointFree = pipe(
-    arr => arr.filter(isEven),
-    arr => arr.map(addOne),
-    arr => arr.map(toString)
+  (arr) => arr.filter(isEven),
+  (arr) => arr.map(addOne),
+  (arr) => arr.map(toString),
 );
 ```
 
@@ -493,15 +496,18 @@ const processNumbersPointFree = pipe(
 ```javascript
 // ✅ Point-free utility functions
 const prop = (key) => (obj) => obj[key];
-const not = (fn) => (...args) => !fn(...args);
+const not =
+  (fn) =>
+  (...args) =>
+    !fn(...args);
 const gt = (threshold) => (value) => value > threshold;
 const lt = (threshold) => (value) => value < threshold;
 
 // Usage
 const users = [
-    { name: 'John', age: 25, active: true },
-    { name: 'Jane', age: 17, active: false },
-    { name: 'Bob', age: 35, active: true }
+  { name: 'John', age: 25, active: true },
+  { name: 'Jane', age: 17, active: false },
+  { name: 'Bob', age: 35, active: true },
 ];
 
 const getName = prop('name');
@@ -512,9 +518,9 @@ const isNotActive = not(isActive);
 
 // Point-free data processing
 const getActiveAdultNames = pipe(
-    arr => arr.filter(isActive),
-    arr => arr.filter(user => isAdult(getAge(user))),
-    arr => arr.map(getName)
+  (arr) => arr.filter(isActive),
+  (arr) => arr.filter((user) => isAdult(getAge(user))),
+  (arr) => arr.map(getName),
 );
 
 console.log(getActiveAdultNames(users)); // ['John', 'Bob']
@@ -526,61 +532,63 @@ console.log(getActiveAdultNames(users)); // ['John', 'Bob']
 
 ```javascript
 // ✅ Async pipe
-const pipeAsync = (...fns) => (value) =>
+const pipeAsync =
+  (...fns) =>
+  (value) =>
     fns.reduce((acc, fn) => acc.then(fn), Promise.resolve(value));
 
 // Async functions
 const fetchUser = async (id) => {
-    const response = await fetch(`/api/users/${id}`);
-    return response.json();
+  const response = await fetch(`/api/users/${id}`);
+  return response.json();
 };
 
 const enrichUser = async (user) => {
-    const posts = await fetch(`/api/users/${user.id}/posts`);
-    return { ...user, posts: await posts.json() };
+  const posts = await fetch(`/api/users/${user.id}/posts`);
+  return { ...user, posts: await posts.json() };
 };
 
 const formatUser = async (user) => ({
-    displayName: `${user.name} (${user.posts.length} posts)`,
-    ...user
+  displayName: `${user.name} (${user.posts.length} posts)`,
+  ...user,
 });
 
 // Compose async operations
-const getUserWithPosts = pipeAsync(
-    fetchUser,
-    enrichUser,
-    formatUser
-);
+const getUserWithPosts = pipeAsync(fetchUser, enrichUser, formatUser);
 
 // Usage
 getUserWithPosts(123)
-    .then(user => console.log(user))
-    .catch(error => console.error(error));
+  .then((user) => console.log(user))
+  .catch((error) => console.error(error));
 ```
 
 ### Conditional Composition
 
 ```javascript
 // ✅ Conditional composition utilities
-const when = (predicate, fn) => (value) =>
-    predicate(value) ? fn(value) : value;
+const when = (predicate, fn) => (value) => (predicate(value) ? fn(value) : value);
 
-const unless = (predicate, fn) => (value) =>
-    !predicate(value) ? fn(value) : value;
+const unless = (predicate, fn) => (value) => (!predicate(value) ? fn(value) : value);
 
 const branch = (predicate, trueFn, falseFn) => (value) =>
-    predicate(value) ? trueFn(value) : falseFn(value);
+  predicate(value) ? trueFn(value) : falseFn(value);
 
 // Example usage
 const processNumber = pipe(
-    x => x * 2,
-    when(x => x > 10, x => x + 5),
-    unless(x => x % 2 === 0, x => x + 1),
-    branch(
-        x => x > 20,
-        x => `High: ${x}`,
-        x => `Low: ${x}`
-    )
+  (x) => x * 2,
+  when(
+    (x) => x > 10,
+    (x) => x + 5,
+  ),
+  unless(
+    (x) => x % 2 === 0,
+    (x) => x + 1,
+  ),
+  branch(
+    (x) => x > 20,
+    (x) => `High: ${x}`,
+    (x) => `Low: ${x}`,
+  ),
 );
 
 console.log(processNumber(3)); // "High: 12" -> 3*2=6, 6+5=11, 11+1=12, "High: 12"
@@ -592,27 +600,27 @@ console.log(processNumber(8)); // "High: 21" -> 8*2=16, 16+5=21, "High: 21"
 ```javascript
 // ✅ Safe composition with error handling
 const tryCatch = (fn, defaultValue) => (value) => {
-    try {
-        return fn(value);
-    } catch (error) {
-        console.error('Error in composition:', error);
-        return defaultValue;
-    }
+  try {
+    return fn(value);
+  } catch (error) {
+    console.error('Error in composition:', error);
+    return defaultValue;
+  }
 };
 
 const safeParseJSON = tryCatch(JSON.parse, {});
-const safeToUpperCase = tryCatch(str => str.toUpperCase(), '');
+const safeToUpperCase = tryCatch((str) => str.toUpperCase(), '');
 
 // Error-safe pipeline
 const processData = pipe(
-    safeParseJSON,
-    data => data.message || 'No message',
-    safeToUpperCase,
-    str => `Processed: ${str}`
+  safeParseJSON,
+  (data) => data.message || 'No message',
+  safeToUpperCase,
+  (str) => `Processed: ${str}`,
 );
 
 console.log(processData('{"message": "hello"}')); // "Processed: HELLO"
-console.log(processData('invalid json'));          // "Processed: NO MESSAGE"
+console.log(processData('invalid json')); // "Processed: NO MESSAGE"
 ```
 
 ## Real-World Examples
@@ -622,41 +630,34 @@ console.log(processData('invalid json'));          // "Processed: NO MESSAGE"
 ```javascript
 // ✅ E-commerce order processing
 const orders = [
-    { id: 1, items: [{ price: 10, qty: 2 }], customer: { type: 'premium' } },
-    { id: 2, items: [{ price: 5, qty: 1 }], customer: { type: 'regular' } },
-    { id: 3, items: [{ price: 15, qty: 3 }], customer: { type: 'premium' } }
+  { id: 1, items: [{ price: 10, qty: 2 }], customer: { type: 'premium' } },
+  { id: 2, items: [{ price: 5, qty: 1 }], customer: { type: 'regular' } },
+  { id: 3, items: [{ price: 15, qty: 3 }], customer: { type: 'premium' } },
 ];
 
 // Individual processing functions
-const calculateTotal = order => ({
-    ...order,
-    total: order.items.reduce((sum, item) => sum + (item.price * item.qty), 0)
+const calculateTotal = (order) => ({
+  ...order,
+  total: order.items.reduce((sum, item) => sum + item.price * item.qty, 0),
 });
 
-const applyDiscount = order => ({
-    ...order,
-    total: order.customer.type === 'premium'
-        ? order.total * 0.9
-        : order.total
+const applyDiscount = (order) => ({
+  ...order,
+  total: order.customer.type === 'premium' ? order.total * 0.9 : order.total,
 });
 
-const addTax = order => ({
-    ...order,
-    total: order.total * 1.08
+const addTax = (order) => ({
+  ...order,
+  total: order.total * 1.08,
 });
 
-const formatCurrency = order => ({
-    ...order,
-    total: `$${order.total.toFixed(2)}`
+const formatCurrency = (order) => ({
+  ...order,
+  total: `$${order.total.toFixed(2)}`,
 });
 
 // Compose the processing pipeline
-const processOrder = pipe(
-    calculateTotal,
-    applyDiscount,
-    addTax,
-    formatCurrency
-);
+const processOrder = pipe(calculateTotal, applyDiscount, addTax, formatCurrency);
 
 const processedOrders = orders.map(processOrder);
 console.log(processedOrders);
@@ -667,25 +668,25 @@ console.log(processedOrders);
 ```javascript
 // ✅ Functional API request builder
 const createRequest = (baseURL) => ({
-    url: baseURL,
-    method: 'GET',
-    headers: {},
-    params: {}
+  url: baseURL,
+  method: 'GET',
+  headers: {},
+  params: {},
 });
 
 const setMethod = (method) => (request) => ({
-    ...request,
-    method
+  ...request,
+  method,
 });
 
 const setHeader = (key, value) => (request) => ({
-    ...request,
-    headers: { ...request.headers, [key]: value }
+  ...request,
+  headers: { ...request.headers, [key]: value },
 });
 
 const setParam = (key, value) => (request) => ({
-    ...request,
-    params: { ...request.params, [key]: value }
+  ...request,
+  params: { ...request.params, [key]: value },
 });
 
 const setAuth = (token) => setHeader('Authorization', `Bearer ${token}`);
@@ -694,12 +695,12 @@ const setJSON = setContentType('application/json');
 
 // Build requests using composition
 const getUsers = pipe(
-    createRequest,
-    setMethod('GET'),
-    setJSON,
-    setAuth('your-token-here'),
-    setParam('page', 1),
-    setParam('limit', 10)
+  createRequest,
+  setMethod('GET'),
+  setJSON,
+  setAuth('your-token-here'),
+  setParam('page', 1),
+  setParam('limit', 10),
 );
 
 const userRequest = getUsers('/api/users');
@@ -711,49 +712,49 @@ console.log(userRequest);
 ```javascript
 // ✅ Functional form validation
 const createValidator = (rules) => (data) => {
-    const errors = [];
+  const errors = [];
 
-    rules.forEach(rule => {
-        const result = rule(data);
-        if (result.error) {
-            errors.push(result.error);
-        }
-    });
+  rules.forEach((rule) => {
+    const result = rule(data);
+    if (result.error) {
+      errors.push(result.error);
+    }
+  });
 
-    return {
-        isValid: errors.length === 0,
-        errors,
-        data
-    };
+  return {
+    isValid: errors.length === 0,
+    errors,
+    data,
+  };
 };
 
 // Validation rules
 const required = (field, message) => (data) => ({
-    error: !data[field] ? message : null
+  error: !data[field] ? message : null,
 });
 
 const minLength = (field, min, message) => (data) => ({
-    error: data[field] && data[field].length < min ? message : null
+  error: data[field] && data[field].length < min ? message : null,
 });
 
 const email = (field, message) => (data) => ({
-    error: data[field] && !/\S+@\S+\.\S+/.test(data[field]) ? message : null
+  error: data[field] && !/\S+@\S+\.\S+/.test(data[field]) ? message : null,
 });
 
 // Create specific validators
 const validateUser = createValidator([
-    required('name', 'Name is required'),
-    minLength('name', 2, 'Name must be at least 2 characters'),
-    required('email', 'Email is required'),
-    email('email', 'Email format is invalid'),
-    minLength('password', 8, 'Password must be at least 8 characters')
+  required('name', 'Name is required'),
+  minLength('name', 2, 'Name must be at least 2 characters'),
+  required('email', 'Email is required'),
+  email('email', 'Email format is invalid'),
+  minLength('password', 8, 'Password must be at least 8 characters'),
 ]);
 
 // Test the validator
 const userData = {
-    name: 'Jo',
-    email: 'john@example.com',
-    password: 'short'
+  name: 'Jo',
+  email: 'john@example.com',
+  password: 'short',
 };
 
 const result = validateUser(userData);
@@ -768,33 +769,31 @@ console.log(result);
 ```javascript
 // ✅ Memoize expensive composed functions
 const memoize = (fn) => {
-    const cache = new Map();
-    return (...args) => {
-        const key = JSON.stringify(args);
-        if (cache.has(key)) {
-            return cache.get(key);
-        }
-        const result = fn(...args);
-        cache.set(key, result);
-        return result;
-    };
+  const cache = new Map();
+  return (...args) => {
+    const key = JSON.stringify(args);
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+    const result = fn(...args);
+    cache.set(key, result);
+    return result;
+  };
 };
 
 // Expensive operations
 const expensiveCalc1 = (x) => {
-    console.log('Calculating step 1');
-    return x * x;
+  console.log('Calculating step 1');
+  return x * x;
 };
 
 const expensiveCalc2 = (x) => {
-    console.log('Calculating step 2');
-    return x + 10;
+  console.log('Calculating step 2');
+  return x + 10;
 };
 
 // Memoized composition
-const expensiveOperation = memoize(
-    pipe(expensiveCalc1, expensiveCalc2)
-);
+const expensiveOperation = memoize(pipe(expensiveCalc1, expensiveCalc2));
 
 console.log(expensiveOperation(5)); // Logs "Calculating..." and returns 35
 console.log(expensiveOperation(5)); // Returns 35 from cache, no logs
@@ -805,25 +804,27 @@ console.log(expensiveOperation(5)); // Returns 35 from cache, no logs
 ```javascript
 // ✅ Lazy function composition
 const lazy = (fn) => {
-    let computed = false;
-    let result;
+  let computed = false;
+  let result;
 
-    return (...args) => {
-        if (!computed) {
-            result = fn(...args);
-            computed = true;
-        }
-        return result;
-    };
+  return (...args) => {
+    if (!computed) {
+      result = fn(...args);
+      computed = true;
+    }
+    return result;
+  };
 };
 
 // Create lazy pipeline
-const lazyPipeline = (...fns) => (value) => {
-    const lazyFns = fns.map(fn => lazy(() => fn));
+const lazyPipeline =
+  (...fns) =>
+  (value) => {
+    const lazyFns = fns.map((fn) => lazy(() => fn));
     return (inputValue = value) => {
-        return lazyFns.reduce((acc, fn) => fn()(acc), inputValue);
+      return lazyFns.reduce((acc, fn) => fn()(acc), inputValue);
     };
-};
+  };
 ```
 
 ---

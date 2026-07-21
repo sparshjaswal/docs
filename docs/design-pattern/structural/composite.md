@@ -44,11 +44,11 @@ class FileSystemItem {
   }
 
   getSize() {
-    throw new Error("getSize() method must be implemented");
+    throw new Error('getSize() method must be implemented');
   }
 
   display(indent = 0) {
-    throw new Error("display() method must be implemented");
+    throw new Error('display() method must be implemented');
   }
 }
 
@@ -64,7 +64,7 @@ class File extends FileSystemItem {
   }
 
   display(indent = 0) {
-    const spaces = " ".repeat(indent);
+    const spaces = ' '.repeat(indent);
     console.log(`${spaces}📄 ${this.name} (${this.size} KB)`);
   }
 }
@@ -98,7 +98,7 @@ class Folder extends FileSystemItem {
   }
 
   display(indent = 0) {
-    const spaces = " ".repeat(indent);
+    const spaces = ' '.repeat(indent);
     console.log(`${spaces}📁 ${this.name}/ (${this.getSize()} KB total)`);
 
     // Display all children
@@ -109,21 +109,21 @@ class Folder extends FileSystemItem {
 }
 
 // Usage
-console.log("=== File System Composite Demo ===\n");
+console.log('=== File System Composite Demo ===\n');
 
 // Create files
-const file1 = new File("document.txt", 10);
-const file2 = new File("image.jpg", 250);
-const file3 = new File("video.mp4", 1500);
-const file4 = new File("readme.md", 5);
+const file1 = new File('document.txt', 10);
+const file2 = new File('image.jpg', 250);
+const file3 = new File('video.mp4', 1500);
+const file4 = new File('readme.md', 5);
 
-console.log("Creating folder structure:");
-console.log("-".repeat(25));
+console.log('Creating folder structure:');
+console.log('-'.repeat(25));
 
 // Create folders
-const documents = new Folder("Documents");
-const media = new Folder("Media");
-const root = new Folder("Root");
+const documents = new Folder('Documents');
+const media = new Folder('Media');
+const root = new Folder('Root');
 
 // Build the tree structure
 documents.add(file1);
@@ -135,8 +135,8 @@ media.add(file3);
 root.add(documents);
 root.add(media);
 
-console.log("\nFolder structure:");
-console.log("-".repeat(17));
+console.log('\nFolder structure:');
+console.log('-'.repeat(17));
 root.display();
 
 console.log(`\n📊 Total size: ${root.getSize()} KB`);
@@ -155,7 +155,7 @@ class UIComponent {
   }
 
   render() {
-    throw new Error("render() method must be implemented");
+    throw new Error('render() method must be implemented');
   }
 
   setVisible(visible) {
@@ -177,7 +177,7 @@ class Button extends UIComponent {
   render(indent = 0) {
     if (!this.visible) return;
 
-    const spaces = " ".repeat(indent);
+    const spaces = ' '.repeat(indent);
     console.log(`${spaces}🔘 Button: "${this.text}"`);
   }
 
@@ -190,13 +190,13 @@ class TextInput extends UIComponent {
   constructor(name, placeholder) {
     super(name);
     this.placeholder = placeholder;
-    this.value = "";
+    this.value = '';
   }
 
   render(indent = 0) {
     if (!this.visible) return;
 
-    const spaces = " ".repeat(indent);
+    const spaces = ' '.repeat(indent);
     const displayValue = this.value || `[${this.placeholder}]`;
     console.log(`${spaces}📝 Input: ${displayValue}`);
   }
@@ -216,7 +216,7 @@ class Label extends UIComponent {
   render(indent = 0) {
     if (!this.visible) return;
 
-    const spaces = " ".repeat(indent);
+    const spaces = ' '.repeat(indent);
     console.log(`${spaces}🏷️  Label: ${this.text}`);
   }
 }
@@ -245,7 +245,7 @@ class Panel extends UIComponent {
   render(indent = 0) {
     if (!this.visible) return;
 
-    const spaces = " ".repeat(indent);
+    const spaces = ' '.repeat(indent);
     console.log(`${spaces}📦 Panel: "${this.title}"`);
 
     // Render all child components
@@ -286,9 +286,9 @@ class Form extends UIComponent {
   render(indent = 0) {
     if (!this.visible) return;
 
-    const spaces = " ".repeat(indent);
+    const spaces = ' '.repeat(indent);
     console.log(`${spaces}📋 Form: "${this.title}"`);
-    console.log(`${spaces}${"─".repeat(20)}`);
+    console.log(`${spaces}${'─'.repeat(20)}`);
 
     // Render all form components
     for (const component of this.components) {
@@ -297,7 +297,7 @@ class Form extends UIComponent {
       }
     }
 
-    console.log(`${spaces}${"─".repeat(20)}`);
+    console.log(`${spaces}${'─'.repeat(20)}`);
   }
 
   submit() {
@@ -311,32 +311,32 @@ class Form extends UIComponent {
       }
     }
 
-    console.log("📊 Form data:", formData);
+    console.log('📊 Form data:', formData);
     return formData;
   }
 }
 
 // Usage
-console.log("=== UI Component System Demo ===\n");
+console.log('=== UI Component System Demo ===\n');
 
-console.log("Building UI components:");
-console.log("-".repeat(22));
+console.log('Building UI components:');
+console.log('-'.repeat(22));
 
 // Create basic components
-const nameInput = new TextInput("name", "Enter your name");
-const emailInput = new TextInput("email", "Enter your email");
-const submitBtn = new Button("submit", "Submit Form");
-const cancelBtn = new Button("cancel", "Cancel");
+const nameInput = new TextInput('name', 'Enter your name');
+const emailInput = new TextInput('email', 'Enter your email');
+const submitBtn = new Button('submit', 'Submit Form');
+const cancelBtn = new Button('cancel', 'Cancel');
 
-const titleLabel = new Label("title", "Contact Information");
-const nameLabel = new Label("nameLabel", "Name:");
-const emailLabel = new Label("emailLabel", "Email:");
+const titleLabel = new Label('title', 'Contact Information');
+const nameLabel = new Label('nameLabel', 'Name:');
+const emailLabel = new Label('emailLabel', 'Email:');
 
 // Create containers
-const headerPanel = new Panel("header", "Form Header");
-const inputPanel = new Panel("inputs", "User Input");
-const buttonPanel = new Panel("buttons", "Actions");
-const mainForm = new Form("contactForm", "Contact Form");
+const headerPanel = new Panel('header', 'Form Header');
+const inputPanel = new Panel('inputs', 'User Input');
+const buttonPanel = new Panel('buttons', 'Actions');
+const mainForm = new Form('contactForm', 'Contact Form');
 
 // Build the component tree
 headerPanel.add(titleLabel);
@@ -353,21 +353,21 @@ mainForm.add(headerPanel);
 mainForm.add(inputPanel);
 mainForm.add(buttonPanel);
 
-console.log("\nRendering UI:");
-console.log("-".repeat(13));
+console.log('\nRendering UI:');
+console.log('-'.repeat(13));
 mainForm.render();
 
-console.log("\nUser interactions:");
-console.log("-".repeat(17));
-nameInput.setValue("John Doe");
-emailInput.setValue("john@example.com");
+console.log('\nUser interactions:');
+console.log('-'.repeat(17));
+nameInput.setValue('John Doe');
+emailInput.setValue('john@example.com');
 
-console.log("\nSubmitting form:");
-console.log("-".repeat(15));
+console.log('\nSubmitting form:');
+console.log('-'.repeat(15));
 mainForm.submit();
 
-console.log("\nHiding email field:");
-console.log("-".repeat(18));
+console.log('\nHiding email field:');
+console.log('-'.repeat(18));
 emailInput.setVisible(false);
 inputPanel.render();
 ```
@@ -385,15 +385,15 @@ class OrganizationEntity {
   }
 
   getSalaryBudget() {
-    throw new Error("getSalaryBudget() method must be implemented");
+    throw new Error('getSalaryBudget() method must be implemented');
   }
 
   getEmployeeCount() {
-    throw new Error("getEmployeeCount() method must be implemented");
+    throw new Error('getEmployeeCount() method must be implemented');
   }
 
   displayStructure(indent = 0) {
-    throw new Error("displayStructure() method must be implemented");
+    throw new Error('displayStructure() method must be implemented');
   }
 }
 
@@ -413,7 +413,7 @@ class Employee extends OrganizationEntity {
   }
 
   displayStructure(indent = 0) {
-    const spaces = " ".repeat(indent);
+    const spaces = ' '.repeat(indent);
     console.log(`${spaces}👤 ${this.name} - ${this.role} ($${this.salary})`);
   }
 }
@@ -421,7 +421,7 @@ class Employee extends OrganizationEntity {
 // Composite - Department with employees and sub-departments
 class Department extends OrganizationEntity {
   constructor(name) {
-    super(name, "Department");
+    super(name, 'Department');
     this.entities = [];
   }
 
@@ -455,7 +455,7 @@ class Department extends OrganizationEntity {
   }
 
   displayStructure(indent = 0) {
-    const spaces = " ".repeat(indent);
+    const spaces = ' '.repeat(indent);
     const budget = this.getSalaryBudget();
     const employees = this.getEmployeeCount();
 
@@ -470,24 +470,24 @@ class Department extends OrganizationEntity {
 }
 
 // Usage
-console.log("=== Organization Structure Demo ===\n");
+console.log('=== Organization Structure Demo ===\n');
 
-console.log("Building organization structure:");
-console.log("-".repeat(30));
+console.log('Building organization structure:');
+console.log('-'.repeat(30));
 
 // Create employees
-const ceo = new Employee("Alice Johnson", "CEO", 150000);
-const cto = new Employee("Bob Smith", "CTO", 120000);
-const dev1 = new Employee("Carol Davis", "Senior Developer", 80000);
-const dev2 = new Employee("David Wilson", "Developer", 70000);
-const qa = new Employee("Eve Brown", "QA Engineer", 65000);
-const hr = new Employee("Frank Miller", "HR Manager", 75000);
-const designer = new Employee("Grace Lee", "UI Designer", 70000);
+const ceo = new Employee('Alice Johnson', 'CEO', 150000);
+const cto = new Employee('Bob Smith', 'CTO', 120000);
+const dev1 = new Employee('Carol Davis', 'Senior Developer', 80000);
+const dev2 = new Employee('David Wilson', 'Developer', 70000);
+const qa = new Employee('Eve Brown', 'QA Engineer', 65000);
+const hr = new Employee('Frank Miller', 'HR Manager', 75000);
+const designer = new Employee('Grace Lee', 'UI Designer', 70000);
 
 // Create departments
-const engineering = new Department("Engineering");
-const humanResources = new Department("Human Resources");
-const company = new Department("TechCorp");
+const engineering = new Department('Engineering');
+const humanResources = new Department('Human Resources');
+const company = new Department('TechCorp');
 
 // Build organization structure
 engineering.add(cto);
@@ -502,8 +502,8 @@ company.add(ceo);
 company.add(engineering);
 company.add(humanResources);
 
-console.log("\nOrganization Chart:");
-console.log("-".repeat(18));
+console.log('\nOrganization Chart:');
+console.log('-'.repeat(18));
 company.displayStructure();
 
 console.log(`\n📊 Company Statistics:`);
@@ -538,15 +538,21 @@ console.log(`   Budget: $${engineering.getSalaryBudget()}`);
 ## 🔄 Implementation Variants
 
 ### 1. **Transparent Composite** (shown in examples)
+
 - Child management methods in the component interface
 - All components can have children (even if they don't use them)
 
 ### 2. **Safe Composite**
+
 ```javascript
 // Child management only in composite classes
 class SafeComposite extends Component {
-  add(component) { /* implementation */ }
-  remove(component) { /* implementation */ }
+  add(component) {
+    /* implementation */
+  }
+  remove(component) {
+    /* implementation */
+  }
 }
 ```
 

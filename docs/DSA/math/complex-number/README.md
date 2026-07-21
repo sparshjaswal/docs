@@ -111,7 +111,7 @@ To multiply complex numbers each part of the first complex number gets multiplie
 by each part of the second complex number:
 
 Just use "FOIL", which stands for "**F**irsts, **O**uters, **I**nners, **L**asts" (
-see [Binomial Multiplication](ttps://www.mathsisfun.com/algebra/polynomials-multiplying.html) for
+see [Binomial Multiplication](https://www.mathsisfun.com/algebra/polynomials-multiplying.html) for
 more details):
 
 ![Complex Multiplication](https://www.mathsisfun.com/algebra/images/foil-complex.svg)

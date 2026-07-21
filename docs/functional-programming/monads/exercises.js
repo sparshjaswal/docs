@@ -262,7 +262,7 @@ class State {
     }
     
     static put(newState) {
-        return new State(state => [undefined, newState]);
+        return new State(_state => [undefined, newState]);
     }
     
     static modify(fn) {

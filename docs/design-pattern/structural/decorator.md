@@ -11,6 +11,7 @@ Attach additional responsibilities to an object dynamically. Decorators provide 
 You want to add new functionality to objects without modifying their original class or creating numerous subclasses. For example, adding different features to a text editor (bold, italic, underline) or adding toppings to a pizza.
 
 Creating subclasses for every combination would lead to class explosion:
+
 - `BoldText`, `ItalicText`, `BoldItalicText`, `UnderlineBoldItalicText`, etc.
 
 ## 💡 Solution
@@ -45,22 +46,22 @@ ConcreteDecoratorB extends Decorator
 // Component interface
 class Coffee {
   getDescription() {
-    throw new Error("getDescription() method must be implemented");
+    throw new Error('getDescription() method must be implemented');
   }
 
   getCost() {
-    throw new Error("getCost() method must be implemented");
+    throw new Error('getCost() method must be implemented');
   }
 }
 
 // Concrete Component - Basic coffee
 class SimpleCoffee extends Coffee {
   getDescription() {
-    return "Simple Coffee";
+    return 'Simple Coffee';
   }
 
   getCost() {
-    return 2.00;
+    return 2.0;
   }
 }
 
@@ -87,11 +88,11 @@ class MilkDecorator extends CoffeeDecorator {
   }
 
   getDescription() {
-    return this.coffee.getDescription() + ", Milk";
+    return this.coffee.getDescription() + ', Milk';
   }
 
   getCost() {
-    return this.coffee.getCost() + 0.50;
+    return this.coffee.getCost() + 0.5;
   }
 }
 
@@ -101,7 +102,7 @@ class SugarDecorator extends CoffeeDecorator {
   }
 
   getDescription() {
-    return this.coffee.getDescription() + ", Sugar";
+    return this.coffee.getDescription() + ', Sugar';
   }
 
   getCost() {
@@ -115,7 +116,7 @@ class ChocolateDecorator extends CoffeeDecorator {
   }
 
   getDescription() {
-    return this.coffee.getDescription() + ", Chocolate";
+    return this.coffee.getDescription() + ', Chocolate';
   }
 
   getCost() {
@@ -129,16 +130,16 @@ class WhipCreamDecorator extends CoffeeDecorator {
   }
 
   getDescription() {
-    return this.coffee.getDescription() + ", Whip Cream";
+    return this.coffee.getDescription() + ', Whip Cream';
   }
 
   getCost() {
-    return this.coffee.getCost() + 0.60;
+    return this.coffee.getCost() + 0.6;
   }
 }
 
 // Usage
-console.log("=== Coffee Shop Decorator Demo ===\n");
+console.log('=== Coffee Shop Decorator Demo ===\n');
 
 // Start with simple coffee
 let coffee = new SimpleCoffee();
@@ -160,11 +161,11 @@ console.log(`☕ ${coffee.getDescription()} - $${coffee.getCost().toFixed(2)}`);
 coffee = new WhipCreamDecorator(coffee);
 console.log(`☕ ${coffee.getDescription()} - $${coffee.getCost().toFixed(2)}`);
 
-console.log("\n" + "=".repeat(40) + "\n");
+console.log('\n' + '='.repeat(40) + '\n');
 
 // Create different coffee combination
-console.log("Creating another coffee:");
-console.log("-".repeat(22));
+console.log('Creating another coffee:');
+console.log('-'.repeat(22));
 
 let mocha = new SimpleCoffee();
 mocha = new ChocolateDecorator(mocha);
@@ -186,7 +187,7 @@ class Text {
   }
 
   render() {
-    throw new Error("render() method must be implemented");
+    throw new Error('render() method must be implemented');
   }
 }
 
@@ -251,48 +252,48 @@ class SizeDecorator extends TextDecorator {
 }
 
 // Usage
-console.log("=== Text Formatter Demo ===\n");
+console.log('=== Text Formatter Demo ===\n');
 
 // Start with plain text
-let text = new PlainText("Hello World!");
-console.log("Plain text:", text.render());
+let text = new PlainText('Hello World!');
+console.log('Plain text:', text.render());
 
 // Make it bold
 text = new BoldDecorator(text);
-console.log("Bold text:", text.render());
+console.log('Bold text:', text.render());
 
 // Add italic
 text = new ItalicDecorator(text);
-console.log("Bold + Italic:", text.render());
+console.log('Bold + Italic:', text.render());
 
 // Add underline
 text = new UnderlineDecorator(text);
-console.log("Bold + Italic + Underline:", text.render());
+console.log('Bold + Italic + Underline:', text.render());
 
 // Add color
-text = new ColorDecorator(text, "red");
-console.log("With red color:", text.render());
+text = new ColorDecorator(text, 'red');
+console.log('With red color:', text.render());
 
 // Add size
 text = new SizeDecorator(text, 20);
-console.log("Final formatted text:", text.render());
+console.log('Final formatted text:', text.render());
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
 // Create different formatting
-console.log("Different formatting examples:");
-console.log("-".repeat(30));
+console.log('Different formatting examples:');
+console.log('-'.repeat(30));
 
-let title = new PlainText("Welcome to Our Website");
+let title = new PlainText('Welcome to Our Website');
 title = new BoldDecorator(title);
 title = new SizeDecorator(title, 24);
-title = new ColorDecorator(title, "blue");
-console.log("Title:", title.render());
+title = new ColorDecorator(title, 'blue');
+console.log('Title:', title.render());
 
-let emphasis = new PlainText("Important Note");
+let emphasis = new PlainText('Important Note');
 emphasis = new ItalicDecorator(emphasis);
-emphasis = new ColorDecorator(emphasis, "orange");
-console.log("Emphasis:", emphasis.render());
+emphasis = new ColorDecorator(emphasis, 'orange');
+console.log('Emphasis:', emphasis.render());
 ```
 
 ## 🔧 Another Simple Example
@@ -303,11 +304,11 @@ console.log("Emphasis:", emphasis.render());
 // Component interface
 class DataSource {
   writeData(data) {
-    throw new Error("writeData() method must be implemented");
+    throw new Error('writeData() method must be implemented');
   }
 
   readData() {
-    throw new Error("readData() method must be implemented");
+    throw new Error('readData() method must be implemented');
   }
 }
 
@@ -327,7 +328,7 @@ class FileDataSource extends DataSource {
 
   readData() {
     console.log(`📖 Reading data from file: ${this.filename}`);
-    return this.data || "No data found";
+    return this.data || 'No data found';
   }
 }
 
@@ -350,7 +351,7 @@ class DataSourceDecorator extends DataSource {
 // Concrete Decorators
 class EncryptionDecorator extends DataSourceDecorator {
   writeData(data) {
-    console.log("🔒 Encrypting data...");
+    console.log('🔒 Encrypting data...');
     const encryptedData = this.encrypt(data);
     console.log(`🔐 Encrypted: "${encryptedData}"`);
     super.writeData(encryptedData);
@@ -358,7 +359,7 @@ class EncryptionDecorator extends DataSourceDecorator {
 
   readData() {
     const encryptedData = super.readData();
-    console.log("🔓 Decrypting data...");
+    console.log('🔓 Decrypting data...');
     const decryptedData = this.decrypt(encryptedData);
     console.log(`🔓 Decrypted: "${decryptedData}"`);
     return decryptedData;
@@ -381,7 +382,7 @@ class EncryptionDecorator extends DataSourceDecorator {
 
 class CompressionDecorator extends DataSourceDecorator {
   writeData(data) {
-    console.log("🗜️ Compressing data...");
+    console.log('🗜️ Compressing data...');
     const compressedData = this.compress(data);
     console.log(`📦 Compressed: "${compressedData}"`);
     super.writeData(compressedData);
@@ -389,7 +390,7 @@ class CompressionDecorator extends DataSourceDecorator {
 
   readData() {
     const compressedData = super.readData();
-    console.log("📤 Decompressing data...");
+    console.log('📤 Decompressing data...');
     const decompressedData = this.decompress(compressedData);
     console.log(`📂 Decompressed: "${decompressedData}"`);
     return decompressedData;
@@ -402,7 +403,7 @@ class CompressionDecorator extends DataSourceDecorator {
 
   decompress(data) {
     // Simple decompression simulation
-    if (data.startsWith("COMPRESSED[") && data.endsWith("]")) {
+    if (data.startsWith('COMPRESSED[') && data.endsWith(']')) {
       return data.slice(11, -1);
     }
     return data;
@@ -426,42 +427,42 @@ class LoggingDecorator extends DataSourceDecorator {
 }
 
 // Usage
-console.log("=== Data Source Decorator Demo ===\n");
+console.log('=== Data Source Decorator Demo ===\n');
 
-const originalData = "This is sensitive information that needs to be stored securely.";
+const originalData = 'This is sensitive information that needs to be stored securely.';
 
-console.log("1. Basic file operations:");
-console.log("-".repeat(25));
+console.log('1. Basic file operations:');
+console.log('-'.repeat(25));
 
 // Basic file data source
-let dataSource = new FileDataSource("document.txt");
+let dataSource = new FileDataSource('document.txt');
 dataSource.writeData(originalData);
 console.log(`Read result: "${dataSource.readData()}"`);
 
-console.log("\n2. With encryption:");
-console.log("-".repeat(18));
+console.log('\n2. With encryption:');
+console.log('-'.repeat(18));
 
 // Add encryption
-dataSource = new FileDataSource("encrypted.txt");
+dataSource = new FileDataSource('encrypted.txt');
 dataSource = new EncryptionDecorator(dataSource);
 dataSource.writeData(originalData);
 console.log(`Read result: "${dataSource.readData()}"`);
 
-console.log("\n3. With compression and encryption:");
-console.log("-".repeat(33));
+console.log('\n3. With compression and encryption:');
+console.log('-'.repeat(33));
 
 // Add both compression and encryption
-dataSource = new FileDataSource("compressed_encrypted.txt");
+dataSource = new FileDataSource('compressed_encrypted.txt');
 dataSource = new CompressionDecorator(dataSource);
 dataSource = new EncryptionDecorator(dataSource);
 dataSource.writeData(originalData);
 console.log(`Read result: "${dataSource.readData()}"`);
 
-console.log("\n4. With all decorators:");
-console.log("-".repeat(22));
+console.log('\n4. With all decorators:');
+console.log('-'.repeat(22));
 
 // Add all decorators
-dataSource = new FileDataSource("full_featured.txt");
+dataSource = new FileDataSource('full_featured.txt');
 dataSource = new CompressionDecorator(dataSource);
 dataSource = new EncryptionDecorator(dataSource);
 dataSource = new LoggingDecorator(dataSource);
@@ -494,9 +495,10 @@ console.log(`Read result: "${dataSource.readData()}"`);
 ## 🔄 Implementation Variants
 
 ### 1. **Function-based Decorators (JavaScript specific)**
+
 ```javascript
 function withLogging(fn) {
-  return function(...args) {
+  return function (...args) {
     console.log(`Calling ${fn.name} with:`, args);
     return fn.apply(this, args);
   };
@@ -507,11 +509,12 @@ const loggedFunction = withLogging(originalFunction);
 ```
 
 ### 2. **Mixin-based Decorators**
+
 ```javascript
 const Loggable = {
   log(message) {
     console.log(`[${this.constructor.name}] ${message}`);
-  }
+  },
 };
 
 Object.assign(MyClass.prototype, Loggable);

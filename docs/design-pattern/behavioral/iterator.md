@@ -9,6 +9,7 @@ Provide a way to access the elements of an aggregate object sequentially without
 ## 🤔 Problem
 
 You need to traverse a collection of objects without:
+
 - **Exposing Internal Structure**: Client shouldn't know how collection stores elements
 - **Multiple Traversals**: Need to support different ways of traversing the same collection
 - **Complex Navigation**: Collection might have complex internal structure (trees, graphs)
@@ -52,19 +53,19 @@ ConcreteCollection implements Collection
 // Iterator Interface
 class Iterator {
   next() {
-    throw new Error("next() method must be implemented");
+    throw new Error('next() method must be implemented');
   }
 
   hasNext() {
-    throw new Error("hasNext() method must be implemented");
+    throw new Error('hasNext() method must be implemented');
   }
 
   current() {
-    throw new Error("current() method must be implemented");
+    throw new Error('current() method must be implemented');
   }
 
   reset() {
-    throw new Error("reset() method must be implemented");
+    throw new Error('reset() method must be implemented');
   }
 }
 
@@ -109,7 +110,7 @@ class BookIterator extends Iterator {
 
   reset() {
     this.position = 0;
-    console.log("📖 Iterator reset to beginning");
+    console.log('📖 Iterator reset to beginning');
   }
 }
 
@@ -140,14 +141,14 @@ class ReverseBookIterator extends Iterator {
 
   reset() {
     this.position = this.books.length - 1;
-    console.log("📖 Reverse iterator reset to end");
+    console.log('📖 Reverse iterator reset to end');
   }
 }
 
 // Collection Interface
 class Collection {
   createIterator() {
-    throw new Error("createIterator() method must be implemented");
+    throw new Error('createIterator() method must be implemented');
   }
 }
 
@@ -164,7 +165,7 @@ class BookLibrary extends Collection {
   }
 
   removeBook(title) {
-    const index = this.books.findIndex(book => book.title === title);
+    const index = this.books.findIndex((book) => book.title === title);
     if (index !== -1) {
       const removedBook = this.books.splice(index, 1)[0];
       console.log(`🗑️ Removed book: ${removedBook.title}`);
@@ -175,12 +176,12 @@ class BookLibrary extends Collection {
   }
 
   createIterator() {
-    console.log("🔄 Creating forward iterator");
+    console.log('🔄 Creating forward iterator');
     return new BookIterator(this.books);
   }
 
   createReverseIterator() {
-    console.log("🔄 Creating reverse iterator");
+    console.log('🔄 Creating reverse iterator');
     return new ReverseBookIterator(this.books);
   }
 
@@ -194,30 +195,30 @@ class BookLibrary extends Collection {
 }
 
 // Usage
-console.log("=== Book Library Iterator Demo ===\n");
+console.log('=== Book Library Iterator Demo ===\n');
 
-console.log("Setting up book library:");
-console.log("-".repeat(25));
+console.log('Setting up book library:');
+console.log('-'.repeat(25));
 
 const library = new BookLibrary();
 
 // Add books
 const books = [
-  new Book("The Great Gatsby", "F. Scott Fitzgerald", 1925, "Classic Fiction"),
-  new Book("To Kill a Mockingbird", "Harper Lee", 1960, "Classic Fiction"),
-  new Book("1984", "George Orwell", 1949, "Dystopian Fiction"),
-  new Book("Pride and Prejudice", "Jane Austen", 1813, "Romance"),
-  new Book("The Catcher in the Rye", "J.D. Salinger", 1951, "Coming-of-age")
+  new Book('The Great Gatsby', 'F. Scott Fitzgerald', 1925, 'Classic Fiction'),
+  new Book('To Kill a Mockingbird', 'Harper Lee', 1960, 'Classic Fiction'),
+  new Book('1984', 'George Orwell', 1949, 'Dystopian Fiction'),
+  new Book('Pride and Prejudice', 'Jane Austen', 1813, 'Romance'),
+  new Book('The Catcher in the Rye', 'J.D. Salinger', 1951, 'Coming-of-age'),
 ];
 
-books.forEach(book => library.addBook(book));
+books.forEach((book) => library.addBook(book));
 
 library.displayInfo();
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
-console.log("Iterating through books (forward):");
-console.log("-".repeat(35));
+console.log('Iterating through books (forward):');
+console.log('-'.repeat(35));
 
 const iterator = library.createIterator();
 let bookNumber = 1;
@@ -228,10 +229,10 @@ while (iterator.hasNext()) {
   bookNumber++;
 }
 
-console.log("\n" + "-".repeat(40) + "\n");
+console.log('\n' + '-'.repeat(40) + '\n');
 
-console.log("Iterating through books (reverse):");
-console.log("-".repeat(35));
+console.log('Iterating through books (reverse):');
+console.log('-'.repeat(35));
 
 const reverseIterator = library.createReverseIterator();
 bookNumber = 1;
@@ -242,13 +243,13 @@ while (reverseIterator.hasNext()) {
   bookNumber++;
 }
 
-console.log("\n" + "-".repeat(40) + "\n");
+console.log('\n' + '-'.repeat(40) + '\n');
 
-console.log("Demonstrating iterator reset:");
-console.log("-".repeat(30));
+console.log('Demonstrating iterator reset:');
+console.log('-'.repeat(30));
 
 iterator.reset();
-console.log("First two books after reset:");
+console.log('First two books after reset:');
 
 for (let i = 0; i < 2 && iterator.hasNext(); i++) {
   const book = iterator.next();
@@ -273,7 +274,9 @@ class Song {
 
   play() {
     this.playCount++;
-    console.log(`🎵 Playing: "${this.title}" by ${this.artist} (${this.formatDuration()}) [Play #${this.playCount}]`);
+    console.log(
+      `🎵 Playing: "${this.title}" by ${this.artist} (${this.formatDuration()}) [Play #${this.playCount}]`,
+    );
   }
 
   formatDuration() {
@@ -295,11 +298,11 @@ class PlaylistIterator {
   }
 
   next() {
-    throw new Error("next() method must be implemented");
+    throw new Error('next() method must be implemented');
   }
 
   hasNext() {
-    throw new Error("hasNext() method must be implemented");
+    throw new Error('hasNext() method must be implemented');
   }
 
   current() {
@@ -307,7 +310,7 @@ class PlaylistIterator {
   }
 
   reset() {
-    throw new Error("reset() method must be implemented");
+    throw new Error('reset() method must be implemented');
   }
 
   getPosition() {
@@ -332,7 +335,7 @@ class SequentialIterator extends PlaylistIterator {
 
   reset() {
     this.position = 0;
-    console.log("🔄 Sequential iterator reset");
+    console.log('🔄 Sequential iterator reset');
   }
 }
 
@@ -345,7 +348,7 @@ class ShuffleIterator extends PlaylistIterator {
   }
 
   createShuffledIndices() {
-    const indices = Array.from({length: this.songs.length}, (_, i) => i);
+    const indices = Array.from({ length: this.songs.length }, (_, i) => i);
 
     // Fisher-Yates shuffle algorithm
     for (let i = indices.length - 1; i > 0; i--) {
@@ -353,7 +356,7 @@ class ShuffleIterator extends PlaylistIterator {
       [indices[i], indices[j]] = [indices[j], indices[i]];
     }
 
-    console.log("🔀 Playlist shuffled");
+    console.log('🔀 Playlist shuffled');
     return indices;
   }
 
@@ -374,7 +377,7 @@ class ShuffleIterator extends PlaylistIterator {
   reset() {
     this.position = 0;
     this.shuffledIndices = this.createShuffledIndices();
-    console.log("🔄 Shuffle iterator reset with new shuffle");
+    console.log('🔄 Shuffle iterator reset with new shuffle');
   }
 }
 
@@ -409,7 +412,7 @@ class RepeatIterator extends PlaylistIterator {
   reset() {
     this.position = 0;
     this.currentRepeat = 0;
-    console.log("🔄 Repeat iterator reset");
+    console.log('🔄 Repeat iterator reset');
   }
 
   getCurrentRepeat() {
@@ -422,9 +425,7 @@ class GenreFilterIterator extends PlaylistIterator {
   constructor(songs, genre) {
     super(songs);
     this.genre = genre;
-    this.filteredSongs = songs.filter(song =>
-      song.genre.toLowerCase() === genre.toLowerCase()
-    );
+    this.filteredSongs = songs.filter((song) => song.genre.toLowerCase() === genre.toLowerCase());
     this.position = 0;
 
     console.log(`🎯 Genre filter applied: ${genre} (${this.filteredSongs.length} songs)`);
@@ -463,7 +464,7 @@ class Playlist {
   }
 
   removeSong(title) {
-    const index = this.songs.findIndex(song => song.title === title);
+    const index = this.songs.findIndex((song) => song.title === title);
     if (index !== -1) {
       const removedSong = this.songs.splice(index, 1)[0];
       console.log(`➖ Removed from "${this.name}": ${removedSong.title}`);
@@ -491,7 +492,7 @@ class Playlist {
 
   getStats() {
     const totalDuration = this.songs.reduce((sum, song) => sum + song.duration, 0);
-    const genres = [...new Set(this.songs.map(song => song.genre))];
+    const genres = [...new Set(this.songs.map((song) => song.genre))];
 
     console.log(`📊 Playlist "${this.name}" Stats:`);
     console.log(`   Songs: ${this.songs.length}`);
@@ -502,33 +503,33 @@ class Playlist {
 }
 
 // Usage
-console.log("\n=== Music Playlist Iterator Demo ===\n");
+console.log('\n=== Music Playlist Iterator Demo ===\n');
 
-console.log("Creating playlist:");
-console.log("-".repeat(18));
+console.log('Creating playlist:');
+console.log('-'.repeat(18));
 
-const myPlaylist = new Playlist("My Favorites");
+const myPlaylist = new Playlist('My Favorites');
 
 // Add songs
 const songs = [
-  new Song("Bohemian Rhapsody", "Queen", 355, "Rock"),
-  new Song("Stairway to Heaven", "Led Zeppelin", 482, "Rock"),
-  new Song("Hotel California", "Eagles", 391, "Rock"),
-  new Song("Billie Jean", "Michael Jackson", 294, "Pop"),
-  new Song("Like a Rolling Stone", "Bob Dylan", 369, "Folk Rock"),
-  new Song("Imagine", "John Lennon", 183, "Pop"),
-  new Song("Sweet Child O' Mine", "Guns N' Roses", 356, "Rock"),
-  new Song("Thriller", "Michael Jackson", 357, "Pop")
+  new Song('Bohemian Rhapsody', 'Queen', 355, 'Rock'),
+  new Song('Stairway to Heaven', 'Led Zeppelin', 482, 'Rock'),
+  new Song('Hotel California', 'Eagles', 391, 'Rock'),
+  new Song('Billie Jean', 'Michael Jackson', 294, 'Pop'),
+  new Song('Like a Rolling Stone', 'Bob Dylan', 369, 'Folk Rock'),
+  new Song('Imagine', 'John Lennon', 183, 'Pop'),
+  new Song("Sweet Child O' Mine", "Guns N' Roses", 356, 'Rock'),
+  new Song('Thriller', 'Michael Jackson', 357, 'Pop'),
 ];
 
-songs.forEach(song => myPlaylist.addSong(song));
+songs.forEach((song) => myPlaylist.addSong(song));
 
 myPlaylist.getStats();
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
-console.log("1. Sequential playback:");
-console.log("-".repeat(23));
+console.log('1. Sequential playback:');
+console.log('-'.repeat(23));
 
 const sequential = myPlaylist.createSequentialIterator();
 let count = 0;
@@ -538,10 +539,10 @@ while (sequential.hasNext() && count < 3) {
   count++;
 }
 
-console.log("\n" + "-".repeat(40) + "\n");
+console.log('\n' + '-'.repeat(40) + '\n');
 
-console.log("2. Shuffle mode:");
-console.log("-".repeat(15));
+console.log('2. Shuffle mode:');
+console.log('-'.repeat(15));
 
 const shuffle = myPlaylist.createShuffleIterator();
 count = 0;
@@ -551,21 +552,21 @@ while (shuffle.hasNext() && count < 3) {
   count++;
 }
 
-console.log("\n" + "-".repeat(40) + "\n");
+console.log('\n' + '-'.repeat(40) + '\n');
 
-console.log("3. Genre filter (Rock only):");
-console.log("-".repeat(28));
+console.log('3. Genre filter (Rock only):');
+console.log('-'.repeat(28));
 
-const rockIterator = myPlaylist.createGenreIterator("Rock");
+const rockIterator = myPlaylist.createGenreIterator('Rock');
 while (rockIterator.hasNext()) {
   const song = rockIterator.next();
   song.play();
 }
 
-console.log("\n" + "-".repeat(40) + "\n");
+console.log('\n' + '-'.repeat(40) + '\n');
 
-console.log("4. Repeat mode (2 repeats):");
-console.log("-".repeat(27));
+console.log('4. Repeat mode (2 repeats):');
+console.log('-'.repeat(27));
 
 const repeat = myPlaylist.createRepeatIterator(2);
 count = 0;
@@ -575,7 +576,7 @@ while (repeat.hasNext() && count < 5) {
   if (count < 3 || repeat.getCurrentRepeat() > 0) {
     song.play();
   } else {
-    console.log("   ... (skipping to show repeat behavior)");
+    console.log('   ... (skipping to show repeat behavior)');
   }
   count++;
 }
@@ -651,23 +652,23 @@ class Tree {
 }
 
 // Usage
-console.log("\n=== Tree Iterator Demo ===\n");
+console.log('\n=== Tree Iterator Demo ===\n');
 
-const tree = new Tree("Root");
-const child1 = new TreeNode("Child 1");
-const child2 = new TreeNode("Child 2");
-const child3 = new TreeNode("Child 3");
+const tree = new Tree('Root');
+const child1 = new TreeNode('Child 1');
+const child2 = new TreeNode('Child 2');
+const child3 = new TreeNode('Child 3');
 
 tree.root.addChild(child1);
 tree.root.addChild(child2);
 tree.root.addChild(child3);
 
-child1.addChild(new TreeNode("Child 1.1"));
-child1.addChild(new TreeNode("Child 1.2"));
-child2.addChild(new TreeNode("Child 2.1"));
+child1.addChild(new TreeNode('Child 1.1'));
+child1.addChild(new TreeNode('Child 1.2'));
+child2.addChild(new TreeNode('Child 2.1'));
 
-console.log("Tree traversal (Depth-First):");
-console.log("-".repeat(30));
+console.log('Tree traversal (Depth-First):');
+console.log('-'.repeat(30));
 
 const treeIterator = tree.createIterator();
 let nodeNumber = 1;
@@ -705,10 +706,12 @@ while (treeIterator.hasNext()) {
 ## 🔄 Iterator Types
 
 ### 1. **External Iterator** (shown in examples)
+
 - Client controls iteration
 - Calls `next()`, `hasNext()` explicitly
 
 ### 2. **Internal Iterator**
+
 - Collection controls iteration
 - Client provides callback function
 
@@ -727,6 +730,7 @@ class InternalIteratorCollection {
 ```
 
 ### 3. **Bidirectional Iterator**
+
 ```javascript
 class BidirectionalIterator {
   // ... other methods ...

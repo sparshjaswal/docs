@@ -56,11 +56,9 @@ order doesn't matter.
 
 ![Combinations overview](./images/combinations-overview.jpg)
 
-| | |
-| --- | --- |
-|![Combinations with repetition](./images/combinations-with-repetitions.jpg) | ![Combinations without repetition](./images/combinations-without-repetitions.jpg) |
-
-
+|                                                                             |                                                                                   |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| ![Combinations with repetition](./images/combinations-with-repetitions.jpg) | ![Combinations without repetition](./images/combinations-without-repetitions.jpg) |
 
 ## References
 

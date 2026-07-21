@@ -11,6 +11,7 @@ Decouple an abstraction from its implementation so that both can vary independen
 You have a class hierarchy that needs to work with multiple implementations. For example, shapes that can be drawn using different graphics APIs, or notifications that can be sent through different channels.
 
 Without Bridge, you might end up with an explosion of classes:
+
 - `WindowsCircle`, `LinuxCircle`, `MacCircle`
 - `WindowsSquare`, `LinuxSquare`, `MacSquare`
 - And so on...
@@ -18,6 +19,7 @@ Without Bridge, you might end up with an explosion of classes:
 ## 💡 Solution
 
 The Bridge pattern suggests dividing the classes into two hierarchies:
+
 1. **Abstraction**: The high-level logic (shapes, notifications)
 2. **Implementation**: The platform-specific code (graphics APIs, communication channels)
 
@@ -49,11 +51,11 @@ ConcreteImplementationB implements Implementation
 // Implementation side - Drawing APIs
 class DrawingAPI {
   drawCircle(x, y, radius) {
-    throw new Error("drawCircle() method must be implemented");
+    throw new Error('drawCircle() method must be implemented');
   }
 
   drawRectangle(x, y, width, height) {
-    throw new Error("drawRectangle() method must be implemented");
+    throw new Error('drawRectangle() method must be implemented');
   }
 }
 
@@ -85,7 +87,7 @@ class Shape {
   }
 
   draw() {
-    throw new Error("draw() method must be implemented");
+    throw new Error('draw() method must be implemented');
   }
 }
 
@@ -129,14 +131,14 @@ class Rectangle extends Shape {
 }
 
 // Usage
-console.log("=== Bridge Pattern Demo ===\n");
+console.log('=== Bridge Pattern Demo ===\n');
 
 // Create different drawing APIs
 const canvasAPI = new CanvasAPI();
 const svgAPI = new SVGGraphics();
 
-console.log("Drawing with Canvas API:");
-console.log("-".repeat(25));
+console.log('Drawing with Canvas API:');
+console.log('-'.repeat(25));
 
 const canvasCircle = new Circle(10, 20, 5, canvasAPI);
 const canvasRect = new Rectangle(0, 0, 100, 50, canvasAPI);
@@ -144,8 +146,8 @@ const canvasRect = new Rectangle(0, 0, 100, 50, canvasAPI);
 canvasCircle.draw();
 canvasRect.draw();
 
-console.log("\nDrawing with SVG API:");
-console.log("-".repeat(20));
+console.log('\nDrawing with SVG API:');
+console.log('-'.repeat(20));
 
 const svgCircle = new Circle(15, 25, 8, svgAPI);
 const svgRect = new Rectangle(10, 10, 80, 40, svgAPI);
@@ -153,8 +155,8 @@ const svgRect = new Rectangle(10, 10, 80, 40, svgAPI);
 svgCircle.draw();
 svgRect.draw();
 
-console.log("\nResizing shapes:");
-console.log("-".repeat(15));
+console.log('\nResizing shapes:');
+console.log('-'.repeat(15));
 
 canvasCircle.resize(2);
 canvasCircle.draw();
@@ -171,7 +173,7 @@ svgRect.draw();
 // Implementation side - Communication channels
 class NotificationSender {
   send(message, recipient) {
-    throw new Error("send() method must be implemented");
+    throw new Error('send() method must be implemented');
   }
 }
 
@@ -222,7 +224,7 @@ class Notification {
   }
 
   send(recipient) {
-    throw new Error("send() method must be implemented");
+    throw new Error('send() method must be implemented');
   }
 }
 
@@ -252,7 +254,7 @@ class UrgentNotification extends Notification {
     this.sender.send(urgentMessage, recipient);
 
     // Send multiple times for urgent notifications
-    console.log("   (Sending again for urgency...)");
+    console.log('   (Sending again for urgency...)');
     this.sender.send(urgentMessage, recipient);
   }
 }
@@ -272,52 +274,48 @@ class ReminderNotification extends Notification {
 }
 
 // Usage
-console.log("=== Notification System Demo ===\n");
+console.log('=== Notification System Demo ===\n');
 
 // Create different senders
-const emailSender = new EmailSender("smtp.example.com");
-const smsSender = new SMSSender("SMS_API_KEY_123");
-const pushSender = new PushNotificationSender("MyApp_v1.0");
+const emailSender = new EmailSender('smtp.example.com');
+const smsSender = new SMSSender('SMS_API_KEY_123');
+const pushSender = new PushNotificationSender('MyApp_v1.0');
 
-console.log("Simple Notifications:");
-console.log("-".repeat(20));
+console.log('Simple Notifications:');
+console.log('-'.repeat(20));
 
 const emailNotification = new SimpleNotification(
-  "Welcome",
-  "Thank you for signing up!",
-  emailSender
+  'Welcome',
+  'Thank you for signing up!',
+  emailSender,
 );
-emailNotification.send("user@example.com");
+emailNotification.send('user@example.com');
 
 console.log();
 
-const smsNotification = new SimpleNotification(
-  "Login Alert",
-  "New login detected",
-  smsSender
-);
-smsNotification.send("+1-555-123-4567");
+const smsNotification = new SimpleNotification('Login Alert', 'New login detected', smsSender);
+smsNotification.send('+1-555-123-4567');
 
-console.log("\nUrgent Notifications:");
-console.log("-".repeat(20));
+console.log('\nUrgent Notifications:');
+console.log('-'.repeat(20));
 
 const urgentEmail = new UrgentNotification(
-  "Security Alert",
-  "Suspicious activity detected on your account",
-  emailSender
+  'Security Alert',
+  'Suspicious activity detected on your account',
+  emailSender,
 );
-urgentEmail.send("admin@example.com");
+urgentEmail.send('admin@example.com');
 
-console.log("\nReminder Notifications:");
-console.log("-".repeat(22));
+console.log('\nReminder Notifications:');
+console.log('-'.repeat(22));
 
 const reminderPush = new ReminderNotification(
-  "Meeting",
-  "Team standup in 15 minutes",
-  "10:45 AM",
-  pushSender
+  'Meeting',
+  'Team standup in 15 minutes',
+  '10:45 AM',
+  pushSender,
 );
-reminderPush.send("DeviceId_456");
+reminderPush.send('DeviceId_456');
 ```
 
 ## 🔧 Another Simple Example
@@ -327,9 +325,15 @@ reminderPush.send("DeviceId_456");
 ```javascript
 // Implementation side - Devices
 class Device {
-  turnOn() { throw new Error("turnOn() method must be implemented"); }
-  turnOff() { throw new Error("turnOff() method must be implemented"); }
-  setVolume(volume) { throw new Error("setVolume() method must be implemented"); }
+  turnOn() {
+    throw new Error('turnOn() method must be implemented');
+  }
+  turnOff() {
+    throw new Error('turnOff() method must be implemented');
+  }
+  setVolume(volume) {
+    throw new Error('setVolume() method must be implemented');
+  }
 }
 
 // Concrete Device Implementations
@@ -342,12 +346,12 @@ class TV extends Device {
 
   turnOn() {
     this.isOn = true;
-    console.log("📺 TV is now ON");
+    console.log('📺 TV is now ON');
   }
 
   turnOff() {
     this.isOn = false;
-    console.log("📺 TV is now OFF");
+    console.log('📺 TV is now OFF');
   }
 
   setVolume(volume) {
@@ -365,12 +369,12 @@ class Radio extends Device {
 
   turnOn() {
     this.isOn = true;
-    console.log("📻 Radio is now ON");
+    console.log('📻 Radio is now ON');
   }
 
   turnOff() {
     this.isOn = false;
-    console.log("📻 Radio is now OFF");
+    console.log('📻 Radio is now OFF');
   }
 
   setVolume(volume) {
@@ -386,17 +390,17 @@ class Remote {
   }
 
   power() {
-    console.log("🔘 Power button pressed");
+    console.log('🔘 Power button pressed');
     // Implementation depends on device state
   }
 
   volumeUp() {
-    console.log("🔘 Volume up pressed");
+    console.log('🔘 Volume up pressed');
     // Implementation will vary
   }
 
   volumeDown() {
-    console.log("🔘 Volume down pressed");
+    console.log('🔘 Volume down pressed');
     // Implementation will vary
   }
 }
@@ -425,9 +429,9 @@ class BasicRemote extends Remote {
 
 class AdvancedRemote extends BasicRemote {
   mute() {
-    console.log("🔘 Mute button pressed");
+    console.log('🔘 Mute button pressed');
     this.device.setVolume(0);
-    console.log("🔇 Device muted");
+    console.log('🔇 Device muted');
   }
 
   setVolume(volume) {
@@ -437,29 +441,29 @@ class AdvancedRemote extends BasicRemote {
 }
 
 // Usage
-console.log("=== Remote Control System Demo ===\n");
+console.log('=== Remote Control System Demo ===\n');
 
 // Create devices
 const tv = new TV();
 const radio = new Radio();
 
-console.log("Basic Remote with TV:");
-console.log("-".repeat(20));
+console.log('Basic Remote with TV:');
+console.log('-'.repeat(20));
 
 const basicTVRemote = new BasicRemote(tv);
-basicTVRemote.power();        // Turn on TV
-basicTVRemote.volumeUp();     // Increase volume
-basicTVRemote.volumeUp();     // Increase volume
-basicTVRemote.power();        // Turn off TV
+basicTVRemote.power(); // Turn on TV
+basicTVRemote.volumeUp(); // Increase volume
+basicTVRemote.volumeUp(); // Increase volume
+basicTVRemote.power(); // Turn off TV
 
-console.log("\nAdvanced Remote with Radio:");
-console.log("-".repeat(25));
+console.log('\nAdvanced Remote with Radio:');
+console.log('-'.repeat(25));
 
 const advancedRadioRemote = new AdvancedRemote(radio);
-advancedRadioRemote.power();       // Turn on radio
+advancedRadioRemote.power(); // Turn on radio
 advancedRadioRemote.setVolume(15); // Set specific volume
-advancedRadioRemote.mute();        // Mute radio
-advancedRadioRemote.power();       // Turn off radio
+advancedRadioRemote.mute(); // Mute radio
+advancedRadioRemote.power(); // Turn off radio
 ```
 
 ## ✅ Pros
@@ -486,10 +490,12 @@ advancedRadioRemote.power();       // Turn off radio
 ## 🔄 Bridge vs Similar Patterns
 
 ### Bridge vs Adapter
+
 - **Bridge**: Designed upfront, separates abstraction from implementation
 - **Adapter**: Added later, makes incompatible interfaces work together
 
 ### Bridge vs Strategy
+
 - **Bridge**: About structure, separates what from how
 - **Strategy**: About behavior, makes algorithms interchangeable
 

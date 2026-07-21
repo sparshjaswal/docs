@@ -12,30 +12,33 @@ keywords:
 sidebar_class_name: hidden
 ---
 
-
 # 🎓 Learning Portal Docs
 
 ### 💻 Core Programming
+
 - **[JavaScript Mastery](./javascript)** - Complete JavaScript guide from fundamentals to advanced concepts
-- **[DSA (Data Structures & Algorithms)](./dsa)** - Comprehensive algorithmic problem-solving with 25+ topics
+- **[DSA (Data Structures & Algorithms)](./DSA)** - Comprehensive algorithmic problem-solving with 25+ topics
 
 ### 🏧 Software Architecture
+
 - **[Design Patterns](./design-pattern)** - 23 Gang of Four patterns with practical JavaScript examples
 - **[SOLID Principles](./solid-design-principles)** - Object-oriented design principles for maintainable code
 
-### 🎨 Advanced Concepts
-- **[Functional Programming](./functional-programming)** - Pure functions, monads, and functional paradigms
-- **[Design System](./design-system)** - Building scalable and consistent user interfaces maintainable code
+### 🏗️ Systems & Architecture
 
-### 🎨 Cloud Experience
-- **[Azure](./Azure/204)** - Azure 204
+- **[Functional Programming](./functional-programming)** - Pure functions, monads, and functional paradigms
+- **[System Design](./system-design)** - Scalability, distributed systems, and interview preparation
+
+### ☁️ Cloud Experience
+
+- **[Azure](./Cloud Providers/Azure/204)** - Azure 204
+
 ---
 
 <div align="center">
 
 ### 🎯 Start Your Learning Journey Today!
 
-*Choose a track above and begin mastering the skills that matter most to your career growth.*
+_Choose a track above and begin mastering the skills that matter most to your career growth._
 
 </div>
-

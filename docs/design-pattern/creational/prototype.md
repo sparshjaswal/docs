@@ -9,6 +9,7 @@ Specify the kinds of objects to create using a prototypical instance, and create
 ## 🤔 Problem
 
 You need to create objects that are similar to existing objects but with some modifications. Creating objects from scratch might be:
+
 - **Expensive**: Complex initialization or resource-intensive setup
 - **Complex**: Requires many parameters or configuration steps
 - **Dynamic**: Object types are determined at runtime
@@ -41,15 +42,15 @@ Client
 // Prototype interface
 class DocumentPrototype {
   clone() {
-    throw new Error("clone() method must be implemented");
+    throw new Error('clone() method must be implemented');
   }
 }
 
 // Concrete prototype - Resume document
 class Resume extends DocumentPrototype {
-  constructor(name = "", experience = [], skills = [], template = "classic") {
+  constructor(name = '', experience = [], skills = [], template = 'classic') {
     super();
-    this.type = "Resume";
+    this.type = 'Resume';
     this.name = name;
     this.experience = [...experience]; // Deep copy array
     this.skills = [...skills]; // Deep copy array
@@ -64,9 +65,9 @@ class Resume extends DocumentPrototype {
     // Create a deep copy
     const cloned = new Resume(
       this.name,
-      this.experience.map(exp => ({...exp})), // Deep copy objects in array
+      this.experience.map((exp) => ({ ...exp })), // Deep copy objects in array
       [...this.skills], // Copy array
-      this.template
+      this.template,
     );
 
     // Reset some fields for the clone
@@ -107,9 +108,9 @@ class Resume extends DocumentPrototype {
 
 // Concrete prototype - Cover Letter document
 class CoverLetter extends DocumentPrototype {
-  constructor(recipientCompany = "", position = "", template = "formal") {
+  constructor(recipientCompany = '', position = '', template = 'formal') {
     super();
-    this.type = "Cover Letter";
+    this.type = 'Cover Letter';
     this.recipientCompany = recipientCompany;
     this.position = position;
     this.template = template;
@@ -121,11 +122,7 @@ class CoverLetter extends DocumentPrototype {
   clone() {
     console.log(`🧬 Cloning cover letter for: ${this.position} at ${this.recipientCompany}`);
 
-    const cloned = new CoverLetter(
-      this.recipientCompany,
-      this.position,
-      this.template
-    );
+    const cloned = new CoverLetter(this.recipientCompany, this.position, this.template);
 
     // Deep copy paragraphs
     cloned.paragraphs = [...this.paragraphs];
@@ -161,64 +158,66 @@ class CoverLetter extends DocumentPrototype {
 }
 
 // Usage
-console.log("=== Document Prototype Demo ===\n");
+console.log('=== Document Prototype Demo ===\n');
 
-console.log("Creating master resume template:");
-console.log("-".repeat(35));
+console.log('Creating master resume template:');
+console.log('-'.repeat(35));
 
 const masterResume = new Resume();
-masterResume.setName("John Doe");
-masterResume.addExperience("Tech Corp", "Senior Developer", 3);
-masterResume.addExperience("StartupXYZ", "Full Stack Developer", 2);
-masterResume.addSkill("JavaScript");
-masterResume.addSkill("React");
-masterResume.addSkill("Node.js");
+masterResume.setName('John Doe');
+masterResume.addExperience('Tech Corp', 'Senior Developer', 3);
+masterResume.addExperience('StartupXYZ', 'Full Stack Developer', 2);
+masterResume.addSkill('JavaScript');
+masterResume.addSkill('React');
+masterResume.addSkill('Node.js');
 
 masterResume.display();
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
-console.log("Cloning resume for different applications:");
-console.log("-".repeat(45));
+console.log('Cloning resume for different applications:');
+console.log('-'.repeat(45));
 
 // Clone for frontend position
 const frontendResume = masterResume.clone();
-frontendResume.setName("John Doe - Frontend Specialist");
-frontendResume.addSkill("Vue.js");
-frontendResume.addSkill("CSS/SASS");
+frontendResume.setName('John Doe - Frontend Specialist');
+frontendResume.addSkill('Vue.js');
+frontendResume.addSkill('CSS/SASS');
 
 console.log();
 frontendResume.display();
 
-console.log("\n" + "-".repeat(30) + "\n");
+console.log('\n' + '-'.repeat(30) + '\n');
 
 // Clone for backend position
 const backendResume = masterResume.clone();
-backendResume.setName("John Doe - Backend Engineer");
-backendResume.addExperience("DataCorp", "Backend Specialist", 1);
-backendResume.addSkill("Python");
-backendResume.addSkill("PostgreSQL");
+backendResume.setName('John Doe - Backend Engineer');
+backendResume.addExperience('DataCorp', 'Backend Specialist', 1);
+backendResume.addSkill('Python');
+backendResume.addSkill('PostgreSQL');
 
 console.log();
 backendResume.display();
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
-console.log("Creating and cloning cover letters:");
-console.log("-".repeat(35));
+console.log('Creating and cloning cover letters:');
+console.log('-'.repeat(35));
 
-const masterCoverLetter = new CoverLetter("TechCompany", "Software Engineer", "modern");
-masterCoverLetter.addParagraph("I am writing to express my strong interest in the Software Engineer position...");
-masterCoverLetter.addParagraph("With over 5 years of experience in software development...");
-masterCoverLetter.addParagraph("I am particularly excited about this opportunity because...");
+const masterCoverLetter = new CoverLetter('TechCompany', 'Software Engineer', 'modern');
+masterCoverLetter.addParagraph(
+  'I am writing to express my strong interest in the Software Engineer position...',
+);
+masterCoverLetter.addParagraph('With over 5 years of experience in software development...');
+masterCoverLetter.addParagraph('I am particularly excited about this opportunity because...');
 
 masterCoverLetter.display();
 
-console.log("\n" + "-".repeat(30) + "\n");
+console.log('\n' + '-'.repeat(30) + '\n');
 
 // Clone for different companies
 const googleCoverLetter = masterCoverLetter.clone();
-googleCoverLetter.setRecipient("Google", "Senior Software Engineer");
+googleCoverLetter.setRecipient('Google', 'Senior Software Engineer');
 
 console.log();
 googleCoverLetter.display();
@@ -233,32 +232,32 @@ googleCoverLetter.display();
 class GameCharacter {
   constructor() {
     if (this.constructor === GameCharacter) {
-      throw new Error("GameCharacter is abstract and cannot be instantiated");
+      throw new Error('GameCharacter is abstract and cannot be instantiated');
     }
   }
 
   clone() {
-    throw new Error("clone() method must be implemented");
+    throw new Error('clone() method must be implemented');
   }
 
   display() {
-    throw new Error("display() method must be implemented");
+    throw new Error('display() method must be implemented');
   }
 }
 
 // Warrior character prototype
 class Warrior extends GameCharacter {
-  constructor(name = "Unnamed Warrior", level = 1) {
+  constructor(name = 'Unnamed Warrior', level = 1) {
     super();
-    this.type = "Warrior";
+    this.type = 'Warrior';
     this.name = name;
     this.level = level;
-    this.health = 100 + (level * 10);
-    this.strength = 15 + (level * 2);
-    this.defense = 12 + (level * 1.5);
-    this.weapons = ["Iron Sword"];
-    this.armor = ["Leather Armor"];
-    this.skills = ["Sword Strike", "Shield Block"];
+    this.health = 100 + level * 10;
+    this.strength = 15 + level * 2;
+    this.defense = 12 + level * 1.5;
+    this.weapons = ['Iron Sword'];
+    this.armor = ['Leather Armor'];
+    this.skills = ['Sword Strike', 'Shield Block'];
     this.experience = level * 100;
     this.id = Math.random().toString(36).substr(2, 9);
   }
@@ -322,19 +321,19 @@ class Warrior extends GameCharacter {
 
 // Mage character prototype
 class Mage extends GameCharacter {
-  constructor(name = "Unnamed Mage", level = 1) {
+  constructor(name = 'Unnamed Mage', level = 1) {
     super();
-    this.type = "Mage";
+    this.type = 'Mage';
     this.name = name;
     this.level = level;
-    this.health = 70 + (level * 7);
-    this.mana = 100 + (level * 15);
-    this.intelligence = 18 + (level * 3);
-    this.defense = 8 + (level * 1);
-    this.spells = ["Magic Missile", "Heal"];
-    this.staff = "Wooden Staff";
-    this.robes = ["Apprentice Robes"];
-    this.spellbooks = ["Basic Magic"];
+    this.health = 70 + level * 7;
+    this.mana = 100 + level * 15;
+    this.intelligence = 18 + level * 3;
+    this.defense = 8 + level * 1;
+    this.spells = ['Magic Missile', 'Heal'];
+    this.staff = 'Wooden Staff';
+    this.robes = ['Apprentice Robes'];
+    this.spellbooks = ['Basic Magic'];
     this.experience = level * 100;
     this.id = Math.random().toString(36).substr(2, 9);
   }
@@ -422,7 +421,7 @@ class CharacterFactory {
     const character = prototype.clone();
 
     // Apply customizations
-    Object.keys(customizations).forEach(prop => {
+    Object.keys(customizations).forEach((prop) => {
       if (character.hasOwnProperty(prop)) {
         character[prop] = customizations[prop];
         console.log(`🎨 Customized ${prop}: ${customizations[prop]}`);
@@ -433,7 +432,7 @@ class CharacterFactory {
   }
 
   listPrototypes() {
-    console.log("📋 Available Prototypes:");
+    console.log('📋 Available Prototypes:');
     this.prototypes.forEach((prototype, key) => {
       console.log(`   ${key}: ${prototype.type} (Level ${prototype.level})`);
     });
@@ -441,77 +440,77 @@ class CharacterFactory {
 }
 
 // Usage
-console.log("\n=== Game Character Prototype Demo ===\n");
+console.log('\n=== Game Character Prototype Demo ===\n');
 
 // Create prototype characters
-console.log("Creating prototype characters:");
-console.log("-".repeat(30));
+console.log('Creating prototype characters:');
+console.log('-'.repeat(30));
 
-const warriorPrototype = new Warrior("Template Warrior", 5);
-warriorPrototype.addWeapon("Steel Sword");
-warriorPrototype.addWeapon("Battle Axe");
-warriorPrototype.addSkill("Berserker Rage");
+const warriorPrototype = new Warrior('Template Warrior', 5);
+warriorPrototype.addWeapon('Steel Sword');
+warriorPrototype.addWeapon('Battle Axe');
+warriorPrototype.addSkill('Berserker Rage');
 warriorPrototype.levelUp();
 
-const magePrototype = new Mage("Template Mage", 4);
-magePrototype.learnSpell("Fireball");
-magePrototype.learnSpell("Lightning Bolt");
-magePrototype.acquireSpellbook("Advanced Elementals");
+const magePrototype = new Mage('Template Mage', 4);
+magePrototype.learnSpell('Fireball');
+magePrototype.learnSpell('Lightning Bolt');
+magePrototype.acquireSpellbook('Advanced Elementals');
 magePrototype.levelUp();
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
 // Setup character factory
-console.log("Setting up character factory:");
-console.log("-".repeat(30));
+console.log('Setting up character factory:');
+console.log('-'.repeat(30));
 
 const factory = new CharacterFactory();
-factory.registerPrototype("elite-warrior", warriorPrototype);
-factory.registerPrototype("elite-mage", magePrototype);
+factory.registerPrototype('elite-warrior', warriorPrototype);
+factory.registerPrototype('elite-mage', magePrototype);
 
 factory.listPrototypes();
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
-console.log("Creating characters from prototypes:");
-console.log("-".repeat(40));
+console.log('Creating characters from prototypes:');
+console.log('-'.repeat(40));
 
 // Create customized characters from prototypes
-const playerWarrior = factory.createCharacter("elite-warrior", {
-  name: "Sir Lancelot",
-  level: 8
+const playerWarrior = factory.createCharacter('elite-warrior', {
+  name: 'Sir Lancelot',
+  level: 8,
 });
 
 console.log();
 playerWarrior.display();
 
-console.log("\n" + "-".repeat(30) + "\n");
+console.log('\n' + '-'.repeat(30) + '\n');
 
-const playerMage = factory.createCharacter("elite-mage", {
-  name: "Gandalf",
+const playerMage = factory.createCharacter('elite-mage', {
+  name: 'Gandalf',
   level: 10,
-  staff: "Staff of Power"
+  staff: 'Staff of Power',
 });
 
 console.log();
 playerMage.display();
 
-console.log("\n" + "-".repeat(30) + "\n");
+console.log('\n' + '-'.repeat(30) + '\n');
 
 // Create multiple NPCs quickly
-console.log("Creating NPC army:");
-console.log("-".repeat(18));
+console.log('Creating NPC army:');
+console.log('-'.repeat(18));
 
 const npcWarriors = [];
 for (let i = 1; i <= 3; i++) {
-  const npc = factory.createCharacter("elite-warrior", {
+  const npc = factory.createCharacter('elite-warrior', {
     name: `Guard ${i}`,
-    level: 3 + i
+    level: 3 + i,
   });
   npcWarriors.push(npc);
 }
 
-npcWarriors.forEach(npc => {
+npcWarriors.forEach((npc) => {
   console.log(`🛡️ ${npc.name} - Level ${npc.level} - Health: ${npc.health}`);
 });
 ```
@@ -528,22 +527,22 @@ class AppConfig {
       host: 'localhost',
       port: 5432,
       name: 'myapp',
-      ssl: false
+      ssl: false,
     };
     this.server = {
       port: 3000,
       host: 'localhost',
-      cors: true
+      cors: true,
     };
     this.logging = {
       level: 'info',
       file: './logs/app.log',
-      console: true
+      console: true,
     };
     this.cache = {
       enabled: false,
       ttl: 3600,
-      provider: 'redis'
+      provider: 'redis',
     };
     this.features = [];
     this.environment = 'development';
@@ -590,47 +589,49 @@ class AppConfig {
     console.log(`   Database: ${this.database.host}:${this.database.port}/${this.database.name}`);
     console.log(`   Server: ${this.server.host}:${this.server.port}`);
     console.log(`   Logging: ${this.logging.level} → ${this.logging.file}`);
-    console.log(`   Cache: ${this.cache.enabled ? 'Enabled' : 'Disabled'} (${this.cache.provider})`);
+    console.log(
+      `   Cache: ${this.cache.enabled ? 'Enabled' : 'Disabled'} (${this.cache.provider})`,
+    );
     console.log(`   Features: ${this.features.join(', ') || 'None'}`);
     console.log(`   Created: ${this.created.toLocaleString()}`);
   }
 }
 
 // Usage
-console.log("\n=== Configuration Prototype Demo ===\n");
+console.log('\n=== Configuration Prototype Demo ===\n');
 
-console.log("Creating base configuration:");
-console.log("-".repeat(30));
+console.log('Creating base configuration:');
+console.log('-'.repeat(30));
 
 const baseConfig = new AppConfig();
-baseConfig.enableFeature("user-authentication");
-baseConfig.enableFeature("email-notifications");
+baseConfig.enableFeature('user-authentication');
+baseConfig.enableFeature('email-notifications');
 baseConfig.display();
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
-console.log("Creating environment-specific configs:");
-console.log("-".repeat(40));
+console.log('Creating environment-specific configs:');
+console.log('-'.repeat(40));
 
 // Development config
 const devConfig = baseConfig.clone();
-devConfig.setEnvironment("development");
+devConfig.setEnvironment('development');
 devConfig.updateDatabase({ host: 'localhost', ssl: false });
-devConfig.enableFeature("debug-mode");
-devConfig.enableFeature("hot-reload");
+devConfig.enableFeature('debug-mode');
+devConfig.enableFeature('hot-reload');
 
 console.log();
 devConfig.display();
 
-console.log("\n" + "-".repeat(30) + "\n");
+console.log('\n' + '-'.repeat(30) + '\n');
 
 // Production config
 const prodConfig = baseConfig.clone();
-prodConfig.setEnvironment("production");
+prodConfig.setEnvironment('production');
 prodConfig.updateDatabase({
   host: 'prod-db.company.com',
   ssl: true,
-  port: 5433
+  port: 5433,
 });
 prodConfig.server.port = 8080;
 prodConfig.server.host = '0.0.0.0';
@@ -640,14 +641,14 @@ prodConfig.cache.enabled = true;
 console.log();
 prodConfig.display();
 
-console.log("\n" + "-".repeat(30) + "\n");
+console.log('\n' + '-'.repeat(30) + '\n');
 
 // Staging config
 const stagingConfig = prodConfig.clone();
-stagingConfig.setEnvironment("staging");
+stagingConfig.setEnvironment('staging');
 stagingConfig.updateDatabase({ host: 'staging-db.company.com' });
 stagingConfig.logging.level = 'warn';
-stagingConfig.enableFeature("performance-monitoring");
+stagingConfig.enableFeature('performance-monitoring');
 
 console.log();
 stagingConfig.display();
@@ -679,10 +680,12 @@ stagingConfig.display();
 ## 🔄 Types of Cloning
 
 ### 1. **Shallow Copy**
+
 - Copies object properties but not nested objects
 - Faster but shares references to nested objects
 
 ### 2. **Deep Copy**
+
 - Recursively copies all nested objects
 - Slower but creates completely independent objects
 

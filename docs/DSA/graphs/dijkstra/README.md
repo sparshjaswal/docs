@@ -32,7 +32,7 @@ and updates the neighbor's distance if smaller. Mark visited
 
 Let's say we have a weighted graph of nodes, where each edge has a distance parameter between nodes. Let's say the distance from node `A` and node `B` is `7 meters` (or just `7m` for brevity), and so on.
 
-The algorithm uses [Priority Queue](../../../data-structures/priority-queue/) to always pull the next unvisited vertex that has the smallest distance from the origin node.
+The algorithm uses [Priority Queue](../../priority-queue/) to always pull the next unvisited vertex that has the smallest distance from the origin node.
 
 The start node, by definition, has a distance of `0m` from itself. So we start from it, the only node in the priority queue.
 

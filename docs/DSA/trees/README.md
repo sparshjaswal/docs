@@ -1,96 +1,151 @@
-
-
-> **One-line summary**: Hierarchical node structures — master traversals (inorder, BFS, DFS), BST properties, and path problems for O(n) or O(log n) solutions.
+---
+title: Trees
+description: Hierarchical node structures — master traversals (inorder, BFS, DFS), BST properties, and path problems.
+keywords:
+  - trees
+  - binary tree
+  - bst
+  - tree traversal
+  - dfs
+  - bfs
 ---
 
-## 📊 Visual Learning
+# 🌳 Trees
 
-### Tree Structure Overview
-![Tree Structure Visualization](../../assets/images/linked-list.svg)
-*Understanding the hierarchical nature of binary trees and their node relationships*
+> **One-line summary**: Hierarchical node structures — master traversals (inorder, BFS, DFS), BST properties, and path problems for O(n) or O(log n) solutions.
+
+---
+
+## Visual Learning
+
+### Enhanced Tree Traversal Animation
 
 ![Enhanced Tree Traversal Animation](../../assets/images/tree-traversal-enhanced-anim.svg)
-*Interactive visualization of all tree traversal methods with smooth animations, node state changes, and real-time sequence display*
+_Interactive visualization of all tree traversal methods with smooth animations, node state changes, and real-time sequence display_
 
-### Tree Traversal Process
-![Tree Traversal Process](../../assets/images/binary-search-flow-anim.svg)
-*Classic tree traversal flow diagram*
 ### Tree Operations Complexity Chart
-![Complexity Analysis](../../assets/images/complexity-cheat-sheet.svg)
-*Visual comparison of time complexities for different tree operations*
 
-## 💡 Core Concepts
+![Complexity Analysis](../../assets/images/complexity-cheat-sheet.svg)
+_Visual comparison of time complexities for different tree operations_
+
+---
+
+## Core Concepts
 
 ### What are Trees?
-Trees are **hierarchical data structures** consisting of nodes connected by edges. They're fundamental in computer science for representing hierarchical relationships.
 
-### Key Tree Properties
-- **Binary Tree**: Each node has **at most 2 children** (left and right)
-- **BST Property**: For any node, **left subtree values < node value < right subtree values**
-- **Height**: The longest path from root to any leaf node
-- **Depth**: The distance from root to a specific node
+A **tree** is a hierarchical data structure consisting of nodes connected by edges. Unlike linear structures (arrays, linked lists), trees branch outward, making them ideal for representing nested or parent-child relationships.
+
+Formally, a tree can be defined recursively: a node (the root) containing a value and a list of references to child nodes, with exactly one path between any two nodes and no cycles.
+
+### Key Terminology
+
+| Term           | Definition                                                              |
+| -------------- | ----------------------------------------------------------------------- |
+| **Root**       | The topmost node with no parent                                         |
+| **Leaf**       | A node with no children                                                 |
+| **Edge**       | The link between a parent and child node                                |
+| **Height**     | Length of the longest path from node to a leaf (edges)                  |
+| **Depth**      | Length of the path from root to node (edges)                            |
+| **Subtree**    | Any node and all its descendants, itself a valid tree                   |
+| **Sibling**    | Nodes sharing the same parent                                           |
+| **Ancestor**   | Any node on the path from root to a given node (including the root)     |
+| **Descendant** | Any node reachable by repeatedly following child pointers               |
+
+### Types of Trees
+
+- **Binary Tree**: Each node has at most 2 children (left and right)
+- **Binary Search Tree (BST)**: Binary tree where left subtree values < node value < right subtree values
+- **Balanced Tree**: Height difference between left and right subtrees is at most 1 (e.g., AVL, Red-Black)
+- **Complete Binary Tree**: All levels filled except possibly the last, filled left to right
+- **Full Binary Tree**: Every node has either 0 or 2 children
+- **Perfect Binary Tree**: All internal nodes have 2 children, all leaves at same level
+- **N-ary Tree**: Each node can have up to N children (e.g., Trie, file system)
+
+### Real-World Use Cases
+
+- **File systems** — directories contain files and subdirectories (N-ary tree)
+- **HTML DOM** — nested element hierarchy
+- **Database indexes** — B-Trees and B+ Trees for efficient lookups
+- **Expression parsing** — abstract syntax trees (ASTs) in compilers
+- **Routing** — network routing tables use tree structures
+- **AI/ML** — decision trees, random forests
+- **Compression** — Huffman coding trees
+- **Version control** — Git's commit DAG (directed acyclic graph, a tree variant)
+
+### When NOT to Use Trees
+
+- Simple linear access patterns (use arrays or linked lists)
+- Constant-time random access required (use hash tables)
+- Memory-constrained environments with high pointer overhead
+- Data has no hierarchical relationship
 
 ### Essential Tree Traversals
-- **Inord### Essential Tree Traversals
 
-The enhanced animation above demonstrates all four traversal methods:
+#### Depth-First Search (DFS)
 
 - **Inorder (L-N-R)**: Left → Node → Right
-  - **Sequence**: 8 → 4 → 2 → 9 → 5 → 1 → 6 → 3 → 7
-  - **Use Case**: Gives sorted order for BST, expression evaluation
-  - **Visual**: Watch nodes light up following left-root-right pattern
+  - _Sequence_: 8 → 4 → 2 → 9 → 5 → 1 → 6 → 3 → 7
+  - _Use Case_: Yields sorted order for BST, expression evaluation
 
 - **Preorder (N-L-R)**: Node → Left → Right
-  - **Sequence**: 1 → 2 → 4 → 8 → 5 → 9 → 3 → 6 → 7
-  - **Use Case**: Tree copying, serialization, prefix expressions
-  - **Visual**: Root nodes are processed before children
+  - _Sequence_: 1 → 2 → 4 → 8 → 5 → 9 → 3 → 6 → 7
+  - _Use Case_: Tree serialization/copying, prefix expressions
 
 - **Postorder (L-R-N)**: Left → Right → Node
-  - **Sequence**: 8 → 4 → 9 → 5 → 2 → 6 → 7 → 3 → 1
-  - **Use Case**: Tree deletion, calculating directory sizes, postfix expressions
-  - **Visual**: Children are processed before their parents
+  - _Sequence_: 8 → 4 → 9 → 5 → 2 → 6 → 7 → 3 → 1
+  - _Use Case_: Tree deletion, computing directory sizes, postfix expressions
 
-- **Level-order (BFS)**: Visit nodes level by level
-  - **Sequence**: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9
-  - **Use Case**: Finding shortest path, level-wise processing, tree printing
-  - **Visual**: Processes all nodes at each level before moving to next levelr:**
-- **Hierarchical data** (file systems, organization charts)
-- **Fast searching** in sorted data (BST: O(log n))
-- **Expression parsing** (syntax trees)
-- **Decision making** (decision trees)
-- **Range queries** and **ordered data**
+#### Breadth-First Search (BFS)
 
-❌ **Not suitable for:**
-- Simple linear data access
-- When you need constant-time random access
-- Memory-constrained environments (pointer overhead)
+- **Level-order**: Visit nodes level by level, left to right
+  - _Sequence_: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9
+  - _Use Case_: Shortest path in unweighted trees, level-wise aggregation, tree printing
 
+---
 
+## Complexity Analysis
 
+### BST Operations
 
-| **Insert** | O(log n) | O(n) | O(h) | Maintains BST property during insertion |
-| **Delete** | O(log n) | O(n) | O(h) | Complex case: node with two children |
-- **Space complexity**: O(h) due to recursion stack depth
+| Operation  | Average   | Worst     | Space     | Notes                                         |
+| ---------- | --------- | --------- | --------- | --------------------------------------------- |
+| **Search** | O(log n)  | O(n)      | O(h)      | Degenerates to O(n) if tree becomes a chain   |
+| **Insert** | O(log n)  | O(n)      | O(h)      | Must maintain BST property after insertion    |
+| **Delete** | O(log n)  | O(n)      | O(h)      | Three cases: leaf, one child, or two children |
+
+_h = height of tree (log n for balanced, n for skewed)_
 
 ### Tree Traversal Complexities
-| Traversal Type | **Time** | **Space** | **Use Case** |
-|----------------|----------|-----------|-------------|
-| **Inorder** | O(n) | O(h) | Get sorted sequence from BST |
-| **Preorder** | O(n) | O(h) | Tree serialization, copying |
-| **Postorder** | O(n) | O(h) | Tree deletion, expression evaluation |
-| **Level-order (BFS)** | O(n) | O(w) | Tree printing, finding level info |
 
-*w = maximum width of tree (can be O(n) for complete binary tree)*
+| Traversal            | Time  | Space  | Notes                                   |
+| -------------------- | ----- | ------ | --------------------------------------- |
+| **Inorder (DFS)**    | O(n)  | O(h)   | Stack depth for recursion               |
+| **Preorder (DFS)**   | O(n)  | O(h)   | Same as above                           |
+| **Postorder (DFS)**  | O(n)  | O(h)   | Same as above                           |
+| **Level-order (BFS)**| O(n)  | O(w)   | Queue stores at most the widest level   |
 
+_w = maximum width of tree (up to n/2 for a complete binary tree, so O(n) worst case)_
+
+---
 
 ## Common Patterns
 
-### Inorder DFS
+### Inorder DFS (Recursive)
+
 ```javascript
 function inorder(root, result = []) {
   if (!root) return result;
+  inorder(root.left, result);
   result.push(root.val);
   inorder(root.right, result);
+  return result;
+}
+```
+
+### Level Order BFS (Iterative)
+
+```javascript
 function levelOrder(root) {
   if (!root) return [];
   const queue = [root], result = [];
@@ -98,101 +153,79 @@ function levelOrder(root) {
     const size = queue.length, level = [];
     for (let i = 0; i < size; i++) {
       const n = queue.shift();
+      level.push(n.val);
+      if (n.left) queue.push(n.left);
       if (n.right) queue.push(n.right);
     }
+    result.push(level);
   }
   return result;
+}
 ```
 
+### Lowest Common Ancestor (LCA)
+
+```javascript
+function lowestCommonAncestor(root, p, q) {
+  if (!root || root === p || root === q) return root;
+  const left = lowestCommonAncestor(root.left, p, q);
   const right = lowestCommonAncestor(root.right, p, q);
   return left && right ? root : left || right;
 }
 ```
 
----
+### Iterative DFS (Stack-Based)
 
-## Pitfalls
+```javascript
+function dfsIterative(root) {
+  if (!root) return [];
+  const stack = [root], result = [];
+  while (stack.length) {
+    const node = stack.pop();
+    result.push(node.val);
+    if (node.right) stack.push(node.right);
+    if (node.left) stack.push(node.left);
+  }
+  return result;
+}
+```
 
-- Null check before accessing `.left` / `.right`
-- BST validation: pass min/max bounds recursively, not just compare with parent
-- Height vs depth: height = edges from node to deepest leaf; depth = edges from root
+### BST Validation
 
----
-## Practice Problems
+```javascript
+function isValidBST(root, min = -Infinity, max = Infinity) {
+  if (!root) return true;
+  if (root.val <= min || root.val >= max) return false;
+  return isValidBST(root.left, min, root.val)
+      && isValidBST(root.right, root.val, max);
+}
+```
 
-### 🟢 Easy - Foundation Building
+### Tree Height (Bottom-Up)
 
-| Problem | Difficulty | FAANG Frequency | Solution |
-| [LC 404 — Sum of Left Leaves](https://leetcode.com/problems/sum-of-left-leaves/) | Easy |  |
-| [LC 437 — Path Sum III](https://leetcode.com/problems/path-sum-iii/) | Easy |  |
-| [LC 530 — Minimum Absolute Difference in BST](https://leetcode.com/problems/minimum-absolute-difference-in-bst/) | Easy |  |
-| [LC 543 — Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/) | Easy |  |
-| [LC 563 — Binary Tree Tilt](https://leetcode.com/problems/binary-tree-tilt/) | Easy |  |
-| [LC 572 — Subtree of Another Tree](https://leetcode.com/problems/subtree-of-another-tree/) | Easy |  |
-| [LC 589 — N-ary Tree Preorder Traversal](https://leetcode.com/problems/n-ary-tree-preorder-traversal/) | Easy |  |
-| [LC 590 — N-ary Tree Postorder Traversal](https://leetcode.com/problems/n-ary-tree-postorder-traversal/) | Easy |  |
-| [LC 617 — Merge Two Binary Trees](https://leetcode.com/problems/merge-two-binary-trees/) | Easy |  |
-| [LC 637 — Average of Levels in Binary Tree](https://leetcode.com/problems/average-of-levels-in-binary-tree/) | Easy |  |
-| [LC 653 — Two Sum IV - Input is a BST](https://leetcode.com/problems/two-sum-iv-input-is-a-bst/) | Easy |  |
-| [LC 669 — Trim a BST](https://leetcode.com/problems/trim-a-binary-search-tree/) | Easy |  |
-| [LC 671 — Second Minimum Node](https://leetcode.com/problems/second-minimum-node-in-a-binary-tree/) | Easy |  |
-| [LC 700 — Search in a BST](https://leetcode.com/problems/search-in-a-binary-search-tree/) | Easy |  |
-| [LC 701 — Insert into a BST](https://leetcode.com/problems/insert-into-a-binary-search-tree/) | Easy |  |
-| [LC 783 — Minimum Distance Between BST Nodes](https://leetcode.com/problems/minimum-distance-between-bst-nodes/) | Easy |  |
-| [LC 872 — Leaf-Similar Trees](https://leetcode.com/problems/leaf-similar-trees/) | Easy |  |
-| [LC 938 — Range Sum of BST](https://leetcode.com/problems/range-sum-of-bst/) | Easy |  |
-| [LC 965 — Univalued Binary Tree](https://leetcode.com/problems/univalued-binary-tree/) | Easy |  |
-| [LC 102 — Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/) | Medium | ⭐⭐⭐⭐⭐ All FAANG | |
-| [LC 103 — Zigzag Level Order](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/) | Medium | ⭐⭐⭐⭐ Amazon, Microsoft | |
-| [LC 105 — Construct from Preorder and Inorder](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/) | Medium | ⭐⭐⭐⭐ Google, Facebook | |
-| [LC 106 — Construct from Inorder and Postorder](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/) | Medium | ⭐⭐⭐ Google, Apple | |
-| [LC 113 — Path Sum II](https://leetcode.com/problems/path-sum-ii/) | Medium | ⭐⭐⭐ Amazon, Microsoft | |
-| [LC 114 — Flatten Binary Tree to Linked List](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/) | Medium | ⭐⭐⭐⭐ Amazon, Microsoft | |
-| [LC 124 — Binary Tree Max Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/) | Medium | ⭐⭐⭐⭐⭐ All FAANG | |
-| [LC 129 — Sum Root to Leaf Numbers](https://leetcode.com/problems/sum-root-to-leaf-numbers/) | Medium | ⭐⭐⭐ Amazon, Google | |
-| [LC 173 — BST Iterator](https://leetcode.com/problems/binary-search-tree-iterator/) | Medium | ⭐⭐⭐⭐ Google, Facebook | |
-| [LC 199 — Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/) | Medium | ⭐⭐⭐⭐⭐ Amazon, Facebook | |
-| [LC 222 — Count Complete Tree Nodes](https://leetcode.com/problems/count-complete-tree-nodes/) | Medium | ⭐⭐⭐ Google, Microsoft | |
-| [LC 230 — Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) | Medium | ⭐⭐⭐⭐ Amazon, Google | |
-| [LC 236 — Lowest Common Ancestor](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) | Medium | ⭐⭐⭐⭐⭐ All FAANG | |
-| [LC 297 — Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/) | Medium | ⭐⭐⭐⭐⭐ All FAANG | |
-| [LC 337 — House Robber III](https://leetcode.com/problems/house-robber-iii/) | Medium | ⭐⭐⭐ Amazon, Microsoft | |
-| [LC 515 — Find Largest Value in Each Tree Row](https://leetcode.com/problems/find-largest-value-in-each-tree-row/) | Medium | ⭐⭐ Amazon, Microsoft | |
-| [LC 538 — Convert BST to Greater Tree](https://leetcode.com/problems/convert-bst-to-greater-tree/) | Medium | ⭐⭐⭐ Amazon, Google | |
-| [LC 1008 — Construct BST from Preorder](https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/) | Medium | ⭐⭐ Google, Microsoft | |
-| [LC 1026 — Maximum Difference Between Node and Ancestor](https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/) | Medium | ⭐⭐ Amazon, Google | |
-| [LC 1110 — Delete Nodes And Return Forest](https://leetcode.com/problems/delete-nodes-and-return-forest/) | Medium | ⭐⭐⭐ Amazon, Google | |
-| [LC 1448 — Count Good Nodes](https://leetcode.com/problems/count-good-nodes-in-binary-tree/) | Medium | ⭐⭐⭐⭐ Amazon, Microsoft | |
-
-### 🔴 Hard - Advanced Algorithms
-| Problem | Difficulty | FAANG Frequency | Solution |
-|---------|-----------|----------------|----------|
-| [LC 124 — Binary Tree Max Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/) | Hard | ⭐⭐⭐⭐⭐ All FAANG | |
-| [LC 212 — Word Search II](https://leetcode.com/problems/word-search-ii/) | Hard | ⭐⭐⭐⭐ Amazon, Google | |
-| [LC 297 — Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/) | Hard | ⭐⭐⭐⭐⭐ All FAANG | |
-| [LC 315 — Count of Smaller Numbers After Self](https://leetcode.com/problems/count-of-smaller-numbers-after-self/) | Hard | ⭐⭐⭐ Google, Microsoft | |
-| [LC 336 — Palindrome Pairs](https://leetcode.com/problems/palindrome-pairs/) | Hard | ⭐⭐⭐ Amazon, Google | |
-| [LC 431 — Encode N-ary Tree to Binary Tree](https://leetcode.com/problems/encode-n-ary-tree-to-binary-tree/) | Hard | ⭐⭐⭐ Google, Facebook | |
-| [LC 440 — K-th Smallest in Lexicographical Order](https://leetcode.com/problems/k-th-smallest-in-lexicographical-order/) | Hard | ⭐⭐ Google, Apple | |
-| [LC 493 — Reverse Pairs](https://leetcode.com/problems/reverse-pairs/) | Hard | ⭐⭐⭐ Google, Microsoft | |
-| [LC 652 — Find Duplicate Subtrees](https://leetcode.com/problems/find-duplicate-subtrees/) | Hard | ⭐⭐⭐ Amazon, Google | |
-| [LC 834 — Sum of Distances in Tree](https://leetcode.com/problems/sum-of-distances-in-tree/) | Hard | ⭐⭐⭐ Google, Facebook | |
-| [LC 968 — Binary Tree Cameras](https://leetcode.com/problems/binary-tree-cameras/) | Hard | ⭐⭐⭐ Google, Amazon | |
-| [LC 1028 — Recover Tree From Preorder](https://leetcode.com/problems/recover-a-tree-from-preorder-traversal/) | Hard | ⭐⭐ Google, Microsoft | |
-| [LC 1569 — Number of Ways to Reorder Array to Get Same BST](https://leetcode.com/problems/number-of-ways-to-reorder-array-to-get-same-bst/) | Hard | ⭐⭐ Google, Facebook | |
-| [LC 1932 — Merge BSTs to Create Single BST](https://leetcode.com/problems/merge-bsts-to-create-single-bst/) | Hard | ⭐⭐ Amazon, Apple | |
+```javascript
+function maxDepth(root) {
+  if (!root) return 0;
+  return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+}
+```
 
 ---
 
-## Related Topics
+## Pitfalls & Edge Cases
 
-- [Recursion](../recursion/README.md) — most tree algorithms are recursive
-- [Heap](../heap/README.md) — heap is a complete binary tree
-- [Queue](../queue/README.md) — BFS uses a queue
+- **Always null-check** before accessing `.left` or `.right` — root or any child can be null
+- **BST validation requires min/max bounds**, not just comparing node with its direct parent
+- **Height vs depth confusion**: height = edges from node → deepest leaf; depth = edges from root → node
+- **Recursion depth limits**: A skewed tree of 10⁵ nodes will overflow the call stack — use iterative approaches for deep trees
+- **BFS queue size**: For a complete tree, the queue can hold n/2 nodes at the widest level
+- **Duplicate values in BST**: Typically duplicates go to the left or are disallowed entirely — clarify with your interviewer
+- **Inorder successor for delete**: When deleting a node with two children, replace it with the inorder successor (smallest in right subtree) or predecessor (largest in left subtree)
+- **Empty tree**: Many tree functions need to handle `root === null` gracefully
 
 ---
 
-## Tree Data Structure Reference
+## Implementation Reference
 
 Runnable implementations (with tests) live alongside this guide in this folder:
 
@@ -201,18 +234,27 @@ Runnable implementations (with tests) live alongside this guide in this folder:
 - [Red-Black Tree](./red-black-tree)
 - [Segment Tree](./segment-tree) — with min/max/sum range queries examples
 - [Fenwick Tree](./fenwick-tree) (Binary Indexed Tree)
-- [`BinaryTreeNode.js`](./BinaryTreeNode.js), plus traversal folders `breadth-first-search/` and `depth-first-search/`
+- [Breadth-First Search](./breadth-first-search)
+- [Depth-First Search](./depth-first-search)
 
-In computer science, a **tree** is a widely used abstract data type (ADT) — or data structure implementing this ADT — that simulates a hierarchical tree structure, with a root value and subtrees of children with a parent node, represented as a set of linked nodes.
+Also see the [Interview Guide](./interview-guide.md) for curated practice sets.
 
-A tree data structure can be defined recursively (locally) as a collection of nodes (starting at a root node), where each node is a data structure consisting of a value, together with a list of references to nodes (the "children"), with the constraints that no reference is duplicated, and none points to the root.
+---
 
-![Tree](./images/tree.jpeg)
+## Related Topics
 
-### References
+- [Recursion](../recursion/README.md) — most tree algorithms are naturally recursive
+- [Heap](../heap/) — a heap is a complete binary tree with ordering constraints
+- [Queue](../queue/README.md) — BFS traversal depends on a queue data structure
+- [Stack](../stack/README.md) — DFS traversal uses a stack (or recursion call stack)
+- [Trie](../trie/README.md) — an N-ary tree specialized for string prefix operations
 
-- [Wikipedia](https://en.wikipedia.org/wiki/Tree_(data_structure))
-- [YouTube](https://www.youtube.com/watch?v=oSWTXtMglKE&list=PLLXdhg_r2hKA7DPDsunoDZ-Z769jWn4R8&index=8)
+---
 
-[← Back to Home](../index.md) · © sparshjaswal
+## References
 
+- [Wikipedia — Tree (data structure)](https://en.wikipedia.org/wiki/Tree_(data_structure))
+- [HackerRank — Trees video playlist](https://www.youtube.com/watch?v=oSWTXtMglKE&list=PLLXdhg_r2hKA7DPDsunoDZ-Z769jWn4R8&index=8)
+- [Visualgo — BST visualization](https://visualgo.net/en/bst)
+
+[← Back to DSA](../index.md) · &copy; sparshjaswal

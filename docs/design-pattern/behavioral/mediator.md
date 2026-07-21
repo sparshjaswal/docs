@@ -9,6 +9,7 @@ Define an object that encapsulates how a set of objects interact. Mediator promo
 ## 🤔 Problem
 
 When objects in a system communicate directly with each other, they become tightly coupled:
+
 - **Complex Dependencies**: Objects have many direct references to other objects
 - **Difficult Maintenance**: Changes to one object affect many others
 - **Reusability Issues**: Objects are hard to reuse in different contexts
@@ -47,15 +48,15 @@ ComponentA, ComponentB extend Component
 // Mediator interface
 class ChatMediator {
   sendMessage(message, user) {
-    throw new Error("sendMessage() method must be implemented");
+    throw new Error('sendMessage() method must be implemented');
   }
 
   addUser(user) {
-    throw new Error("addUser() method must be implemented");
+    throw new Error('addUser() method must be implemented');
   }
 
   removeUser(user) {
-    throw new Error("removeUser() method must be implemented");
+    throw new Error('removeUser() method must be implemented');
   }
 }
 
@@ -80,7 +81,7 @@ class ChatRoom extends ChatMediator {
     // Show recent messages to new user
     if (this.messageHistory.length > 0) {
       console.log(`📜 Showing recent messages to ${user.name}:`);
-      this.messageHistory.slice(-3).forEach(msg => {
+      this.messageHistory.slice(-3).forEach((msg) => {
         console.log(`   ${msg.timestamp.toLocaleTimeString()} ${msg.sender}: ${msg.text}`);
       });
     }
@@ -104,11 +105,11 @@ class ChatRoom extends ChatMediator {
     this.messageHistory.push({
       sender: sender.name,
       text: message,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
 
     // Deliver to all other users
-    this.users.forEach(user => {
+    this.users.forEach((user) => {
       if (user !== sender) {
         user.receiveMessage(message, sender.name);
       }
@@ -118,7 +119,7 @@ class ChatRoom extends ChatMediator {
   broadcastSystemMessage(message) {
     console.log(`🔔 [${this.name}] System: ${message}`);
 
-    this.users.forEach(user => {
+    this.users.forEach((user) => {
       user.receiveSystemMessage(message);
     });
   }
@@ -133,7 +134,7 @@ class ChatRoom extends ChatMediator {
     console.log(`   Total Messages: ${this.messageHistory.length}`);
     console.log(`   Created: ${this.created.toLocaleString()}`);
     if (this.users.length > 0) {
-      console.log(`   Users: ${this.users.map(u => u.name).join(', ')}`);
+      console.log(`   Users: ${this.users.map((u) => u.name).join(', ')}`);
     }
   }
 }
@@ -186,57 +187,57 @@ class ChatUser {
 }
 
 // Usage
-console.log("=== Chat Room Mediator Demo ===\n");
+console.log('=== Chat Room Mediator Demo ===\n');
 
-console.log("Creating chat room and users:");
-console.log("-".repeat(30));
+console.log('Creating chat room and users:');
+console.log('-'.repeat(30));
 
 // Create chat room (mediator)
-const generalChat = new ChatRoom("General Chat");
+const generalChat = new ChatRoom('General Chat');
 
 // Create users (components)
-const alice = new ChatUser("Alice");
-const bob = new ChatUser("Bob");
-const charlie = new ChatUser("Charlie");
+const alice = new ChatUser('Alice');
+const bob = new ChatUser('Bob');
+const charlie = new ChatUser('Charlie');
 
-console.log("\nUsers joining chat room:");
-console.log("-".repeat(25));
+console.log('\nUsers joining chat room:');
+console.log('-'.repeat(25));
 
 // Users join chat room
 generalChat.addUser(alice);
 generalChat.addUser(bob);
 generalChat.addUser(charlie);
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
-console.log("Chat conversation:");
-console.log("-".repeat(17));
+console.log('Chat conversation:');
+console.log('-'.repeat(17));
 
 // Users send messages through the mediator
-alice.sendMessage("Hello everyone! 👋");
-bob.sendMessage("Hi Alice! How are you?");
-charlie.sendMessage("Good morning! ☀️");
+alice.sendMessage('Hello everyone! 👋');
+bob.sendMessage('Hi Alice! How are you?');
+charlie.sendMessage('Good morning! ☀️');
 alice.sendMessage("I'm doing great, thanks for asking!");
-bob.sendMessage("Anyone up for lunch later?");
-charlie.sendMessage("Count me in! 🍕");
+bob.sendMessage('Anyone up for lunch later?');
+charlie.sendMessage('Count me in! 🍕');
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
-console.log("User leaving chat:");
-console.log("-".repeat(18));
+console.log('User leaving chat:');
+console.log('-'.repeat(18));
 
 bob.leaveChatRoom();
 
-console.log("\nContinuing conversation:");
-console.log("-".repeat(25));
+console.log('\nContinuing conversation:');
+console.log('-'.repeat(25));
 
-alice.sendMessage("Bob left us 😢");
+alice.sendMessage('Bob left us 😢');
 charlie.sendMessage("We'll catch up with him later");
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
-console.log("Statistics:");
-console.log("-".repeat(11));
+console.log('Statistics:');
+console.log('-'.repeat(11));
 
 generalChat.getStats();
 console.log();
@@ -253,15 +254,15 @@ charlie.getStats();
 // Mediator interface
 class AirTrafficControl {
   requestLanding(aircraft) {
-    throw new Error("requestLanding() method must be implemented");
+    throw new Error('requestLanding() method must be implemented');
   }
 
   requestTakeoff(aircraft) {
-    throw new Error("requestTakeoff() method must be implemented");
+    throw new Error('requestTakeoff() method must be implemented');
   }
 
   registerAircraft(aircraft) {
-    throw new Error("registerAircraft() method must be implemented");
+    throw new Error('registerAircraft() method must be implemented');
   }
 }
 
@@ -273,7 +274,7 @@ class ControlTower extends AirTrafficControl {
     this.aircrafts = [];
     this.runwayStatus = {
       runway1: 'free', // 'free', 'occupied', 'maintenance'
-      runway2: 'free'
+      runway2: 'free',
     };
     this.landingQueue = [];
     this.takeoffQueue = [];
@@ -283,7 +284,9 @@ class ControlTower extends AirTrafficControl {
   registerAircraft(aircraft) {
     this.aircrafts.push(aircraft);
     aircraft.setControlTower(this);
-    console.log(`✈️ Aircraft ${aircraft.callSign} registered with ${this.airportCode} Control Tower`);
+    console.log(
+      `✈️ Aircraft ${aircraft.callSign} registered with ${this.airportCode} Control Tower`,
+    );
 
     // Send weather update
     this.sendWeatherUpdate(aircraft);
@@ -294,7 +297,9 @@ class ControlTower extends AirTrafficControl {
 
     // Check weather conditions
     if (this.weatherConditions !== 'clear') {
-      console.log(`❌ ${this.airportCode} Tower: Landing denied for ${aircraft.callSign} - Weather: ${this.weatherConditions}`);
+      console.log(
+        `❌ ${this.airportCode} Tower: Landing denied for ${aircraft.callSign} - Weather: ${this.weatherConditions}`,
+      );
       aircraft.receiveMessage(`Landing denied - weather conditions: ${this.weatherConditions}`);
       return false;
     }
@@ -307,7 +312,9 @@ class ControlTower extends AirTrafficControl {
     } else {
       // Add to queue
       this.landingQueue.push(aircraft);
-      console.log(`⏳ ${this.airportCode} Tower: ${aircraft.callSign} added to landing queue (position ${this.landingQueue.length})`);
+      console.log(
+        `⏳ ${this.airportCode} Tower: ${aircraft.callSign} added to landing queue (position ${this.landingQueue.length})`,
+      );
       aircraft.receiveMessage(`Added to landing queue, position ${this.landingQueue.length}`);
       return false;
     }
@@ -318,7 +325,9 @@ class ControlTower extends AirTrafficControl {
 
     // Check weather conditions
     if (this.weatherConditions !== 'clear') {
-      console.log(`❌ ${this.airportCode} Tower: Takeoff denied for ${aircraft.callSign} - Weather: ${this.weatherConditions}`);
+      console.log(
+        `❌ ${this.airportCode} Tower: Takeoff denied for ${aircraft.callSign} - Weather: ${this.weatherConditions}`,
+      );
       aircraft.receiveMessage(`Takeoff denied - weather conditions: ${this.weatherConditions}`);
       return false;
     }
@@ -331,7 +340,9 @@ class ControlTower extends AirTrafficControl {
     } else {
       // Add to queue
       this.takeoffQueue.push(aircraft);
-      console.log(`⏳ ${this.airportCode} Tower: ${aircraft.callSign} added to takeoff queue (position ${this.takeoffQueue.length})`);
+      console.log(
+        `⏳ ${this.airportCode} Tower: ${aircraft.callSign} added to takeoff queue (position ${this.takeoffQueue.length})`,
+      );
       aircraft.receiveMessage(`Added to takeoff queue, position ${this.takeoffQueue.length}`);
       return false;
     }
@@ -348,7 +359,9 @@ class ControlTower extends AirTrafficControl {
 
   assignRunwayForLanding(aircraft, runway) {
     this.runwayStatus[runway] = 'occupied';
-    console.log(`🛬 ${this.airportCode} Tower: ${aircraft.callSign} cleared for landing on ${runway}`);
+    console.log(
+      `🛬 ${this.airportCode} Tower: ${aircraft.callSign} cleared for landing on ${runway}`,
+    );
     aircraft.receiveMessage(`Cleared for landing on ${runway}`);
 
     // Simulate landing time
@@ -359,7 +372,9 @@ class ControlTower extends AirTrafficControl {
 
   assignRunwayForTakeoff(aircraft, runway) {
     this.runwayStatus[runway] = 'occupied';
-    console.log(`🛫 ${this.airportCode} Tower: ${aircraft.callSign} cleared for takeoff on ${runway}`);
+    console.log(
+      `🛫 ${this.airportCode} Tower: ${aircraft.callSign} cleared for takeoff on ${runway}`,
+    );
     aircraft.receiveMessage(`Cleared for takeoff on ${runway}`);
 
     // Simulate takeoff time
@@ -370,7 +385,9 @@ class ControlTower extends AirTrafficControl {
 
   completeLanding(aircraft, runway) {
     this.runwayStatus[runway] = 'free';
-    console.log(`✅ ${this.airportCode} Tower: ${aircraft.callSign} landed successfully on ${runway}`);
+    console.log(
+      `✅ ${this.airportCode} Tower: ${aircraft.callSign} landed successfully on ${runway}`,
+    );
     aircraft.receiveMessage(`Landing complete on ${runway}. Taxi to gate.`);
 
     // Process next in queue
@@ -379,7 +396,9 @@ class ControlTower extends AirTrafficControl {
 
   completeTakeoff(aircraft, runway) {
     this.runwayStatus[runway] = 'free';
-    console.log(`✅ ${this.airportCode} Tower: ${aircraft.callSign} departed successfully from ${runway}`);
+    console.log(
+      `✅ ${this.airportCode} Tower: ${aircraft.callSign} departed successfully from ${runway}`,
+    );
     aircraft.receiveMessage(`Takeoff complete. Contact departure control.`);
 
     // Process next in queue
@@ -404,10 +423,12 @@ class ControlTower extends AirTrafficControl {
   setWeatherConditions(conditions) {
     const oldConditions = this.weatherConditions;
     this.weatherConditions = conditions;
-    console.log(`🌤️ ${this.airportCode} Tower: Weather changed from ${oldConditions} to ${conditions}`);
+    console.log(
+      `🌤️ ${this.airportCode} Tower: Weather changed from ${oldConditions} to ${conditions}`,
+    );
 
     // Broadcast to all aircraft
-    this.aircrafts.forEach(aircraft => {
+    this.aircrafts.forEach((aircraft) => {
       aircraft.receiveMessage(`Weather update: ${conditions}`);
     });
   }
@@ -461,7 +482,7 @@ class Aircraft {
   receiveMessage(message) {
     this.messages.push({
       message,
-      timestamp: new Date()
+      timestamp: new Date(),
     });
     console.log(`📻 ${this.callSign} received: "${message}"`);
   }
@@ -477,53 +498,52 @@ class Aircraft {
 }
 
 // Usage
-console.log("\n=== Air Traffic Control Mediator Demo ===\n");
+console.log('\n=== Air Traffic Control Mediator Demo ===\n');
 
-console.log("Setting up airport control tower:");
-console.log("-".repeat(35));
+console.log('Setting up airport control tower:');
+console.log('-'.repeat(35));
 
-const jfkTower = new ControlTower("JFK");
+const jfkTower = new ControlTower('JFK');
 
-console.log("Aircraft requesting services:");
-console.log("-".repeat(30));
+console.log('Aircraft requesting services:');
+console.log('-'.repeat(30));
 
 // Create aircraft
-const flight123 = new Aircraft("AA123", "Boeing 737", "American Airlines");
-const flight456 = new Aircraft("UA456", "Airbus A320", "United Airlines");
-const flight789 = new Aircraft("DL789", "Boeing 777", "Delta Airlines");
+const flight123 = new Aircraft('AA123', 'Boeing 737', 'American Airlines');
+const flight456 = new Aircraft('UA456', 'Airbus A320', 'United Airlines');
+const flight789 = new Aircraft('DL789', 'Boeing 777', 'Delta Airlines');
 
 // Register aircraft with control tower
 jfkTower.registerAircraft(flight123);
 jfkTower.registerAircraft(flight456);
 jfkTower.registerAircraft(flight789);
 
-console.log("\n" + "=".repeat(50) + "\n");
+console.log('\n' + '='.repeat(50) + '\n');
 
-console.log("Flight operations:");
-console.log("-".repeat(18));
+console.log('Flight operations:');
+console.log('-'.repeat(18));
 
 // Multiple aircraft requesting landing
 flight123.requestLanding();
 flight456.requestLanding();
 flight789.requestLanding();
 
-console.log("\n" + "-".repeat(30) + "\n");
+console.log('\n' + '-'.repeat(30) + '\n');
 
 // Wait a bit and check status
 setTimeout(() => {
-  console.log("\nCurrent airport status:");
-  console.log("-".repeat(23));
+  console.log('\nCurrent airport status:');
+  console.log('-'.repeat(23));
   jfkTower.getStatus();
 
-  console.log("\nWeather change:");
-  console.log("-".repeat(15));
+  console.log('\nWeather change:');
+  console.log('-'.repeat(15));
   jfkTower.setWeatherConditions('fog');
 
   // New aircraft trying to land in bad weather
-  const emergencyFlight = new Aircraft("EM911", "Boeing 767", "Emergency Medical");
+  const emergencyFlight = new Aircraft('EM911', 'Boeing 767', 'Emergency Medical');
   jfkTower.registerAircraft(emergencyFlight);
   emergencyFlight.requestLanding();
-
 }, 3000);
 ```
 
@@ -553,6 +573,7 @@ setTimeout(() => {
 ## 🔄 Mediator Variations
 
 ### 1. **Observer-based Mediator**
+
 ```javascript
 class ObserverMediator extends EventEmitter {
   constructor() {
@@ -572,6 +593,7 @@ class ObserverMediator extends EventEmitter {
 ```
 
 ### 2. **Command-based Mediator**
+
 ```javascript
 class CommandMediator {
   constructor() {
@@ -592,6 +614,7 @@ class CommandMediator {
 ```
 
 ### 3. **State-based Mediator**
+
 ```javascript
 class StatefulMediator {
   constructor() {
@@ -605,7 +628,7 @@ class StatefulMediator {
   }
 
   notifyComponents(key, value) {
-    this.components.forEach(component => {
+    this.components.forEach((component) => {
       component.onStateChange(key, value);
     });
   }

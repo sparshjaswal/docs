@@ -1,11 +1,13 @@
 # JavaScript Hoisting
 
 ## What is Hoisting?
+
 Hoisting is JavaScript's default behavior of moving declarations to the top of their scope during the compilation phase. Only declarations are hoisted, not initializations.
 
 ## Variable Hoisting
 
 ### var Hoisting
+
 ```javascript
 console.log(x); // undefined (not error)
 var x = 5;
@@ -19,6 +21,7 @@ console.log(x); // 5
 ```
 
 ### let and const Hoisting (Temporal Dead Zone)
+
 ```javascript
 // console.log(y); // ReferenceError: Cannot access 'y' before initialization
 let y = 10;
@@ -30,34 +33,37 @@ const z = 20;
 ## Function Hoisting
 
 ### Function Declarations
+
 ```javascript
 // This works - function is fully hoisted
 sayHello(); // "Hello!"
 
 function sayHello() {
-    console.log("Hello!");
+  console.log('Hello!');
 }
 ```
 
 ### Function Expressions
+
 ```javascript
 // This doesn't work - only variable is hoisted
 // sayGoodbye(); // TypeError: sayGoodbye is not a function
 
-var sayGoodbye = function() {
-    console.log("Goodbye!");
+var sayGoodbye = function () {
+  console.log('Goodbye!');
 };
 
 sayGoodbye(); // "Goodbye!"
 ```
 
 ### Arrow Functions
+
 ```javascript
 // This doesn't work - behaves like function expressions
 // greet(); // TypeError: greet is not a function
 
 var greet = () => {
-    console.log("Hi!");
+  console.log('Hi!');
 };
 
 greet(); // "Hi!"
@@ -66,30 +72,32 @@ greet(); // "Hi!"
 ## Practical Examples
 
 ### Example 1: Variable Hoisting
+
 ```javascript
 function example() {
-    console.log(a); // undefined (not error)
-    var a = 1;
-    console.log(a); // 1
+  console.log(a); // undefined (not error)
+  var a = 1;
+  console.log(a); // 1
 }
 
 // Equivalent to:
 function example() {
-    var a; // Hoisted declaration
-    console.log(a); // undefined
-    a = 1; // Assignment in original position
-    console.log(a); // 1
+  var a; // Hoisted declaration
+  console.log(a); // undefined
+  a = 1; // Assignment in original position
+  console.log(a); // 1
 }
 ```
 
 ### Example 2: Function vs Variable
+
 ```javascript
 console.log(foo); // function foo() { return 'function'; }
 
 var foo = 'variable';
 
 function foo() {
-    return 'function';
+  return 'function';
 }
 
 console.log(foo); // 'variable'
@@ -101,13 +109,14 @@ console.log(foo); // 'variable'
 ```
 
 ### Example 3: Scope and Hoisting
+
 ```javascript
-var name = "Global";
+var name = 'Global';
 
 function test() {
-    console.log(name); // undefined (not "Global")
-    var name = "Local";
-    console.log(name); // "Local"
+  console.log(name); // undefined (not "Global")
+  var name = 'Local';
+  console.log(name); // "Local"
 }
 
 test();
@@ -119,16 +128,18 @@ test();
 ## Best Practices
 
 1. **Always declare variables at the top of their scope**
+
    ```javascript
    function goodPractice() {
-       var a, b, c; // Declare at top
-       a = 1;
-       b = 2;
-       c = 3;
+     var a, b, c; // Declare at top
+     a = 1;
+     b = 2;
+     c = 3;
    }
    ```
 
 2. **Use let and const instead of var**
+
    ```javascript
    // Avoid this
    console.log(x); // undefined
@@ -143,7 +154,7 @@ test();
    ```javascript
    // Good practice
    function myFunction() {
-       return "Hello";
+     return 'Hello';
    }
 
    myFunction();
@@ -152,24 +163,26 @@ test();
 ## Common Gotchas
 
 ### Loop with var
+
 ```javascript
 // Problem
 for (var i = 0; i < 3; i++) {
-    setTimeout(() => console.log(i), 1000); // Prints 3, 3, 3
+  setTimeout(() => console.log(i), 1000); // Prints 3, 3, 3
 }
 
 // Solution with let
 for (let i = 0; i < 3; i++) {
-    setTimeout(() => console.log(i), 1000); // Prints 0, 1, 2
+  setTimeout(() => console.log(i), 1000); // Prints 0, 1, 2
 }
 ```
 
 ### Multiple Declarations
+
 ```javascript
 var a = 1;
 function example() {
-    console.log(a); // undefined (not 1)
-    var a = 2;
+  console.log(a); // undefined (not 1)
+  var a = 2;
 }
 
 // The local 'var a' declaration is hoisted,
@@ -177,6 +190,7 @@ function example() {
 ```
 
 ## Key Takeaways
+
 - Only declarations are hoisted, not assignments
 - `var` is hoisted and initialized with `undefined`
 - `let` and `const` are hoisted but not initialized (TDZ)
