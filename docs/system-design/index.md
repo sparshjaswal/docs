@@ -103,21 +103,21 @@ Work through these in order. Each page is a focused deep-dive on one building bl
 
 ### Backend Engineering Concepts
 
-- [Node.js](../../backend-engineering/nodejs/README.md)
-- [Authentication/Authorization](../../backend-engineering/authentication/README.md)
-- [Validation](../../backend-engineering/validation/README.md)
-- [Error Handling](../../backend-engineering/error-handling/README.md)
-- [Rate Limiting](../../backend-engineering/rate-limiting/README.md)
-- [Logging](../../backend-engineering/logging/README.md)
-- [Monitoring](../../backend-engineering/monitoring/README.md)
-- [Caching](../../backend-engineering/caching/README.md)
-- [Queues](../../backend-engineering/queues/README.md)
-- [Event Driven Architecture](../../backend-engineering/event-driven-architecture/README.md)
-- [WebSockets](../../backend-engineering/websockets/README.md)
-- [gRPC](../../backend-engineering/grpc/README.md)
-- [API Gateway](../../backend-engineering/api-gateway/README.md)
-- [BFF (Backend for Frontend)](../../backend-engineering/bff/README.md)
-- [Service Discovery](../../backend-engineering/service-discovery/README.md)
+- [Node.js](../backend-engineering/nodejs/README.md)
+- [Authentication/Authorization](../backend-engineering/authentication/README.md)
+- [Validation](../backend-engineering/validation/README.md)
+- [Error Handling](../backend-engineering/error-handling/README.md)
+- [Rate Limiting](../backend-engineering/rate-limiting/README.md)
+- [Logging](../backend-engineering/logging/README.md)
+- [Monitoring](../backend-engineering/monitoring/README.md)
+- [Caching](../backend-engineering/caching/README.md)
+- [Queues](../backend-engineering/queues/README.md)
+- [Event Driven Architecture](../backend-engineering/event-driven-architecture/README.md)
+- [WebSockets](../backend-engineering/websockets/README.md)
+- [gRPC](../backend-engineering/grpc/README.md)
+- [API Gateway](../backend-engineering/api-gateway/README.md)
+- [BFF (Backend for Frontend)](../backend-engineering/bff/README.md)
+- [Service Discovery](../backend-engineering/service-discovery/README.md)
 
 ---
 
