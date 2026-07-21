@@ -143,6 +143,31 @@ The **ELC** dimension is the everyday reality: even without partitions, strong c
 
 ---
 
+<!-- AI-DRAFT: The sections below were generated as an initial AI-assisted draft. Please review and edit before publishing. -->
+
+> **Note (AI-assisted draft):** The following Interview Questions, Production Checklist, and Testing & Monitoring items are a draft intended to accelerate review. Please verify operational details and add any organization-specific runbook links.
+
+## Interview Questions
+
+- When should you accept availability over consistency in a global service? Give examples.
+- How does PACELC extend CAP, and why does it matter for low-latency systems?
+- Explain practical steps to make a CP system more available during maintenance windows (quorum adjustments, staggered maintenance, read-only fallbacks).
+
+## Production Checklist
+
+- Document the partition behavior and expected application semantics during partitions
+- Train runbooks for maintenance and partition handling (failover, promotions, and read routing)
+- Monitor partition symptoms (increased error rates, timeouts, quorum loss)
+- Ensure backups and cross-region replication strategies are tested regularly
+- Maintain an automated playbook for promoting replicas and recovering from split-brain scenarios
+
+## Testing & Monitoring
+
+- Simulate network partitions in staging and observe application behavior under CP and AP choices
+- Measure latency impact for chosen consistency levels during normal operation and during induced partitions
+- Run failure drills to validate failover, leader election, and recovery procedures
+- Add chaos experiments that introduce intermittent packet loss and validate recovery automation
+
 ## 🔗 Related Topics
 
 - [Databases](./databases.md) — SQL vs. NoSQL and how each positions on the CAP spectrum

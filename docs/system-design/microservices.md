@@ -178,6 +178,31 @@ Combine retries with **idempotency** (see [API Design](./api-design.md)) to avoi
 
 ---
 
+<!-- AI-DRAFT: The sections below were generated as an initial AI-assisted draft. Please review and edit before publishing. -->
+
+> **Note (AI-assisted draft):** The following Interview Questions, Production Checklist, and Testing & Monitoring items are a draft. Add organization-specific CI/CD links and observability dashboards as needed.
+
+## Interview Questions
+
+- How do you decide whether to extract a component from the monolith into a microservice?
+- Compare choreography vs orchestration for sagas — when is each preferable?
+- How do you design service boundaries to minimize cross-service transactions and latency?
+
+## Production Checklist
+
+- Ensure CI/CD pipelines for each service and a global integration test workflow
+- Centralize observability (traces, metrics, logs) and enforce structured logs with correlation IDs
+- Harden network policies, mTLS, and service-to-service auth (e.g., SPIFFE/SPIRE)
+- Automate schema and contract migrations with consumer-driven contract tests
+- Maintain a shared dashboard with SLOs and error budgets per service
+
+## Testing & Monitoring
+
+- Run integration tests that validate sagas and compensations end-to-end
+- Simulate partial failures and validate circuit breakers and bulkheads behave correctly
+- Measure cross-service latency and set SLOs per interaction
+- Validate tracing propagation (trace IDs) across service boundaries under load
+
 ## 🔗 Related Topics
 
 - [Scalability](./scalability.md) — scale individual services independently

@@ -162,6 +162,31 @@ sequenceDiagram
 
 ---
 
+<!-- AI-DRAFT: The sections below were generated as an initial AI-assisted draft. Please review and edit before publishing. -->
+
+> **Note (AI-assisted draft):** The following Interview Questions, Production Checklist, and Testing & Monitoring items are a draft. Add links to throttling dashboards and SDK guidelines where available.
+
+## Interview Questions
+
+- When would you choose a distributed token bucket vs per-node local quotas?
+- How do you implement a global rate limiter with low latency and acceptable accuracy?
+- Describe the client and server behavior when throttled — how should SDKs politely back off?
+
+## Production Checklist
+
+- Monitor global and per-key request rates, latency, and 429 metrics
+- Implement and test DLQ-like behavior for excessive clients (e.g., blocking or blacklisting)
+- Ensure Redis (or chosen store) is highly available and instrumented when used for counters
+- Provide clear client-facing headers and documented retry semantics
+- Publish SDK guidance: retry with exponential backoff + jitter and respect Retry-After
+
+## Testing & Monitoring
+
+- Load test under bursty and steady high-load patterns and measure false positives/negatives
+- Test fail-open vs fail-closed behavior of the limiter when the shared store is unavailable
+- Verify correct operation across multiple regions and with CDNs at the edge
+- Simulate latency-sensitive endpoints to validate early rejection and edge-rate limiting
+
 ## 🔗 Related Topics
 
 - [Load Balancing](./load-balancing.md) — the L7 gateway is the usual enforcement point
