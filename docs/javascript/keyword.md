@@ -137,12 +137,12 @@ let api_response = {}; // Less preferred
 | ------------ | -------------- | ---------------------------- | ----------------------------------------------- |
 | `async`      | Functions      | Declares async function      | `async function fetchData() {}`                 |
 | `await`      | Functions      | Waits for promise resolution | `const data = await fetch(url);`                |
-| `break`      | Control Flow   | Exits loop or switch         | `for(let i=0; i<10; i++) { if(i===5) break; }`  |
+| `break`      | Control Flow   | Exits loop or switch         | `for(let i=0; i&lt;10; i++) { if(i===5) break; }`  |
 | `case`       | Control Flow   | Switch case label            | `switch(x) { case 1: console.log('one'); }`     |
 | `catch`      | Error Handling | Catches exceptions           | `try {} catch(error) {}`                        |
 | `class`      | OOP            | Declares a class             | `class Person {}`                               |
 | `const`      | Variables      | Declares constant            | `const PI = 3.14159;`                           |
-| `continue`   | Control Flow   | Skips iteration              | `for(let i=0; i<10; i++) { if(i%2) continue; }` |
+| `continue`   | Control Flow   | Skips iteration              | `for(let i=0; i&lt;10; i++) { if(i%2) continue; }` |
 | `debugger`   | Debug          | Breakpoint for debugging     | `debugger; // Pauses execution`                 |
 | `default`    | Control Flow   | Default case in switch       | `switch(x) { default: console.log('other'); }`  |
 | `delete`     | Operators      | Deletes object property      | `delete obj.property;`                          |
@@ -152,7 +152,7 @@ let api_response = {}; // Less preferred
 | `extends`    | OOP            | Class inheritance            | `class Dog extends Animal {}`                   |
 | `false`      | Values         | Boolean false value          | `const isReady = false;`                        |
 | `finally`    | Error Handling | Always executes              | `try {} catch {} finally {}`                    |
-| `for`        | Control Flow   | For loop                     | `for(let i=0; i<10; i++) {}`                    |
+| `for`        | Control Flow   | For loop                     | `for(let i=0; i&lt;10; i++) {}`                    |
 | `function`   | Functions      | Declares function            | `function greet() {}`                           |
 | `if`         | Control Flow   | Conditional statement        | `if(condition) {}`                              |
 | `import`     | Modules        | Imports from module          | `import React from 'react';`                    |

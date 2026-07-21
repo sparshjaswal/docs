@@ -650,8 +650,8 @@ npm run build
 
 Packages follow `MAJOR.MINOR.PATCH`:
 
-- `^1.2.3` — compatible with `>=1.2.3 <2.0.0` (default for `npm install`)
-- `~1.2.3` — compatible with `>=1.2.3 <1.3.0`
+- `^1.2.3` — compatible with `>=1.2.3 &lt;2.0.0` (default for `npm install`)
+- `~1.2.3` — compatible with `>=1.2.3 &lt;1.3.0`
 - `1.2.3` — exact version only
 
 ### Lock Files

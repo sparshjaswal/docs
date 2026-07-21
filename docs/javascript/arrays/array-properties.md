@@ -21,7 +21,7 @@ arr.length = 2; // truncate
 console.log(arr); // [1, 2]
 
 arr.length = 5; // extend with holes
-console.log(arr); // [1, 2, <3 empty items>]
+console.log(arr); // [1, 2, &lt;3 empty items>]
 ```
 
 Notes:

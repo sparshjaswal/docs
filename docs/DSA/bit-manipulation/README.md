@@ -178,7 +178,7 @@ function getSum(a, b) {
   }
   return a;
 }
-// XOR adds bit-by-bit; AND<<1 computes the carry. Repeat until no carry.
+// XOR adds bit-by-bit; AND<&lt;1 computes the carry. Repeat until no carry.
 // Time: O(1) (fixed 32-bit width), Space: O(1)
 ```
 

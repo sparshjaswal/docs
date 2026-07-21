@@ -777,7 +777,7 @@ services:
 ```
 
 - **Use when**: You need high throughput, event replay, event sourcing, or stream processing (Kafka Streams, ksqlDB)
-- **Avoid when**: You need ultra-low latency (<1ms), simple task queues, or minimal operational overhead
+- **Avoid when**: You need ultra-low latency (&lt;1ms), simple task queues, or minimal operational overhead
 
 #### RabbitMQ
 
