@@ -1,3 +1,10 @@
+---
+id: javascript-arrays-array-patterns
+title: Array Patterns
+slug: /javascript/arrays/array-patterns
+sidebar_label: Array Patterns
+---
+
 # Array Patterns
 
 Practical, copy-safe (immutable) patterns you can use with arrays every day. Examples prefer non-mutating approaches and call out caveats for nested objects, sparse arrays, and performance.

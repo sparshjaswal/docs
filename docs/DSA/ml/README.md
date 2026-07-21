@@ -1,3 +1,10 @@
+---
+id: dsa-ml-readme
+title: 🤖 Machine Learning Algorithms
+slug: /DSA/ml/README
+sidebar_label: 🤖 Machine Learning Algorithms
+---
+
 # 🤖 Machine Learning Algorithms
 
 > **One-line summary**: Foundational ML algorithms implemented from scratch to understand the math behind the models.

@@ -1,3 +1,10 @@
+---
+id: dsa-trees-interview-guide
+title: Trees
+slug: /DSA/trees/interview-guide
+sidebar_label: Trees
+---
+
 
 # Trees
 

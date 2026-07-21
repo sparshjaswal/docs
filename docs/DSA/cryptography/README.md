@@ -1,3 +1,10 @@
+---
+id: dsa-cryptography-readme
+title: 🔐 Cryptography
+slug: /DSA/cryptography/README
+sidebar_label: 🔐 Cryptography
+---
+
 # 🔐 Cryptography
 
 > **One-line summary**: Classic ciphers and hashing techniques that illustrate the fundamentals of encoding and secure data transformation.

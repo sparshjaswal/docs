@@ -1,3 +1,10 @@
+---
+id: design-pattern-structural-decorator
+title: Decorator Pattern 🎨
+slug: /design-pattern/structural/decorator
+sidebar_label: Decorator Pattern 🎨
+---
+
 # Decorator Pattern 🎨
 
 > **Definition**: The Decorator pattern allows behavior to be added to objects dynamically without altering their structure. It provides a flexible alternative to subclassing for extending functionality.

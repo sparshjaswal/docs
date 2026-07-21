@@ -1,3 +1,10 @@
+---
+id: dsa-graphs-readme
+title: 🗺️ Graphs
+slug: /DSA/graphs/README
+sidebar_label: 🗺️ Graphs
+---
+
 # 🗺️ Graphs
 
 > **One-line summary**: Nodes connected by edges — BFS for shortest path, DFS for connectivity/cycle, topological sort for dependencies, Union-Find for dynamic connectivity.

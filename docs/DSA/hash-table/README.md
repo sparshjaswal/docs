@@ -1,3 +1,10 @@
+---
+id: dsa-hash-table-readme
+title: Hash Table
+slug: /DSA/hash-table/README
+sidebar_label: Hash Table
+---
+
 # Hash Table
 
 In computing, a **hash table** (hash map) is a data

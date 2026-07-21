@@ -1,3 +1,10 @@
+---
+id: javascript-functions-readme
+title: 🔧 JavaScript Functions
+slug: /javascript/functions/README
+sidebar_label: 🔧 JavaScript Functions
+---
+
 # 🔧 JavaScript Functions
 
 > _Master all aspects of JavaScript functions - from basics to advanced patterns_

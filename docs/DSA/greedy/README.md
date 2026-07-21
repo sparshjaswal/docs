@@ -1,3 +1,10 @@
+---
+id: dsa-greedy-readme
+title: 💡 Greedy
+slug: /DSA/greedy/README
+sidebar_label: 💡 Greedy
+---
+
 # 💡 Greedy
 
 > **One-line summary**: Make the locally optimal choice at each step — works when local optima lead to a global optimum (proved by exchange argument).

@@ -1,3 +1,10 @@
+---
+id: dsa-lru-cache-readme
+title: Least Recently Used (LRU) Cache
+slug: /DSA/lru-cache/README
+sidebar_label: Least Recently Used (LRU) C...
+---
+
 # Least Recently Used (LRU) Cache
 
 A **Least Recently Used (LRU) Cache** organizes items in order of use, allowing you to quickly identify which item hasn't been used for the longest amount of time.

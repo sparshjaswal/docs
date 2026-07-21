@@ -1,3 +1,10 @@
+---
+id: javascript-functions-function-types
+title: JavaScript Function Types
+slug: /javascript/functions/function-types
+sidebar_label: JavaScript Function Types
+---
+
 # JavaScript Function Types
 
 ## Function Arity

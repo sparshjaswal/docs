@@ -1,3 +1,10 @@
+---
+id: dsa-statistics-readme
+title: 📈 Statistics
+slug: /DSA/statistics/README
+sidebar_label: 📈 Statistics
+---
+
 # 📈 Statistics
 
 > **One-line summary**: Probability- and sampling-based algorithms for data analysis.

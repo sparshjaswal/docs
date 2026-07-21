@@ -1,3 +1,10 @@
+---
+id: dsa-array-interview-guide
+title: Arrays
+slug: /DSA/Array/interview-guide
+sidebar_label: Arrays
+---
+
 
 # Arrays
 

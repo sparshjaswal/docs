@@ -1,3 +1,10 @@
+---
+id: functional-programming-function-and-composition-getting-started
+title: 🔄 Function Composition & Higher-Order Functions
+slug: /functional-programming/function-and-composition/getting-started
+sidebar_label: 🔄 Function Composition & Hi...
+---
+
 # 🔄 Function Composition & Higher-Order Functions
 
 > _Master the art of combining simple functions to create powerful, reusable abstractions_

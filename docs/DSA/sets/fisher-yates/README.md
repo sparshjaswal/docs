@@ -1,3 +1,10 @@
+---
+id: dsa-sets-fisher-yates-readme
+title: Fisher–Yates shuffle
+slug: /DSA/sets/fisher-yates/README
+sidebar_label: Fisher–Yates shuffle
+---
+
 # Fisher–Yates shuffle
 
 The Fisher–Yates shuffle is an algorithm for generating a random

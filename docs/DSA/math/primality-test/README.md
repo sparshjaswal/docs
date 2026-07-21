@@ -1,3 +1,10 @@
+---
+id: dsa-math-primality-test-readme
+title: Primality Test
+slug: /DSA/math/primality-test/README
+sidebar_label: Primality Test
+---
+
 # Primality Test
 
 A **prime number** (or a **prime**) is a natural number greater than `1` that

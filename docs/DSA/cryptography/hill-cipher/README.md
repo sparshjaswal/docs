@@ -1,3 +1,10 @@
+---
+id: dsa-cryptography-hill-cipher-readme
+title: Hill Cipher
+slug: /DSA/cryptography/hill-cipher/README
+sidebar_label: Hill Cipher
+---
+
 # Hill Cipher
 
 The **Hill cipher** is a [polygraphic substitution](https://en.wikipedia.org/wiki/Polygraphic_substitution) cipher based on linear algebra.

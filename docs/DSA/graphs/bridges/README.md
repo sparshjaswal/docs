@@ -1,3 +1,10 @@
+---
+id: dsa-graphs-bridges-readme
+title: Bridges in Graph
+slug: /DSA/graphs/bridges/README
+sidebar_label: Bridges in Graph
+---
+
 # Bridges in Graph
 
 In graph theory, a **bridge**, **isthmus**, **cut-edge**, or **cut arc** is an edge

@@ -1,3 +1,10 @@
+---
+id: dsa-search-readme
+title: 🔍 Search
+slug: /DSA/search/README
+sidebar_label: 🔍 Search
+---
+
 # 🔍 Search
 
 > **One-line summary**: Locate a target within a collection — from O(n) linear scans to O(log n) binary search on sorted data.

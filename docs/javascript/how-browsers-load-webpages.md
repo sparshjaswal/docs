@@ -1,3 +1,10 @@
+---
+id: javascript-how-browsers-load-webpages
+title: How Browsers Load Webpages - Complete Guide
+slug: /javascript/how-browsers-load-webpages
+sidebar_label: How Browsers Load Webpages ...
+---
+
 # How Browsers Load Webpages - Complete Guide
 
 A comprehensive guide to understanding browser rendering processes, performance optimization, and modern web development practices.

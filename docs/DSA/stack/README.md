@@ -1,3 +1,10 @@
+---
+id: dsa-stack-readme
+title: Stack
+slug: /DSA/stack/README
+sidebar_label: Stack
+---
+
 # Stack
 
 In computer science, a **stack** is an abstract data type that serves

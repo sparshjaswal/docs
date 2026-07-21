@@ -1,3 +1,10 @@
+---
+id: dsa-binary-search-readme
+title: 🔍 Binary Search
+slug: /DSA/binary-search/README
+sidebar_label: 🔍 Binary Search
+---
+
 # 🔍 Binary Search
 
 > **One-line summary**: Repeatedly halve the search space by comparing the middle element — O(log n) on any sorted or monotonic space.

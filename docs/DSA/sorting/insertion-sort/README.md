@@ -1,3 +1,10 @@
+---
+id: dsa-sorting-insertion-sort-readme
+title: Insertion Sort
+slug: /DSA/sorting/insertion-sort/README
+sidebar_label: Insertion Sort
+---
+
 # Insertion Sort
 
 Insertion sort is a simple sorting algorithm that builds

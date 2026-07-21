@@ -1,3 +1,10 @@
+---
+id: dsa-bit-manipulation-readme
+title: 🔢 Bit Manipulation
+slug: /DSA/bit-manipulation/README
+sidebar_label: 🔢 Bit Manipulation
+---
+
 # 🔢 Bit Manipulation
 
 > **One-line summary**: Operate directly on bits — XOR, AND, OR, shifts — for elegant O(1) tricks that would otherwise require O(n) logic.

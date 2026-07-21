@@ -1,3 +1,10 @@
+---
+id: dsa-sets-readme
+title: 🧮 Sets & Combinatorics
+slug: /DSA/sets/README
+sidebar_label: 🧮 Sets & Combinatorics
+---
+
 # 🧮 Sets & Combinatorics
 
 > **One-line summary**: Generate and reason over subsets, permutations, combinations, and classic set-based DP problems.

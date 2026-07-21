@@ -1,3 +1,10 @@
+---
+id: javascript-flow-of-control
+title: Flow Control in JavaScript
+slug: /javascript/flow-of-control
+sidebar_label: Flow Control in JavaScript
+---
+
 # Flow Control in JavaScript
 
 Flow control in JavaScript allows programmers to control the execution of code based on specific conditions. The main control structures are `if...else`, `switch`, and conditional operators.

@@ -1,3 +1,10 @@
+---
+id: design-pattern-structural-flyweight
+title: Flyweight Pattern 🪶
+slug: /design-pattern/structural/flyweight
+sidebar_label: Flyweight Pattern 🪶
+---
+
 # Flyweight Pattern 🪶
 
 > **Definition**: The Flyweight pattern minimizes memory usage by sharing efficiently the common parts of state between multiple objects instead of storing all data in each object.

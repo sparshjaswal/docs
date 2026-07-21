@@ -1,3 +1,10 @@
+---
+id: dsa-math-integer-partition-readme
+title: Integer Partition
+slug: /DSA/math/integer-partition/README
+sidebar_label: Integer Partition
+---
+
 # Integer Partition
 
 In number theory and combinatorics, a partition of a positive

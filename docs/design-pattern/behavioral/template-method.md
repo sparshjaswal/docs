@@ -1,3 +1,10 @@
+---
+id: design-pattern-behavioral-template-method
+title: Template Method Pattern 📋
+slug: /design-pattern/behavioral/template-method
+sidebar_label: Template Method Pattern 📋
+---
+
 # Template Method Pattern 📋
 
 > **Definition**: The Template Method pattern defines the skeleton of an algorithm in the superclass but lets subclasses override specific steps of the algorithm without changing its structure.

@@ -1,3 +1,10 @@
+---
+id: dsa-statistics-weighted-random-readme
+title: Weighted Random
+slug: /DSA/statistics/weighted-random/README
+sidebar_label: Weighted Random
+---
+
 # Weighted Random
 
 ![Weighted Random](images/cover.png)

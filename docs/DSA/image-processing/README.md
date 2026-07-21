@@ -1,3 +1,10 @@
+---
+id: dsa-image-processing-readme
+title: 🖼️ Image Processing
+slug: /DSA/image-processing/README
+sidebar_label: 🖼️ Image Processing
+---
+
 # 🖼️ Image Processing
 
 > **One-line summary**: Algorithms that operate on 2D pixel data — resizing, content-aware transforms, and more.

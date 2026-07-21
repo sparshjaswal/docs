@@ -1,3 +1,10 @@
+---
+id: dsa-uncategorized-hanoi-tower-readme
+title: Tower of Hanoi
+slug: /DSA/uncategorized/hanoi-tower/README
+sidebar_label: Tower of Hanoi
+---
+
 # Tower of Hanoi
 
 The Tower of Hanoi (also called the Tower of Brahma or Lucas'

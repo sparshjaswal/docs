@@ -1,3 +1,10 @@
+---
+id: javascript-functions-function-callback
+title: 🔄 Callback Functions in JavaScript
+slug: /javascript/functions/function-callback
+sidebar_label: 🔄 Callback Functions in Jav...
+---
+
 # 🔄 Callback Functions in JavaScript
 
 > _Understanding callback functions - the foundation of asynchronous programming in JavaScript_

@@ -1,3 +1,10 @@
+---
+id: dsa-sets-longest-common-subsequence-readme
+title: Longest common subsequence problem
+slug: /DSA/sets/longest-common-subsequence/README
+sidebar_label: Longest common subsequence ...
+---
+
 # Longest common subsequence problem
 
 The longest common subsequence (LCS) problem is the problem of finding

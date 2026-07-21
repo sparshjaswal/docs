@@ -1,3 +1,10 @@
+---
+id: dsa-queue-readme
+title: Queue
+slug: /DSA/queue/README
+sidebar_label: Queue
+---
+
 # Queue
 
 In computer science, a **queue** is a particular kind of abstract data

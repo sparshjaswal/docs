@@ -1,3 +1,10 @@
+---
+id: functional-programming-pure-function-and-side-effect-getting-started
+title: 🎯 Pure Functions and Side Effects
+slug: /functional-programming/pure-function-and-side-effect/getting-started
+sidebar_label: 🎯 Pure Functions and Side E...
+---
+
 # 🎯 Pure Functions and Side Effects
 
 > _The foundation of functional programming: understanding and implementing pure functions while eliminating side effects_

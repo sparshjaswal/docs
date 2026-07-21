@@ -1,3 +1,10 @@
+---
+id: dsa-math-horner-method-readme
+title: Horner's Method
+slug: /DSA/math/horner-method/README
+sidebar_label: Horner's Method
+---
+
 # Horner's Method
 
 In mathematics, Horner's method (or Horner's scheme) is an algorithm for polynomial evaluation. With this method, it is possible to evaluate a polynomial with only `n` additions and `n` multiplications. Hence, its storage requirements are `n` times the number of bits of `x`.

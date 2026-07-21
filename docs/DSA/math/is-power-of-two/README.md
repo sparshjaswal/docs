@@ -1,3 +1,10 @@
+---
+id: dsa-math-is-power-of-two-readme
+title: Is a power of two
+slug: /DSA/math/is-power-of-two/README
+sidebar_label: Is a power of two
+---
+
 # Is a power of two
 
 Given a positive integer, write a function to find if it is

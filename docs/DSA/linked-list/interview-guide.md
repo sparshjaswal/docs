@@ -1,3 +1,10 @@
+---
+id: dsa-linked-list-interview-guide
+title: Linked Lists
+slug: /DSA/linked-list/interview-guide
+sidebar_label: Linked Lists
+---
+
 
 # Linked Lists
 

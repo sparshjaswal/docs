@@ -1,3 +1,10 @@
+---
+id: dsa-strings-z-algorithm-readme
+title: Z Algorithm
+slug: /DSA/strings/z-algorithm/README
+sidebar_label: Z Algorithm
+---
+
 # Z Algorithm
 
 The Z-algorithm finds occurrences of a "word" `W`

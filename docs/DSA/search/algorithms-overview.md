@@ -1,3 +1,10 @@
+---
+id: dsa-search-algorithms-overview
+title: Searching
+slug: /DSA/search/algorithms-overview
+sidebar_label: Searching
+---
+
 # Searching
 
 > **One-line summary**: Locate a target within a collection — from O(n) linear scans to O(log n) binary search on sorted data.

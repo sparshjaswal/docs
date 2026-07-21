@@ -1,3 +1,10 @@
+---
+id: dsa-math-euclidean-algorithm-readme
+title: Euclidean algorithm
+slug: /DSA/math/euclidean-algorithm/README
+sidebar_label: Euclidean algorithm
+---
+
 # Euclidean algorithm
 
 In mathematics, the Euclidean algorithm, or Euclid's algorithm,

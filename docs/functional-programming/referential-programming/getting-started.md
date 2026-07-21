@@ -1,3 +1,10 @@
+---
+id: functional-programming-referential-programming-getting-started
+title: 🔒 Referential Transparency & Mathematical Foundations
+slug: /functional-programming/referential-programming/getting-started
+sidebar_label: 🔒 Referential Transparency ...
+---
+
 # 🔒 Referential Transparency & Mathematical Foundations
 
 > _Understanding the mathematical foundations that make functional programming powerful and predictable_

@@ -1,3 +1,10 @@
+---
+id: dsa-search-interpolation-search-readme
+title: Interpolation Search
+slug: /DSA/search/interpolation-search/README
+sidebar_label: Interpolation Search
+---
+
 # Interpolation Search
 
 **Interpolation search** is an algorithm for searching for a key in an array that

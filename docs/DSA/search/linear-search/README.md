@@ -1,3 +1,10 @@
+---
+id: dsa-search-linear-search-readme
+title: Linear Search
+slug: /DSA/search/linear-search/README
+sidebar_label: Linear Search
+---
+
 # Linear Search
 
 In computer science, linear search or sequential search is a

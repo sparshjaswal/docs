@@ -1,3 +1,10 @@
+---
+id: dsa-sorting-algorithms-overview
+title: Sorting
+slug: /DSA/sorting/algorithms-overview
+sidebar_label: Sorting
+---
+
 # Sorting
 
 > **One-line summary**: Rearrange elements in order — the prerequisite for binary search, two pointers, and many greedy algorithms.

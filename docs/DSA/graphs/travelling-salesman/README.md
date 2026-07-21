@@ -1,3 +1,10 @@
+---
+id: dsa-graphs-travelling-salesman-readme
+title: Travelling Salesman Problem
+slug: /DSA/graphs/travelling-salesman/README
+sidebar_label: Travelling Salesman Problem
+---
+
 # Travelling Salesman Problem
 
 The travelling salesman problem (TSP) asks the following question:

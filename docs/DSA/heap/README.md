@@ -1,3 +1,10 @@
+---
+id: dsa-heap-readme
+title: 🏔️ Heap (Priority Queue)
+slug: /DSA/heap/README
+sidebar_label: 🏔️ Heap (Priority Queue)
+---
+
 # 🏔️ Heap (Priority Queue)
 
 > **One-line summary**: A complete binary tree satisfying the heap property — O(log n) insert and extract-min/max, the engine behind Top-K, median, K-way merge, and scheduling algorithms.

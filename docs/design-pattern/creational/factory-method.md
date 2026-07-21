@@ -1,3 +1,10 @@
+---
+id: design-pattern-creational-factory-method
+title: Factory Method Pattern 🏭
+slug: /design-pattern/creational/factory-method
+sidebar_label: Factory Method Pattern 🏭
+---
+
 # Factory Method Pattern 🏭
 
 > **Definition**: The Factory Method pattern defines an interface for creating an object, but lets subclasses decide which class to instantiate. Factory Method lets a class defer instantiation to subclasses.

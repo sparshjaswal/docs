@@ -1,3 +1,10 @@
+---
+id: javascript-modular-javascript
+title: 📦 JavaScript Modules - Complete Guide (ES6+)
+slug: /javascript/modular-javascript
+sidebar_label: 📦 JavaScript Modules - Comp...
+---
+
 # 📦 JavaScript Modules - Complete Guide (ES6+)
 
 > **Master modular programming for scalable and maintainable JavaScript applications**

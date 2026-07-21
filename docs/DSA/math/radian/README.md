@@ -1,3 +1,10 @@
+---
+id: dsa-math-radian-readme
+title: Radian
+slug: /DSA/math/radian/README
+sidebar_label: Radian
+---
+
 # Radian
 
 The **radian** (symbol **rad**) is the unit for measuring angles, and is the

@@ -1,3 +1,10 @@
+---
+id: javascript-arrays-array-methods
+title: JavaScript Array Methods
+slug: /javascript/arrays/array-methods
+sidebar_label: JavaScript Array Methods
+---
+
 # JavaScript Array Methods
 
 This guide groups array methods by behavior, clarifies mutating vs non‑mutating operations, and calls out common pitfalls and best practices. Examples are MDX‑safe.

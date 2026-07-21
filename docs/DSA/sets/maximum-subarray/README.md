@@ -1,3 +1,10 @@
+---
+id: dsa-sets-maximum-subarray-readme
+title: Maximum subarray problem
+slug: /DSA/sets/maximum-subarray/README
+sidebar_label: Maximum subarray problem
+---
+
 # Maximum subarray problem
 
 The maximum subarray problem is the task of finding the contiguous

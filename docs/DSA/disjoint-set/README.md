@@ -1,3 +1,10 @@
+---
+id: dsa-disjoint-set-readme
+title: Disjoint Set
+slug: /DSA/disjoint-set/README
+sidebar_label: Disjoint Set
+---
+
 # Disjoint Set
 
 **Disjoint-set** data structure (also called a union–find data structure or merge–find set) is a data

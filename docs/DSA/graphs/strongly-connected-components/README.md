@@ -1,3 +1,10 @@
+---
+id: dsa-graphs-strongly-connected-components-readme
+title: Strongly Connected Component
+slug: /DSA/graphs/strongly-connected-components/README
+sidebar_label: Strongly Connected Component
+---
+
 # Strongly Connected Component
 
 A directed graph is called **strongly connected** if there is a path

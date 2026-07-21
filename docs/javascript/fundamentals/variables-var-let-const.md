@@ -1,3 +1,10 @@
+---
+id: javascript-fundamentals-variables-var-let-const
+title: var, let & const
+slug: /javascript/fundamentals/variables-var-let-const
+sidebar_label: var, let & const
+---
+
 # var, let & const
 
 ## Variable Declaration Keywords

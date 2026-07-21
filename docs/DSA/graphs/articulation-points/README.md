@@ -1,3 +1,10 @@
+---
+id: dsa-graphs-articulation-points-readme
+title: Articulation Points (or Cut Vertices)
+slug: /DSA/graphs/articulation-points/README
+sidebar_label: Articulation Points (or Cut...
+---
+
 # Articulation Points (or Cut Vertices)
 
 A vertex in an undirected connected graph is an articulation point

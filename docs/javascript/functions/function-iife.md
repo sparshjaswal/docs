@@ -1,3 +1,10 @@
+---
+id: javascript-functions-function-iife
+title: IIFE (Immediately Invoked Function Expression)
+slug: /javascript/functions/function-iife
+sidebar_label: IIFE (Immediately Invoked F...
+---
+
 # IIFE (Immediately Invoked Function Expression)
 
 IIFE is a function expression that is called an Immediately Invoked Function Expression, i.e., a function which is executed immediately after it's created.

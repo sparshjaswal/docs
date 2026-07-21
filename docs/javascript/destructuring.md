@@ -1,3 +1,10 @@
+---
+id: javascript-destructuring
+title: JavaScript Destructuring
+slug: /javascript/destructuring
+sidebar_label: JavaScript Destructuring
+---
+
 # JavaScript Destructuring
 
 ## What is Destructuring?

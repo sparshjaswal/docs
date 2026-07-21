@@ -1,3 +1,10 @@
+---
+id: functional-programming-monads-getting-started
+title: 🏗️ Monads: Advanced Functional Patterns
+slug: /functional-programming/monads/getting-started
+sidebar_label: 🏗️ Monads: Advanced Functio...
+---
+
 # 🏗️ Monads: Advanced Functional Patterns
 
 > _Master monads: the most powerful abstraction in functional programming for handling context and chaining operations_

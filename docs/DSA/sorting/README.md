@@ -1,3 +1,10 @@
+---
+id: dsa-sorting-readme
+title: 🔃 Sorting
+slug: /DSA/sorting/README
+sidebar_label: 🔃 Sorting
+---
+
 # 🔃 Sorting
 
 > **One-line summary**: Rearrange elements in order — the prerequisite for binary search, two pointers, and many greedy algorithms.

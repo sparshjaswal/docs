@@ -1,3 +1,10 @@
+---
+id: dsa-search-jump-search-readme
+title: Jump Search
+slug: /DSA/search/jump-search/README
+sidebar_label: Jump Search
+---
+
 # Jump Search
 
 Like Binary Search, **Jump Search** (or **Block Search**) is a searching algorithm

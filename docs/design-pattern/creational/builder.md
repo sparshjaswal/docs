@@ -1,3 +1,10 @@
+---
+id: design-pattern-creational-builder
+title: Builder Pattern 🏗️
+slug: /design-pattern/creational/builder
+sidebar_label: Builder Pattern 🏗️
+---
+
 # Builder Pattern 🏗️
 
 > **Definition**: The Builder pattern separates the construction of complex objects from their representation, allowing the same construction process to create different representations.

@@ -1,3 +1,10 @@
+---
+id: dsa-math-pascal-triangle-readme
+title: Pascal's Triangle
+slug: /DSA/math/pascal-triangle/README
+sidebar_label: Pascal's Triangle
+---
+
 # Pascal's Triangle
 
 In mathematics, **Pascal's triangle** is a triangular array of

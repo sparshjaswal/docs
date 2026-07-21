@@ -1,3 +1,10 @@
+---
+id: dsa-math-bits-readme
+title: Bit Manipulation
+slug: /DSA/math/bits/README
+sidebar_label: Bit Manipulation
+---
+
 # Bit Manipulation
 
 #### Get Bit

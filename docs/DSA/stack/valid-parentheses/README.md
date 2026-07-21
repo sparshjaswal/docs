@@ -1,3 +1,10 @@
+---
+id: dsa-stack-valid-parentheses-readme
+title: Valid Parentheses Problem
+slug: /DSA/stack/valid-parentheses/README
+sidebar_label: Valid Parentheses Problem
+---
+
 # Valid Parentheses Problem
 
 Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.

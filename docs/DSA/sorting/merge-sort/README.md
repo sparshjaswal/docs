@@ -1,3 +1,10 @@
+---
+id: dsa-sorting-merge-sort-readme
+title: Merge Sort
+slug: /DSA/sorting/merge-sort/README
+sidebar_label: Merge Sort
+---
+
 # Merge Sort
 
 In computer science, merge sort (also commonly spelled

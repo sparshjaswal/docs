@@ -1,3 +1,10 @@
+---
+id: design-pattern-creational-prototype
+title: Prototype Pattern 🧬
+slug: /design-pattern/creational/prototype
+sidebar_label: Prototype Pattern 🧬
+---
+
 # Prototype Pattern 🧬
 
 > **Definition**: The Prototype pattern allows you to create new objects by cloning existing instances (prototypes) rather than creating new instances from scratch.

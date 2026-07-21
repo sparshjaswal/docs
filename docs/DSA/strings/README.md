@@ -1,3 +1,10 @@
+---
+id: dsa-strings-readme
+title: 🔤 Strings
+slug: /DSA/strings/README
+sidebar_label: 🔤 Strings
+---
+
 # 🔤 Strings
 
 > **One-line summary**: Immutable character sequences — master sliding window, two pointers, and hashing on strings for O(n) solutions to substring/pattern problems.

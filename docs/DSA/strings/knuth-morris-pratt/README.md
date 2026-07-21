@@ -1,3 +1,10 @@
+---
+id: dsa-strings-knuth-morris-pratt-readme
+title: Knuth–Morris–Pratt Algorithm
+slug: /DSA/strings/knuth-morris-pratt/README
+sidebar_label: Knuth–Morris–Pratt Algorithm
+---
+
 # Knuth–Morris–Pratt Algorithm
 
 The Knuth–Morris–Pratt string searching algorithm (or

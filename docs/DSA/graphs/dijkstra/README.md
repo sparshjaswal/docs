@@ -1,3 +1,10 @@
+---
+id: dsa-graphs-dijkstra-readme
+title: Dijkstra's Algorithm
+slug: /DSA/graphs/dijkstra/README
+sidebar_label: Dijkstra's Algorithm
+---
+
 # Dijkstra's Algorithm
 
 Dijkstra's algorithm is an algorithm for finding the shortest

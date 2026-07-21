@@ -1,3 +1,10 @@
+---
+id: design-pattern-structural-composite
+title: Composite Pattern 🌳
+slug: /design-pattern/structural/composite
+sidebar_label: Composite Pattern 🌳
+---
+
 # Composite Pattern 🌳
 
 > **Definition**: The Composite pattern lets you compose objects into tree structures to represent part-whole hierarchies. It allows clients to treat individual objects and compositions uniformly.

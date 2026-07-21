@@ -1,3 +1,10 @@
+---
+id: dsa-stack-interview-guide
+title: Stacks
+slug: /DSA/stack/interview-guide
+sidebar_label: Stacks
+---
+
 
 # Stacks
 

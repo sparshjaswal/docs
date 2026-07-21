@@ -1,3 +1,10 @@
+---
+id: dsa-graphs-floyd-warshall-readme
+title: Floyd–Warshall Algorithm
+slug: /DSA/graphs/floyd-warshall/README
+sidebar_label: Floyd–Warshall Algorithm
+---
+
 # Floyd–Warshall Algorithm
 
 In computer science, the **Floyd–Warshall algorithm** is an algorithm for finding

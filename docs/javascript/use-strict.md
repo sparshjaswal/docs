@@ -1,3 +1,10 @@
+---
+id: javascript-use-strict
+title: use strict
+slug: /javascript/use-strict
+sidebar_label: use strict
+---
+
 # use strict
 
 The JavaScript directive "use strict" enables strict mode. Strict mode makes JavaScript code safer and

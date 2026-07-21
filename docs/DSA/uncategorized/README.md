@@ -1,3 +1,10 @@
+---
+id: dsa-uncategorized-readme
+title: 🧩 Uncategorized Problems
+slug: /DSA/uncategorized/README
+sidebar_label: 🧩 Uncategorized Problems
+---
+
 # 🧩 Uncategorized Problems
 
 > **One-line summary**: Well-known algorithmic problems that span multiple paradigms (backtracking, DP, greedy, divide-and-conquer) and don't fit a single category.

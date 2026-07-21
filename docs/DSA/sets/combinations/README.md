@@ -1,3 +1,10 @@
+---
+id: dsa-sets-combinations-readme
+title: Combinations
+slug: /DSA/sets/combinations/README
+sidebar_label: Combinations
+---
+
 # Combinations
 
 When the order doesn't matter, it is a **Combination**.

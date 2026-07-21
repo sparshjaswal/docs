@@ -1,3 +1,10 @@
+---
+id: javascript-quick-reference
+title: 🚀 JavaScript Quick Reference Cheatsheet
+slug: /javascript/quick-reference
+sidebar_label: 🚀 JavaScript Quick Referenc...
+---
+
 # 🚀 JavaScript Quick Reference Cheatsheet
 
 ## 📚 Variables & Data Types

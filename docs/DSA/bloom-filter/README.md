@@ -1,3 +1,10 @@
+---
+id: dsa-bloom-filter-readme
+title: Bloom Filter
+slug: /DSA/bloom-filter/README
+sidebar_label: Bloom Filter
+---
+
 # Bloom Filter
 
 A **bloom filter** is a space-efficient probabilistic

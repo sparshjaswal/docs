@@ -1,3 +1,10 @@
+---
+id: dsa-school-basics-readme
+title: 🏫 School Level Basics
+slug: /DSA/school-basics/README
+sidebar_label: 🏫 School Level Basics
+---
+
 # 🏫 School Level Basics
 
 > **One-line summary**: Foundational mathematical and algorithmic building blocks — primes, GCD, palindromes, factorials, digit manipulation. Every DSA practitioner must write these from memory.

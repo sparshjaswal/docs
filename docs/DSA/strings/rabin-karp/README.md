@@ -1,3 +1,10 @@
+---
+id: dsa-strings-rabin-karp-readme
+title: Rabin Karp Algorithm
+slug: /DSA/strings/rabin-karp/README
+sidebar_label: Rabin Karp Algorithm
+---
+
 # Rabin Karp Algorithm
 
 In computer science, the Rabin–Karp algorithm or Karp–Rabin algorithm

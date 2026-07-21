@@ -1,3 +1,10 @@
+---
+id: dsa-graphs-hamiltonian-cycle-readme
+title: Hamiltonian Path
+slug: /DSA/graphs/hamiltonian-cycle/README
+sidebar_label: Hamiltonian Path
+---
+
 # Hamiltonian Path
 
 **Hamiltonian path** (or **traceable path**) is a path in an

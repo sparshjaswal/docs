@@ -1,3 +1,10 @@
+---
+id: dsa-math-square-root-readme
+title: Square Root (Newton's Method)
+slug: /DSA/math/square-root/README
+sidebar_label: Square Root (Newton's Method)
+---
+
 # Square Root (Newton's Method)
 
 In numerical analysis, a branch of mathematics, there are several square root

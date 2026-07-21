@@ -1,3 +1,10 @@
+---
+id: dsa-uncategorized-square-matrix-rotation-readme
+title: Square Matrix In-Place Rotation
+slug: /DSA/uncategorized/square-matrix-rotation/README
+sidebar_label: Square Matrix In-Place Rota...
+---
+
 # Square Matrix In-Place Rotation
 
 ## The Problem

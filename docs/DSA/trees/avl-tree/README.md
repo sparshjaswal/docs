@@ -1,3 +1,10 @@
+---
+id: dsa-trees-avl-tree-readme
+title: AVL Tree
+slug: /DSA/trees/avl-tree/README
+sidebar_label: AVL Tree
+---
+
 # AVL Tree
 
 In computer science, an **AVL tree** (named after inventors

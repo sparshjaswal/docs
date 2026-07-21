@@ -1,3 +1,10 @@
+---
+id: javascript-error-handling
+title: Error Handling
+slug: /javascript/error-handling
+sidebar_label: Error Handling
+---
+
 # Error Handling
 
 Error in code can occur while executions or runtime, even if our code is free from syntax and compile-time error.JavaScript like other languages support handling such errors.

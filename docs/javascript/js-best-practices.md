@@ -1,3 +1,10 @@
+---
+id: javascript-js-best-practices
+title: 🚀 Modern JavaScript Best Practices & Performance Guide
+slug: /javascript/js-best-practices
+sidebar_label: 🚀 Modern JavaScript Best Pr...
+---
+
 # 🚀 Modern JavaScript Best Practices & Performance Guide
 
 > **A comprehensive guide to writing clean, efficient, and maintainable JavaScript code in 2025**

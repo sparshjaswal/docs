@@ -1,3 +1,10 @@
+---
+id: dsa-sets-shortest-common-supersequence-readme
+title: Shortest Common Supersequence
+slug: /DSA/sets/shortest-common-supersequence/README
+sidebar_label: Shortest Common Supersequence
+---
+
 # Shortest Common Supersequence
 
 The shortest common supersequence (SCS) of two sequences `X` and `Y`

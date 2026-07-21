@@ -1,3 +1,10 @@
+---
+id: dsa-uncategorized-best-time-to-buy-sell-stocks-readme
+title: Best Time to Buy and Sell Stock
+slug: /DSA/uncategorized/best-time-to-buy-sell-stocks/README
+sidebar_label: Best Time to Buy and Sell S...
+---
+
 # Best Time to Buy and Sell Stock
 
 ## Task Description

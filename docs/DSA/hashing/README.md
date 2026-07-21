@@ -1,3 +1,10 @@
+---
+id: dsa-hashing-readme
+title: 🗂️ Hashing (Map / Set)
+slug: /DSA/hashing/README
+sidebar_label: 🗂️ Hashing (Map / Set)
+---
+
 # 🗂️ Hashing (Map / Set)
 
 > **One-line summary**: Use a hash table to achieve O(1) average-time lookup, insertion, and deletion — turning O(n²) brute-force into O(n).

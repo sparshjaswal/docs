@@ -1,3 +1,10 @@
+---
+id: javascript-keyword
+title: 🔑 Chapter 3: Keywords and Identifiers in JavaScript
+slug: /javascript/keyword
+sidebar_label: 🔑 Chapter 3: Keywords and I...
+---
+
 # 🔑 Chapter 3: Keywords and Identifiers in JavaScript
 
 ## 📝 Understanding Identifiers

@@ -1,3 +1,10 @@
+---
+id: javascript-fundamentals-readme
+title: 🏗️ JavaScript Fundamentals
+slug: /javascript/fundamentals/README
+sidebar_label: 🏗️ JavaScript Fundamentals
+---
+
 # 🏗️ JavaScript Fundamentals
 
 > _Essential JavaScript concepts every developer must master_

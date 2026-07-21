@@ -1,3 +1,10 @@
+---
+id: dsa-greedy-algorithms-overview
+title: Greedy Algorithms
+slug: /DSA/greedy/algorithms-overview
+sidebar_label: Greedy Algorithms
+---
+
 # Greedy Algorithms
 
 > **One-line summary**: Make the locally optimal choice at each step — works when local optima lead to a global optimum (proved by exchange argument).

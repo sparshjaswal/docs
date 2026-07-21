@@ -1,3 +1,10 @@
+---
+id: javascript-template-literals
+title: Template Literals [es6]
+slug: /javascript/template-literals
+sidebar_label: Template Literals [es6]
+---
+
 # Template Literals [es6]
 
 The template is termed as a certain predefined format and literals are referred to as a value which you don’t want to mutate while displaying or showing. **Backtick Operator**

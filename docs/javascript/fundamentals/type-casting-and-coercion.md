@@ -1,3 +1,10 @@
+---
+id: javascript-fundamentals-type-casting-and-coercion
+title: Type Casting and Coercion
+slug: /javascript/fundamentals/type-casting-and-coercion
+sidebar_label: Type Casting and Coercion
+---
+
 # Type Casting and Coercion
 
 Type Coercion (implicit type conversion) happens when a value is being converted to any other types using certain predefined rules

@@ -1,3 +1,10 @@
+---
+id: javascript-functions-function-recursion
+title: Recursion in JavaScript
+slug: /javascript/functions/function-recursion
+sidebar_label: Recursion in JavaScript
+---
+
 # Recursion in JavaScript
 
 Recursion is a programming pattern where a function calls itself to solve a problem by breaking it down into smaller, similar sub-problems. Each recursive function must have a base case (termination condition) and a recursive case.

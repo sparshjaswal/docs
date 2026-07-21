@@ -1,3 +1,10 @@
+---
+id: javascript-loops
+title: Loop
+slug: /javascript/loops
+sidebar_label: Loop
+---
+
 # Loop
 
 When we want to repeat the same code over different values, we generally use a programming constructs loop.

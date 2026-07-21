@@ -1,3 +1,10 @@
+---
+id: design-pattern-behavioral-visitor
+title: Visitor Pattern 🏃‍♂️
+slug: /design-pattern/behavioral/visitor
+sidebar_label: Visitor Pattern 🏃‍♂️
+---
+
 # Visitor Pattern 🏃‍♂️
 
 > **Definition**: The Visitor pattern lets you separate algorithms from the objects on which they operate by defining a family of algorithms, encapsulating each one, and making them interchangeable at runtime.
