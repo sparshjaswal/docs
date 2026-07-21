@@ -162,8 +162,6 @@ sequenceDiagram
 
 ---
 
-<!-- AI-DRAFT: The sections below were generated as an initial AI-assisted draft. Please review and edit before publishing. -->
-
 > **Note (AI-assisted draft):** The following Interview Questions, Production Checklist, and Testing & Monitoring items are a draft. Add links to throttling dashboards and SDK guidelines where available.
 
 ## Interview Questions

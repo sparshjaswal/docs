@@ -143,8 +143,6 @@ The **ELC** dimension is the everyday reality: even without partitions, strong c
 
 ---
 
-<!-- AI-DRAFT: The sections below were generated as an initial AI-assisted draft. Please review and edit before publishing. -->
-
 > **Note (AI-assisted draft):** The following Interview Questions, Production Checklist, and Testing & Monitoring items are a draft intended to accelerate review. Please verify operational details and add any organization-specific runbook links.
 
 ## Interview Questions

@@ -178,8 +178,6 @@ Combine retries with **idempotency** (see [API Design](./api-design.md)) to avoi
 
 ---
 
-<!-- AI-DRAFT: The sections below were generated as an initial AI-assisted draft. Please review and edit before publishing. -->
-
 > **Note (AI-assisted draft):** The following Interview Questions, Production Checklist, and Testing & Monitoring items are a draft. Add organization-specific CI/CD links and observability dashboards as needed.
 
 ## Interview Questions
