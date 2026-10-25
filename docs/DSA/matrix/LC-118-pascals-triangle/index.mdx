@@ -1,0 +1,35 @@
+---
+title: 'LC 118 Pascals Triangle'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-118-pascals-triangle.js';
+
+## Contract
+
+Return the requested number of rows of Pascal's triangle. Each row starts and ends with 1.
+
+## Approach
+
+For every interior position, add the two values immediately above it. Build rows in increasing length.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-118-pascals-triangle.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { generate } from './LC-118-pascals-triangle.js';
+console.log(JSON.stringify(generate(5)));
+```
+
+```text output
+[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
+```
+
+## Cost and edge cases
+
+O(r²) time and output space for r rows. Zero rows gives []. Use small nonnegative row counts; Number values eventually lose integer precision for large rows.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

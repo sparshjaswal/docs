@@ -1,0 +1,36 @@
+---
+title: 'SumFirstNNatural'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./SumFirstNNatural.js';
+import Tests from '!!raw-loader!./SumFirstNNatural.test.ts';
+
+## Contract
+
+Return 1 + 2 + ... + n as an exact Number when it fits the safe-integer range.
+
+## Approach
+
+Pairing the sequence forward and backward gives n pairs, each totaling n + 1. Divide the product by 2; BigInt protects the intermediate calculation.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `SumFirstNNatural.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { sumOfFirstNNaturalNumbers } from './SumFirstNNatural.js';
+console.log(JSON.stringify(sumOfFirstNNaturalNumbers(10)));
+```
+
+```text output
+55
+```
+
+## Cost and edge cases
+
+A fixed number of BigInt operations; their cost depends on operand size. Invalid or negative input returns 0. A valid n whose sum is too large throws RangeError.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} tests={Tests} implLang="js" testLang="ts" />

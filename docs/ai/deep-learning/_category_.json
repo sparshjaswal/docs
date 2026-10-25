@@ -1,0 +1,10 @@
+{
+  "label": "4. Deep learning",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "title": "4. Deep learning",
+    "slug": "/ai/sections/deep-learning",
+    "description": "Follow forward computation, gradients, and training before studying vision, attention, transformers, and reinforcement learning. Begin after the mathematics and machine-learning stages."
+  }
+}

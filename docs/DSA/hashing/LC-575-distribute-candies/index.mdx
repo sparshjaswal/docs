@@ -1,0 +1,35 @@
+---
+title: 'LC 575 Distribute Candies'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-575-distribute-candies.js';
+
+## Contract
+
+Choose half of an even-sized collection while maximizing the number of distinct types. Return that number.
+
+## Approach
+
+The answer cannot exceed either the number of distinct types or the number of allowed items. Taking one of each type reaches the smaller bound.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-575-distribute-candies.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { distributeCandies } from './LC-575-distribute-candies.js';
+console.log(JSON.stringify(distributeCandies([1, 1, 2, 2, 3, 3])));
+```
+
+```text output
+3
+```
+
+## Cost and edge cases
+
+O(n) expected time and O(n) space. The input length is positive and even. Identical types give an answer of 1.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

@@ -1,0 +1,35 @@
+---
+title: 'PrintXInBox'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./PrintXInBox.js';
+
+## Contract
+
+Return rows of text showing a square border and both diagonals using #. Other positions are spaces.
+
+## Approach
+
+Mark a cell if it lies on any border, row = column, or row + column = size - 1.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `PrintXInBox.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { printXInBox } from './PrintXInBox.js';
+console.log(JSON.stringify(printXInBox(5)));
+```
+
+```text output
+["#####","## ##","# # #","## ##","#####"]
+```
+
+## Cost and edge cases
+
+O(n²) cells are produced. Whitespace matters: display with a monospace font. Nonpositive integer sizes return []; size 1 gives ["#"].
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

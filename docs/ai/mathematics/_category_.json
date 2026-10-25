@@ -1,0 +1,10 @@
+{
+  "label": "2. Mathematics for learning from data",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "title": "2. Mathematics for learning from data",
+    "slug": "/ai/sections/mathematics",
+    "description": "Use vectors, gradients, probability, and controlled experiments to explain model behavior. Trace each calculation before relying on a library."
+  }
+}

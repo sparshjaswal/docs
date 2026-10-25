@@ -1,0 +1,35 @@
+---
+title: 'ArmstrongNumbers'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./ArmstrongNumbers.js';
+
+## Contract
+
+For a nonnegative safe integer, check whether it equals the sum of its digits raised to the number of digits.
+
+## Approach
+
+Read the decimal digits, then raise each digit to the digit count using BigInt. For 153, 1³ + 5³ + 3³ = 153.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `ArmstrongNumbers.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { isArmstrongNumbers } from './ArmstrongNumbers.js';
+console.log(JSON.stringify(isArmstrongNumbers(153)));
+```
+
+```text output
+true
+```
+
+## Cost and edge cases
+
+There are d digit powers for d decimal digits; BigInt operation costs depend on their bit lengths. Negative, fractional, and unsafe Number inputs return false. Zero is accepted. The powers and their sum use exact arithmetic.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

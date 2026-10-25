@@ -1,0 +1,451 @@
+{
+  "verifiedOn": "2026-10-23",
+  "roadmapUrl": "https://www.codechef.com/roadmap/data-structures-and-algorithms",
+  "syllabusUrl": "https://www.codechef.com/api/roadmap/syllabus/data-structures-and-algorithms",
+  "scope": "Public course titles and module labels only; no paid lesson content. Local mappings indicate topic coverage, not completion of every external exercise.",
+  "sections": [
+    {
+      "name": "Beginner",
+      "entries": [
+        {
+          "name": "Time complexity",
+          "kind": "learn",
+          "url": "https://www.codechef.com/learn/course/time-complexity",
+          "modules": [
+            "Fundamentals of Time Complexity",
+            "Applying time complexity to DSA problems",
+            "Log and Square root time complexity",
+            "Practice Problems",
+            "Space Complexity"
+          ],
+          "localLessons": [
+            "docs/DSA/complexity.md"
+          ]
+        },
+        {
+          "name": "Practice Arrays",
+          "kind": "practice",
+          "url": "https://www.codechef.com/practice/arrays-new",
+          "modules": [
+            "Arrays"
+          ],
+          "localLessons": [
+            "docs/DSA/Array/README.md"
+          ]
+        },
+        {
+          "name": "Practice Strings",
+          "kind": "practice",
+          "url": "https://www.codechef.com/practice/strings-new",
+          "modules": [
+            "Strings"
+          ],
+          "localLessons": [
+            "docs/DSA/strings/README.md"
+          ]
+        },
+        {
+          "name": "Hashing",
+          "kind": "learn",
+          "url": "https://www.codechef.com/learn/course/hashing",
+          "modules": [
+            "Introduction to Hashing",
+            "Implementing Hashing"
+          ],
+          "localLessons": [
+            "docs/DSA/hashing/README.md",
+            "docs/DSA/hash-table/README.md"
+          ]
+        },
+        {
+          "name": "Two Pointers and Sliding Window Technique",
+          "kind": "practice",
+          "url": "https://www.codechef.com/practice/two-pointers-new",
+          "modules": [
+            "Two-Pointer",
+            "Sliding Window"
+          ],
+          "localLessons": [
+            "docs/DSA/two-pointers/README.md",
+            "docs/DSA/sliding-window/README.md"
+          ]
+        },
+        {
+          "name": "Searching and Sorting Algorithms",
+          "kind": "learn",
+          "url": "https://www.codechef.com/learn/course/searching-sorting-new",
+          "modules": [
+            "Searching",
+            "Sorting"
+          ],
+          "localLessons": [
+            "docs/DSA/search/README.md",
+            "docs/DSA/sorting/README.md"
+          ]
+        },
+        {
+          "name": "Practice Sorting",
+          "kind": "practice",
+          "url": "https://www.codechef.com/practice/sorting-new",
+          "modules": [
+            "Sorting"
+          ],
+          "localLessons": [
+            "docs/DSA/sorting/README.md"
+          ]
+        },
+        {
+          "name": "Learn Binary Search",
+          "kind": "learn",
+          "url": "https://www.codechef.com/learn/course/binary-search-new",
+          "modules": [
+            "Introduction to binary search",
+            "More Problems"
+          ],
+          "localLessons": [
+            "docs/DSA/binary-search/README.md"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Intermediate",
+      "entries": [
+        {
+          "name": "Intermediate Arrays and 2D Arrays",
+          "kind": "practice",
+          "url": "https://www.codechef.com/practice/arrays-intermediate",
+          "modules": [
+            "Intermediate Arrays",
+            "2D Array / Matrices"
+          ],
+          "localLessons": [
+            "docs/DSA/matrix/README.md",
+            "docs/DSA/prefix-sum/README.md"
+          ]
+        },
+        {
+          "name": "Practice Strings - Intermediate",
+          "kind": "practice",
+          "url": "https://www.codechef.com/practice/strings-intermediate",
+          "modules": [
+            "Practice Strings"
+          ],
+          "localLessons": [
+            "docs/DSA/strings/README.md",
+            "docs/DSA/sliding-window/README.md"
+          ]
+        },
+        {
+          "name": "Linked Lists",
+          "kind": "learn",
+          "url": "https://www.codechef.com/learn/course/linked-lists-new",
+          "modules": [
+            "Linked Lists",
+            "Circular and Doubly Linked Lists"
+          ],
+          "localLessons": [
+            "docs/DSA/linked-list/README.md",
+            "docs/DSA/doubly-linked-list/README.md"
+          ]
+        },
+        {
+          "name": "Practice Linked Lists",
+          "kind": "practice",
+          "url": "https://www.codechef.com/practice/linked-lists-new",
+          "modules": [
+            "Linked List"
+          ],
+          "localLessons": [
+            "docs/DSA/linked-list/README.md"
+          ]
+        },
+        {
+          "name": "Learn Stacks and Queues",
+          "kind": "learn",
+          "url": "https://www.codechef.com/learn/course/stacks-and-queues-new",
+          "modules": [
+            "Stacks",
+            "Queues"
+          ],
+          "localLessons": [
+            "docs/DSA/stack/README.md",
+            "docs/DSA/queue/README.md"
+          ]
+        },
+        {
+          "name": "Practice Stacks and Queues",
+          "kind": "practice",
+          "url": "https://www.codechef.com/practice/stacks-and-queues-new",
+          "modules": [
+            "Stack and Queue"
+          ],
+          "localLessons": [
+            "docs/DSA/stack/README.md",
+            "docs/DSA/queue/README.md"
+          ]
+        },
+        {
+          "name": "Learn Recursion",
+          "kind": "learn",
+          "url": "https://www.codechef.com/learn/course/recursion-new",
+          "modules": [
+            "Fundamentals of Recursion"
+          ],
+          "localLessons": [
+            "docs/DSA/recursion/README.md"
+          ]
+        },
+        {
+          "name": "Heaps",
+          "kind": "learn",
+          "url": "https://www.codechef.com/learn/course/heaps",
+          "modules": [
+            "Learn Heaps"
+          ],
+          "localLessons": [
+            "docs/DSA/heap/README.md",
+            "docs/DSA/sorting/heap-sort/README.md"
+          ]
+        },
+        {
+          "name": "Practice Binary Search",
+          "kind": "practice",
+          "url": "https://www.codechef.com/practice/binary-search-new",
+          "modules": [
+            "Binary Search"
+          ],
+          "localLessons": [
+            "docs/DSA/binary-search/README.md"
+          ]
+        },
+        {
+          "name": "Intermediate Searching and Sorting algorithms",
+          "kind": "learn",
+          "url": "https://www.codechef.com/learn/course/sorting-intermediate",
+          "modules": [
+            "Merge sort",
+            "Quick Sort",
+            "Counting sort",
+            "Radix sort"
+          ],
+          "localLessons": [
+            "docs/DSA/sorting/merge-sort/README.md",
+            "docs/DSA/sorting/quick-sort/README.md",
+            "docs/DSA/sorting/counting-sort/README.md",
+            "docs/DSA/sorting/radix-sort/README.md"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Advanced",
+      "entries": [
+        {
+          "name": "Advanced Arrays and Strings",
+          "kind": "practice",
+          "url": "https://www.codechef.com/practice/arrays-strings-advanced",
+          "modules": [
+            "Arrays - advanced",
+            "Strings - advanced"
+          ],
+          "localLessons": [
+            "docs/DSA/monotonic-stack/README.md",
+            "docs/DSA/strings/knuth-morris-pratt/README.md",
+            "docs/DSA/strings/z-algorithm/README.md"
+          ]
+        },
+        {
+          "name": "Trees and Binary trees",
+          "kind": "learn",
+          "url": "https://www.codechef.com/learn/course/trees-new",
+          "modules": [
+            "Trees",
+            "Binary Trees",
+            "Binary search trees"
+          ],
+          "localLessons": [
+            "docs/DSA/trees/README.md",
+            "docs/DSA/trees/binary-search-tree/README.md"
+          ]
+        },
+        {
+          "name": "Learn Graphs",
+          "kind": "learn",
+          "url": "https://www.codechef.com/learn/course/graphs-new",
+          "modules": [
+            "Introduction to Graphs",
+            "Connectivity and Cycles in Graphs"
+          ],
+          "localLessons": [
+            "docs/DSA/graphs/README.md",
+            "docs/DSA/graphs/detect-cycle/README.md"
+          ]
+        },
+        {
+          "name": "Greedy Algorithms",
+          "kind": "learn",
+          "url": "https://www.codechef.com/learn/course/greedy-algorithms",
+          "modules": [
+            "Introduction to Greedy Algorithms",
+            "Additional Applications of Greedy Algorithms"
+          ],
+          "localLessons": [
+            "docs/DSA/greedy/README.md"
+          ]
+        },
+        {
+          "name": "Dynamic programming",
+          "kind": "learn",
+          "url": "https://www.codechef.com/learn/course/dynamic-programming-new",
+          "modules": [
+            "Introducing Intuition for dynamic programming",
+            "Practice problems"
+          ],
+          "localLessons": [
+            "docs/DSA/dp/README.md"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "More Advanced Topics and Algorithms",
+      "entries": [
+        {
+          "name": "Learn Advanced Graphs",
+          "kind": "learn",
+          "url": "https://www.codechef.com/learn/course/graphs-advanced",
+          "modules": [
+            "DSU in Graphs",
+            "Topological Sorting"
+          ],
+          "localLessons": [
+            "docs/DSA/disjoint-set/README.md",
+            "docs/DSA/graphs/topological-sorting/README.md"
+          ]
+        },
+        {
+          "name": "Greedy Algorithms",
+          "kind": "practice",
+          "url": "https://www.codechef.com/practice/greedy-algorithms",
+          "modules": [
+            "Greedy Algorithms"
+          ],
+          "localLessons": [
+            "docs/DSA/greedy/README.md"
+          ]
+        },
+        {
+          "name": "Dynamic programming advanced",
+          "kind": "learn",
+          "url": "https://www.codechef.com/learn/course/dynamic-programming-advanced",
+          "modules": [
+            "Types of dynamic programming problems",
+            "Practice problems"
+          ],
+          "localLessons": [
+            "docs/DSA/dp/advanced.md",
+            "docs/DSA/sets/knapsack-problem/README.md",
+            "docs/DSA/sets/longest-common-subsequence/README.md"
+          ]
+        },
+        {
+          "name": "Bit Manipulation",
+          "kind": "learn",
+          "url": "https://www.codechef.com/learn/course/bit-manipulation",
+          "modules": [
+            "Introduction to Bitwise Operator",
+            "Implementing Bitwise Operators"
+          ],
+          "localLessons": [
+            "docs/DSA/bit-manipulation/README.md"
+          ]
+        },
+        {
+          "name": "Bit manipulation",
+          "kind": "practice",
+          "url": "https://www.codechef.com/practice/bit-manipulation",
+          "modules": [
+            "Bit manipulation"
+          ],
+          "localLessons": [
+            "docs/DSA/bit-manipulation/README.md"
+          ]
+        },
+        {
+          "name": "Practice Adhoc / Implementation based problems",
+          "kind": "practice",
+          "url": "https://www.codechef.com/practice/adhoc-implementation",
+          "modules": [
+            "Easy problems",
+            "Medium difficulty problems",
+            "Hard problems"
+          ],
+          "localLessons": [
+            "docs/DSA/school-basics/README.md",
+            "docs/DSA/practice-plan.md",
+            "docs/DSA/uncategorized/README.md"
+          ]
+        },
+        {
+          "name": "Number theory",
+          "kind": "learn",
+          "url": "https://www.codechef.com/learn/course/number-theory",
+          "modules": [
+            "Prime Factorization",
+            "GCD and LCM",
+            "Modular Arithmetic",
+            "Sieve of Eratosthenes"
+          ],
+          "localLessons": [
+            "docs/DSA/math/README.md",
+            "docs/DSA/math/modular-arithmetic/README.md"
+          ]
+        },
+        {
+          "name": "Combinatorics",
+          "kind": "learn",
+          "url": "https://www.codechef.com/learn/course/combinatorics",
+          "modules": [
+            "Introduction to Combinatronics",
+            "Conceptual Problems"
+          ],
+          "localLessons": [
+            "docs/DSA/math/combinatorics/README.md",
+            "docs/DSA/backtracking/README.md"
+          ]
+        },
+        {
+          "name": "Tries",
+          "kind": "learn",
+          "url": "https://www.codechef.com/learn/course/tries",
+          "modules": [
+            "Learn Tries"
+          ],
+          "localLessons": [
+            "docs/DSA/trie/README.md"
+          ]
+        }
+      ]
+    }
+  ],
+  "verificationMethod": "Live rendered official roadmap independently inspected on 2026-10-23: 32 course cards in four levels (8, 10, 5, 9). Previously recorded API module labels retained; visible card descriptions can list more detailed subtopics.",
+  "levelDescriptionCoverage": [
+    {
+      "topic": "Backtracking",
+      "level": "Intermediate",
+      "localLessons": [
+        "docs/DSA/backtracking/README.md"
+      ]
+    },
+    {
+      "topic": "Segment trees and Fenwick trees",
+      "level": "More Advanced Topics and Algorithms",
+      "localLessons": [
+        "docs/DSA/trees/segment-tree/README.md",
+        "docs/DSA/trees/fenwick-tree/README.md",
+        "docs/DSA/trees/segment-tree/range-updates.md"
+      ]
+    }
+  ]
+}

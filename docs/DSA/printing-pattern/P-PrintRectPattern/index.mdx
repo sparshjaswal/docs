@@ -1,0 +1,35 @@
+---
+title: 'PrintRectPattern'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./PrintRectPattern.js';
+
+## Contract
+
+Return each cell's maximum row-or-column distance from a chosen center in an n × n matrix.
+
+## Approach
+
+For cell (row, col), compute max(abs(row - centerRow), abs(col - centerCol)). This is Chebyshev distance.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `PrintRectPattern.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { printRectPattern } from './PrintRectPattern.js';
+console.log(JSON.stringify(printRectPattern(1, 1, 3)));
+```
+
+```text output
+[[1,1,1],[1,0,1],[1,1,1]]
+```
+
+## Cost and edge cases
+
+O(n²) time and output space. Use integer coordinates within the matrix for a centered pattern. Nonpositive n gives [].
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

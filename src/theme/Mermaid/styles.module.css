@@ -1,0 +1,15 @@
+.figure { border: 1px solid var(--ifm-color-emphasis-300); border-radius: 10px; margin: 1.25rem 0; overflow: hidden; }
+.toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; padding: .5rem .75rem; background: var(--ifm-color-emphasis-100); font-size: .8rem; }
+.toolbar button { font: inherit; min-height: 44px; padding: .5rem .75rem; border: 1px solid var(--ifm-color-emphasis-400); border-radius: 6px; background: var(--ifm-background-surface-color); color: var(--ifm-link-color); cursor: pointer; }
+.viewport { overflow-x: auto; padding: 1rem; }
+.expanded :global(.docusaurus-mermaid-container) { min-width: 900px; }
+.expanded :global(.docusaurus-mermaid-container) > svg { width: 100%; max-width: none !important; }
+.toolbar button:focus-visible, .viewport:focus-visible { outline: 3px solid var(--ifm-color-primary); outline-offset: -3px; }
+
+@media print {
+  .figure { border: 1px solid #000; border-radius: 0; break-inside: avoid; }
+  .toolbar { display: none; }
+  .viewport { overflow: visible; padding: .5rem; }
+  .expanded :global(.docusaurus-mermaid-container) { min-width: 0; }
+  .viewport :global(svg) { max-width: 100% !important; height: auto; }
+}

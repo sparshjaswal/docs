@@ -1,0 +1,80 @@
+{
+  "name": "dsa-portal",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "docusaurus": "docusaurus",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "build:analyze": "ANALYZE=true docusaurus build",
+    "serve": "docusaurus serve",
+    "deploy": "docusaurus deploy",
+    "clear": "docusaurus clear",
+    "mdx": "node scripts/generate-problem-mdx.mjs",
+    "generate:problems": "node scripts/generate-problem-mdx.mjs",
+    "generate:problems:watch": "chokidar \"docs/{DSA,dsa}/**/*.{js,ts,md,mdx}\" -c \"npm run generate:problems\"",
+    "typecheck": "tsc --noEmit",
+    "generate:questions": "node scripts/generate-question-bank.mjs",
+    "check:questions": "node scripts/generate-question-bank.mjs --check",
+    "check:javascript": "node scripts/check-javascript-examples.mjs",
+    "generate:ai": "node scripts/generate-ai-curriculum.mjs",
+    "check:ai": "node scripts/generate-ai-curriculum.mjs --check && node scripts/check-ai-course.mjs",
+    "test": "node --test scripts/tests/*.test.mjs docs/DSA/binary-search/LC-1101-capacity-to-ship-packages-within-d-days/*.test.ts docs/DSA/school-basics/*/*.test.ts docs/functional-programming/*/exercises.js",
+    "test:problem": "node scripts/run-problem-test.mjs",
+    "lint": "eslint src scripts docusaurus.config.ts sidebars.ts eslint.config.mjs --max-warnings 0",
+    "verify": "yarn check:docs && yarn check:system-design && yarn check:questions && yarn check:javascript && yarn check:ai && yarn check:workbook && yarn lint && yarn typecheck && yarn test",
+    "test:functional": "node --test docs/functional-programming/*/exercises.js",
+    "check:workbook": "node scripts/check-workbook-examples.mjs",
+    "check:docs": "node scripts/check-documentation.mjs",
+    "check:system-design": "node scripts/check-system-design.mjs",
+    "check:navigation": "node scripts/check-navigation.mjs"
+  },
+  "dependencies": {
+    "@docusaurus/core": "^3.10.2",
+    "@docusaurus/faster": "^3.10.2",
+    "@docusaurus/preset-classic": "^3.10.2",
+    "@docusaurus/theme-mermaid": "3.10.2",
+    "@mdx-js/react": "^3.0.0",
+    "prism-react-renderer": "^2.3.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@docusaurus/module-type-aliases": "^3.10.2",
+    "@docusaurus/tsconfig": "^3.10.2",
+    "@docusaurus/types": "^3.10.2",
+    "@eslint/js": "^9.39.5",
+    "@types/react": "19.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.71.2",
+    "@typescript-eslint/parser": "^8.71.2",
+    "chokidar-cli": "^3.0.0",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-unused-imports": "^4.4.1",
+    "fast-glob": "^3.3.2",
+    "globals": "^17.13.0",
+    "prettier": "^3.9.10",
+    "raw-loader": "^4.0.2",
+    "typescript": "~6.0.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
+    ]
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "resolutions": {
+    "@types/react": "19.3.0"
+  },
+  "packageManager": "yarn@1.22.22"
+}

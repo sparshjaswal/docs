@@ -1,0 +1,10 @@
+{
+  "label": "10. Production engineering",
+  "position": 10,
+  "link": {
+    "type": "generated-index",
+    "title": "10. Production engineering",
+    "slug": "/ai/sections/engineering",
+    "description": "Serve models and applications with evaluation, access controls, budgets, observability, and rollback. Measure a task outcome before optimizing latency or cost."
+  }
+}

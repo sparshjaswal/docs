@@ -1,0 +1,142 @@
+"""Optional causal Transformer recipe; save as train_transformer.py.
+
+Requires PyTorch and train_language_model.py in the same folder. No model download.
+API-reviewed and syntax-checked; numerical training was not run in this repository.
+"""
+import argparse
+from copy import deepcopy
+from importlib.metadata import version
+import json
+from pathlib import Path
+
+import torch
+from torch import nn
+from torch.nn import functional as F
+
+from train_language_model import TRAIN, VALIDATION, TEST, PAD, BOS, EOS, UNK, encode, vocabulary
+
+
+CONTEXT = 64
+
+
+class CausalTransformer(nn.Module):
+    def __init__(self, size):
+        super().__init__()
+        self.characters = nn.Embedding(size, 32, padding_idx=PAD)
+        self.positions = nn.Embedding(CONTEXT, 32)
+        self.block = nn.TransformerEncoderLayer(
+            d_model=32, nhead=4, dim_feedforward=64, dropout=0.0, batch_first=True,
+        )
+        self.output = nn.Linear(32, size)
+
+    def forward(self, inputs):
+        length = inputs.shape[1]
+        if length > CONTEXT:
+            raise ValueError("Input exceeds the configured context")
+        positions = torch.arange(length, device=inputs.device)
+        hidden = self.characters(inputs) + self.positions(positions)
+        future = torch.ones(length, length, device=inputs.device, dtype=torch.bool).triu(1)
+        # True entries prevent attention to future positions or padded keys.
+        hidden = self.block(hidden, src_mask=future, src_key_padding_mask=inputs.eq(PAD))
+        return self.output(hidden)
+
+
+def batch(documents, tokens):
+    sequences = [encode(text, tokens) for text in documents]
+    length = max(len(ids) - 1 for ids in sequences)
+    if length > CONTEXT:
+        raise ValueError("Split long training documents into deliberate chunks first")
+    inputs = torch.full((len(sequences), length), PAD, dtype=torch.long)
+    targets = torch.full((len(sequences), length), -100, dtype=torch.long)
+    for index, ids in enumerate(sequences):
+        inputs[index, :len(ids) - 1] = torch.tensor(ids[:-1])
+        targets[index, :len(ids) - 1] = torch.tensor(ids[1:])
+    return inputs, targets
+
+
+def objective(model, examples):
+    inputs, targets = examples
+    logits = model(inputs)
+    return F.cross_entropy(logits.reshape(-1, logits.shape[-1]), targets.reshape(-1), ignore_index=-100)
+
+
+def score(model, examples):
+    model.eval()
+    with torch.no_grad():
+        return objective(model, examples).item()
+
+
+def generate(model, tokens, prompt="the ", max_new=40):
+    ids = encode(prompt, tokens)[:-1]
+    model.eval()
+    with torch.no_grad():
+        for _ in range(max_new):
+            inputs = torch.tensor([ids[-CONTEXT:]], dtype=torch.long)
+            logits = model(inputs)[0, -1]
+            logits[PAD] = logits[BOS] = float("-inf")
+            target = int(logits.argmax().item())
+            if target == EOS:
+                break
+            ids.append(target)
+    return "".join("�" if index == UNK else tokens[index] for index in ids if index not in (BOS, EOS))
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--steps", type=int, default=200)
+    parser.add_argument("--output", type=Path, help="optional new checkpoint directory")
+    args = parser.parse_args()
+    if not 1 <= args.steps <= 2000:
+        parser.error("Choose 1 to 2000 steps")
+    if args.output and args.output.exists():
+        parser.error("--output must be a new directory")
+    torch.manual_seed(7)
+    torch.set_num_threads(1)
+    tokens = vocabulary(TRAIN)
+    model = CausalTransformer(len(tokens))
+    training, validation = batch(TRAIN, tokens), batch(VALIDATION, tokens)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=0.003)
+    best_loss, best_step = score(model, validation), 0
+    best = deepcopy(model.state_dict())
+    print(f"Initial validation loss: {best_loss:.4f}")
+    # Verify that a future-token change cannot alter an earlier prediction.
+    left = torch.tensor([[BOS, 4, 5]], dtype=torch.long)
+    right = torch.tensor([[BOS, 4, 6]], dtype=torch.long)
+    model.eval()
+    with torch.no_grad():
+        assert torch.allclose(model(left)[:, :2], model(right)[:, :2], atol=1e-6)
+    for step in range(1, args.steps + 1):
+        model.train()
+        optimizer.zero_grad(set_to_none=True)
+        loss = objective(model, training)
+        if not torch.isfinite(loss):
+            raise RuntimeError("Training loss is non-finite")
+        loss.backward()
+        nn.utils.clip_grad_norm_(model.parameters(), 1.0, error_if_nonfinite=True)
+        optimizer.step()
+        if step % 10 == 0 or step == args.steps:
+            current = score(model, validation)
+            if current < best_loss:
+                best_loss, best_step, best = current, step, deepcopy(model.state_dict())
+    model.load_state_dict(best)
+    print(f"Selected step: {best_step}")
+    print(f"Selected validation loss: {best_loss:.4f}")
+    print(f"Final test loss: {score(model, batch(TEST, tokens)):.4f}")
+    print(f"Sample: {generate(model, tokens)}")
+    if args.output:
+        args.output.mkdir(parents=True, exist_ok=False)
+        torch.save(model.state_dict(), args.output / "weights.pt")
+        (args.output / "config.json").write_text(json.dumps({
+            "tokens": tokens, "context": CONTEXT, "width": 32, "heads": 4,
+            "feedforward_width": 64, "layers": 1, "seed": 7,
+            "selected_step": best_step, "torch_version": version("torch"),
+        }, indent=2) + "\n")
+        restored = CausalTransformer(len(tokens))
+        restored.load_state_dict(torch.load(args.output / "weights.pt", weights_only=True))
+        assert generate(restored, tokens) == generate(model, tokens)
+        print("Saved weights and verified generation after reload")
+    print("A tiny causal Transformer; this corpus is far too small for useful language ability.")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,405 @@
+[
+  {
+    "id": "orientation",
+    "title": "Start with the problem",
+    "level": "Beginner",
+    "outcome": "Tell a lookup, a learned prediction, and generated content apart.",
+    "evidence": "A four-line problem brief with a simple baseline.",
+    "questions": [
+      {
+        "prompt": "You need to find a book by its exact ID. What should you try first?",
+        "choices": [
+          "Train a language model",
+          "Look up the ID in a table",
+          "Create three agents"
+        ],
+        "answer": 1,
+        "explanation": "An exact lookup directly solves this problem. A model adds uncertainty without an established benefit.",
+        "review": "orientation"
+      },
+      {
+        "prompt": "What does a fluent generated sentence establish?",
+        "choices": [
+          "It is factually correct",
+          "It came from a current source",
+          "It is readable; its claims still need checking"
+        ],
+        "answer": 2,
+        "explanation": "Fluency and truth are different properties. Check the claim against suitable evidence.",
+        "review": "orientation"
+      }
+    ]
+  },
+  {
+    "id": "foundations",
+    "title": "Write your first programs",
+    "level": "Beginner",
+    "outcome": "Use Python, tests, files, SQL, arrays, and charts to explain a dataset.",
+    "evidence": "A reading-log audit with validation, a chart, and repeatable checks.",
+    "questions": [
+      {
+        "prompt": "One row has no measured loan count. How should it be represented?",
+        "choices": [
+          "As missing, with an explicit handling rule",
+          "As zero in every report",
+          "Remove the branch without mentioning it"
+        ],
+        "answer": 0,
+        "explanation": "Missing means unknown; zero means a measured absence. Report the rule and affected count.",
+        "review": "foundations/08-data-tools"
+      },
+      {
+        "prompt": "A branch lookup table has duplicate keys. What can a join do?",
+        "choices": [
+          "Always choose the correct row",
+          "Multiply matching rows and distort totals",
+          "Automatically repair the source"
+        ],
+        "answer": 1,
+        "explanation": "Test key uniqueness and the intended join relationship before trusting aggregate totals.",
+        "review": "foundations/08-data-tools"
+      }
+    ]
+  },
+  {
+    "id": "mathematics",
+    "title": "Reason with numbers and uncertainty",
+    "level": "Beginner",
+    "outcome": "Trace shapes, gradients, probabilities, experiments, and compression.",
+    "evidence": "A comparison report with units, assumptions, and uncertainty.",
+    "questions": [
+      {
+        "prompt": "Which statement about a detector can ignore the base rate?",
+        "choices": [
+          "The fraction of flags that are genuine",
+          "The probability of the event given a flag",
+          "Neither of those statements"
+        ],
+        "answer": 2,
+        "explanation": "The population frequency affects both quantities. Use Bayes' rule with the relevant base rate.",
+        "review": "mathematics/05-bayes-and-information"
+      },
+      {
+        "prompt": "PCA retains a high-variance direction. What is guaranteed?",
+        "choices": [
+          "It preserves all task-relevant information",
+          "It retains variation under its objective, not necessarily the best predictive feature",
+          "It proves two visible clusters are different classes"
+        ],
+        "answer": 1,
+        "explanation": "Variance and task relevance are distinct. Measure downstream quality and rare cases.",
+        "review": "mathematics/06-transformations-and-compression"
+      }
+    ]
+  },
+  {
+    "id": "machine-learning",
+    "title": "Train and evaluate predictors",
+    "level": "Intermediate",
+    "outcome": "Frame a task, train baselines, avoid leakage, and evaluate useful decisions.",
+    "evidence": "A reproducible prediction experiment with slice errors and a time-aware split.",
+    "questions": [
+      {
+        "prompt": "Where should a preprocessing scale be fitted?",
+        "choices": [
+          "All rows before splitting",
+          "The final test set",
+          "Training data, then applied unchanged to evaluation data"
+        ],
+        "answer": 2,
+        "explanation": "Fitting transformations on held-out data can leak information even without labels.",
+        "review": "machine-learning/02-data-and-features"
+      },
+      {
+        "prompt": "A model reports 0.9 probability on many cases but the event occurs in half. What should you inspect?",
+        "choices": [
+          "Probability calibration and the sample size",
+          "Only classification accuracy",
+          "The number of layers first"
+        ],
+        "answer": 0,
+        "explanation": "Calibration compares probabilities with observed frequencies. A tiny sample gives weak evidence.",
+        "review": "machine-learning/08-calibration-and-time"
+      }
+    ]
+  },
+  {
+    "id": "deep-learning",
+    "title": "Understand neural networks",
+    "level": "Intermediate",
+    "outcome": "Calculate gradients and explain training, vision, attention, and reward.",
+    "evidence": "A trained tiny network, gradient check, and error analysis.",
+    "questions": [
+      {
+        "prompt": "When should the two weights in a backward pass be updated?",
+        "choices": [
+          "Update the first before calculating the second gradient",
+          "After calculating both gradients from the same forward pass",
+          "Whenever a partial result is ready"
+        ],
+        "answer": 1,
+        "explanation": "Both derivatives must describe the original parameter state. Early updates mix different calculations.",
+        "review": "deep-learning/02-backpropagation"
+      },
+      {
+        "prompt": "Why mask future tokens during causal language-model training?",
+        "choices": [
+          "To prevent using information unavailable during generation",
+          "To remove every form of uncertainty",
+          "To avoid learning from earlier tokens"
+        ],
+        "answer": 0,
+        "explanation": "At generation time the future tokens do not yet exist. The training information boundary must match.",
+        "review": "deep-learning/05-transformers"
+      }
+    ]
+  },
+  {
+    "id": "generative-ai",
+    "title": "Generate and validate content",
+    "level": "Intermediate",
+    "outcome": "Explain tokens, prompts, adaptation, multimodal inputs, and decoding.",
+    "evidence": "A controlled generation experiment and a preference-labeling rubric.",
+    "questions": [
+      {
+        "prompt": "An output passes JSON parsing. What has been established?",
+        "choices": [
+          "The facts and permissions are correct",
+          "The syntax is valid; meaning still needs checks",
+          "The model is calibrated"
+        ],
+        "answer": 1,
+        "explanation": "Structural validation is one layer. Verify fields, source support, and authorized actions separately.",
+        "review": "generative-ai/02-prompts-and-structured-output"
+      },
+      {
+        "prompt": "What changes when you lower a positive sampling temperature?",
+        "choices": [
+          "The model learns new facts",
+          "Its parameters are fine-tuned",
+          "The next-token distribution becomes sharper"
+        ],
+        "answer": 2,
+        "explanation": "Temperature changes selection from the current logits, not learned model weights or factual guarantees.",
+        "review": "generative-ai/05-decoding-and-alignment"
+      }
+    ]
+  },
+  {
+    "id": "model-building",
+    "title": "Train and adapt language models",
+    "level": "Advanced",
+    "outcome": "Prepare data, train a small model, reload it, and justify adaptation.",
+    "evidence": "A checkpoint, split manifest, held-out results, and model card.",
+    "questions": [
+      {
+        "prompt": "When should source documents be split?",
+        "choices": [
+          "Before generating overlapping chunks or examples",
+          "After randomly mixing every chunk",
+          "After seeing final test results"
+        ],
+        "answer": 0,
+        "explanation": "Source-level splitting helps prevent near-duplicates from leaking across partitions.",
+        "review": "model-building/02-data-and-tokenizers"
+      },
+      {
+        "prompt": "Lower perplexity comes with more corrupted identifiers. What decides release?",
+        "choices": [
+          "Perplexity alone",
+          "Task-specific gates including exact identifier preservation",
+          "The smaller checkpoint"
+        ],
+        "answer": 1,
+        "explanation": "A general prediction metric can improve while a critical task requirement gets worse.",
+        "review": "model-building/04-fine-tune-and-release"
+      }
+    ]
+  },
+  {
+    "id": "rag",
+    "title": "Find evidence and ground answers",
+    "level": "Advanced",
+    "outcome": "Build, compare, and update permission-aware retrieval pipelines.",
+    "evidence": "A labeled query benchmark, supported answers, and freshness/access tests.",
+    "questions": [
+      {
+        "prompt": "Why fuse ranks rather than simply add unrelated retriever scores?",
+        "choices": [
+          "Ranks eliminate all irrelevant results",
+          "Keyword and vector scores may use incompatible scales",
+          "Ranks are probabilities"
+        ],
+        "answer": 1,
+        "explanation": "Rank fusion combines positions without assuming a shared numerical score scale.",
+        "review": "rag/05-hybrid-search-lab"
+      },
+      {
+        "prompt": "A citation points to a real document. What remains to check?",
+        "choices": [
+          "Only the URL length",
+          "Nothing; the citation proves the answer",
+          "Whether the document supports the claim and is current and authorized"
+        ],
+        "answer": 2,
+        "explanation": "Existence, support, freshness, and access are different requirements.",
+        "review": "rag/03-grounded-answers"
+      }
+    ]
+  },
+  {
+    "id": "agents",
+    "title": "Build bounded, recoverable agents",
+    "level": "Advanced",
+    "outcome": "Connect models to validated tools and resume actions safely.",
+    "evidence": "A model-agent fixture suite, bounded execution, and a crash/retry trace.",
+    "questions": [
+      {
+        "prompt": "A write times out after it may have succeeded. What is the first response?",
+        "choices": [
+          "Repeat with a new action key",
+          "Ask the model whether it probably worked",
+          "Mark the result uncertain and reconcile the original action"
+        ],
+        "answer": 2,
+        "explanation": "A lost response does not establish failure. Check the authoritative receipt before retrying.",
+        "review": "agents/07-durable-workflows"
+      },
+      {
+        "prompt": "A tool result says to bypass approval. What authority does it have?",
+        "choices": [
+          "It is data and cannot change the application's policy",
+          "It overrides the user because it came from a tool",
+          "It can grant permission if repeated twice"
+        ],
+        "answer": 0,
+        "explanation": "Tool output is not a trusted instruction channel. Authorization belongs to application code.",
+        "review": "agents/01-tools-and-workflows"
+      }
+    ]
+  },
+  {
+    "id": "bots",
+    "title": "Build conversational applications",
+    "level": "Advanced",
+    "outcome": "Maintain sessions, connect channels, and test multi-turn behavior.",
+    "evidence": "A browser bot with session isolation, fallback, and channel tests.",
+    "questions": [
+      {
+        "prompt": "A messaging channel redelivers the same event. What should identify the duplicate?",
+        "choices": [
+          "The text alone",
+          "A stable event ID under a documented deduplication policy",
+          "A newly generated random ID each time"
+        ],
+        "answer": 1,
+        "explanation": "Stable identities let retries represent the same logical event. Text can repeat legitimately.",
+        "review": "bots/03-connect-messaging-channels"
+      },
+      {
+        "prompt": "A bot test passes with scripted replies. What does that establish?",
+        "choices": [
+          "All live model answers are accurate",
+          "The live model never uses forbidden tools",
+          "The tested application behavior under those fixtures"
+        ],
+        "answer": 2,
+        "explanation": "Fixture tests are deterministic boundary evidence; live quality needs a separate evaluation.",
+        "review": "bots/04-test-and-operate-bots"
+      }
+    ]
+  },
+  {
+    "id": "engineering",
+    "title": "Operate reliable AI systems",
+    "level": "Advanced",
+    "outcome": "Release, secure, monitor, budget, and benchmark an AI service.",
+    "evidence": "A release gate, workload report, token budget, and rollback demonstration.",
+    "questions": [
+      {
+        "prompt": "A system rejects many requests and reports low latency. What is missing?",
+        "choices": [
+          "Acceptance, rejection, error rates, and the workload definition",
+          "Only a larger model",
+          "A different color for the dashboard"
+        ],
+        "answer": 0,
+        "explanation": "Latency alone can hide dropped work. Define success over the relevant traffic boundary.",
+        "review": "engineering/07-inference-systems"
+      },
+      {
+        "prompt": "A smaller quantized cache makes short requests slower. Is that possible?",
+        "choices": [
+          "No; fewer bits always means faster",
+          "Yes; conversion overhead can exceed memory savings",
+          "Only if the input contains no tokens"
+        ],
+        "answer": 1,
+        "explanation": "Measure latency, memory, and quality independently on the intended workload.",
+        "review": "engineering/07-inference-systems"
+      }
+    ]
+  },
+  {
+    "id": "research",
+    "title": "Make defensible research claims",
+    "level": "Expert",
+    "outcome": "Reproduce a result, isolate a change, and report uncertainty and limits.",
+    "evidence": "A research report with matched baselines, ablations, and an experiment ledger.",
+    "questions": [
+      {
+        "prompt": "Students who chose an assistant read more. What does that prove?",
+        "choices": [
+          "The assistant caused the increase",
+          "No association exists",
+          "An association; motivation may confound the causal claim"
+        ],
+        "answer": 2,
+        "explanation": "People self-select. A causal interpretation needs a suitable design and stated assumptions.",
+        "review": "research/04-causal-and-reproducible-studies"
+      },
+      {
+        "prompt": "You choose the best of 40 prompts on the final test set. What is that set now?",
+        "choices": [
+          "Development data used for selection",
+          "Still an untouched final test",
+          "A randomized trial"
+        ],
+        "answer": 0,
+        "explanation": "Selection used its information. Freeze the procedure and evaluate on fresh untouched examples.",
+        "review": "research/04-causal-and-reproducible-studies"
+      }
+    ]
+  },
+  {
+    "id": "careers",
+    "title": "Prepare your independent capstone",
+    "level": "Expert",
+    "outcome": "Choose a role, define acceptance gates, and defend alternatives.",
+    "evidence": "One reviewed professional studio and a reproducible handoff.",
+    "questions": [
+      {
+        "prompt": "Which portfolio claim is strongest?",
+        "choices": [
+          "A list of frameworks used",
+          "A working project with a baseline, failure evidence, and reproducible evaluation",
+          "A claim that all questions are solved"
+        ],
+        "answer": 1,
+        "explanation": "Evidence allows reviewers to assess behavior and limits independently of tool names.",
+        "review": "careers"
+      },
+      {
+        "prompt": "A critical permission test fails but the overall rubric score is high. What follows?",
+        "choices": [
+          "Average away the failure",
+          "Skip the test next time",
+          "Fix the critical boundary before claiming readiness"
+        ],
+        "answer": 2,
+        "explanation": "Critical requirements are gates, not interchangeable points in an average.",
+        "review": "careers"
+      }
+    ]
+  }
+]

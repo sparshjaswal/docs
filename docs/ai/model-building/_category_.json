@@ -1,0 +1,12 @@
+{
+  "label": "6. Build and adapt models",
+  "position": 6,
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "title": "6. Build and adapt models",
+    "slug": "/ai/sections/model-building",
+    "description": "Choose whether to train or adapt, prepare data and tokenizers, train a small model, then save and release it with reproducible evaluation."
+  }
+}

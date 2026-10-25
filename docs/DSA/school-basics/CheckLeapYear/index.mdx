@@ -1,0 +1,35 @@
+---
+title: 'CheckLeapYear'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./CheckLeapYear.js';
+
+## Contract
+
+Check a positive integer year using the Gregorian leap-year rule.
+
+## Approach
+
+A multiple of 400 is a leap year. Otherwise it must be divisible by 4 and not by 100.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `CheckLeapYear.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { isLeapYear } from './CheckLeapYear.js';
+console.log(JSON.stringify([isLeapYear(2000), isLeapYear(1900), isLeapYear(2024)]));
+```
+
+```text output
+[true,false,true]
+```
+
+## Cost and edge cases
+
+O(1) arithmetic and space. This is a Gregorian calendar calculation, not a historical calendar conversion. Invalid or nonpositive years return false.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

@@ -1,0 +1,35 @@
+---
+title: 'LC 59 Spiral Matrix Ii'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-59-spiral-matrix-ii.js';
+
+## Contract
+
+Create an n × n matrix filled clockwise with integers 1 through n².
+
+## Approach
+
+Use four shrinking boundaries, writing the next number instead of reading an existing value.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-59-spiral-matrix-ii.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { generateMatrix } from './LC-59-spiral-matrix-ii.js';
+console.log(JSON.stringify(generateMatrix(3)));
+```
+
+```text output
+[[1,2,3],[8,9,4],[7,6,5]]
+```
+
+## Cost and edge cases
+
+O(n²) time and output space. n is a nonnegative integer; n = 0 gives []. Shrinking boundaries avoid writing the center twice.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

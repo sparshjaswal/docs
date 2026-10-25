@@ -1,0 +1,35 @@
+---
+title: 'LC 88 Merge Sorted Array'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-88-merge-sorted-array.js';
+
+## Contract
+
+Merge two sorted numeric arrays into the first array, which has m real values followed by n spare positions.
+
+## Approach
+
+Write backward from the last slot, selecting the larger remaining value. This preserves unread values at the front of the first array.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-88-merge-sorted-array.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { merge } from './LC-88-merge-sorted-array.js';
+console.log(JSON.stringify(merge([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3)));
+```
+
+```text output
+[1,2,2,3,5,6]
+```
+
+## Cost and edge cases
+
+O(m + n) time and O(1) extra space. The first array is changed and returned; the second is unchanged. Counts m and n identify real entries, even when real values are zero.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

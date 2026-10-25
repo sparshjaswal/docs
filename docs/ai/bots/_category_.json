@@ -1,0 +1,10 @@
+{
+  "label": "9. Bots and messaging",
+  "position": 9,
+  "link": {
+    "type": "generated-index",
+    "title": "9. Bots and messaging",
+    "slug": "/ai/sections/bots",
+    "description": "Design a conversation contract, build a local bot, connect channels, and test delivery and operational failure. Use the same session and outcome model throughout."
+  }
+}

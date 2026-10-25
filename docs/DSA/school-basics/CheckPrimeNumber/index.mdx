@@ -1,0 +1,36 @@
+---
+title: 'CheckPrimeNumber'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./CheckPrimeNumber.js';
+import Tests from '!!raw-loader!./CheckPrimeNumber.test.ts';
+
+## Contract
+
+Return a sentence stating whether a safe integer greater than 1 is prime.
+
+## Approach
+
+Try divisors through the square root. A composite number always has at least one factor in that range.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `CheckPrimeNumber.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { PrimeNumber } from './CheckPrimeNumber.js';
+console.log(JSON.stringify(PrimeNumber(29)));
+```
+
+```text output
+"29 is prime"
+```
+
+## Cost and edge cases
+
+O(√n) time and O(1) space. Zero, one, negative, fractional, and unsafe inputs are not accepted as primes. The result is text rather than a boolean.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} tests={Tests} implLang="js" testLang="ts" />

@@ -1,0 +1,35 @@
+---
+title: 'ConcentricRect'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./ConcentricRect.js';
+
+## Contract
+
+Return a square of side 2n - 1 with value n at the border and value 1 at the center.
+
+## Approach
+
+Each cell belongs to a ring. Subtract its minimum distance from any border from n.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `ConcentricRect.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { concentricRect } from './ConcentricRect.js';
+console.log(JSON.stringify(concentricRect(2)));
+```
+
+```text output
+[[2,2,2],[2,1,2],[2,2,2]]
+```
+
+## Cost and edge cases
+
+O(n²) time and output space. n is an integer; nonpositive n gives []. n = 1 returns [[1]].
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

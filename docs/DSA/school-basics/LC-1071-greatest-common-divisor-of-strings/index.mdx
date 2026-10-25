@@ -1,0 +1,35 @@
+---
+title: 'LC 1071 Greatest Common Divisor Of Strings'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-1071-greatest-common-divisor-of-strings.js';
+
+## Contract
+
+Return the longest string whose repeated copies form both nonempty input strings, or the empty string if none exists.
+
+## Approach
+
+If concatenating in opposite orders differs, no shared repeated unit exists. Otherwise take a prefix whose length is the GCD of the two lengths.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-1071-greatest-common-divisor-of-strings.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { gcdOfStrings } from './LC-1071-greatest-common-divisor-of-strings.js';
+console.log(JSON.stringify(gcdOfStrings('ABABAB', 'ABAB')));
+```
+
+```text output
+"AB"
+```
+
+## Cost and edge cases
+
+O(m + n) character work and space for concatenations, plus logarithmic GCD steps. The original contract uses nonempty uppercase English strings.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

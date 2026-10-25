@@ -1,0 +1,10 @@
+{
+  "label": "11. Research and scale",
+  "position": 11,
+  "link": {
+    "type": "generated-index",
+    "title": "11. Research and scale",
+    "slug": "/ai/sections/research",
+    "description": "Read claims critically, reproduce a small experiment, and reason about scale and causal evidence. Keep data, configuration, and run records sufficient for another person to repeat the result."
+  }
+}

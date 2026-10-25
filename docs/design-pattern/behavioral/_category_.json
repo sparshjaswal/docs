@@ -1,0 +1,12 @@
+{
+  "label": "Behavioral patterns",
+  "position": 5,
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "title": "Behavioral patterns",
+    "slug": "/design-pattern/behavioral",
+    "description": "Compare who chooses behavior, owns state transitions, coordinates participants, records requests, or evaluates expressions. Every lesson includes a failure drill and an interview answer."
+  }
+}

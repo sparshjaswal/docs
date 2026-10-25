@@ -1,0 +1,35 @@
+---
+title: 'LC 121 Best Time to Buy and Sell Stock'
+---
+
+import CodeBlock from '@theme/CodeBlock';
+import Implementation from '!!raw-loader!./LC-121-Best-Time-to-Buy-and-Sell-Stock.js';
+
+## Contract
+
+Return the largest profit from one purchase followed by one later sale. Return 0 when no profit is possible.
+
+## Approach
+
+Keep the lowest price seen before considering each sale. The best profit is the largest difference seen so far.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-121-Best-Time-to-Buy-and-Sell-Stock.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { BestTimeToBuyAndSellStock } from './LC-121-Best-Time-to-Buy-and-Sell-Stock.js';
+console.log(JSON.stringify(BestTimeToBuyAndSellStock([7, 1, 5, 3, 6, 4])));
+```
+
+```text output
+5
+```
+
+## Cost and edge cases
+
+O(n) time and O(1) extra space. Prices are finite nonnegative numbers; the input is unchanged. Decreasing prices return 0.
+
+## Implementation
+
+<CodeBlock language="js">{Implementation}</CodeBlock>

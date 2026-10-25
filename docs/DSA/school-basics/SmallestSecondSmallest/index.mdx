@@ -1,0 +1,35 @@
+---
+title: 'SmallestSecondSmallest'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./SmallestSecondSmallest.js';
+
+## Contract
+
+Return the two smallest distinct finite numeric values in ascending order, or [-1] when fewer than two exist.
+
+## Approach
+
+Track the current first and second values. A new minimum moves the old minimum into second place; duplicate minima do not fill the second slot.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `SmallestSecondSmallest.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { smallest2number } from './SmallestSecondSmallest.js';
+console.log(JSON.stringify(smallest2number([12, 25, 8, 55, 10, 33, 17, 11])));
+```
+
+```text output
+[8,10]
+```
+
+## Cost and edge cases
+
+O(n) time and O(1) extra space. Empty, one-value, and all-equal arrays return [-1]. Negative values are supported.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

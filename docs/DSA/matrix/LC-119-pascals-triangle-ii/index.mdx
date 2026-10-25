@@ -1,0 +1,35 @@
+---
+title: 'LC 119 Pascals Triangle Ii'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-119-pascals-triangle-ii.js';
+
+## Contract
+
+Return the Pascal row at a zero-based index. Row 0 is [1].
+
+## Approach
+
+Build rows from the top, adding adjacent entries in the preceding row, and return the requested row.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-119-pascals-triangle-ii.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { getRow } from './LC-119-pascals-triangle-ii.js';
+console.log(JSON.stringify(getRow(3)));
+```
+
+```text output
+[1,3,3,1]
+```
+
+## Cost and edge cases
+
+This reference version takes O(r²) time and space because it retains every row. An in-place row updated right to left reduces space to O(r). The original problem bounds keep Number arithmetic exact.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

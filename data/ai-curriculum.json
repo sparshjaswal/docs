@@ -1,0 +1,1343 @@
+{
+  "version": 1,
+  "stages": [
+    {
+      "id": "orientation",
+      "title": "Start with the problem",
+      "level": "Beginner",
+      "outcome": "Tell a lookup, a learned prediction, and generated content apart.",
+      "evidence": "A four-line problem brief with a simple baseline.",
+      "questions": [
+        {
+          "prompt": "You need to find a book by its exact ID. What should you try first?",
+          "choices": [
+            "Train a language model",
+            "Look up the ID in a table",
+            "Create three agents"
+          ],
+          "answer": 1,
+          "explanation": "An exact lookup directly solves this problem. A model adds uncertainty without an established benefit.",
+          "review": "orientation"
+        },
+        {
+          "prompt": "What does a fluent generated sentence establish?",
+          "choices": [
+            "It is factually correct",
+            "It came from a current source",
+            "It is readable; its claims still need checking"
+          ],
+          "answer": 2,
+          "explanation": "Fluency and truth are different properties. Check the claim against suitable evidence.",
+          "review": "orientation"
+        }
+      ],
+      "number": 0,
+      "lessons": [
+        {
+          "id": "orientation",
+          "title": "What AI is, and what you will build",
+          "source": "docs/ai/orientation.md",
+          "href": "/ai/orientation",
+          "requires": []
+        }
+      ]
+    },
+    {
+      "id": "foundations",
+      "title": "Write your first programs",
+      "level": "Beginner",
+      "outcome": "Use Python, tests, files, SQL, arrays, and charts to explain a dataset.",
+      "evidence": "A reading-log audit with validation, a chart, and repeatable checks.",
+      "questions": [
+        {
+          "prompt": "One row has no measured loan count. How should it be represented?",
+          "choices": [
+            "As missing, with an explicit handling rule",
+            "As zero in every report",
+            "Remove the branch without mentioning it"
+          ],
+          "answer": 0,
+          "explanation": "Missing means unknown; zero means a measured absence. Report the rule and affected count.",
+          "review": "foundations/data-tools"
+        },
+        {
+          "prompt": "A branch lookup table has duplicate keys. What can a join do?",
+          "choices": [
+            "Always choose the correct row",
+            "Multiply matching rows and distort totals",
+            "Automatically repair the source"
+          ],
+          "answer": 1,
+          "explanation": "Test key uniqueness and the intended join relationship before trusting aggregate totals.",
+          "review": "foundations/data-tools"
+        }
+      ],
+      "number": 1,
+      "lessons": [
+        {
+          "id": "foundations/numbers-and-notation",
+          "title": "Numbers, units, and the symbols you will meet",
+          "source": "docs/ai/foundations/00-numbers-and-notation.md",
+          "href": "/ai/foundations/numbers-and-notation",
+          "requires": [
+            "orientation"
+          ]
+        },
+        {
+          "id": "foundations/computers-and-setup",
+          "title": "Computers, files, and your first program",
+          "source": "docs/ai/foundations/01-computers-and-setup.md",
+          "href": "/ai/foundations/computers-and-setup",
+          "requires": [
+            "foundations/numbers-and-notation"
+          ]
+        },
+        {
+          "id": "foundations/python-values",
+          "title": "Python values, names, and clear calculations",
+          "source": "docs/ai/foundations/02-python-values.md",
+          "href": "/ai/foundations/python-values",
+          "requires": [
+            "foundations/computers-and-setup"
+          ]
+        },
+        {
+          "id": "foundations/control-and-functions",
+          "title": "Decisions, loops, and reusable functions",
+          "source": "docs/ai/foundations/03-control-and-functions.md",
+          "href": "/ai/foundations/control-and-functions",
+          "requires": [
+            "foundations/python-values"
+          ]
+        },
+        {
+          "id": "foundations/collections-and-files",
+          "title": "Collections, records, and files",
+          "source": "docs/ai/foundations/04-collections-and-files.md",
+          "href": "/ai/foundations/collections-and-files",
+          "requires": [
+            "foundations/control-and-functions"
+          ]
+        },
+        {
+          "id": "foundations/debugging-and-tests",
+          "title": "Debugging, input checks, and useful tests",
+          "source": "docs/ai/foundations/05-debugging-and-tests.md",
+          "href": "/ai/foundations/debugging-and-tests",
+          "requires": [
+            "foundations/collections-and-files"
+          ]
+        },
+        {
+          "id": "foundations/git-environments-and-packages",
+          "title": "Save your work and reproduce your environment",
+          "source": "docs/ai/foundations/06-git-environments-and-packages.md",
+          "href": "/ai/foundations/git-environments-and-packages",
+          "requires": [
+            "foundations/debugging-and-tests"
+          ]
+        },
+        {
+          "id": "foundations/data-tables-and-sql",
+          "title": "Data tables, SQL, and a complete data-audit project",
+          "source": "docs/ai/foundations/07-data-tables-and-sql.md",
+          "href": "/ai/foundations/data-tables-and-sql",
+          "requires": [
+            "foundations/git-environments-and-packages"
+          ]
+        },
+        {
+          "id": "foundations/data-tools",
+          "title": "From Python lists to arrays, tables, and charts",
+          "source": "docs/ai/foundations/08-data-tools.md",
+          "href": "/ai/foundations/data-tools",
+          "requires": [
+            "foundations/data-tables-and-sql"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mathematics",
+      "title": "Reason with numbers and uncertainty",
+      "level": "Beginner",
+      "outcome": "Trace shapes, gradients, probabilities, experiments, and compression.",
+      "evidence": "A comparison report with units, assumptions, and uncertainty.",
+      "questions": [
+        {
+          "prompt": "Which statement about a detector can ignore the base rate?",
+          "choices": [
+            "The fraction of flags that are genuine",
+            "The probability of the event given a flag",
+            "Neither of those statements"
+          ],
+          "answer": 2,
+          "explanation": "The population frequency affects both quantities. Use Bayes' rule with the relevant base rate.",
+          "review": "mathematics/bayes-and-information"
+        },
+        {
+          "prompt": "PCA retains a high-variance direction. What is guaranteed?",
+          "choices": [
+            "It preserves all task-relevant information",
+            "It retains variation under its objective, not necessarily the best predictive feature",
+            "It proves two visible clusters are different classes"
+          ],
+          "answer": 1,
+          "explanation": "Variance and task relevance are distinct. Measure downstream quality and rare cases.",
+          "review": "mathematics/transformations-and-compression"
+        }
+      ],
+      "number": 2,
+      "lessons": [
+        {
+          "id": "mathematics/vectors-and-matrices",
+          "title": "Vectors and matrices: give numbers a structure",
+          "source": "docs/ai/mathematics/01-vectors-and-matrices.md",
+          "href": "/ai/mathematics/vectors-and-matrices",
+          "requires": [
+            "foundations/data-tools"
+          ]
+        },
+        {
+          "id": "mathematics/functions-and-gradients",
+          "title": "Functions, slopes, and gradient-based improvement",
+          "source": "docs/ai/mathematics/02-functions-and-gradients.md",
+          "href": "/ai/mathematics/functions-and-gradients",
+          "requires": [
+            "mathematics/vectors-and-matrices"
+          ]
+        },
+        {
+          "id": "mathematics/probability-and-statistics",
+          "title": "Probability, data summaries, and conditional questions",
+          "source": "docs/ai/mathematics/03-probability-and-statistics.md",
+          "href": "/ai/mathematics/probability-and-statistics",
+          "requires": [
+            "mathematics/functions-and-gradients"
+          ]
+        },
+        {
+          "id": "mathematics/experiments-and-uncertainty",
+          "title": "Experiments, uncertainty, and an evidence-audit project",
+          "source": "docs/ai/mathematics/04-experiments-and-uncertainty.md",
+          "href": "/ai/mathematics/experiments-and-uncertainty",
+          "requires": [
+            "mathematics/probability-and-statistics"
+          ]
+        },
+        {
+          "id": "mathematics/bayes-and-information",
+          "title": "Update beliefs and measure information",
+          "source": "docs/ai/mathematics/05-bayes-and-information.md",
+          "href": "/ai/mathematics/bayes-and-information",
+          "requires": [
+            "mathematics/experiments-and-uncertainty"
+          ]
+        },
+        {
+          "id": "mathematics/transformations-and-compression",
+          "title": "Linear transformations and useful compression",
+          "source": "docs/ai/mathematics/06-transformations-and-compression.md",
+          "href": "/ai/mathematics/transformations-and-compression",
+          "requires": [
+            "mathematics/bayes-and-information"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "machine-learning",
+      "title": "Train and evaluate predictors",
+      "level": "Intermediate",
+      "outcome": "Frame a task, train baselines, avoid leakage, and evaluate useful decisions.",
+      "evidence": "A reproducible prediction experiment with slice errors and a time-aware split.",
+      "questions": [
+        {
+          "prompt": "Where should a preprocessing scale be fitted?",
+          "choices": [
+            "All rows before splitting",
+            "The final test set",
+            "Training data, then applied unchanged to evaluation data"
+          ],
+          "answer": 2,
+          "explanation": "Fitting transformations on held-out data can leak information even without labels.",
+          "review": "machine-learning/data-and-features"
+        },
+        {
+          "prompt": "A model reports 0.9 probability on many cases but the event occurs in half. What should you inspect?",
+          "choices": [
+            "Probability calibration and the sample size",
+            "Only classification accuracy",
+            "The number of layers first"
+          ],
+          "answer": 0,
+          "explanation": "Calibration compares probabilities with observed frequencies. A tiny sample gives weak evidence.",
+          "review": "machine-learning/calibration-and-time"
+        }
+      ],
+      "number": 3,
+      "lessons": [
+        {
+          "id": "machine-learning/problem-framing",
+          "title": "Frame a problem before choosing a model",
+          "source": "docs/ai/machine-learning/01-problem-framing.md",
+          "href": "/ai/machine-learning/problem-framing",
+          "requires": [
+            "mathematics/transformations-and-compression"
+          ]
+        },
+        {
+          "id": "machine-learning/data-and-features",
+          "title": "Build features without leaking the answer",
+          "source": "docs/ai/machine-learning/02-data-and-features.md",
+          "href": "/ai/machine-learning/data-and-features",
+          "requires": [
+            "machine-learning/problem-framing"
+          ]
+        },
+        {
+          "id": "machine-learning/regression-and-optimization",
+          "title": "Fit a regression model with gradients",
+          "source": "docs/ai/machine-learning/03-regression-and-optimization.md",
+          "href": "/ai/machine-learning/regression-and-optimization",
+          "requires": [
+            "machine-learning/data-and-features"
+          ]
+        },
+        {
+          "id": "machine-learning/classification-and-metrics",
+          "title": "Classify outcomes and choose useful metrics",
+          "source": "docs/ai/machine-learning/04-classification-and-metrics.md",
+          "href": "/ai/machine-learning/classification-and-metrics",
+          "requires": [
+            "machine-learning/regression-and-optimization"
+          ]
+        },
+        {
+          "id": "machine-learning/trees-and-ensembles",
+          "title": "Learn decisions with trees and ensembles",
+          "source": "docs/ai/machine-learning/05-trees-and-ensembles.md",
+          "href": "/ai/machine-learning/trees-and-ensembles",
+          "requires": [
+            "machine-learning/classification-and-metrics"
+          ]
+        },
+        {
+          "id": "machine-learning/clustering-and-recommendations",
+          "title": "Find groups and recommend useful items",
+          "source": "docs/ai/machine-learning/06-clustering-and-recommendations.md",
+          "href": "/ai/machine-learning/clustering-and-recommendations",
+          "requires": [
+            "machine-learning/trees-and-ensembles"
+          ]
+        },
+        {
+          "id": "machine-learning/validation-and-explanations",
+          "title": "Validate a model and finish the ML project",
+          "source": "docs/ai/machine-learning/07-validation-and-explanations.md",
+          "href": "/ai/machine-learning/validation-and-explanations",
+          "requires": [
+            "machine-learning/clustering-and-recommendations"
+          ]
+        },
+        {
+          "id": "machine-learning/calibration-and-time",
+          "title": "Trust scores, thresholds, and forecasts",
+          "source": "docs/ai/machine-learning/08-calibration-and-time.md",
+          "href": "/ai/machine-learning/calibration-and-time",
+          "requires": [
+            "machine-learning/validation-and-explanations"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "deep-learning",
+      "title": "Understand neural networks",
+      "level": "Intermediate",
+      "outcome": "Calculate gradients and explain training, vision, attention, and reward.",
+      "evidence": "A trained tiny network, gradient check, and error analysis.",
+      "questions": [
+        {
+          "prompt": "When should the two weights in a backward pass be updated?",
+          "choices": [
+            "Update the first before calculating the second gradient",
+            "After calculating both gradients from the same forward pass",
+            "Whenever a partial result is ready"
+          ],
+          "answer": 1,
+          "explanation": "Both derivatives must describe the original parameter state. Early updates mix different calculations.",
+          "review": "deep-learning/backpropagation"
+        },
+        {
+          "prompt": "Why mask future tokens during causal language-model training?",
+          "choices": [
+            "To prevent using information unavailable during generation",
+            "To remove every form of uncertainty",
+            "To avoid learning from earlier tokens"
+          ],
+          "answer": 0,
+          "explanation": "At generation time the future tokens do not yet exist. The training information boundary must match.",
+          "review": "deep-learning/transformers"
+        }
+      ],
+      "number": 4,
+      "lessons": [
+        {
+          "id": "deep-learning/neural-networks",
+          "title": "Build a neural network from small operations",
+          "source": "docs/ai/deep-learning/01-neural-networks.md",
+          "href": "/ai/deep-learning/neural-networks",
+          "requires": [
+            "machine-learning/calibration-and-time"
+          ]
+        },
+        {
+          "id": "deep-learning/backpropagation",
+          "title": "Backpropagation, one multiplication at a time",
+          "source": "docs/ai/deep-learning/02-backpropagation.md",
+          "href": "/ai/deep-learning/backpropagation",
+          "requires": [
+            "deep-learning/neural-networks"
+          ]
+        },
+        {
+          "id": "deep-learning/training-and-pytorch",
+          "title": "Train carefully with and without PyTorch",
+          "source": "docs/ai/deep-learning/02-training-and-pytorch.md",
+          "href": "/ai/deep-learning/training-and-pytorch",
+          "requires": [
+            "deep-learning/backpropagation"
+          ]
+        },
+        {
+          "id": "deep-learning/vision-and-convolutions",
+          "title": "Learn visual patterns with convolutions",
+          "source": "docs/ai/deep-learning/03-vision-and-convolutions.md",
+          "href": "/ai/deep-learning/vision-and-convolutions",
+          "requires": [
+            "deep-learning/training-and-pytorch"
+          ]
+        },
+        {
+          "id": "deep-learning/sequences-and-attention",
+          "title": "Understand sequences and calculate attention",
+          "source": "docs/ai/deep-learning/04-sequences-and-attention.md",
+          "href": "/ai/deep-learning/sequences-and-attention",
+          "requires": [
+            "deep-learning/vision-and-convolutions"
+          ]
+        },
+        {
+          "id": "deep-learning/transformers",
+          "title": "Put attention inside a Transformer",
+          "source": "docs/ai/deep-learning/05-transformers.md",
+          "href": "/ai/deep-learning/transformers",
+          "requires": [
+            "deep-learning/sequences-and-attention"
+          ]
+        },
+        {
+          "id": "deep-learning/reinforcement-learning",
+          "title": "Learn actions from rewards and finish the stage",
+          "source": "docs/ai/deep-learning/06-reinforcement-learning.md",
+          "href": "/ai/deep-learning/reinforcement-learning",
+          "requires": [
+            "deep-learning/transformers"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "generative-ai",
+      "title": "Generate and validate content",
+      "level": "Intermediate",
+      "outcome": "Explain tokens, prompts, adaptation, multimodal inputs, and decoding.",
+      "evidence": "A controlled generation experiment and a preference-labeling rubric.",
+      "questions": [
+        {
+          "prompt": "An output passes JSON parsing. What has been established?",
+          "choices": [
+            "The facts and permissions are correct",
+            "The syntax is valid; meaning still needs checks",
+            "The model is calibrated"
+          ],
+          "answer": 1,
+          "explanation": "Structural validation is one layer. Verify fields, source support, and authorized actions separately.",
+          "review": "generative-ai/prompts-and-structured-output"
+        },
+        {
+          "prompt": "What changes when you lower a positive sampling temperature?",
+          "choices": [
+            "The model learns new facts",
+            "Its parameters are fine-tuned",
+            "The next-token distribution becomes sharper"
+          ],
+          "answer": 2,
+          "explanation": "Temperature changes selection from the current logits, not learned model weights or factual guarantees.",
+          "review": "generative-ai/decoding-and-alignment"
+        }
+      ],
+      "number": 5,
+      "lessons": [
+        {
+          "id": "generative-ai/language-models",
+          "title": "Language models: predicting the next piece",
+          "source": "docs/ai/generative-ai/01-language-models.md",
+          "href": "/ai/generative-ai/language-models",
+          "requires": [
+            "deep-learning/reinforcement-learning"
+          ]
+        },
+        {
+          "id": "generative-ai/prompts-and-structured-output",
+          "title": "Prompts and structured output",
+          "source": "docs/ai/generative-ai/02-prompts-and-structured-output.md",
+          "href": "/ai/generative-ai/prompts-and-structured-output",
+          "requires": [
+            "generative-ai/language-models"
+          ]
+        },
+        {
+          "id": "generative-ai/adaptation-and-fine-tuning",
+          "title": "Adaptation: prompts, retrieval, and fine-tuning",
+          "source": "docs/ai/generative-ai/03-adaptation-and-fine-tuning.md",
+          "href": "/ai/generative-ai/adaptation-and-fine-tuning",
+          "requires": [
+            "generative-ai/prompts-and-structured-output"
+          ]
+        },
+        {
+          "id": "generative-ai/multimodal-generation",
+          "title": "Multimodal generation and a tiny language-model project",
+          "source": "docs/ai/generative-ai/04-multimodal-generation.md",
+          "href": "/ai/generative-ai/multimodal-generation",
+          "requires": [
+            "generative-ai/adaptation-and-fine-tuning"
+          ]
+        },
+        {
+          "id": "generative-ai/decoding-and-alignment",
+          "title": "Choose tokens and teach preferred behavior",
+          "source": "docs/ai/generative-ai/05-decoding-and-alignment.md",
+          "href": "/ai/generative-ai/decoding-and-alignment",
+          "requires": [
+            "generative-ai/multimodal-generation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "model-building",
+      "title": "Train and adapt language models",
+      "level": "Advanced",
+      "outcome": "Prepare data, train a small model, reload it, and justify adaptation.",
+      "evidence": "A checkpoint, split manifest, held-out results, and model card.",
+      "questions": [
+        {
+          "prompt": "When should source documents be split?",
+          "choices": [
+            "Before generating overlapping chunks or examples",
+            "After randomly mixing every chunk",
+            "After seeing final test results"
+          ],
+          "answer": 0,
+          "explanation": "Source-level splitting helps prevent near-duplicates from leaking across partitions.",
+          "review": "model-building/data-and-tokenizers"
+        },
+        {
+          "prompt": "Lower perplexity comes with more corrupted identifiers. What decides release?",
+          "choices": [
+            "Perplexity alone",
+            "Task-specific gates including exact identifier preservation",
+            "The smaller checkpoint"
+          ],
+          "answer": 1,
+          "explanation": "A general prediction metric can improve while a critical task requirement gets worse.",
+          "review": "model-building/fine-tune-and-release"
+        }
+      ],
+      "number": 6,
+      "lessons": [
+        {
+          "id": "model-building/choose-a-model-strategy",
+          "title": "Choose what to build, train, and run",
+          "source": "docs/ai/model-building/01-choose-a-model-strategy.md",
+          "href": "/ai/model-building/choose-a-model-strategy",
+          "requires": [
+            "generative-ai/decoding-and-alignment"
+          ]
+        },
+        {
+          "id": "model-building/data-and-tokenizers",
+          "title": "Prepare data, tokenizers, and prediction targets",
+          "source": "docs/ai/model-building/02-data-and-tokenizers.md",
+          "href": "/ai/model-building/data-and-tokenizers",
+          "requires": [
+            "model-building/choose-a-model-strategy"
+          ]
+        },
+        {
+          "id": "model-building/train-a-small-model",
+          "title": "Train, save, and reload a small neural language model",
+          "source": "docs/ai/model-building/03-train-a-small-model.md",
+          "href": "/ai/model-building/train-a-small-model",
+          "requires": [
+            "model-building/data-and-tokenizers"
+          ]
+        },
+        {
+          "id": "model-building/fine-tune-and-release",
+          "title": "Fine-tune a model and evaluate the release",
+          "source": "docs/ai/model-building/04-fine-tune-and-release.md",
+          "href": "/ai/model-building/fine-tune-and-release",
+          "requires": [
+            "model-building/train-a-small-model"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rag",
+      "title": "Find evidence and ground answers",
+      "level": "Advanced",
+      "outcome": "Build, compare, and update permission-aware retrieval pipelines.",
+      "evidence": "A labeled query benchmark, supported answers, and freshness/access tests.",
+      "questions": [
+        {
+          "prompt": "Why fuse ranks rather than simply add unrelated retriever scores?",
+          "choices": [
+            "Ranks eliminate all irrelevant results",
+            "Keyword and vector scores may use incompatible scales",
+            "Ranks are probabilities"
+          ],
+          "answer": 1,
+          "explanation": "Rank fusion combines positions without assuming a shared numerical score scale.",
+          "review": "rag/hybrid-search-lab"
+        },
+        {
+          "prompt": "A citation points to a real document. What remains to check?",
+          "choices": [
+            "Only the URL length",
+            "Nothing; the citation proves the answer",
+            "Whether the document supports the claim and is current and authorized"
+          ],
+          "answer": 2,
+          "explanation": "Existence, support, freshness, and access are different requirements.",
+          "review": "rag/grounded-answers"
+        }
+      ],
+      "number": 7,
+      "lessons": [
+        {
+          "id": "rag/retrieval-basics",
+          "title": "Retrieval basics: find evidence before answering",
+          "source": "docs/ai/rag/01-retrieval-basics.md",
+          "href": "/ai/rag/retrieval-basics",
+          "requires": [
+            "model-building/fine-tune-and-release"
+          ]
+        },
+        {
+          "id": "rag/indexing-and-search",
+          "title": "Indexing, chunks, and search choices",
+          "source": "docs/ai/rag/02-indexing-and-search.md",
+          "href": "/ai/rag/indexing-and-search",
+          "requires": [
+            "rag/retrieval-basics"
+          ]
+        },
+        {
+          "id": "rag/grounded-answers",
+          "title": "Grounded answers and honest uncertainty",
+          "source": "docs/ai/rag/03-grounded-answers.md",
+          "href": "/ai/rag/grounded-answers",
+          "requires": [
+            "rag/indexing-and-search"
+          ]
+        },
+        {
+          "id": "rag/rag-evaluation",
+          "title": "RAG evaluation and an offline evidence-search project",
+          "source": "docs/ai/rag/04-rag-evaluation.md",
+          "href": "/ai/rag/rag-evaluation",
+          "requires": [
+            "rag/grounded-answers"
+          ]
+        },
+        {
+          "id": "rag/hybrid-search-lab",
+          "title": "Build and evaluate a hybrid retrieval pipeline",
+          "source": "docs/ai/rag/05-hybrid-search-lab.md",
+          "href": "/ai/rag/hybrid-search-lab",
+          "requires": [
+            "rag/rag-evaluation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "agents",
+      "title": "Build bounded, recoverable agents",
+      "level": "Advanced",
+      "outcome": "Connect models to validated tools and resume actions safely.",
+      "evidence": "A model-agent fixture suite, bounded execution, and a crash/retry trace.",
+      "questions": [
+        {
+          "prompt": "A write times out after it may have succeeded. What is the first response?",
+          "choices": [
+            "Repeat with a new action key",
+            "Ask the model whether it probably worked",
+            "Mark the result uncertain and reconcile the original action"
+          ],
+          "answer": 2,
+          "explanation": "A lost response does not establish failure. Check the authoritative receipt before retrying.",
+          "review": "agents/durable-workflows"
+        },
+        {
+          "prompt": "A tool result says to bypass approval. What authority does it have?",
+          "choices": [
+            "It is data and cannot change the application's policy",
+            "It overrides the user because it came from a tool",
+            "It can grant permission if repeated twice"
+          ],
+          "answer": 0,
+          "explanation": "Tool output is not a trusted instruction channel. Authorization belongs to application code.",
+          "review": "agents/tools-and-workflows"
+        }
+      ],
+      "number": 8,
+      "lessons": [
+        {
+          "id": "agents/tools-and-workflows",
+          "title": "Tools, workflows, and agents",
+          "source": "docs/ai/agents/01-tools-and-workflows.md",
+          "href": "/ai/agents/tools-and-workflows",
+          "requires": [
+            "rag/hybrid-search-lab"
+          ]
+        },
+        {
+          "id": "agents/agent-loop-and-state",
+          "title": "The agent loop: state, actions, and stopping",
+          "source": "docs/ai/agents/02-agent-loop-and-state.md",
+          "href": "/ai/agents/agent-loop-and-state",
+          "requires": [
+            "agents/tools-and-workflows"
+          ]
+        },
+        {
+          "id": "agents/multiple-agents",
+          "title": "Multiple agents: divide work only when it helps",
+          "source": "docs/ai/agents/03-multiple-agents.md",
+          "href": "/ai/agents/multiple-agents",
+          "requires": [
+            "agents/agent-loop-and-state"
+          ]
+        },
+        {
+          "id": "agents/agent-evaluation",
+          "title": "Agent evaluation and a bounded offline project",
+          "source": "docs/ai/agents/04-agent-evaluation.md",
+          "href": "/ai/agents/agent-evaluation",
+          "requires": [
+            "agents/multiple-agents"
+          ]
+        },
+        {
+          "id": "agents/build-a-model-agent",
+          "title": "Build an agent that uses a real model",
+          "source": "docs/ai/agents/05-build-a-model-agent.md",
+          "href": "/ai/agents/build-a-model-agent",
+          "requires": [
+            "agents/agent-evaluation"
+          ]
+        },
+        {
+          "id": "agents/agent-integrations",
+          "title": "Connect agents to real applications",
+          "source": "docs/ai/agents/06-agent-integrations.md",
+          "href": "/ai/agents/agent-integrations",
+          "requires": [
+            "agents/build-a-model-agent"
+          ]
+        },
+        {
+          "id": "agents/durable-workflows",
+          "title": "Resume an agent without repeating its actions",
+          "source": "docs/ai/agents/07-durable-workflows.md",
+          "href": "/ai/agents/durable-workflows",
+          "requires": [
+            "agents/agent-integrations"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bots",
+      "title": "Build conversational applications",
+      "level": "Advanced",
+      "outcome": "Maintain sessions, connect channels, and test multi-turn behavior.",
+      "evidence": "A browser bot with session isolation, fallback, and channel tests.",
+      "questions": [
+        {
+          "prompt": "A messaging channel redelivers the same event. What should identify the duplicate?",
+          "choices": [
+            "The text alone",
+            "A stable event ID under a documented deduplication policy",
+            "A newly generated random ID each time"
+          ],
+          "answer": 1,
+          "explanation": "Stable identities let retries represent the same logical event. Text can repeat legitimately.",
+          "review": "bots/connect-messaging-channels"
+        },
+        {
+          "prompt": "A bot test passes with scripted replies. What does that establish?",
+          "choices": [
+            "All live model answers are accurate",
+            "The live model never uses forbidden tools",
+            "The tested application behavior under those fixtures"
+          ],
+          "answer": 2,
+          "explanation": "Fixture tests are deterministic boundary evidence; live quality needs a separate evaluation.",
+          "review": "bots/test-and-operate-bots"
+        }
+      ],
+      "number": 9,
+      "lessons": [
+        {
+          "id": "bots/bot-types-and-design",
+          "title": "Choose and design the right kind of bot",
+          "source": "docs/ai/bots/01-bot-types-and-design.md",
+          "href": "/ai/bots/bot-types-and-design",
+          "requires": [
+            "agents/durable-workflows"
+          ]
+        },
+        {
+          "id": "bots/build-a-chatbot",
+          "title": "Build a working local chatbot, then connect a model",
+          "source": "docs/ai/bots/02-build-a-chatbot.md",
+          "href": "/ai/bots/build-a-chatbot",
+          "requires": [
+            "bots/bot-types-and-design"
+          ]
+        },
+        {
+          "id": "bots/connect-messaging-channels",
+          "title": "Connect a bot to messaging channels",
+          "source": "docs/ai/bots/03-connect-messaging-channels.md",
+          "href": "/ai/bots/connect-messaging-channels",
+          "requires": [
+            "bots/build-a-chatbot"
+          ]
+        },
+        {
+          "id": "bots/test-and-operate-bots",
+          "title": "Test whole conversations and operate a bot responsibly",
+          "source": "docs/ai/bots/04-test-and-operate-bots.md",
+          "href": "/ai/bots/test-and-operate-bots",
+          "requires": [
+            "bots/connect-messaging-channels"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "title": "Operate reliable AI systems",
+      "level": "Advanced",
+      "outcome": "Release, secure, monitor, budget, and benchmark an AI service.",
+      "evidence": "A release gate, workload report, token budget, and rollback demonstration.",
+      "questions": [
+        {
+          "prompt": "A system rejects many requests and reports low latency. What is missing?",
+          "choices": [
+            "Acceptance, rejection, error rates, and the workload definition",
+            "Only a larger model",
+            "A different color for the dashboard"
+          ],
+          "answer": 0,
+          "explanation": "Latency alone can hide dropped work. Define success over the relevant traffic boundary.",
+          "review": "engineering/inference-systems"
+        },
+        {
+          "prompt": "A smaller quantized cache makes short requests slower. Is that possible?",
+          "choices": [
+            "No; fewer bits always means faster",
+            "Yes; conversion overhead can exceed memory savings",
+            "Only if the input contains no tokens"
+          ],
+          "answer": 1,
+          "explanation": "Measure latency, memory, and quality independently on the intended workload.",
+          "review": "engineering/inference-systems"
+        }
+      ],
+      "number": 10,
+      "lessons": [
+        {
+          "id": "engineering/serving-and-apis",
+          "title": "Serve a model through an API",
+          "source": "docs/ai/engineering/01-serving-and-apis.md",
+          "href": "/ai/engineering/serving-and-apis",
+          "requires": [
+            "bots/test-and-operate-bots"
+          ]
+        },
+        {
+          "id": "engineering/evaluation-and-monitoring",
+          "title": "Evaluate releases and monitor real use",
+          "source": "docs/ai/engineering/02-evaluation-and-monitoring.md",
+          "href": "/ai/engineering/evaluation-and-monitoring",
+          "requires": [
+            "engineering/serving-and-apis"
+          ]
+        },
+        {
+          "id": "engineering/security-and-governance",
+          "title": "Protect data and define responsibility",
+          "source": "docs/ai/engineering/03-security-and-governance.md",
+          "href": "/ai/engineering/security-and-governance",
+          "requires": [
+            "engineering/evaluation-and-monitoring"
+          ]
+        },
+        {
+          "id": "engineering/architecture-and-cost",
+          "title": "Design an AI system and release it deliberately",
+          "source": "docs/ai/engineering/04-architecture-and-cost.md",
+          "href": "/ai/engineering/architecture-and-cost",
+          "requires": [
+            "engineering/security-and-governance"
+          ]
+        },
+        {
+          "id": "engineering/token-and-context-budgets",
+          "title": "Manage token and context budgets",
+          "source": "docs/ai/engineering/05-token-and-context-budgets.md",
+          "href": "/ai/engineering/token-and-context-budgets",
+          "requires": [
+            "engineering/architecture-and-cost"
+          ]
+        },
+        {
+          "id": "engineering/effective-ai-development",
+          "title": "Develop reliable AI applications and code with AI",
+          "source": "docs/ai/engineering/06-effective-ai-development.md",
+          "href": "/ai/engineering/effective-ai-development",
+          "requires": [
+            "engineering/token-and-context-budgets"
+          ]
+        },
+        {
+          "id": "engineering/inference-systems",
+          "title": "Make inference fast without hiding its costs",
+          "source": "docs/ai/engineering/07-inference-systems.md",
+          "href": "/ai/engineering/inference-systems",
+          "requires": [
+            "engineering/effective-ai-development"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "research",
+      "title": "Make defensible research claims",
+      "level": "Expert",
+      "outcome": "Reproduce a result, isolate a change, and report uncertainty and limits.",
+      "evidence": "A research report with matched baselines, ablations, and an experiment ledger.",
+      "questions": [
+        {
+          "prompt": "Students who chose an assistant read more. What does that prove?",
+          "choices": [
+            "The assistant caused the increase",
+            "No association exists",
+            "An association; motivation may confound the causal claim"
+          ],
+          "answer": 2,
+          "explanation": "People self-select. A causal interpretation needs a suitable design and stated assumptions.",
+          "review": "research/causal-and-reproducible-studies"
+        },
+        {
+          "prompt": "You choose the best of 40 prompts on the final test set. What is that set now?",
+          "choices": [
+            "Development data used for selection",
+            "Still an untouched final test",
+            "A randomized trial"
+          ],
+          "answer": 0,
+          "explanation": "Selection used its information. Freeze the procedure and evaluate on fresh untouched examples.",
+          "review": "research/causal-and-reproducible-studies"
+        }
+      ],
+      "number": 11,
+      "lessons": [
+        {
+          "id": "research/papers-and-experiments",
+          "title": "Read a paper and test its claim",
+          "source": "docs/ai/research/01-papers-and-experiments.md",
+          "href": "/ai/research/papers-and-experiments",
+          "requires": [
+            "engineering/inference-systems"
+          ]
+        },
+        {
+          "id": "research/training-at-scale",
+          "title": "Understand training and inference at scale",
+          "source": "docs/ai/research/02-training-at-scale.md",
+          "href": "/ai/research/training-at-scale",
+          "requires": [
+            "research/papers-and-experiments"
+          ]
+        },
+        {
+          "id": "research/research-directions",
+          "title": "Choose a research question and run an independent experiment",
+          "source": "docs/ai/research/03-research-directions.md",
+          "href": "/ai/research/research-directions",
+          "requires": [
+            "research/training-at-scale"
+          ]
+        },
+        {
+          "id": "research/causal-and-reproducible-studies",
+          "title": "From a promising result to a defensible research claim",
+          "source": "docs/ai/research/04-causal-and-reproducible-studies.md",
+          "href": "/ai/research/causal-and-reproducible-studies",
+          "requires": [
+            "research/research-directions"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "careers",
+      "title": "Prepare your independent capstone",
+      "level": "Expert",
+      "outcome": "Choose a role, define acceptance gates, and defend alternatives.",
+      "evidence": "One reviewed professional studio and a reproducible handoff.",
+      "questions": [
+        {
+          "prompt": "Which portfolio claim is strongest?",
+          "choices": [
+            "A list of frameworks used",
+            "A working project with a baseline, failure evidence, and reproducible evaluation",
+            "A claim that all questions are solved"
+          ],
+          "answer": 1,
+          "explanation": "Evidence allows reviewers to assess behavior and limits independently of tool names.",
+          "review": "careers"
+        },
+        {
+          "prompt": "A critical permission test fails but the overall rubric score is high. What follows?",
+          "choices": [
+            "Average away the failure",
+            "Skip the test next time",
+            "Fix the critical boundary before claiming readiness"
+          ],
+          "answer": 2,
+          "explanation": "Critical requirements are gates, not interchangeable points in an average.",
+          "review": "careers"
+        }
+      ],
+      "number": 12,
+      "lessons": [
+        {
+          "id": "careers",
+          "title": "Choose a role and build a capstone",
+          "source": "docs/ai/careers.md",
+          "href": "/ai/careers",
+          "requires": [
+            "research/causal-and-reproducible-studies"
+          ]
+        }
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "id": "ai-engineer",
+      "title": "AI Engineer",
+      "studio": {
+        "id": "studios/ai-engineer",
+        "title": "AI Engineer studio: a demand-planning service",
+        "source": "docs/ai/studios/01-ai-engineer.md",
+        "href": "/ai/studios/ai-engineer",
+        "requires": [
+          "careers"
+        ]
+      }
+    },
+    {
+      "id": "llm-engineer",
+      "title": "LLM Engineer",
+      "studio": {
+        "id": "studios/llm-engineer",
+        "title": "LLM Engineer studio: adapt, evaluate, and serve a model",
+        "source": "docs/ai/studios/02-llm-engineer.md",
+        "href": "/ai/studios/llm-engineer",
+        "requires": [
+          "careers"
+        ]
+      }
+    },
+    {
+      "id": "genai-engineer",
+      "title": "GenAI Engineer",
+      "studio": {
+        "id": "studios/genai-engineer",
+        "title": "GenAI Engineer studio: an evidence-aware content workbench",
+        "source": "docs/ai/studios/03-genai-engineer.md",
+        "href": "/ai/studios/genai-engineer",
+        "requires": [
+          "careers"
+        ]
+      }
+    },
+    {
+      "id": "rag-engineer",
+      "title": "RAG Engineer",
+      "studio": {
+        "id": "studios/rag-engineer",
+        "title": "RAG Engineer studio: a changing, permissioned handbook",
+        "source": "docs/ai/studios/04-rag-engineer.md",
+        "href": "/ai/studios/rag-engineer",
+        "requires": [
+          "careers"
+        ]
+      }
+    },
+    {
+      "id": "agent-developer",
+      "title": "AI Agent Developer",
+      "studio": {
+        "id": "studios/agent-developer",
+        "title": "AI Agent Developer studio: a recoverable library assistant",
+        "source": "docs/ai/studios/05-agent-developer.md",
+        "href": "/ai/studios/agent-developer",
+        "requires": [
+          "careers"
+        ]
+      }
+    },
+    {
+      "id": "ai-researcher",
+      "title": "AI Researcher",
+      "studio": {
+        "id": "studios/ai-researcher",
+        "title": "AI Researcher studio: reproduce, question, extend",
+        "source": "docs/ai/studios/06-ai-researcher.md",
+        "href": "/ai/studios/ai-researcher",
+        "requires": [
+          "careers"
+        ]
+      }
+    },
+    {
+      "id": "ai-architect",
+      "title": "AI Architect",
+      "studio": {
+        "id": "studios/ai-architect",
+        "title": "AI Architect studio: design a system you can defend",
+        "source": "docs/ai/studios/07-ai-architect.md",
+        "href": "/ai/studios/ai-architect",
+        "requires": [
+          "careers"
+        ]
+      }
+    }
+  ],
+  "developerRoadmap": {
+    "modules": [
+      {
+        "id": "developer-roadmap/ai-fundamentals",
+        "title": "1. AI fundamentals, history, and the ecosystem",
+        "source": "docs/ai/developer-roadmap/01-ai-fundamentals.md",
+        "href": "/ai/developer-roadmap/ai-fundamentals",
+        "requires": []
+      },
+      {
+        "id": "developer-roadmap/python-for-ai",
+        "title": "2. Python, software design, APIs, and async",
+        "source": "docs/ai/developer-roadmap/02-python-for-ai.md",
+        "href": "/ai/developer-roadmap/python-for-ai",
+        "requires": [
+          "developer-roadmap/ai-fundamentals"
+        ]
+      },
+      {
+        "id": "developer-roadmap/mathematics",
+        "title": "3. Linear algebra, probability, calculus, and optimization",
+        "source": "docs/ai/developer-roadmap/03-mathematics.md",
+        "href": "/ai/developer-roadmap/mathematics",
+        "requires": [
+          "developer-roadmap/python-for-ai"
+        ]
+      },
+      {
+        "id": "developer-roadmap/data-science",
+        "title": "4. NumPy, Pandas, data cleaning, and exploration",
+        "source": "docs/ai/developer-roadmap/04-data-science.md",
+        "href": "/ai/developer-roadmap/data-science",
+        "requires": [
+          "developer-roadmap/mathematics"
+        ]
+      },
+      {
+        "id": "developer-roadmap/machine-learning",
+        "title": "5. Machine learning and trustworthy evaluation",
+        "source": "docs/ai/developer-roadmap/05-machine-learning.md",
+        "href": "/ai/developer-roadmap/machine-learning",
+        "requires": [
+          "developer-roadmap/data-science"
+        ]
+      },
+      {
+        "id": "developer-roadmap/deep-learning",
+        "title": "6. Neural networks, CNNs, recurrence, attention, and Transformers",
+        "source": "docs/ai/developer-roadmap/06-deep-learning.md",
+        "href": "/ai/developer-roadmap/deep-learning",
+        "requires": [
+          "developer-roadmap/machine-learning"
+        ]
+      },
+      {
+        "id": "developer-roadmap/nlp",
+        "title": "7. NLP, text representations, BERT, GPT, and LLaMA",
+        "source": "docs/ai/developer-roadmap/07-nlp.md",
+        "href": "/ai/developer-roadmap/nlp",
+        "requires": [
+          "developer-roadmap/deep-learning"
+        ]
+      },
+      {
+        "id": "developer-roadmap/llms",
+        "title": "8. LLM tokenization, pretraining, fine-tuning, RLHF, and DPO",
+        "source": "docs/ai/developer-roadmap/08-llms.md",
+        "href": "/ai/developer-roadmap/llms",
+        "requires": [
+          "developer-roadmap/nlp"
+        ]
+      },
+      {
+        "id": "developer-roadmap/prompt-engineering",
+        "title": "9. Prompt engineering and structured outputs",
+        "source": "docs/ai/developer-roadmap/09-prompt-engineering.md",
+        "href": "/ai/developer-roadmap/prompt-engineering",
+        "requires": [
+          "developer-roadmap/llms"
+        ]
+      },
+      {
+        "id": "developer-roadmap/responsible-ai",
+        "title": "10. Responsible AI, safety, bias, privacy, security, and governance",
+        "source": "docs/ai/developer-roadmap/10-responsible-ai.md",
+        "href": "/ai/developer-roadmap/responsible-ai",
+        "requires": [
+          "developer-roadmap/prompt-engineering"
+        ]
+      },
+      {
+        "id": "developer-roadmap/generative-multimodal",
+        "title": "11. Generative AI for text, images, audio, video, and multiple modalities",
+        "source": "docs/ai/developer-roadmap/11-generative-multimodal.md",
+        "href": "/ai/developer-roadmap/generative-multimodal",
+        "requires": [
+          "developer-roadmap/responsible-ai"
+        ]
+      },
+      {
+        "id": "developer-roadmap/rag",
+        "title": "12. RAG, vector databases, hybrid search, and reranking",
+        "source": "docs/ai/developer-roadmap/12-rag.md",
+        "href": "/ai/developer-roadmap/rag",
+        "requires": [
+          "developer-roadmap/generative-multimodal"
+        ]
+      },
+      {
+        "id": "developer-roadmap/ai-agents",
+        "title": "13. Agent architecture, planning, memory, tools, and multiple agents",
+        "source": "docs/ai/developer-roadmap/13-ai-agents.md",
+        "href": "/ai/developer-roadmap/ai-agents",
+        "requires": [
+          "developer-roadmap/rag"
+        ]
+      },
+      {
+        "id": "developer-roadmap/mcp",
+        "title": "14. Model Context Protocol: architecture, servers, tools, and security",
+        "source": "docs/ai/developer-roadmap/14-mcp.md",
+        "href": "/ai/developer-roadmap/mcp",
+        "requires": [
+          "developer-roadmap/ai-agents"
+        ]
+      },
+      {
+        "id": "developer-roadmap/frameworks",
+        "title": "15. LangChain, LangGraph, CrewAI, AutoGen, and Semantic Kernel",
+        "source": "docs/ai/developer-roadmap/15-frameworks.md",
+        "href": "/ai/developer-roadmap/frameworks",
+        "requires": [
+          "developer-roadmap/mcp"
+        ]
+      },
+      {
+        "id": "developer-roadmap/ai-engineering",
+        "title": "16. AI engineering: contracts, workflows, evaluation, and observability",
+        "source": "docs/ai/developer-roadmap/16-ai-engineering.md",
+        "href": "/ai/developer-roadmap/ai-engineering",
+        "requires": [
+          "developer-roadmap/frameworks"
+        ]
+      },
+      {
+        "id": "developer-roadmap/mlops-llmops",
+        "title": "17. MLOps and LLMOps: tracking, containers, CI/CD, and deployment",
+        "source": "docs/ai/developer-roadmap/17-mlops-llmops.md",
+        "href": "/ai/developer-roadmap/mlops-llmops",
+        "requires": [
+          "developer-roadmap/ai-engineering"
+        ]
+      },
+      {
+        "id": "developer-roadmap/system-design",
+        "title": "18. AI system design, vector infrastructure, GPUs, and inference",
+        "source": "docs/ai/developer-roadmap/18-system-design.md",
+        "href": "/ai/developer-roadmap/system-design",
+        "requires": [
+          "developer-roadmap/mlops-llmops"
+        ]
+      },
+      {
+        "id": "developer-roadmap/advanced-research",
+        "title": "19. Advanced AI, knowledge graphs, robotics, and research",
+        "source": "docs/ai/developer-roadmap/19-advanced-research.md",
+        "href": "/ai/developer-roadmap/advanced-research",
+        "requires": [
+          "developer-roadmap/system-design"
+        ]
+      }
+    ],
+    "references": [
+      {
+        "id": "developer-roadmap/index",
+        "title": "Full-stack developer to AI expert: the complete study roadmap",
+        "source": "docs/ai/developer-roadmap/index.md",
+        "href": "/ai/developer-roadmap"
+      },
+      {
+        "id": "developer-roadmap/study-plans",
+        "title": "6-, 12-, and 24-month plans, daily schedules, and weekly goals",
+        "source": "docs/ai/developer-roadmap/study-plans.md",
+        "href": "/ai/developer-roadmap/study-plans"
+      },
+      {
+        "id": "developer-roadmap/portfolio",
+        "title": "Portfolio roadmap: from data audit to production and research",
+        "source": "docs/ai/developer-roadmap/portfolio.md",
+        "href": "/ai/developer-roadmap/portfolio"
+      }
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+---
+title: 'LC 1283 Find The Smallest Divisor Given A Threshold'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-1283-find-the-smallest-divisor-given-a-threshold.js';
+
+## Contract
+
+For positive integers, find the smallest positive divisor whose sum of rounded-up quotients is at most the threshold.
+
+## Approach
+
+A larger divisor cannot increase the sum. Binary-search from 1 to the largest value; keep a feasible midpoint as the upper bound.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-1283-find-the-smallest-divisor-given-a-threshold.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { smallestDivisor } from './LC-1283-find-the-smallest-divisor-given-a-threshold.js';
+console.log(JSON.stringify(smallestDivisor([1, 2, 5, 9], 6)));
+```
+
+```text output
+5
+```
+
+## Cost and edge cases
+
+O(n log M) time for maximum input M, O(1) extra space. The threshold must be at least the array length. A threshold at least the original sum gives divisor 1.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

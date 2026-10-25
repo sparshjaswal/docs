@@ -1,0 +1,35 @@
+---
+title: 'LC 49 Group Anagrams'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-49-group-anagrams.js';
+
+## Contract
+
+Group lowercase English strings that have equal letter counts. Group order does not matter.
+
+## Approach
+
+Use all 26 letter frequencies as a key. Separate the counts with commas: [1, 11] and [11, 1] must not collapse to the same text.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-49-group-anagrams.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { groupAnagrams } from './LC-49-group-anagrams.js';
+console.log(JSON.stringify(groupAnagrams(['eat', 'tea', 'tan', 'ate', 'nat', 'bat'])));
+```
+
+```text output
+[["eat","tea","ate"],["tan","nat"],["bat"]]
+```
+
+## Cost and edge cases
+
+O(L + 26n) time for n words containing L letters, plus storage for groups and keys. Empty strings are valid and group together.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

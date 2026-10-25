@@ -1,0 +1,12 @@
+{
+  "label": "8. Agents and workflows",
+  "position": 8,
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "title": "8. Agents and workflows",
+    "slug": "/ai/sections/agents",
+    "description": "Start with tools and explicit workflows, then study bounded loops, evaluation, integrations, and durable actions. Verify tool permissions, termination, and recovery."
+  }
+}

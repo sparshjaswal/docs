@@ -1,0 +1,38 @@
+---
+title: 'LC 9 Palindrome Number'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-9-palindrome-number.js';
+import Tests from '!!raw-loader!./LC-9-palindrome-number.test.ts';
+
+## Contract
+
+Decide whether a signed 32-bit integer has the same decimal digits backward and forward. Negative numbers are false.
+
+## Approach
+
+Reverse only the last half of the digits. Compare the halves directly for even lengths and discard the reversed middle digit for odd lengths.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-9-palindrome-number.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { isPalindromeNumber } from './LC-9-palindrome-number.js';
+console.log(
+  JSON.stringify([isPalindromeNumber(121), isPalindromeNumber(-121), isPalindromeNumber(10)]),
+);
+```
+
+```text output
+[true,false,false]
+```
+
+## Cost and edge cases
+
+O(log₁₀ n) digit steps for positive n and O(1) space. Zero is true. A nonzero number ending in zero cannot be a palindrome.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} tests={Tests} implLang="js" testLang="ts" />

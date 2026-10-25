@@ -1,0 +1,12 @@
+{
+  "label": "Structural patterns",
+  "position": 4,
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "title": "Structural patterns",
+    "slug": "/design-pattern/structural",
+    "description": "Compare how objects are connected: translation, wrapping, access control, subsystem entry points, trees, independent variation, and shared immutable state."
+  }
+}

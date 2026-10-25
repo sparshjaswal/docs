@@ -1,0 +1,43 @@
+---
+title: 'LC 54 Spiral Matrix'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-54-spiral-matrix.js';
+
+## Contract
+
+Return all values of a rectangular matrix in clockwise spiral order.
+
+## Approach
+
+Read the top edge, right edge, bottom edge, and left edge. Shrink each boundary after reading it and check whether an edge still exists.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-54-spiral-matrix.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { spiralOrder } from './LC-54-spiral-matrix.js';
+console.log(
+  JSON.stringify(
+    spiralOrder([
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9],
+    ]),
+  ),
+);
+```
+
+```text output
+[1,2,3,6,9,8,7,4,5]
+```
+
+## Cost and edge cases
+
+O(rows × columns) time and output space, O(1) boundary bookkeeping. Input is unchanged. Empty matrices, single rows, and single columns are handled without repeated cells.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

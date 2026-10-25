@@ -1,0 +1,6 @@
+# robots.txt for Docusaurus site
+User-agent: *
+Allow: /
+
+# Point crawlers to the sitemap for faster discovery
+Sitemap: https://sparshjaswal.github.io/sitemap.xml

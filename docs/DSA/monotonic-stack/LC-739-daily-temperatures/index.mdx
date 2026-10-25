@@ -1,0 +1,35 @@
+---
+title: 'LC 739 Daily Temperatures'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-739-daily-temperatures.js';
+
+## Contract
+
+For each day, return the number of days until a strictly warmer temperature, or 0 if none follows.
+
+## Approach
+
+Store unresolved day indices in a stack. When a warmer day arrives, resolve colder indices with the difference between day indices.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-739-daily-temperatures.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { dailyTemperatures } from './LC-739-daily-temperatures.js';
+console.log(JSON.stringify(dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73])));
+```
+
+```text output
+[1,1,4,2,1,1,0,0]
+```
+
+## Cost and edge cases
+
+O(n) time and O(n) space. Equal temperatures do not resolve each other. Descending temperatures produce all zeroes.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

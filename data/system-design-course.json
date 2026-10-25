@@ -1,0 +1,367 @@
+[
+  {
+    "label": "Understand the system",
+    "items": [
+      {
+        "file": "foundations/computer-fundamentals.md",
+        "title": "Start here: computers, requests, and data",
+        "description": "Understand programs, bytes, machines, and one request."
+      },
+      {
+        "file": "foundations/requirements.md",
+        "title": "Requirements and invariants",
+        "description": "Turn a user need into constraints, invariants, and measurable success."
+      },
+      {
+        "file": "foundations/processes.md",
+        "title": "Processes, memory, and concurrency",
+        "description": "Trace execution, memory, concurrency, and operating-system boundaries."
+      },
+      {
+        "file": "foundations/networking.md",
+        "title": "Network foundations",
+        "description": "Explain addressing, transport, routing, DNS, and cloud networks."
+      },
+      {
+        "file": "foundations/request-flow.md",
+        "title": "From a browser address to a response",
+        "description": "Follow a browser request through DNS, TLS, HTTP, and rendering."
+      },
+      {
+        "file": "foundations/capacity.md",
+        "title": "Capacity, latency, and growth",
+        "description": "Estimate traffic and storage with units; find the measured bottleneck."
+      }
+    ]
+  },
+  {
+    "label": "Define service boundaries",
+    "items": [
+      {
+        "file": "interfaces/api-design.md",
+        "title": "API Design",
+        "description": "Define stable operations, pagination, errors, and retry contracts."
+      },
+      {
+        "file": "interfaces/validation.md",
+        "title": "Validation",
+        "description": "Check input shape, business rules, and concurrent database constraints."
+      },
+      {
+        "file": "interfaces/authentication.md",
+        "title": "Authentication, sessions, and delegated access",
+        "description": "Establish identity with sessions, tokens, OAuth, OIDC, and recovery."
+      },
+      {
+        "file": "interfaces/security.md",
+        "title": "Security and trust boundaries",
+        "description": "Protect data across tenant, network, and privilege boundaries."
+      },
+      {
+        "file": "interfaces/server-runtime.md",
+        "title": "Implementing a service in Node.js",
+        "description": "Connect HTTP routing, application services, and explicit dependencies."
+      },
+      {
+        "file": "interfaces/error-handling.md",
+        "title": "Error Handling",
+        "description": "Make failures actionable without hiding uncertain write outcomes."
+      },
+      {
+        "file": "interfaces/grpc.md",
+        "title": "gRPC",
+        "description": "Design typed RPC and streaming with deadlines and cancellation."
+      },
+      {
+        "file": "interfaces/api-gateway.md",
+        "title": "API Gateway",
+        "description": "Route and protect external traffic while preserving service ownership."
+      },
+      {
+        "file": "interfaces/bff.md",
+        "title": "BFF (Backend for Frontend)",
+        "description": "Compose a client-specific response with bounded fan-out and authority."
+      },
+      {
+        "file": "interfaces/websockets.md",
+        "title": "WebSockets",
+        "description": "Maintain live connections, authorize messages, and recover after reconnect."
+      }
+    ]
+  },
+  {
+    "label": "Store and serve data",
+    "items": [
+      {
+        "file": "data/databases.md",
+        "title": "Data models, indexes, and transactions",
+        "description": "Choose models, indexes, transactions, and isolation by access pattern."
+      },
+      {
+        "file": "data/storage.md",
+        "title": "Storage interfaces and large objects",
+        "description": "Select file, block, or object storage and make uploads recoverable."
+      },
+      {
+        "file": "data/caching.md",
+        "title": "Caching",
+        "description": "Balance freshness, correctness, eviction, and origin protection."
+      },
+      {
+        "file": "data/search.md",
+        "title": "Search indexing and crawling",
+        "description": "Build a derived index with crawling, ranking, and deletion rules."
+      },
+      {
+        "file": "data/data-pipelines.md",
+        "title": "Data Pipelines Overview",
+        "description": "Handle ingestion, event-time windows, checkpoints, and replay."
+      },
+      {
+        "file": "data/time-series.md",
+        "title": "Time-series data",
+        "description": "Control label cardinality, retention, and aggregate resolution."
+      }
+    ]
+  },
+  {
+    "label": "Coordinate work",
+    "items": [
+      {
+        "file": "services/load-balancing.md",
+        "title": "Load Balancing",
+        "description": "Choose traffic distribution, health checks, and connection behavior."
+      },
+      {
+        "file": "services/service-discovery.md",
+        "title": "Service Discovery",
+        "description": "Resolve changing endpoints and handle stale routing information."
+      },
+      {
+        "file": "services/rate-limiting.md",
+        "title": "Rate Limiting",
+        "description": "Control fairness, admission, bursts, and counter failures."
+      },
+      {
+        "file": "services/message-queues.md",
+        "title": "Message Queues",
+        "description": "Define acknowledgement, retry, ordering, and backpressure boundaries."
+      },
+      {
+        "file": "services/notifications.md",
+        "title": "Realtime delivery and notifications",
+        "description": "Deliver updates through providers with deduplication and preferences."
+      },
+      {
+        "file": "services/microservices.md",
+        "title": "Microservices",
+        "description": "Choose ownership and deployment boundaries from concrete needs."
+      },
+      {
+        "file": "services/event-sourcing.md",
+        "title": "Event sourcing, CQRS, and change data capture",
+        "description": "Distinguish event notification, history, CQRS, CDC, and outbox delivery."
+      }
+    ]
+  },
+  {
+    "label": "Operate and change safely",
+    "items": [
+      {
+        "file": "operations/containers.md",
+        "title": "Containers and orchestration",
+        "description": "Separate runtime isolation, scheduling, readiness, and liveness."
+      },
+      {
+        "file": "operations/deployments.md",
+        "title": "Deployments, configuration, and safe change",
+        "description": "Ship compatible code, configuration, schema, and infrastructure changes."
+      },
+      {
+        "file": "operations/observability.md",
+        "title": "Observability and service objectives",
+        "description": "Measure user outcomes and diagnose failures using signals and SLOs."
+      },
+      {
+        "file": "operations/resilience.md",
+        "title": "Timeouts, retries, and failure isolation",
+        "description": "Bound waiting, retries, concurrency, and cascading failure."
+      },
+      {
+        "file": "operations/cloud-platforms.md",
+        "title": "Cloud service selection and cost",
+        "description": "Compare service responsibilities, cost, and resource efficiency."
+      },
+      {
+        "file": "operations/serverless.md",
+        "title": "Serverless execution and isolation",
+        "description": "Evaluate execution limits, isolation, state, and per-use cost."
+      }
+    ]
+  },
+  {
+    "label": "Distribute state",
+    "items": [
+      {
+        "file": "distributed/replication.md",
+        "title": "Replication",
+        "description": "Choose acknowledgement and failover contracts; rehearse regional recovery."
+      },
+      {
+        "file": "distributed/consistency-models.md",
+        "title": "Consistency Models",
+        "description": "Specify the visibility and ordering promised to a reader."
+      },
+      {
+        "file": "distributed/cap-theorem.md",
+        "title": "CAP Theorem",
+        "description": "Reason about a partition without reducing design to a slogan."
+      },
+      {
+        "file": "distributed/consensus.md",
+        "title": "Consensus and leader election",
+        "description": "Explain agreement, quorum, leader terms, and fencing."
+      },
+      {
+        "file": "distributed/distributed-transactions.md",
+        "title": "Distributed transactions and sagas",
+        "description": "Compare atomic commit with compensating workflows."
+      },
+      {
+        "file": "distributed/sharding.md",
+        "title": "Sharding",
+        "description": "Partition ownership and migrate data while preserving invariants."
+      },
+      {
+        "file": "distributed/clocks.md",
+        "title": "Clocks, time, and ordering",
+        "description": "Separate chronology, elapsed time, causal order, and lease safety."
+      },
+      {
+        "file": "distributed/ids.md",
+        "title": "Identifiers in distributed systems",
+        "description": "Allocate unique identities under concurrency and clock changes."
+      },
+      {
+        "file": "distributed/geospatial.md",
+        "title": "Geospatial indexing and proximity search",
+        "description": "Retrieve spatial candidates, filter by distance, and protect location privacy."
+      }
+    ]
+  },
+  {
+    "label": "Apply the mechanisms",
+    "items": [
+      {
+        "file": "applications/email.md",
+        "title": "Email delivery as a store-and-forward system",
+        "description": "Separate submission, relay, acceptance, and mailbox delivery."
+      },
+      {
+        "file": "applications/internationalization.md",
+        "title": "Internationalization",
+        "description": "Preserve language, time, currency, and regional business meaning."
+      },
+      {
+        "file": "applications/experimentation.md",
+        "title": "Experiment platforms",
+        "description": "Assign stable cohorts and measure outcomes without biased attribution."
+      },
+      {
+        "file": "applications/ai-systems.md",
+        "title": "AI services as fallible system components",
+        "description": "Treat model output, retrieval, and tool execution as fallible components."
+      },
+      {
+        "file": "applications/collaborative-editing.md",
+        "title": "Collaborative document editing",
+        "description": "Merge concurrent edits, authorize documents, and rebuild history."
+      },
+      {
+        "file": "applications/live-streaming.md",
+        "title": "Live streaming and latency budgets",
+        "description": "Allocate capture, encode, transport, and playback latency budgets."
+      }
+    ]
+  },
+  {
+    "label": "Build and defend complete designs",
+    "items": [
+      {
+        "file": "case-studies/task-service.md",
+        "title": "Build and operate a task service",
+        "description": "Implement and recover a tenant-safe API with measurable acceptance checks."
+      },
+      {
+        "file": "case-studies/url-shortener.md",
+        "title": "Design a URL shortener",
+        "description": "Allocate codes, manage expiry, and serve hot redirects."
+      },
+      {
+        "file": "case-studies/chat-system.md",
+        "title": "Design a durable chat system",
+        "description": "Persist messages, enforce membership, and recover delivery state."
+      },
+      {
+        "file": "case-studies/social-feed.md",
+        "title": "Design a social feed",
+        "description": "Choose fan-out, ranking, pagination, and deletion semantics."
+      },
+      {
+        "file": "case-studies/video-platform.md",
+        "title": "Design a video upload and playback platform",
+        "description": "Coordinate uploads, processing, publication, and playback."
+      },
+      {
+        "file": "case-studies/ride-dispatch.md",
+        "title": "Design a ride dispatch service",
+        "description": "Protect assignment invariants amid stale positions and delayed messages."
+      },
+      {
+        "file": "case-studies/payments.md",
+        "title": "Payment processing and reconciliation",
+        "description": "Handle unknown charges, settlement boundaries, and reconciliation."
+      },
+      {
+        "file": "case-studies/stock-exchange.md",
+        "title": "Designing an ordered matching service",
+        "description": "Order matching decisions and rebuild deterministic state."
+      },
+      {
+        "file": "case-studies/design-review.md",
+        "title": "Architecture reviews and interviews",
+        "description": "Defend assumptions, estimates, failure recovery, and trade-offs."
+      }
+    ]
+  },
+  {
+    "label": "Sources and diagram assets",
+    "items": [
+      {
+        "file": "references/sources.md",
+        "title": "Source provenance and verification",
+        "description": "Source ownership, retained illustrations, and the scope of verification."
+      },
+      {
+        "file": "references/research-papers.md",
+        "title": "Research papers",
+        "description": "Primary papers for deeper investigation after the associated lesson."
+      },
+      {
+        "file": "references/scalability-reading-list.md",
+        "title": "Engineering reading list",
+        "description": "Historical external bibliography; a research reference, not another syllabus."
+      },
+      {
+        "file": "references/illustrations.md",
+        "title": "Illustration catalog",
+        "description": "Find original source illustrations preserved during consolidation."
+      },
+      {
+        "file": "diagrams/README.md",
+        "title": "Editable architecture diagrams",
+        "description": "Open the preserved Excalidraw sources and image assets."
+      }
+    ]
+  }
+]

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Task form learning demo</title>
+  <style>
+    :root { color-scheme: light dark; font: 18px/1.5 system-ui, sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { width: min(100% - 2rem, 42rem); margin: 2rem auto; overflow-wrap: anywhere; }
+    input, button { font: inherit; padding: .6rem; max-width: 100%; }
+    input { width: 100%; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 3px solid Highlight; outline-offset: 3px; }
+    label { display: block; font-weight: 700; }
+    #title-help { margin-block: .25rem .75rem; }
+    #title-error { font-weight: 700; }
+    li { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin-block: 1rem; }
+    li span { flex: 1 1 12rem; min-width: 0; overflow-wrap: anywhere; }
+    li button { flex: 0 1 auto; }
+    ul { padding: 0; list-style: none; }
+    [aria-pressed="true"] { border: 3px double currentColor; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Task form learning demo</h1>
+    <p>Tasks stay in this page's memory. Reloading clears them. No data is sent to a server.</p>
+    <form id="task-form">
+      <label for="title">Task title</label>
+      <input id="title" name="title" required maxlength="100" aria-describedby="title-help title-error">
+      <p id="title-help">Use up to 100 characters. A title cannot contain only spaces.</p>
+      <p id="title-error" role="alert"></p>
+      <button type="submit">Add task</button>
+    </form>
+    <p id="status" role="status" aria-live="polite"></p>
+    <h2>Your tasks</h2>
+    <p id="empty">No tasks yet.</p>
+    <ul id="tasks"></ul>
+  </main>
+  <script>
+    const form = document.querySelector('#task-form');
+    const input = document.querySelector('#title');
+    const error = document.querySelector('#title-error');
+    const status = document.querySelector('#status');
+    input.addEventListener('input', () => {
+      error.textContent = '';
+      input.removeAttribute('aria-invalid');
+    });
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const title = input.value.trim();
+      if (!title) {
+        error.textContent = 'Enter a task title with at least one non-space character.';
+        input.setAttribute('aria-invalid', 'true');
+        input.focus();
+        return;
+      }
+      const row = document.createElement('li');
+      const text = document.createElement('span');
+      const toggle = document.createElement('button');
+      text.textContent = title;
+      toggle.type = 'button';
+      toggle.textContent = 'Complete';
+      toggle.setAttribute('aria-label', `Complete: ${title}`);
+      toggle.setAttribute('aria-pressed', 'false');
+      toggle.addEventListener('click', () => {
+        const done = toggle.getAttribute('aria-pressed') !== 'true';
+        toggle.setAttribute('aria-pressed', String(done));
+        text.textContent = done ? `${title} — completed` : title;
+        status.textContent = done ? `Completed: ${title}` : `Reopened: ${title}`;
+      });
+      row.append(text, toggle);
+      document.querySelector('#tasks').append(row);
+      document.querySelector('#empty').hidden = true;
+      status.textContent = `Added: ${title}`;
+      error.textContent = '';
+      input.removeAttribute('aria-invalid');
+      form.reset();
+      input.focus();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+---
+title: 'PrintMatrixDiagonal'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./PrintMatrixDiagonal.js';
+
+## Contract
+
+Return a rectangular matrix in alternating diagonal order, starting at its top-left cell.
+
+## Approach
+
+Cells on a diagonal share row + column. On even sums move up-right; on odd sums move down-left.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `PrintMatrixDiagonal.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { diagonalTraverse } from './PrintMatrixDiagonal.js';
+console.log(
+  JSON.stringify(
+    diagonalTraverse([
+      [1, 2, 3],
+      [4, 5, 6],
+    ]),
+  ),
+);
+```
+
+```text output
+[1,2,4,5,3,6]
+```
+
+## Cost and edge cases
+
+O(rows × columns) time and output space. Empty matrices return []. Check rectangular shapes so diagonal boundaries do not assume a square.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

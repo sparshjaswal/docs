@@ -1,0 +1,35 @@
+---
+title: 'LC 349 Intersection Of Two Arrays'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-349-intersection-of-two-arrays.js';
+
+## Contract
+
+Return each value that occurs in both arrays exactly once, in any order.
+
+## Approach
+
+Put the first array in a set and collect matching values from the second in another set.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-349-intersection-of-two-arrays.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { intersection } from './LC-349-intersection-of-two-arrays.js';
+console.log(JSON.stringify(intersection([1, 2, 2, 1], [2, 2])));
+```
+
+```text output
+[2]
+```
+
+## Cost and edge cases
+
+O(m + n) expected time and O(m + n) space in the worst case. No matches or an empty input gives []. Input arrays are unchanged.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

@@ -1,0 +1,10 @@
+{
+  "label": "3. Machine learning",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "title": "3. Machine learning",
+    "slug": "/ai/sections/machine-learning",
+    "description": "Frame a prediction task, build a baseline, prepare data, and evaluate on held-out examples. Finish by explaining leakage, calibration, and time-based validation."
+  }
+}

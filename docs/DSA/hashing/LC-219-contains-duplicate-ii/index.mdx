@@ -1,0 +1,35 @@
+---
+title: 'LC 219 Contains Duplicate Ii'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-219-contains-duplicate-ii.js';
+
+## Contract
+
+Return true when equal values appear at different indices at most k positions apart.
+
+## Approach
+
+Store the most recent index for each value. It is the closest earlier candidate; older occurrences cannot improve that distance.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-219-contains-duplicate-ii.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { containsDuplicate } from './LC-219-contains-duplicate-ii.js';
+console.log(JSON.stringify(containsDuplicate([1, 0, 1, 1], 1)));
+```
+
+```text output
+true
+```
+
+## Cost and edge cases
+
+O(n) expected time and O(n) space. k = 0 returns false because the two indices must differ. The distance is measured in positions, not values.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

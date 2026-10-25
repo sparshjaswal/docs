@@ -1,0 +1,183 @@
+"""Optional real pretrained-model LoRA recipe. Save this file as finetune_lora.py.
+
+Requires torch, transformers, peft, and huggingface_hub; downloads model weights.
+API-reviewed and syntax-checked, but not executed with pretrained weights here.
+The fictional tiny corpus checks a workflow, not useful model quality.
+"""
+import argparse
+import hashlib
+from importlib.metadata import version
+import json
+from pathlib import Path
+
+import torch
+from huggingface_hub import HfApi
+from peft import (LoraConfig, PeftModel, get_peft_model,
+                  get_peft_model_state_dict, set_peft_model_state_dict)
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+
+MODEL_ID = "distilbert/distilgpt2"
+MAX_LENGTH = 96
+TRAIN = [
+    "Notice: The reading club meets on Monday. Bring a book to share.",
+    "Notice: The art room opens after lunch. Put brushes away after use.",
+    "Notice: The science club meets on Tuesday. Bring your experiment notes.",
+    "Notice: The school garden needs water. Ask the teacher before watering.",
+    "Notice: The music group meets on Friday. Return instruments after practice.",
+    "Notice: The library has a quiet area. Speak softly near the study desks.",
+    "Notice: The chess club welcomes beginners. Meet in the activity room.",
+    "Notice: The sports room closes at noon. Return borrowed equipment first.",
+]
+VALIDATION = [
+    "Notice: The history club meets on Thursday. Bring your project notebook.",
+    "Notice: The craft room opens before lunch. Clean your table after use.",
+]
+TEST = [
+    "Notice: The drama group meets on Wednesday. Bring your script to practice.",
+    "Notice: The language club welcomes new members. Meet near the library.",
+]
+REGRESSION = [
+    "A student reads a story and writes a short summary in a notebook.",
+    "The teacher walks to the window and looks at the garden outside.",
+]
+
+
+def batches(texts, tokenizer, device, batch_size=2):
+    """Keep document boundaries; preserve real EOS labels while masking padding."""
+    for start in range(0, len(texts), batch_size):
+        sequences = []
+        for text in texts[start:start + batch_size]:
+            ids = tokenizer(text, add_special_tokens=False)["input_ids"]
+            if not ids or len(ids) + 1 > MAX_LENGTH:
+                raise ValueError("Each document must fit MAX_LENGTH including EOS")
+            sequences.append(ids + [tokenizer.eos_token_id])
+        batch = tokenizer.pad({"input_ids": sequences}, padding=True, return_tensors="pt")
+        batch["labels"] = batch["input_ids"].clone()
+        batch["labels"][batch["attention_mask"] == 0] = -100
+        yield {name: values.to(device) for name, values in batch.items()}
+
+
+def evaluate(model, texts, tokenizer, device):
+    model.eval()
+    total_loss, token_count = 0.0, 0
+    with torch.no_grad():
+        for batch in batches(texts, tokenizer, device):
+            # GPT-style causal models shift labels internally by one position.
+            count = int((batch["labels"][:, 1:] != -100).sum().item())
+            total_loss += model(**batch).loss.item() * count
+            token_count += count
+    return total_loss / token_count
+
+
+def snapshot(model):
+    return {name: value.detach().cpu().clone()
+            for name, value in get_peft_model_state_dict(model).items()}
+
+
+def load_base(revision, device):
+    model = AutoModelForCausalLM.from_pretrained(
+        MODEL_ID, revision=revision, use_safetensors=True, trust_remote_code=False,
+    )
+    model.config.use_cache = False
+    return model.to(device)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path, required=True, help="new local adapter directory")
+    parser.add_argument("--revision", default="main", help="Hub revision; resolved and recorded as a commit")
+    parser.add_argument("--epochs", type=int, default=3)
+    parser.add_argument("--device", choices=("cpu", "cuda"), default="cpu")
+    args = parser.parse_args()
+    if args.output.exists():
+        parser.error("--output must be a new directory")
+    if not 1 <= args.epochs <= 20:
+        parser.error("--epochs must be between 1 and 20")
+    if args.device == "cuda" and not torch.cuda.is_available():
+        parser.error("CUDA was requested but is unavailable")
+    all_texts = TRAIN + VALIDATION + TEST + REGRESSION
+    assert len(all_texts) == len(set(text.strip().casefold() for text in all_texts))
+    torch.manual_seed(7)
+    revision = HfApi().model_info(MODEL_ID, revision=args.revision).sha
+    if not revision:
+        raise RuntimeError("Could not resolve a fixed base-model revision")
+    print(f"Base revision: {revision}")
+    tokenizer = AutoTokenizer.from_pretrained(MODEL_ID, revision=revision, trust_remote_code=False)
+    tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.padding_side = "right"
+    model = load_base(revision, args.device)
+    model.config.pad_token_id = tokenizer.pad_token_id
+    baseline_test = evaluate(model, TEST, tokenizer, args.device)
+    baseline_regression = evaluate(model, REGRESSION, tokenizer, args.device)
+    # GPT-2 stores these projections as Conv1D with fan-in/fan-out orientation.
+    config = LoraConfig(
+        task_type="CAUSAL_LM", r=8, lora_alpha=16, lora_dropout=0.05,
+        target_modules=["c_attn"], fan_in_fan_out=True, bias="none",
+    )
+    model = get_peft_model(model, config)
+    trainable = [parameter for parameter in model.parameters() if parameter.requires_grad]
+    assert trainable and all("lora_" in name for name, parameter in model.named_parameters()
+                             if parameter.requires_grad)
+    model.print_trainable_parameters()
+    optimizer = torch.optim.AdamW(trainable, lr=2e-4)
+    best_state = snapshot(model)
+    best_validation = evaluate(model, VALIDATION, tokenizer, args.device)
+    best_epoch = 0  # A no-change adapter remains a candidate if training regresses.
+    for epoch in range(1, args.epochs + 1):
+        model.train()
+        for batch in batches(TRAIN, tokenizer, args.device):
+            optimizer.zero_grad(set_to_none=True)
+            loss = model(**batch).loss
+            if not torch.isfinite(loss):
+                raise RuntimeError("Non-finite training loss")
+            loss.backward()
+            torch.nn.utils.clip_grad_norm_(trainable, 1.0, error_if_nonfinite=True)
+            optimizer.step()
+        score = evaluate(model, VALIDATION, tokenizer, args.device)
+        print(f"Epoch {epoch}: validation loss {score:.4f}")
+        if score < best_validation:
+            best_validation, best_state, best_epoch = score, snapshot(model), epoch
+    set_peft_model_state_dict(model, best_state)
+    model.eval()
+    final_test = evaluate(model, TEST, tokenizer, args.device)
+    final_regression = evaluate(model, REGRESSION, tokenizer, args.device)
+    print(f"Selected epoch: {best_epoch}")
+    print(f"Notice test loss: {baseline_test:.4f} -> {final_test:.4f}")
+    print(f"Original-style test loss: {baseline_regression:.4f} -> {final_regression:.4f}")
+    args.output.mkdir(parents=True, exist_ok=False)
+    model.save_pretrained(args.output, safe_serialization=True)
+    tokenizer.save_pretrained(args.output)
+    manifest = {
+        "base_model": MODEL_ID, "base_revision": revision, "seed": 7,
+        "packages": {name: version(name) for name in ("torch", "transformers", "peft", "huggingface_hub")},
+        "selected_epoch": best_epoch, "max_length": MAX_LENGTH,
+        "validation_loss": best_validation,
+        "test_loss_before": baseline_test, "test_loss_after": final_test,
+        "regression_loss_before": baseline_regression, "regression_loss_after": final_regression,
+        "data_sha256": hashlib.sha256(json.dumps({
+            "train": TRAIN, "validation": VALIDATION, "test": TEST, "regression": REGRESSION,
+        }, sort_keys=True).encode()).hexdigest(),
+    }
+    (args.output / "experiment.json").write_text(json.dumps(manifest, indent=2) + "\n")
+    # Reload the exact frozen base plus the saved adapter, not a new random model.
+    del optimizer, model, trainable, best_state
+    if args.device == "cuda":
+        torch.cuda.empty_cache()
+    restored = PeftModel.from_pretrained(load_base(revision, args.device), args.output).eval()
+    restored_tokenizer = AutoTokenizer.from_pretrained(args.output, local_files_only=True)
+    reloaded_loss = evaluate(restored, TEST, restored_tokenizer, args.device)
+    if abs(reloaded_loss - final_test) > 1e-4:
+        raise RuntimeError("Adapter reload changed evaluation loss unexpectedly")
+    prompt = restored_tokenizer("Notice: The reading club", return_tensors="pt")
+    prompt = {key: value.to(args.device) for key, value in prompt.items()}
+    with torch.no_grad():
+        generated = restored.generate(**prompt, max_new_tokens=32, do_sample=False,
+                                     pad_token_id=restored_tokenizer.pad_token_id,
+                                     eos_token_id=restored_tokenizer.eos_token_id)
+    print("Sample:", restored_tokenizer.decode(generated[0], skip_special_tokens=True))
+    print("Adapter saved and reloaded. Tiny fictional data is not release evidence.")
+
+
+if __name__ == "__main__":
+    main()

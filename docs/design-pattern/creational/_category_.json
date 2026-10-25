@@ -1,0 +1,12 @@
+{
+  "label": "Creational patterns",
+  "position": 3,
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "title": "Creational patterns",
+    "slug": "/design-pattern/creational",
+    "description": "Compare a creation step, a matching product family, staged assembly, copying, and shared lifetime. Choose from the construction constraint rather than the class count."
+  }
+}

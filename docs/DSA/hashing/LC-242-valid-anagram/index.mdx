@@ -1,0 +1,35 @@
+---
+title: 'LC 242 Valid Anagram'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-242-valid-anagram.js';
+
+## Contract
+
+Decide whether two lowercase English strings contain the same letters with the same counts.
+
+## Approach
+
+Increase a 26-entry counter for each letter of the first string and decrease it for the second. All balances must be zero.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-242-valid-anagram.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { isAnagram } from './LC-242-valid-anagram.js';
+console.log(JSON.stringify(isAnagram('anagram', 'nagaram')));
+```
+
+```text output
+true
+```
+
+## Cost and edge cases
+
+O(n) time and O(1) space for the fixed 26-letter alphabet. Unequal lengths fail immediately. General Unicode text needs a different counting and normalization contract.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

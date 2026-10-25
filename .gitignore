@@ -1,0 +1,4 @@
+# Dependencies and generated site
+node_modules/
+.docusaurus/
+build/

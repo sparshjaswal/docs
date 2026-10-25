@@ -1,0 +1,109 @@
+.walkthrough {
+  --lesson-paper: #fff;
+  --lesson-panel: #f5f5f5;
+  --lesson-ink: #181818;
+  --lesson-muted: #4a4a4a;
+  --lesson-border: #747474;
+  margin: 1.5rem 0 2rem;
+  border: 1px solid var(--lesson-border);
+  border-radius: 10px;
+  overflow: hidden;
+  color: var(--lesson-ink);
+  background: var(--lesson-paper);
+}
+
+:global([data-theme='dark']) .walkthrough {
+  --lesson-paper: #181818;
+  --lesson-panel: #242424;
+  --lesson-ink: #f5f5f5;
+  --lesson-muted: #d0d0d0;
+  --lesson-border: #aaa;
+}
+
+.header { padding: 1.25rem 1.25rem .25rem; }
+.eyebrow { font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.header h3 { margin: .4rem 0; font-size: 1.3rem; color: var(--lesson-ink); }
+.header p { margin-bottom: .75rem; }
+.setup { margin: 0 1.25rem 1rem; color: var(--lesson-muted); font-size: .95rem; }
+.stage { background: var(--lesson-panel); padding: 1.25rem; }
+.progress { margin: 0 0 1.25rem; font-size: 1rem; line-height: 1.5; font-weight: 700; color: var(--lesson-ink); }
+.row { margin-bottom: 1.15rem; }
+.rowLabel { display: block; font-size: .85rem; font-weight: 700; margin-bottom: .5rem; }
+.cells { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; margin: 0; }
+.cell {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 3.25rem;
+  min-height: 3.5rem;
+  max-width: 100%;
+  padding: .45rem .65rem;
+  border: 1px solid var(--lesson-border);
+  border-radius: 3px;
+  background: var(--lesson-paper);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.plain { border-style: solid; }
+.value { font-family: var(--ifm-font-family-monospace); font-size: 1.1rem; font-weight: 700; }
+.note { font-family: var(--ifm-font-family-base); font-size: .8rem; line-height: 1.4; margin-top: .2rem; }
+.stateLabel { font-size: .65rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; margin-bottom: .2rem; }
+.active { border: 2px solid var(--lesson-ink); }
+.done { border: 3px double var(--lesson-ink); }
+.muted { border: 1px dashed var(--lesson-ink); }
+.explanation { margin: .5rem 0; font-weight: 600; }
+.reason { font-size: .95rem; margin-bottom: 0; }
+.controls { display: flex; gap: .5rem; flex-wrap: wrap; padding: 1rem 1.25rem; }
+.controls button, .transcriptToggle {
+  color: var(--lesson-ink);
+  border: 1px solid var(--lesson-border);
+  border-radius: 4px;
+  background: var(--lesson-paper);
+  min-height: 44px;
+  padding: .5rem .8rem;
+  font: inherit;
+  font-size: .9rem;
+  cursor: pointer;
+}
+.controls button:hover:enabled, .transcriptToggle:hover { background: var(--lesson-panel); border-color: var(--lesson-ink); }
+.controls button:focus-visible, .transcriptToggle:focus-visible { outline: 3px solid var(--lesson-ink); outline-offset: 2px; }
+.controls button:disabled { color: var(--lesson-muted); border-style: dashed; cursor: default; }
+.transcript { padding: 0 1.25rem 1rem; }
+.printNote { color: var(--lesson-muted); font-size: .8rem; margin: .5rem 0 0; }
+.transcriptContent { display: none; }
+.transcriptContent[data-expanded='true'] { display: block; }
+.transcriptStep { border-top: 1px solid var(--lesson-border); margin-top: 1.25rem; padding-top: 1.25rem; }
+
+@media (max-width: 500px) {
+  .header, .stage { padding: 1rem; }
+  .setup { margin-left: 1rem; margin-right: 1rem; }
+  .controls { padding: 1rem; gap: .4rem; }
+  .controls button { flex: 1 1 40%; }
+  .transcript { padding-left: 1rem; padding-right: 1rem; }
+  .value { font-size: 1rem; }
+  .cell { min-width: 2.6rem; padding: .4rem; }
+}
+
+@media print {
+  .walkthrough, :global([data-theme='dark']) .walkthrough {
+    --lesson-paper: #fff;
+    --lesson-panel: #fff;
+    --lesson-ink: #000;
+    --lesson-muted: #000;
+    --lesson-border: #000;
+    overflow: visible;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 10pt;
+  }
+  .stage, .controls, .transcriptToggle, .printNote { display: none; }
+  .transcriptContent { display: block; }
+  .header h3 { font-size: 13pt; }
+  .progress { font-size: 11pt; }
+  .transcriptStep, .row, .cell { break-inside: avoid; }
+  .progress, .rowLabel { break-after: avoid; }
+  .cell { min-height: 0; }
+  .stateLabel, .note { font-size: 9pt; }
+}

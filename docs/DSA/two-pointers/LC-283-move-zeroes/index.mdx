@@ -1,0 +1,35 @@
+---
+title: 'LC 283 Move Zeroes'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-283-move-zeroes.js';
+
+## Contract
+
+Move zeroes to the end in place while preserving the relative order of nonzero values.
+
+## Approach
+
+Write each nonzero value to the next available position, then fill the unused suffix with zeroes. The write position never passes the read position.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-283-move-zeroes.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { moveZeroes } from './LC-283-move-zeroes.js';
+console.log(JSON.stringify(moveZeroes([0, 1, 0, 3, 12])));
+```
+
+```text output
+[1,3,12,0,0]
+```
+
+## Cost and edge cases
+
+O(n) time and O(1) extra space. The same array is returned for convenient inspection. Empty arrays and arrays containing only zeroes are supported.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

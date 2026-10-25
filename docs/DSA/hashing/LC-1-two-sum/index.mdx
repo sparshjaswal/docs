@@ -1,0 +1,35 @@
+---
+title: 'LC 1 Two Sum'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-1-two-sum.js';
+
+## Contract
+
+Return two different zero-based indices whose values sum to the target. The input guarantees one pair.
+
+## Approach
+
+Look up the complement before storing the current value. This prevents reusing the same index. The implementation returns the current index before the earlier index.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-1-two-sum.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { twoSum } from './LC-1-two-sum.js';
+console.log(JSON.stringify(twoSum([2, 7, 11, 15], 9)));
+```
+
+```text output
+[1,0]
+```
+
+## Cost and edge cases
+
+O(n) expected time and O(n) space under ordinary Map lookup assumptions. Duplicate values such as [3, 3] can form a valid pair. No-solution input returns undefined and is outside the original contract.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

@@ -1,0 +1,93 @@
+name: CI/CD - Fast Test and Deploy
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment. Per GitHub Pages best practices,
+# do NOT cancel in-progress runs so that an in-flight production deployment
+# is allowed to finish rather than being interrupted mid-deploy.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+          cache: yarn
+          cache-dependency-path: |
+            **/yarn.lock
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          # Auto-enable GitHub Pages during the workflow run.
+          # Fixes: "Get Pages site failed ... Not Found" (404) when Pages
+          # has not yet been enabled via the API/repository settings.
+          #
+          # NOTE: If this step still fails with
+          # "Resource not accessible by integration", the `enablement: true`
+          # parameter could not auto-enable Pages. In that case you MUST
+          # manually enable it: repository Settings > Pages, and set the
+          # "Source" to "GitHub Actions" (not "Deploy from a branch").
+          enablement: true
+
+      - name: Install dependencies (with lockfile)
+        run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Verify
+        run: yarn verify
+
+      - name: Generate problem pages
+        run: yarn generate:problems
+
+      - name: Build site
+        run: yarn build
+
+      - name: Validate compiled documentation navigation
+        run: yarn check:navigation
+
+      # Upload Pages artifact from build job (single upload, consumed by deploy job)
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./build
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

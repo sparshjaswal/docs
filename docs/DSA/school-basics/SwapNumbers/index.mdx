@@ -1,0 +1,35 @@
+---
+title: 'SwapNumbers'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./SwapNumbers.js';
+
+## Contract
+
+Return a new pair in swapped order. The caller's original bindings are unchanged.
+
+## Approach
+
+Use destructuring to assign both values from a pair. Unlike addition/subtraction swapping, this does not risk numeric overflow or coercion.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `SwapNumbers.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { swapTwoVariable } from './SwapNumbers.js';
+console.log(JSON.stringify(swapTwoVariable(2, 3)));
+```
+
+```text output
+[3,2]
+```
+
+## Cost and edge cases
+
+O(1) time and space. Supports values of any type; objects are shared references. Assign the returned pair at the call site to change caller bindings.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

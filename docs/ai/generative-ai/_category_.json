@@ -1,0 +1,12 @@
+{
+  "label": "5. Generative AI",
+  "position": 5,
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "title": "5. Generative AI",
+    "slug": "/ai/sections/generative-ai",
+    "description": "Understand language-model outputs, structured prompting, adaptation, and decoding. Use evaluation evidence to separate fluent output from reliable task performance."
+  }
+}

@@ -1,0 +1,35 @@
+---
+title: 'LC 215 Kth Largest Element In An Array'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-215-kth-largest-element-in-an-array.js';
+
+## Contract
+
+Return the kth largest numeric value, counting duplicates separately.
+
+## Approach
+
+Keep a min-heap of the k largest values seen. Its root is the smallest retained value; a larger incoming value replaces it.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-215-kth-largest-element-in-an-array.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { findKthLargest } from './LC-215-kth-largest-element-in-an-array.js';
+console.log(JSON.stringify(findKthLargest([3, 2, 3, 1, 2, 4, 5, 5, 6], 4)));
+```
+
+```text output
+4
+```
+
+## Cost and edge cases
+
+O(n log(k + 1)) time and O(k) space. Input is unchanged. Rank 1 is the maximum; rank n is the minimum. Invalid ranks throw RangeError.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

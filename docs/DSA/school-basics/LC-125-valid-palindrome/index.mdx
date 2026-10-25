@@ -1,0 +1,35 @@
+---
+title: 'LC 125 Valid Palindrome'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-125-valid-palindrome.js';
+
+## Contract
+
+Ignore case and all non-ASCII-alphanumeric characters, then decide whether the remaining string reads the same backward.
+
+## Approach
+
+Lowercase and filter the text, reverse a copy, then compare. The ASCII rule is deliberate for this exercise.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-125-valid-palindrome.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { isValidPalindrome } from './LC-125-valid-palindrome.js';
+console.log(JSON.stringify(isValidPalindrome('A man, a plan, a canal: Panama')));
+```
+
+```text output
+true
+```
+
+## Cost and edge cases
+
+O(n) time and O(n) extra space. An input containing only punctuation becomes empty and returns true. A two-pointer version can avoid the reversed copy.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

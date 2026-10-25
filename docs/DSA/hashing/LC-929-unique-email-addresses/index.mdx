@@ -1,0 +1,35 @@
+---
+title: 'LC 929 Unique Email Addresses'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-929-unique-email-addresses.js';
+
+## Contract
+
+Count addresses after removing dots and ignoring text after the first plus in the local part. Keep the domain unchanged.
+
+## Approach
+
+Split at @, normalize only the local part, then combine it with its domain before adding it to a set. These are exercise-specific rules, not universal email rules.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-929-unique-email-addresses.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { numUniqueEmails } from './LC-929-unique-email-addresses.js';
+console.log(JSON.stringify(numUniqueEmails(['a.b+c@one.test', 'ab@one.test', 'ab@two.test'])));
+```
+
+```text output
+2
+```
+
+## Cost and edge cases
+
+O(L) expected time and O(L) space for total address length L. Addresses are valid and contain one @. Equal local parts on different domains remain different.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

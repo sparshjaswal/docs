@@ -1,0 +1,35 @@
+---
+title: 'FactorialOfNumber'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./FactorialOfNumber.js';
+
+## Contract
+
+Return the exact factorial as a BigInt for a nonnegative safe-integer input.
+
+## Approach
+
+Multiply all integers from 2 to n into an accumulator starting at 1. An empty product makes 0! equal to 1.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `FactorialOfNumber.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { FactorialOfNumber } from './FactorialOfNumber.js';
+console.log(JSON.stringify(String(FactorialOfNumber(0))));
+```
+
+```text output
+"1"
+```
+
+## Cost and edge cases
+
+O(n) multiplications; BigInt operation cost and stored bits grow with the result. Convert to String for display. Negative, fractional, or unsafe inputs throw RangeError.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

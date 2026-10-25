@@ -1,0 +1,19 @@
+---
+title: "LC 1011 Capacity To Ship Packages Within D Days"
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-1101-capacity-to-ship-packages-within-d-days.js';
+import Tests from '!!raw-loader!./LC-1101-capacity-to-ship-packages-within-d-days.test.ts';
+
+# Capacity to ship packages within D days
+
+The established directory name contains a historical ID typo; this problem is **LC 1011**. Its URL is retained so existing links keep working.
+
+[Read the statement and examples](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/).
+
+The minimum capacity lies between the heaviest package and the total weight. For a trial capacity, greedily load packages in their original order and count the days needed. If that fits within the day limit, try a smaller capacity; otherwise, increase it. Feasibility is monotonic, so binary search finds the first capacity that works.
+
+Time is O(n log S), where S is the sum of weights; extra space is O(1). This implementation assumes the positive weights and valid day count required by the problem.
+
+<ProblemTabs implementation={Impl} tests={Tests} implLang="js" testLang="ts" />

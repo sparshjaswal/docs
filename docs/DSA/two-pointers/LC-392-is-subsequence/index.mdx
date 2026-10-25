@@ -1,0 +1,35 @@
+---
+title: 'LC 392 Is Subsequence'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-392-is-subsequence.js';
+
+## Contract
+
+Decide whether the first lowercase English string can be obtained by deleting characters from the second without changing order.
+
+## Approach
+
+Move the first-string pointer only when a matching character appears while scanning the second string.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-392-is-subsequence.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { isSubsequence } from './LC-392-is-subsequence.js';
+console.log(JSON.stringify([isSubsequence('abc', 'ahbgdc'), isSubsequence('axc', 'ahbgdc')]));
+```
+
+```text output
+[true,false]
+```
+
+## Cost and edge cases
+
+O(length of the second string) time and O(1) space. The empty string is a subsequence of every string. This implementation assumes the exercise's lowercase English alphabet.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

@@ -1,0 +1,35 @@
+---
+title: 'PrintFloydsTriangle'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./PrintFloydsTriangle.js';
+
+## Contract
+
+Return a newline-separated triangle of consecutive integers. Row i has i entries, starting from 1.
+
+## Approach
+
+Keep one running number across all rows and join each row with spaces.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `PrintFloydsTriangle.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { printFloydsTriangle } from './PrintFloydsTriangle.js';
+console.log(JSON.stringify(printFloydsTriangle(3)));
+```
+
+```text output
+"1\n2 3\n4 5 6"
+```
+
+## Cost and edge cases
+
+O(r²) numbers are emitted for r rows. Character work and output size also include the number of digits. Zero rows returns an empty string.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

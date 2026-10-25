@@ -1,0 +1,35 @@
+---
+title: 'LC 217 Contains Duplicate'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-217-contains-duplicate.js';
+
+## Contract
+
+Return true if any value appears at least twice.
+
+## Approach
+
+Before adding a value to the set, check whether it was already visited. A second occurrence is enough to stop.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-217-contains-duplicate.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { containsDuplicate } from './LC-217-contains-duplicate.js';
+console.log(JSON.stringify(containsDuplicate([1, 2, 3, 1])));
+```
+
+```text output
+true
+```
+
+## Cost and edge cases
+
+O(n) expected time and O(n) space. Empty input returns false. Distinctness follows JavaScript Set equality.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

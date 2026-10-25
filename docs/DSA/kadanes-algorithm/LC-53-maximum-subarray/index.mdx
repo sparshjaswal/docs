@@ -1,0 +1,35 @@
+---
+title: 'LC 53 Maximum Subarray'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-53-maximum-subarray.js';
+
+## Contract
+
+Return an object containing the maximum contiguous-subarray sum and one subarray achieving it. Input is nonempty.
+
+## Approach
+
+At each index either extend the previous run or start at the current value. Initialize with the first element and begin the loop at index 1 so it is not counted twice.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-53-maximum-subarray.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { maxSubarraySum } from './LC-53-maximum-subarray.js';
+console.log(JSON.stringify(maxSubarraySum([2, 3, -8, 7, -1, 2, 3])));
+```
+
+```text output
+{"sum":11,"subarray":[7,-1,2,3]}
+```
+
+## Cost and edge cases
+
+O(n) time and O(1) working space, plus the returned subarray copy. All-negative input chooses a largest element. Empty input throws RangeError.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

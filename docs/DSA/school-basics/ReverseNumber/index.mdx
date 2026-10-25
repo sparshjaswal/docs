@@ -1,0 +1,36 @@
+---
+title: 'ReverseNumber'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./ReverseNumber.js';
+import Tests from '!!raw-loader!./ReverseNumber.test.ts';
+
+## Contract
+
+Reverse a safe integer's decimal digits, preserving its sign and dropping leading zeroes from the reversed result.
+
+## Approach
+
+Take the last digit with remainder, append it to the result, and remove it from the remaining magnitude.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `ReverseNumber.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { reverseNumber } from './ReverseNumber.js';
+console.log(JSON.stringify([reverseNumber(122), reverseNumber(200), reverseNumber(-123)]));
+```
+
+```text output
+[221,2,-321]
+```
+
+## Cost and edge cases
+
+O(d) digit steps and O(1) Number storage. Zero returns 0. Invalid inputs or a reversed result outside the safe integer range throw RangeError.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} tests={Tests} implLang="js" testLang="ts" />

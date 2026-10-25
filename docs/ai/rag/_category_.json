@@ -1,0 +1,12 @@
+{
+  "label": "7. Retrieval and RAG",
+  "position": 7,
+  "collapsible": true,
+  "collapsed": true,
+  "link": {
+    "type": "generated-index",
+    "title": "7. Retrieval and RAG",
+    "slug": "/ai/sections/rag",
+    "description": "Trace retrieval, indexing, grounded answers, and evaluation separately. Diagnose missing evidence before changing generation prompts."
+  }
+}

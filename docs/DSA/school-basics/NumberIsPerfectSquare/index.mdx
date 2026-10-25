@@ -1,0 +1,35 @@
+---
+title: 'NumberIsPerfectSquare'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./NumberIsPerfectSquare.js';
+
+## Contract
+
+Return true when a nonnegative integer has an integer square root.
+
+## Approach
+
+Compute a candidate square root, then square that candidate with BigInt and compare exactly. This avoids accepting a near-square because of floating-point rounding.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `NumberIsPerfectSquare.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { perfectSquare } from './NumberIsPerfectSquare.js';
+console.log(JSON.stringify([perfectSquare(36), perfectSquare(8), perfectSquare(0)]));
+```
+
+```text output
+[true,false,true]
+```
+
+## Cost and edge cases
+
+Uses a fixed number of arithmetic operations on safe-integer inputs. Negative, fractional, and unsafe Number inputs return false. BigInt is used only for the final exact comparison.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />

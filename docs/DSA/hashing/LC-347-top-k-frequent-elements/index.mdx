@@ -1,0 +1,35 @@
+---
+title: 'LC 347 Top K Frequent Elements'
+---
+
+import ProblemTabs from '@site/src/components/ProblemTabs';
+import Impl from '!!raw-loader!./LC-347-top-k-frequent-elements.js';
+
+## Contract
+
+Return the k most frequent distinct values. The exercise guarantees a unique answer set.
+
+## Approach
+
+Count values, put them into frequency buckets, then read buckets from high frequency to low.
+
+## Run the example
+
+Use Node.js 24 or newer. Save the following beside `LC-347-top-k-frequent-elements.js` as `example.mjs`, then run `node example.mjs`. The implementation is displayed below.
+
+```js runnable
+import { topKFrequent } from './LC-347-top-k-frequent-elements.js';
+console.log(JSON.stringify(topKFrequent([1, 1, 1, 2, 2, 3], 2)));
+```
+
+```text output
+[1,2]
+```
+
+## Cost and edge cases
+
+O(n) expected time and O(n) space. k must be between 1 and the number of distinct values. Ties crossing the kth boundary are excluded by the unique-answer contract.
+
+## Implementation
+
+<ProblemTabs implementation={Impl} implLang="js" />
